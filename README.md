@@ -5,16 +5,16 @@ la calculadora **CASIO fx-82SP CW** (la que porten els alumnes) i a evitar-ne el
 
 Cada fitxa és una demostració pas a pas, com els DEMO de `step-quiz/pau`, en dues columnes:
 
-- **a l'esquerra**, tot el que es llegeix: l'enunciat, el reproductor (▶, velocitat) i la llista de
+- **a l'esquerra**, tot el que es llegeix: l'enunciat, els botons ◀ ▶ (pas anterior i següent), la velocitat i la llista de
   passos. Cada pas mostra les seves tecles; el pas actual es desplega amb la frase que l'explica. A
   sota, les altres fitxes del bloc, en un desplegable plegat;
 - **a la dreta**, només la calculadora: la pantalla i el teclat sencer, amb la geometria real (vegeu
   `VERIFICAR.md`). En cada pas, les tecles que s'han de prémer s'emmarquen (amb el número d'ordre si
-  n'hi ha més d'una), el cursor les prem al seu lloc i la pantalla canvia.
+  n'hi ha de 2 a 6), el cursor les prem al seu lloc i la pantalla canvia.
 
-Es fa anar amb ▶ i amb el teclat de l'ordinador: ↓ o → (pas següent), ↑ o ← (pas anterior) i espai
-(reprodueix o atura). Hi ha dues velocitats per a les tecles: «normal» (per defecte) i «ràpida»
-(un 50 % més ràpida).
+Es fa anar pas a pas, amb els botons ◀ ▶ o amb el teclat de l'ordinador: ↓ o → (pas següent) i
+↑ o ← (pas anterior). No hi ha reproducció automàtica. Hi ha dues velocitats per a les tecles:
+«normal» (per defecte) i «ràpida»; «normal» triga 1,65 vegades més.
 
 Està pensada per a portàtils (Chromebook i Lenovo, de 1280×640 a 1920×1080, tàctils o no): la
 calculadora s'ajusta a l'alçada de la finestra i tot hi cap sense desplaçar la pàgina. Al mòbil es
@@ -29,6 +29,7 @@ veu en una columna.
 | Fraccions | *(properament)* |
 | Graus o radians | Posa la calculadora en radians · Troba l'error: el mode equivocat · Un sol angle en radians, sense canviar el mode |
 | Funcions útils per a la PAU | *(properament)* |
+| Exercicis PAU amb la calculadora | Àlgebra · PAU 2024: resol i comprova un sistema (alg-24j-q2) |
 
 Adreça d'una fitxa: `fitxa.html?id=<id>` (per exemple, `fitxa.html?id=exacte-decimal`).
 
@@ -53,7 +54,7 @@ Adreça d'una fitxa: `fitxa.html?id=<id>` (per exemple, `fitxa.html?id=exacte-de
 Al final de la llista `FITXES` de `js/fitxes.js` s'hi afegeix un objecte com els altres:
 `id`, `bloc`, `titol`, `enunciat`, `inici` (la pantalla de partida) i `passos`.
 Cada pas té `tecles` (ids de `js/tecles.js`), `pantalla` (feta amb les funcions de `js/guions.js`)
-i `text`. Als textos: `$…$` és una fórmula, `[[format]]` dibuixa una tecla i `{{Decimal}}` és una opció
+i `text`. Als textos: `$…$` és una fórmula (`$$…$$`, en una línia pròpia), `[[format]]` dibuixa una tecla i `{{Decimal}}` és una opció
 d'un menú de la calculadora. La fitxa surt sola a la portada.
 
 ## Proves

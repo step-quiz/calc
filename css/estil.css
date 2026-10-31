@@ -175,6 +175,13 @@ a{color:inherit}
 .lcd-missatge .opcio{padding:.5cqw 3cqw; border:.5cqw solid var(--lcd-tinta); border-radius:.7cqw}
 .lcd-missatge .opcio.sel{background:var(--lcd-tinta); color:var(--lcd-fons)}
 
+/* Llista de variables: 5 files de dues columnes, lletra petita (com a la calculadora) */
+.lcd-variables{position:absolute; inset:1.6cqw 2.5cqw; display:grid; grid-template-rows:repeat(5, 1fr)}
+.fila-var{display:grid; grid-template-columns:1fr 1fr; gap:2cqw; align-items:center}
+.var{font:600 4.9cqw/1 var(--mono); padding:.5cqw .8cqw; border-radius:.5cqw; white-space:nowrap; overflow:hidden}
+.var i{font-family:var(--lletra)}
+.var.sel{background:var(--lcd-tinta); color:var(--lcd-fons)}
+
 /* Les tecles: cercles de diàmetre --d, centrats a (left, top) */
 .cel{position:absolute; width:var(--d); height:var(--d); transform:translate(-50%, -50%)}
 .calculadora .tecla{
@@ -237,6 +244,7 @@ a{color:inherit}
 /* ── LA COLUMNA DE L'ESQUERRA: ENUNCIAT, REPRODUCTOR I PASSOS ─────── */
 .nomes-lectors{position:absolute; width:1px; height:1px; overflow:hidden; clip:rect(0 0 0 0); white-space:nowrap}
 .columna{display:flex; flex-direction:column; gap:12px; min-width:0}
+.enunciat .katex-display{margin:.35em 0}
 .enunciat{margin:0; padding:12px 16px; border:1.5px solid var(--border); border-radius:12px; background:var(--surface); font-size:16.5px; line-height:1.55}
 .reproductor{display:flex; flex-wrap:wrap; align-items:center; gap:8px 14px}
 .botons{display:flex; gap:6px}

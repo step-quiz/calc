@@ -15,14 +15,14 @@
                 text     = la frase del pas
      relacionades  ids d'altres fitxes (opcional)
 
-   Als textos: $TeX$ = fórmula; [[id]] = tecla; {{Text}} = opció d'un menú
+   Als textos: $$TeX$$ = fórmula en una línia pròpia; $TeX$ = fórmula; [[id]] = tecla; {{Text}} = opció d'un menú
    de la calculadora, escrita tal com hi surt.
    ═══════════════════════════════════════════════════════════════════ */
 (function (arrel) {
 'use strict';
 
 const {IND, ind, calc, marca, config, configCalcul, entradaSortida, unitatAngular,
-  formatNumero, normal, reiniciar, format, catalog, angCoordSexag, home, missatge} = G;
+  formatNumero, normal, reiniciar, format, catalog, angCoordSexag, home, missatge, variables, menuVariable} = G;
 
 /* Fórmules que surten a diverses fitxes (com les escriu la pantalla) */
 const SEN45 = '\\mathrm{sen}(45)';
@@ -41,6 +41,8 @@ const BLOCS = Object.freeze([
     descripcio: 'Saber en quina unitat és la calculadora, canviar-la i fer un sol càlcul en l\'altra unitat.'},
   {id: 'pau', titol: 'Funcions útils per a la PAU', color: '#7c5cbf',
     descripcio: 'Taula de valors, f(x), Verificar, variables, Ans, combinacions… per comprovar el que fas a mà.'},
+  {id: 'exercicis', titol: 'Exercicis PAU amb la calculadora', color: '#4338ca',
+    descripcio: 'Exercicis reals de la PAU (2023-2026): on t\'ajuda la calculadora i quins errors cal evitar.'},
 ]);
 
 const FITXES = Object.freeze([
@@ -247,6 +249,45 @@ const FITXES = Object.freeze([
       text: 'Tanca el parèntesi i prem [[exe]]: $\\frac{1}{2}$, encara que la calculadora continua en D.'},
   ],
   relacionades: ['canvia-radians', 'error-angles'],
+},
+
+
+/* ── EXERCICIS PAU ──────────────────────────────────────────────── */
+{
+  id: 'pau-alg-24j-q2', bloc: 'exercicis', titol: 'Àlgebra · PAU 2024: resol i comprova un sistema',
+  enunciat: 'PAU juny 2024, qüestió 2 a). Per a $k=0$, el sistema és: $$\\begin{cases}4x+2y-z=4\\\\ x-y=3\\\\ 3x+3y=1\\end{cases}$$ Resol-lo i comprova la solució amb la calculadora.',
+  inici: calc(D),
+  passos: [
+    {tecles: ['frac', '3', 'mes', 'frac', '1', 'down', '3', 'right', 'down', '2'], pantalla: calc(D, '\\frac{3+\\frac{1}{3}}{2}'),
+      text: 'Amb $k=0$, la 2a i la 3a equació només tenen $x$ i $y$: $x-y=3$ i $x+y=\\frac{1}{3}$ (la 3a, dividida entre 3). Sumant-les, $x=\\frac{3+\\frac{1}{3}}{2}$. Escriu-ho amb la plantilla [[frac]]: a dalt $3+\\frac{1}{3}$ ([[right]] per sortir de la fracció petita), [[down]] i el 2.'},
+    {tecles: ['exe'], pantalla: marca(calc(D, '\\frac{3+\\frac{1}{3}}{2}', '\\frac{5}{3}'), 'resultat'),
+      text: 'Prem [[exe]]: $x=\\frac{5}{3}$, exacte. No l\'arrodoneixis: desa-la a la calculadora.'},
+    {tecles: ['variable', 'down', 'down', 'down'], pantalla: variables({}, 'x'),
+      text: 'La tecla [[variable]] mostra les variables A, B, C, D, E, F, $x$, $y$ i $z$. Baixa fins a $x$ amb [[down]].'},
+    {tecles: ['ok'], pantalla: menuVariable(0),
+      text: 'Prem [[ok]]: surt un menú. La primera opció és {{Guardar}}.'},
+    {tecles: ['ok'], pantalla: variables({x: '1.666666667'}, 'x'),
+      text: 'Prem [[ok]]: el resultat queda desat a $x$. La llista el mostra en decimal, però la calculadora el guarda amb totes les xifres.'},
+    {tecles: ['ac', 'x', 'menys', '3'], pantalla: calc(D, 'x-3', '', {hist: true}),
+      text: 'De la 2a equació, $y=x-3$. Tanca la llista amb [[ac]] i escriu $x-3$: la tecla [[x]] és la variable $x$, que ara val $\\frac{5}{3}$.'},
+    {tecles: ['exe'], pantalla: marca(calc(D, 'x-3', '-\\frac{4}{3}'), 'resultat'),
+      text: 'Prem [[exe]]: $y=-\\frac{4}{3}$. No has hagut d\'escriure cap signe negatiu: el posa la calculadora.'},
+    {tecles: ['variable', 'down', 'down', 'down', 'right', 'ok', 'ok'], pantalla: variables({x: '1.666666667', y: '-1.333333333'}, 'y'),
+      text: 'Desa-la a $y$: [[variable]], baixa fins a la fila de $x$, [[right]] per anar a $y$, [[ok]] i {{Guardar}}.'},
+    {tecles: ['ac', '4', 'x', 'mes', '2', 'shift', 'punt', 'menys', '4', 'exe'], pantalla: marca(calc(D, '4x+2y-4', '0'), 'resultat'),
+      text: 'De la 1a equació, $z=4x+2y-4$. Tanca amb [[ac]] i escriu-ho. La $y$ és [[shift]] [[punt]]: és la lletra blava de sobre del punt. Surt $z=0$.'},
+    {tecles: ['variable', 'down', 'down', 'down', 'down', 'ok', 'ok'], pantalla: variables({x: '1.666666667', y: '-1.333333333', z: '0'}, 'z'),
+      text: 'Desa també $z$, encara que valgui 0: la $z$ podria tenir guardat un valor d\'un altre exercici.'},
+    {tecles: ['ac', '4', 'x', 'mes', '2', 'shift', 'punt', 'menys', 'shift', 'exp', 'exe'], pantalla: marca(calc(D, '4x+2y-z', '4'), 'resultat'),
+      text: 'Ara, la comprovació. 1a equació: escriu $4x+2y-z$ (la $z$ és [[shift]] [[exp]]) i prem [[exe]]. Ha de donar 4: ✓.'},
+    {tecles: ['x', 'menys', 'shift', 'punt', 'exe'], pantalla: marca(calc(D, 'x-y', '3'), 'resultat'),
+      text: '2a equació: $x-y$ ha de donar 3: ✓. Amb $k=0$, el terme $kz$ no hi és.'},
+    {tecles: ['3', 'x', 'mes', '3', 'shift', 'punt', 'exe'], pantalla: marca(calc(D, '3x+3y', '1'), 'resultat'),
+      text: '3a equació: $3x+3y$ ha de donar 1: ✓. La solució és $(x,y,z)=\\left(\\frac{5}{3},\\,-\\frac{4}{3},\\,0\\right)$.'},
+    {tecles: ['3', 'per', '1', 'punt', '6', '7', 'menys', '3', 'per', '1', 'punt', '3', '3', 'exe'], pantalla: marca(calc(D, '3\\times 1.67-3\\times 1.33', '1.02'), 'resultat'),
+      text: 'Error que cal evitar: si haguessis arrodonit $x\\approx 1{,}67$ i $y\\approx -1{,}33$, la 3a equació donaria 1,02 i no 1, i semblaria que la solució està malament. Treballa amb fraccions o amb les variables.'},
+  ],
+  relacionades: ['exacte-decimal', 'indicadors'],
 },
 
 ]);

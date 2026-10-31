@@ -19,6 +19,9 @@
        {tipus:'home', sel}
    · Missatge (text centrat i, opcionalment, opcions a triar)
        {tipus:'missatge', linies:[…], opcions:[…], sel}
+   · Llista de variables (tecla VARIABLE; manual, p. 38): 5 files,
+       A/B, C/D, E/F, x/y i z, amb els valors en decimal
+       {tipus:'variables', valors:[[nom, valor], …], sel}
 
    Tots poden portar «marca»: el nom d'una part que es ressalta
    (un indicador: 'mat', 'ang', 'fix', 'sci', 'shift', 'hist';
@@ -111,7 +114,17 @@ function missatge(estat) {
   return `<div class="lcd-missatge">${linies}${opcions ? `<div class="opcions">${opcions}</div>` : ''}</div>`;
 }
 
-const DIBUIXA = Object.freeze({calc, menu, home, missatge});
+/** La llista de variables: dues columnes; x, y, z en cursiva, com a la pantalla. */
+function variables(estat) {
+  const nom = n => (/^[xyz]$/.test(n) ? `<i>${n}</i>` : n);
+  const cel = ([n, v]) => `<span class="var${n === estat.sel ? ' sel' : ''}${marca(estat, 'var-' + n)}" data-marca="var-${n}">${nom(n)}=${escapa(v)}</span>`;
+  const v = estat.valors || [];
+  let html = '';
+  for (let i = 0; i < v.length; i += 2) html += `<div class="fila-var">${cel(v[i])}${v[i + 1] ? cel(v[i + 1]) : ''}</div>`;
+  return `<div class="lcd-variables">${html}</div>`;
+}
+
+const DIBUIXA = Object.freeze({calc, menu, home, missatge, variables});
 
 /** HTML del contingut de la pantalla per a un estat. */
 function html(estat) {

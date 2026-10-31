@@ -24,6 +24,9 @@ de CASIO) es veuen diferents, el que s'ha de corregir és la fitxa: la majoria s
 | 8 | Com s'escriu a la pantalla $\sin\frac{\pi}{6}$ amb la r de radians | fitxa `grau-puntual` | La r a dalt, darrere de la fracció (com a la guia ClassWiz, p. 49). |
 | 9 | Les icones de les aplicacions a la pantalla HOME | `js/pantalla.js` (APPS) | Només orientatives; els noms sí que són els del manual. |
 | 10 | Si es veu el triangle ▲ després d'AC | diverses fitxes | Es veu si hi ha historial; no es veu després de canviar Entrada/Salida ni de reiniciar (el manual diu que s'esborra). |
+| 11 | La llista de variables (tecla VARIABLE): 5 files A/B, C/D, E/F, x/y, z, valors en decimal (Normal 1) | `G.variables`, fitxa `pau-alg-24j-q2` | Com a la p. 38 del manual. En obrir-la, triada la A; amb ↓ es baixa de fila i amb → es passa a la columna de la dreta. |
+| 12 | El menú que surt en prémer OK sobre una variable | `G.menuVariable` | {Guardar, Recuperar, Editar}, amb Guardar el primer. El manual diu «[A=] > [Guardar]» i «OK … [Editar]», però no en dibuixa l'ordre. |
+| 13 | Què es veu després de {Guardar}, i després d'AC | fitxa `pau-alg-24j-q2` | Torna a la llista amb el valor nou; AC la tanca i deixa la pantalla de càlcul en blanc. |
 
 Els resultats numèrics (0.7071067812, 0.9998329795, −0.9880316241, 0.1666666667) s'han calculat
 i arrodonit a 10 xifres significatives, com fa la calculadora en el format Normal 2.

@@ -78,6 +78,9 @@ function comprovaPantalla(p, on) {
     for (const f of p.files) ok(typeof f.t === 'string' && f.t.length > 0, on, 'fila sense text');
   } else if (p.tipus === 'home') {
     ok(p.sel >= 0 && p.sel < 4, on, 'aplicació triada fora de la pantalla HOME');
+  } else if (p.tipus === 'variables') {
+    ok(Array.isArray(p.valors) && p.valors.length === 9, on, 'la llista de variables ha de tenir les 9 variables');
+    ok(p.valors.some(([n]) => n === p.sel), on, `variable triada desconeguda (${p.sel})`);
   } else if (p.tipus === 'missatge') {
     ok(Array.isArray(p.linies) && p.linies.length > 0, on, 'missatge sense text');
   }

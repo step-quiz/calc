@@ -87,6 +87,15 @@ const catalog = sel => menu(ambSubmenu(CATALOG), sel);
 const ANG_COORD_SEXAG = Object.freeze(['Grados', 'Radianes', 'Gradianes', 'Rectang a polar', 'Polar a rectang', 'Grados Min Seg']);
 const angCoordSexag = sel => menu(ANG_COORD_SEXAG, sel);
 
+/* ── Variables (tecla VARIABLE; manual, p. 38-39) ───────────────── */
+const VARIABLES = Object.freeze(['A', 'B', 'C', 'D', 'E', 'F', 'x', 'y', 'z']);
+/** La llista de variables. valors: {x: '1.666666667', …} (les altres valen 0); sel: el nom triat. */
+const variables = (valors = {}, sel = 'A') => Object.freeze({
+  tipus: 'variables', valors: Object.freeze(VARIABLES.map(n => [n, valors[n] !== undefined ? valors[n] : '0'])), sel, marca: null,
+});
+/** El menú que surt en prémer OK sobre una variable (l'ordre: VERIFICAR.md). */
+const menuVariable = (sel = 0) => menu(['Guardar', 'Recuperar', 'Editar'], sel);
+
 /* ── Altres pantalles ───────────────────────────────────────────── */
 const home = (sel = 0) => Object.freeze({tipus: 'home', sel, marca: null});
 const missatge = (linies, opcions = [], sel = 0) => Object.freeze({tipus: 'missatge', linies, opcions, sel, marca: null});
@@ -97,6 +106,7 @@ arrel.G = Object.freeze({
   ENTRADA_SORTIDA, entradaSortida, UNITAT_ANGULAR, unitatAngular,
   FORMAT_NUMERO, formatNumero, normal, REINICIAR, reiniciar,
   FORMAT_IRRACIONAL, format, CATALOG, catalog, ANG_COORD_SEXAG, angCoordSexag,
+  VARIABLES, variables, menuVariable,
   home, missatge,
 });
 

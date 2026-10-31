@@ -30,10 +30,8 @@ const TEMPS = Object.freeze({
   abansPantalla: 140,  // després de l'última tecla, abans que canviï la pantalla
   pantalla: 220,       // la pantalla nova apareix
 });
-/** Pauses de lectura quan es reprodueix tot seguit (no depenen de la velocitat de les tecles). */
-const LECTURA = Object.freeze({inici: 450, pas: 1000, perParaula: 110});
-/** Velocitats de les tecles: «normal» és un 50 % més lenta que «ràpida» (David, 31/10/2026). */
-const VELOCITATS = Object.freeze([['normal', 1.5], ['ràpida', 1]]);
+/** Velocitats de les tecles (factor de les durades): «normal» és un 65 % més lenta que «ràpida» (David, 31/10/2026: 1,5 i després un 10 % més). */
+const VELOCITATS = Object.freeze([['normal', 1.65], ['ràpida', 1]]);
 const CORBA = 'cubic-bezier(.45,.05,.25,1)';
 
 const PEU = '© 2026 <strong>David Arso Civil</strong>. Ús educatiu lliure. Prohibida la comercialització '
@@ -60,9 +58,10 @@ const espera = ms => new Promise(resol => setTimeout(resol, ms));
 const escapa = s => String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
 const formula = t => katex.renderToString(t, {throwOnError: false});
 
-/** Text d'una fitxa → HTML: $TeX$ = fórmula, [[id]] = tecla petita, {{Opció}} = text d'un menú. */
+/** Text d'una fitxa → HTML: $$TeX$$ = fórmula en una línia pròpia, $TeX$ = fórmula, [[id]] = tecla petita, {{Opció}} = text d'un menú. */
 function text(t) {
-  return String(t || '').split(/(\$[^$]+\$|\[\[[^\]]+\]\]|\{\{[^}]+\}\})/).map(tros => {
+  return String(t || '').split(/(\$\$[^$]+\$\$|\$[^$]+\$|\[\[[^\]]+\]\]|\{\{[^}]+\}\})/).map(tros => {
+    if (/^\$\$[^$]+\$\$$/.test(tros)) return katex.renderToString(tros.slice(2, -2), {throwOnError: false, displayMode: true});
     if (/^\$[^$]+\$$/.test(tros)) return formula(tros.slice(1, -1));
     if (/^\[\[[^\]]+\]\]$/.test(tros)) return Tecles.html(tros.slice(2, -2), {petita: true});
     if (/^\{\{[^}]+\}\}$/.test(tros)) return `<span class="opcio-menu">${escapa(tros.slice(2, -2))}</span>`;
@@ -72,7 +71,6 @@ function text(t) {
 /** Text pla (per al lector de pantalla). */
 const textPla = t => String(t || '').replace(/\$([^$]+)\$/g, '$1').replace(/\[\[([^\]]+)\]\]/g, (_, id) =>
   (Tecles.TECLES[id] ? Tecles.TECLES[id].nom : id)).replace(/\{\{([^}]+)\}\}/g, '«$1»');
-const paraules = t => String(t || '').replace(/\$[^$]*\$/g, ' x ').split(/\s+/).filter(Boolean).length;
 
 function anima(el, fotogrames, opcions) {
   return el.animate(fotogrames, Object.assign({fill: 'forwards', easing: CORBA}, opcions)).finished;
@@ -114,10 +112,7 @@ function htmlCalculadora() {
 /* ── 4. ESTRUCTURA DE LA PÀGINA ────────────────────────────────────── */
 
 const ICONES = Object.freeze({
-  reinicia: 'M12 5V2L7 6l5 4V7a5 5 0 1 1-5 5H5a7 7 0 1 0 7-7z',
   anterior: 'M15.5 5 8.5 12l7 7z',
-  reprodueix: 'M8 5v14l11-7z',
-  atura: 'M7 5h4v14H7zM13 5h4v14h-4z',
   seguent: 'M8.5 5l7 7-7 7z',
 });
 const icona = d => `<svg viewBox="0 0 24 24" aria-hidden="true"><path d="${d}"/></svg>`;
@@ -133,10 +128,8 @@ function construeixPagina(fitxa, bloc, germanes, contenidor) {
     anunci: element('p', {class: 'nomes-lectors', 'aria-live': 'polite'}),
     efectes: element('div', {class: 'efectes', 'aria-hidden': 'true'}),
     cursor: element('div', {class: 'cursor', 'aria-hidden': 'true', html: CURSOR}),
-    reinicia: boto('', 'Torna a començar', ICONES.reinicia),
     anterior: boto('', 'Pas anterior', ICONES.anterior),
-    reprodueix: boto('principal', 'Reprodueix', ICONES.reprodueix),
-    seguent: boto('', 'Pas següent', ICONES.seguent),
+    seguent: boto('principal', 'Pas següent', ICONES.seguent),
     velocitat: element('select', {id: 'velocitat'}),
   };
   for (const [nom, factor] of VELOCITATS) r.velocitat.append(element('option', {value: String(factor), text: nom}));
@@ -164,7 +157,7 @@ function construeixPagina(fitxa, bloc, germanes, contenidor) {
         element('h1', {class: 'nomes-lectors', text: fitxa.titol}),
         element('p', {class: 'enunciat', html: text(fitxa.enunciat)}),
         element('div', {class: 'reproductor'}, [
-          element('div', {class: 'botons'}, [r.reinicia, r.anterior, r.reprodueix, r.seguent]),
+          element('div', {class: 'botons'}, [r.anterior, r.seguent]),
           element('label', {class: 'velocitat', for: 'velocitat', text: 'Velocitat '}, [r.velocitat]),
         ]),
         r.passos,
@@ -187,7 +180,7 @@ function construeixPagina(fitxa, bloc, germanes, contenidor) {
  */
 function omplPassos(r, passos, enClicar) {
   const zero = element('li', {class: 'pas zero'}, [element('div', {class: 'frase', html:
-    'Prem ' + icona(ICONES.reprodueix).replace('<svg', '<svg class="icona-inline"') + ' o la fletxa ↓ del teclat per començar.'})]);
+    'Prem ' + icona(ICONES.seguent).replace('<svg', '<svg class="icona-inline"') + ' o la fletxa ↓ del teclat per començar.'})]);
   const files = passos.map((pas, i) => {
     const tecles = pas.tecles.length
       ? pas.tecles.map((id, j) => Tecles.html(id, {ambShift: j > 0 && pas.tecles[j - 1] === 'shift'})).join('')
@@ -215,9 +208,12 @@ function marcaPassos(llista, pas) {
   else if (b > caixa.scrollTop + caixa.clientHeight) caixa.scrollTop = b - caixa.clientHeight + 6;
 }
 
+/** Fins a quantes tecles per pas es numeren: en una seqüència més llarga els números fan soroll (David, 31/10/2026). */
+const MAX_ORDRE = 6;
+
 /**
- * Al teclat, emmarca les tecles del pas; si n'hi ha més d'una, hi posa l'ordre
- * en què es premen (una tecla que es prem dues vegades porta «2·3»). pas < 0: cap.
+ * Al teclat, emmarca les tecles del pas; si n'hi ha de 2 a MAX_ORDRE, hi posa
+ * l'ordre en què es premen (una tecla que es prem dues vegades porta «2·3»). pas < 0: cap.
  */
 function marcaTeclat(r, passos, pas) {
   r.teclat.querySelectorAll('.del-pas').forEach(t => { t.classList.remove('del-pas'); t.removeAttribute('data-ordre'); });
@@ -229,7 +225,7 @@ function marcaTeclat(r, passos, pas) {
     const t = r.teclat.querySelector(`[data-tecla="${id}"]`);
     if (!t) continue;
     t.classList.add('del-pas');
-    if (tecles.length > 1) t.setAttribute('data-ordre', ns.join('·'));
+    if (tecles.length > 1 && tecles.length <= MAX_ORDRE) t.setAttribute('data-ordre', ns.join('·'));
   }
 }
 
@@ -282,7 +278,7 @@ function creaReproductor(r, fitxa, temps) {
   const darrer = passos.length - 1;
   const cursor = creaCursor(r, temps);
   let idx = -1;                 // -1 = pas 0 (abans de començar)
-  let ocupat = false, reproduint = false, torn = 0;
+  let ocupat = false;
   let pantallaActual = null;
 
   function mostraPantalla(estat, canvi = false) {
@@ -300,19 +296,9 @@ function creaReproductor(r, fitxa, temps) {
     r.seguent.disabled = idx === darrer;
   }
 
-  function marcaReproduccio(estat) {
-    reproduint = estat;
-    const nom = estat ? 'Atura' : 'Reprodueix';
-    r.reprodueix.innerHTML = icona(estat ? ICONES.atura : ICONES.reprodueix);
-    r.reprodueix.title = nom;
-    r.reprodueix.setAttribute('aria-label', nom);
-  }
-
   /** Va al pas i (-1 = pas 0), sense animació. */
   function salta(i) {
     if (ocupat) return;
-    torn++;
-    marcaReproduccio(false);
     idx = Math.max(-1, Math.min(darrer, i));
     mostraPantalla(idx < 0 ? fitxa.inici : passos[idx].pantalla);
     marcaTeclat(r, passos, idx);
@@ -361,30 +347,11 @@ function creaReproductor(r, fitxa, temps) {
     if (idx === darrer) cursor.amaga();
   }
 
-  async function reprodueix() {
-    if (reproduint) { marcaReproduccio(false); return; }
-    if (ocupat) return;
-    if (idx >= darrer) salta(-1);
-    marcaReproduccio(true);
-    const meu = ++torn;
-    await espera(LECTURA.inici);
-    while (reproduint && meu === torn && idx < darrer) {
-      await seguent();
-      if (!reproduint || meu !== torn) break;
-      await espera(LECTURA.pas + paraules(passos[idx].text) * LECTURA.perParaula);
-    }
-    if (meu === torn) marcaReproduccio(false);
-  }
-
-  const atura = () => { if (reproduint) marcaReproduccio(false); };
-
-  r.reprodueix.addEventListener('click', reprodueix);
-  r.seguent.addEventListener('click', () => { atura(); seguent(); });
+  r.seguent.addEventListener('click', () => seguent());
   r.anterior.addEventListener('click', () => salta(idx - 1));
-  r.reinicia.addEventListener('click', () => salta(-1));
 
   salta(-1);
-  return {salta, seguent, reprodueix, atura,
+  return {salta, seguent,
     anterior: () => salta(idx - 1),
     get pas() { return idx; }, get total() { return passos.length; }, get ocupat() { return ocupat; }};
 }
@@ -417,18 +384,13 @@ function inicia(id = parametre('id'), contenidor = document.getElementById('fitx
 
   const reproductor = creaReproductor(r, fitxa, temps);
 
-  /* Teclat: espai = reprodueix o atura; ↓ o → = pas següent; ↑ o ← = pas anterior. */
+  /* Teclat: ↓ o → = pas següent; ↑ o ← = pas anterior (no hi ha reproducció automàtica: David, 31/10/2026). */
   document.addEventListener('keydown', e => {
     if (e.altKey || e.ctrlKey || e.metaKey || e.defaultPrevented) return;
     const t = e.target instanceof Element ? e.target : document.body;
     if (t.closest('input, select, textarea')) return;
-    if (e.key === ' ') {
-      if (t.closest('button, a, summary')) return;
+    if (e.key === 'ArrowRight' || e.key === 'ArrowDown') {
       e.preventDefault();
-      reproductor.reprodueix();
-    } else if (e.key === 'ArrowRight' || e.key === 'ArrowDown') {
-      e.preventDefault();
-      reproductor.atura();
       reproductor.seguent();
     } else if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') {
       e.preventDefault();
