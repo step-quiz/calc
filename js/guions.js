@@ -96,6 +96,12 @@ const variables = (valors = {}, sel = 'A') => Object.freeze({
 /** El menú que surt en prémer OK sobre una variable (l'ordre: VERIFICAR.md). */
 const menuVariable = (sel = 0) => menu(['Guardar', 'Recuperar', 'Editar'], sel);
 
+/* ── FUNCTION (manual, p. 60-61) ─────────────────────────────────── */
+/** La pantalla de definir f(x) (o g(x)): una línia «f(x)=…». entrada = TeX; el cursor, al final si no s'indica. */
+const definicio = (nom = 'f', entrada = '', cursor = true) => Object.freeze({tipus: 'definicio', nom, entrada, cursor, marca: null});
+/** El menú de la tecla FUNCTION. */
+const menuFuncio = (sel = 0) => menu(['f(x)', 'g(x)', 'Definir f(x)', 'Definir g(x)'], sel);
+
 /* ── Altres pantalles ───────────────────────────────────────────── */
 const home = (sel = 0) => Object.freeze({tipus: 'home', sel, marca: null});
 const missatge = (linies, opcions = [], sel = 0) => Object.freeze({tipus: 'missatge', linies, opcions, sel, marca: null});
@@ -106,7 +112,7 @@ arrel.G = Object.freeze({
   ENTRADA_SORTIDA, entradaSortida, UNITAT_ANGULAR, unitatAngular,
   FORMAT_NUMERO, formatNumero, normal, REINICIAR, reiniciar,
   FORMAT_IRRACIONAL, format, CATALOG, catalog, ANG_COORD_SEXAG, angCoordSexag,
-  VARIABLES, variables, menuVariable,
+  VARIABLES, variables, menuVariable, definicio, menuFuncio,
   home, missatge,
 });
 

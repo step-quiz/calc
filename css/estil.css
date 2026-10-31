@@ -184,6 +184,9 @@ a{color:inherit}
 .var i{font-family:var(--lletra)}
 .var.sel{background:var(--lcd-tinta); color:var(--lcd-fons)}
 
+/* Definir f(x): una línia a dalt, amb un requadre com a la calculadora */
+.lcd-definicio{position:absolute; left:2.5cqw; right:2.5cqw; top:3cqw; padding:.8cqw 1.4cqw; border:.45cqw solid var(--lcd-tinta); font-size:6.6cqw; line-height:1.25; white-space:nowrap; overflow:hidden}
+
 /* Les tecles: cercles de diàmetre --d, centrats a (left, top) */
 .cel{position:absolute; width:var(--d); height:var(--d); transform:translate(-50%, -50%)}
 .calculadora .tecla{

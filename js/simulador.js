@@ -11,14 +11,16 @@
        errors = llista de textos (la prova proves/comprova.js hi falla).
 
    Què sap fer (prou per a les fitxes, no és un emulador):
-     · escriure: xifres, punt, + − × ÷, ( ), sen( cos( tan(, x, y, z,
-       π, e, Ans, el signe negatiu (−); la plantilla de fracció, amb ↓ ↑ → ← per moure-s'hi;
+     · escriure: xifres, punt, + − × ÷, ( ), sen( cos( tan( ln( log(, x², x, y, z,
+       π, e, Ans, el signe negatiu (−); les plantilles de fracció, d'arrel i
+       d'exponent, amb ↓ ↑ → ← per moure-s'hi;
        després d'un resultat, el que s'escriu comença un càlcul nou;
      · SHIFT (la S de la barra) i AC;
      · obrir CONFIG, CATALOG, FORMAT i VARIABLE; moure's pels menús i
        per la llista de variables; els OK que es poden deduir (llistes
        amb ◉, CONFIG > Config cálculo > Unidad angular / Formato número,
-       CONFIG > Reiniciar, CATALOG > Ang/Coord/Sexag, OK sobre una variable).
+       CONFIG > Reiniciar, CATALOG > Ang/Coord/Sexag, OK sobre una variable);
+     · FUNCTION: {Definir f(x)} (escriure l'expressió de f) i {f(x)} (escriu «f(»).
    Quan no ho sap deduir, la fitxa ha de donar la pantalla al pas:
      {tecles, pantalla, text, parcials: {<índex de la tecla>: pantalla}}.
 
@@ -40,9 +42,13 @@
 const ESCRIU = Object.freeze({
   0: '0', 1: '1', 2: '2', 3: '3', 4: '4', 5: '5', 6: '6', 7: '7', 8: '8', 9: '9',
   punt: '.', mes: '+', menys: '-', per: '\\times ', entre: '\\div ', lpar: '(', rpar: ')',
-  x: 'x', ans: '\\mathrm{Ans}', sen: '\\mathrm{sen}(', cos: '\\cos(', tan: '\\tan(',
+  x: 'x', ans: '\\mathrm{Ans}', sen: '\\mathrm{sen}(', cos: '\\cos(', tan: '\\tan(', x2: '^{2}',
 });
-const ESCRIU_SHIFT = Object.freeze({7: '\\pi ', 8: 'e', 0: 'x', punt: 'y', exp: 'z', menys: '-'});   // SHIFT − = signe negatiu (−)
+const ESCRIU_SHIFT = Object.freeze({7: '\\pi ', 8: 'e', 0: 'x', punt: 'y', exp: 'z', menys: '-',   // SHIFT − = signe negatiu (−)
+  logab: '\\ln(', x2: '\\log('});
+/** Les plantilles: tecla → tipus de node; i els camps de cada node, en ordre. */
+const PLANTILLES = Object.freeze({frac: 'frac', arrel: 'arrel', pot: 'pot'});
+const CAMPS = Object.freeze({frac: ['num', 'den'], arrel: ['rad'], pot: ['exp']});
 const OPERACIONS = new Set(['mes', 'per', 'entre']);    // després d'un resultat, continuen amb Ans
 
 function editorBuit() {
@@ -56,16 +62,18 @@ function insereix(ed, element) {
   m.llista.splice(m.i, 0, element);
   m.i++;
 }
-function insereixFraccio(ed) {
-  const node = {t: 'frac', num: [], den: []};
-  insereix(ed, node);                                   // el marc de fora queda just després de la fracció
-  ed.pila.push({llista: node.num, i: 0, node, camp: 'num'});
+/** Una plantilla (fracció, arrel, exponent): el cursor hi entra, al primer camp. */
+function insereixPlantilla(ed, tipus) {
+  const node = {t: tipus};
+  for (const c of CAMPS[tipus]) node[c] = [];
+  insereix(ed, node);                                   // el marc de fora queda just després de la plantilla
+  ed.pila.push({llista: node[CAMPS[tipus][0]], i: 0, node, camp: CAMPS[tipus][0]});
 }
 /** Mou el cursor. Torna false si la tecla no fa res que el simulador sàpiga representar. */
 function mou(ed, tecla) {
   const m = dalt(ed);
   if (tecla === 'down' || tecla === 'up') {
-    if (!m.node) return false;
+    if (!m.node || m.node.t !== 'frac') return false;   // ↓ ↑ només es mouen dins d'una fracció
     const camp = tecla === 'down' ? 'den' : 'num';
     if (m.camp === camp) return false;
     ed.pila[ed.pila.length - 1] = {llista: m.node[camp], i: tecla === 'down' ? 0 : m.node[camp].length, node: m.node, camp};
@@ -75,14 +83,14 @@ function mou(ed, tecla) {
     if (m.i < m.llista.length) {
       const seguent = m.llista[m.i];
       m.i++;
-      if (seguent.t === 'frac') ed.pila.push({llista: seguent.num, i: 0, node: seguent, camp: 'num'});
+      if (CAMPS[seguent.t]) { const c = CAMPS[seguent.t][0]; ed.pila.push({llista: seguent[c], i: 0, node: seguent, camp: c}); }
       return true;
     }
-    if (ed.pila.length > 1) { ed.pila.pop(); return true; }   // surt de la fracció
+    if (ed.pila.length > 1) { ed.pila.pop(); return true; }   // surt de la plantilla
     return false;
   }
   if (tecla === 'left') {
-    if (m.i > 0) { m.i--; return m.llista[m.i].t !== 'frac'; } // entrar a una fracció per la dreta: no cal
+    if (m.i > 0) { m.i--; return !CAMPS[m.llista[m.i].t]; }   // entrar a una plantilla per la dreta: no cal
     if (ed.pila.length > 1) { ed.pila.pop(); dalt(ed).i--; return true; }
     return false;
   }
@@ -97,7 +105,9 @@ function tex(ed, ambCursor) {
     let s = '';
     l.forEach((e, k) => {
       if (ambCursor && l === marc.llista && k === marc.i) s += CURSOR;
-      s += e.t === 'frac' ? `\\frac{${buit(e.num)}}{${buit(e.den)}}` : e.v;
+      s += e.t === 'frac' ? `\\frac{${buit(e.num)}}{${buit(e.den)}}`
+        : e.t === 'arrel' ? `\\sqrt{${buit(e.rad)}}`
+          : e.t === 'pot' ? `^{${buit(e.exp)}}` : e.v;
     });
     if (ambCursor && l === marc.llista && marc.i === l.length) s += CURSOR;
     return s;
@@ -111,6 +121,8 @@ const net = s => String(s || '').replace(/\s+/g, '');
 
 /* ── 2. ELS MENÚS QUE ES PODEN DEDUIR ─────────────────────────────── */
 
+/** El menú de la tecla FUNCTION (manual, p. 60). */
+const FUNCIO = Object.freeze(['f(x)', 'g(x)', 'Definir f(x)', 'Definir g(x)']);
 const mateixMenu = (p, textos) => p && p.tipus === 'menu' && p.files.length === textos.length && p.files.every((f, k) => f.t === textos[k]);
 const FILES_VAR = [['A', 'B'], ['C', 'D'], ['E', 'F'], ['x', 'y'], ['z']];
 
@@ -179,8 +191,28 @@ function tecla(estat, id) {
       const sel = Math.max(0, Math.min(p.files.length - 1, p.sel + (id === 'down' ? 1 : -1)));
       return Object.freeze(Object.assign({}, p, {sel, marca: null}));
     }
+    if (id === 'ok' && mateixMenu(p, FUNCIO)) {
+      if (p.sel === 0) {                                // f(x): escriu «f(» a la pantalla de càlcul
+        if (estat.resultat || !estat.ed) { estat.ed = editorBuit(); estat.resultat = false; estat.hist = true; }
+        insereix(estat.ed, {t: 'tex', v: 'f('});
+        return pantallaCalc(estat);
+      }
+      if (p.sel === 2) {                                // Definir f(x): una pantalla nova, amb un editor buit
+        estat.ed = editorBuit();
+        estat.resultat = false;
+        return G.definicio('f', tex(estat.ed, true));
+      }
+      return null;
+    }
     if (id === 'ok') return okAlMenu(p, estat);
     return null;
+  }
+  if (p.tipus === 'definicio') {                        // escriure l'expressió de f(x)
+    const tros = shift ? ESCRIU_SHIFT[id] : ESCRIU[id];
+    if (PLANTILLES[id] && !shift) insereixPlantilla(estat.ed, PLANTILLES[id]);
+    else if (tros !== undefined) insereix(estat.ed, {t: 'tex', v: tros});
+    else if (!(['down', 'up', 'left', 'right'].includes(id) && mou(estat.ed, id))) return null;
+    return G.definicio(p.nom, tex(estat.ed, true));
   }
   if (p.tipus === 'variables') {
     if (id === 'ok') return G.menuVariable(0);
@@ -197,10 +229,11 @@ function tecla(estat, id) {
   if (id === 'catalog') return G.catalog(0);
   if (id === 'variable') return G.variables(estat.vars, 'A');
   if (id === 'format') return estat.resultat ? G.format(0) : null;
+  if (id === 'funcio') return G.menu(FUNCIO, 0);
 
   // Escriure
   const tros = shift ? ESCRIU_SHIFT[id] : ESCRIU[id];
-  if (tros !== undefined || (id === 'frac' && !shift)) {
+  if (tros !== undefined || (PLANTILLES[id] && !shift)) {
     if (estat.resultat || !estat.ed) {                  // després d'un resultat: càlcul nou
       if (!estat.resultat && !estat.ed) return null;    // no se sap què hi ha escrit
       estat.ed = editorBuit();
@@ -208,7 +241,7 @@ function tecla(estat, id) {
       estat.resultat = false;
       estat.hist = true;
     }
-    if (id === 'frac') insereixFraccio(estat.ed);
+    if (PLANTILLES[id] && !shift) insereixPlantilla(estat.ed, PLANTILLES[id]);
     else insereix(estat.ed, {t: 'tex', v: tros});
     return pantallaCalc(estat);
   }
@@ -246,13 +279,13 @@ function pantalles(fitxa) {
   adopta(estat, fitxa.inici, null);
   const totes = fitxa.passos.map((pas, i) => {
     const llista = [];
-    let nomesEscriu = estat.pantalla.tipus === 'calc';  // el pas només escriu (per comparar el resultat)
+    let nomesEscriu = ['calc', 'definicio'].includes(estat.pantalla.tipus);  // el pas només escriu (per comparar el resultat)
     pas.tecles.forEach((id, j) => {
       const darrera = j === pas.tecles.length - 1;
       const explicita = pas.parcials && pas.parcials[j];
       let nova = tecla(estat, id);
       if (!['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'punt', 'mes', 'menys', 'per', 'entre', 'lpar', 'rpar', 'x',
-        'sen', 'cos', 'tan', 'frac', 'shift', 'ac', 'down', 'up', 'left', 'right', 'exe', 'exp'].includes(id)) nomesEscriu = false;
+        'sen', 'cos', 'tan', 'frac', 'arrel', 'pot', 'x2', 'logab', 'shift', 'ac', 'down', 'up', 'left', 'right', 'exe', 'exp'].includes(id)) nomesEscriu = false;
       if (darrera) nova = pas.pantalla;
       else if (explicita) { nova = explicita; nomesEscriu = false; }
       if (!nova) {
@@ -261,11 +294,11 @@ function pantalles(fitxa) {
       }
       if (darrera || explicita) {
         // Abans d'adoptar la pantalla final: si el pas només ha escrit, ha de coincidir amb el que diu la fitxa
-        if (darrera && nomesEscriu && nova.tipus === 'calc' && nova.entrada && estat.ed && !['exe'].includes(id)) {
+        if (darrera && nomesEscriu && ['calc', 'definicio'].includes(nova.tipus) && nova.entrada && estat.ed && !['exe'].includes(id)) {
           const simulat = net(tex(estat.ed, false)), donat = net(nova.entrada);
           if (simulat !== donat) errors.push(`pas ${i + 1}: amb aquestes tecles s'escriu «${tex(estat.ed, false)}», però la pantalla diu «${nova.entrada}»`);
         }
-        if (darrera && id === 'exe' && estat.ed && nova.tipus === 'calc') {
+        if (darrera && id === 'exe' && estat.ed && nova.tipus === 'calc' && estat.pantalla.tipus === 'calc') {   // (des de Definir f(x), EXE torna a una pantalla buida)
           const simulat = net(tex(estat.ed, false)), donat = net(nova.entrada);
           if (simulat !== donat) errors.push(`pas ${i + 1}: abans d'EXE hi ha escrit «${tex(estat.ed, false)}», però la pantalla diu «${nova.entrada}»`);
         }

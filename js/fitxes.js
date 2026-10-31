@@ -24,7 +24,7 @@
 'use strict';
 
 const {IND, ind, calc, marca, config, configCalcul, entradaSortida, unitatAngular,
-  formatNumero, normal, reiniciar, format, catalog, angCoordSexag, home, missatge} = G;
+  formatNumero, normal, reiniciar, format, catalog, angCoordSexag, home, missatge, definicio, menuFuncio} = G;
 
 /* Fórmules que surten a diverses fitxes (com les escriu la pantalla) */
 const SEN45 = '\\mathrm{sen}(45)';
@@ -280,6 +280,81 @@ const FITXES = Object.freeze([
   relacionades: ['exacte-decimal'],
 },
 
+{
+  id: 'pau-geo-25s-q4b', bloc: 'exercicis', titol: 'Geometria · PAU 2025: distància d\'un punt a un pla',
+  enunciat: 'PAU setembre 2025, qüestió 4 B a). Considereu el pla $\\pi: 2x-y+z=5$ i el punt $P=(0,1,3)$. Comproveu que la distància de $P$ a $\\pi$ és $\\frac{\\sqrt{6}}{2}$. $$d(P,\\pi)=\\frac{|2\\cdot 0-1+3-5|}{\\sqrt{2^2+(-1)^2+1^2}}$$',
+  inici: calc(D),
+  passos: [
+    {tecles: ['2', 'per', '0', 'menys', '1', 'mes', '3', 'menys', '5'], pantalla: calc(D, '2\\times 0-1+3-5'),
+      text: 'Primer, el numerador: substitueix $P$ a $2x-y+z-5$. Escriu $2\\times 0-1+3-5$.'},
+    {tecles: ['exe'], pantalla: marca(calc(D, '2\\times 0-1+3-5', '-3'), 'resultat'),
+      text: 'Prem [[exe]]: surt −3. El valor absolut el fas tu: $|-3|=3$.'},
+    {tecles: ['frac', '3', 'down', 'arrel', '2', 'x2', 'mes', 'lpar', 'shift', 'menys', '1', 'rpar', 'x2', 'mes', '1', 'x2'],
+      pantalla: calc(D, '\\frac{3}{\\sqrt{2^{2}+(-1)^{2}+1^{2}}}', '', {hist: true}),
+      text: 'Ara la distància: la fracció [[frac]] amb el 3 a dalt; [[down]] i, a baix, l\'arrel [[arrel]] de $2^2+(-1)^2+1^2$. El quadrat és [[x2]]. El −1 va amb (−), [[shift]] [[menys]], i entre parèntesis.'},
+    {tecles: ['exe'], pantalla: marca(calc(D, '\\frac{3}{\\sqrt{2^{2}+(-1)^{2}+1^{2}}}', '\\frac{\\sqrt{6}}{2}'), 'resultat'),
+      text: 'Prem [[exe]]: surt $\\frac{\\sqrt{6}}{2}$, el valor de l\'enunciat. ✓ En mode {{E Mat/S Mat}} la calculadora racionalitza sola; en mode decimal sortiria 1.224744871 i no ho podries comparar.'},
+  ],
+  relacionades: ['exacte-decimal', 'mode-decimal'],
+},
+{
+  id: 'pau-ana-24i-q1', bloc: 'exercicis', titol: 'Anàlisi · PAU 2024: Bolzano amb la calculadora',
+  enunciat: 'PAU juny 2024 (incidències), qüestió 1 a). Considereu $f(x)=-2+10(x-1)\\ln x$, per a $x>0$. Comproveu que $f$ té una arrel a l\'interval $[1;\\,1{,}5]$ i busqueu un interval d\'una dècima de longitud que també la contingui.',
+  inici: calc(D),
+  passos: [
+    {tecles: ['funcio'], pantalla: menuFuncio(0),
+      text: 'Hauràs de calcular $f$ en diversos punts: defineix-la un sol cop. Prem [[funcio]] (FUNCTION).'},
+    {tecles: ['down', 'down', 'ok'], pantalla: definicio('f'),
+      text: 'Baixa fins a {{Definir f(x)}} i prem [[ok]].'},
+    {tecles: ['shift', 'menys', '2', 'mes', '1', '0', 'lpar', 'x', 'menys', '1', 'rpar', 'shift', 'logab', 'x', 'rpar'],
+      pantalla: definicio('f', '-2+10(x-1)\\ln(x)'),
+      text: 'Escriu $-2+10(x-1)\\ln(x)$. El − del principi és el signe negatiu (−), [[shift]] [[menys]]; la $x$ és la tecla [[x]], i ln és [[shift]] [[logab]].'},
+    {tecles: ['exe'], pantalla: calc(D),
+      text: 'Prem [[exe]]: $f$ queda desada i tornes a la pantalla de càlcul.'},
+    {tecles: ['funcio', 'ok', '1', 'rpar'], pantalla: calc(D, 'f(1)'),
+      text: 'Calcula $f(1)$: [[funcio]], {{f(x)}} amb [[ok]] (escriu «f(»), l\'1 i tanca el parèntesi.'},
+    {tecles: ['exe'], pantalla: marca(calc(D, 'f(1)', '-2'), 'resultat'),
+      text: 'Prem [[exe]]: $f(1)=-2<0$.'},
+    {tecles: ['funcio', 'ok', '1', 'punt', '5', 'rpar'], pantalla: calc(D, 'f(1.5)', '', {hist: true}),
+      text: 'Ara $f(1{,}5)$, igual.'},
+    {tecles: ['exe'], pantalla: marca(calc(D, 'f(1.5)', '0.02732554054'), 'resultat'),
+      text: '$f(1{,}5)\\approx 0{,}0273>0$. Com que $f$ és contínua a $[1;\\,1{,}5]$ i canvia de signe, pel teorema de Bolzano hi ha una arrel. ✓'},
+    {tecles: ['funcio', 'ok', '1', 'punt', '4', 'rpar'], pantalla: calc(D, 'f(1.4)', '', {hist: true}),
+      text: '$f(1{,}5)$ és molt a prop de 0: l\'arrel deu ser a prop d\'1,5. Prova $f(1{,}4)$.'},
+    {tecles: ['exe'], pantalla: marca(calc(D, 'f(1.4)', '-0.6541110535'), 'resultat'),
+      text: '$f(1{,}4)\\approx -0{,}654<0$: hi ha canvi de signe a $[1{,}4;\\,1{,}5]$, un interval d\'una dècima. ✓'},
+    {tecles: ['shift', 'menys', '2', 'mes', '5', 'per', '0', 'punt', '4', 'exe'], pantalla: marca(calc(D, '-2+5\\times 0.4', '0'), 'resultat'),
+      text: 'Error que cal evitar: si arrodoneixes $\\ln 1{,}5\\approx 0{,}4$ abans d\'acabar, surt $f(1{,}5)=-2+5\\cdot 0{,}4=0$ i no pots concloure res. Calcula tota l\'expressió d\'un cop.'},
+  ],
+  relacionades: ['exacte-decimal'],
+},
+{
+  id: 'pau-pro-24i-q4', bloc: 'exercicis', titol: 'Probabilitat · PAU 2024: probabilitat total, Bayes i binomial',
+  enunciat: 'PAU juny 2024 (incidències), qüestió 4. La Rut tira un dau: si surt 1, 2, 3 o 4, resol el problema ella mateixa i l\'encerta el 75 % de les vegades; si surt 5 o 6, el copia d\'Internet i l\'encerta el 40 %. a) Probabilitat que la solució sigui correcta. b) Probabilitat que l\'hagi resolt ella si és correcta. c) Probabilitat que, de 5 problemes, almenys 4 siguin correctes.',
+  inici: calc(D),
+  passos: [
+    {tecles: ['frac', '4', 'down', '6', 'right', 'per', '0', 'punt', '7', '5', 'mes', 'frac', '2', 'down', '6', 'right', 'per', '0', 'punt', '4'],
+      pantalla: calc(D, '\\frac{4}{6}\\times 0.75+\\frac{2}{6}\\times 0.4'),
+      text: 'a) Probabilitat total: $P(C)=\\frac{4}{6}\\cdot 0{,}75+\\frac{2}{6}\\cdot 0{,}4$. Escriu-ho tal qual, amb fraccions i decimals.'},
+    {tecles: ['exe'], pantalla: marca(calc(D, '\\frac{4}{6}\\times 0.75+\\frac{2}{6}\\times 0.4', '\\frac{19}{30}'), 'resultat'),
+      text: 'Prem [[exe]]: $P(C)=\\frac{19}{30}$. La calculadora dona la fracció exacta, encara que hagis escrit decimals.'},
+    {tecles: ['lpar', 'frac', '4', 'down', '6', 'right', 'per', '0', 'punt', '7', '5', 'rpar', 'entre', 'frac', '1', '9', 'down', '3', '0'],
+      pantalla: calc(D, '(\\frac{4}{6}\\times 0.75)\\div\\frac{19}{30}', '', {hist: true}),
+      text: 'b) Bayes: $P(R\\mid C)=\\dfrac{\\frac{4}{6}\\cdot 0{,}75}{P(C)}$. Escriu $\\left(\\frac{4}{6}\\times 0{,}75\\right)\\div\\frac{19}{30}$.'},
+    {tecles: ['exe'], pantalla: marca(calc(D, '(\\frac{4}{6}\\times 0.75)\\div\\frac{19}{30}', '\\frac{15}{19}'), 'resultat'),
+      text: 'Prem [[exe]]: $P(R\\mid C)=\\frac{15}{19}$.'},
+    {tecles: ['5', 'per', 'lpar', 'frac', '1', '9', 'down', '3', '0', 'right', 'rpar', 'pot', '4', 'right', 'per', 'frac', '1', '1', 'down', '3', '0', 'right',
+      'mes', 'lpar', 'frac', '1', '9', 'down', '3', '0', 'right', 'rpar', 'pot', '5'],
+      pantalla: calc(D, '5\\times(\\frac{19}{30})^{4}\\times\\frac{11}{30}+(\\frac{19}{30})^{5}', '', {hist: true}),
+      text: 'c) Binomial, amb $n=5$ i $p=\\frac{19}{30}$: $P(X\\ge 4)=5\\,p^4(1-p)+p^5$, perquè $\\binom{5}{4}=5$ i $1-p=\\frac{11}{30}$. La potència és [[pot]]; amb [[right]] surts de l\'exponent.'},
+    {tecles: ['exe'], pantalla: marca(calc(D, '5\\times(\\frac{19}{30})^{4}\\times\\frac{11}{30}+(\\frac{19}{30})^{5}', '0.3968623045'), 'resultat'),
+      text: 'Prem [[exe]]: $P(X\\ge 4)\\approx 0{,}3969$. La fracció exacta tindria massa xifres, i la calculadora la dona en decimal.'},
+    {tecles: ['5', 'per', '0', 'punt', '6', '3', 'pot', '4', 'right', 'per', '0', 'punt', '3', '7', 'mes', '0', 'punt', '6', '3', 'pot', '5', 'exe'],
+      pantalla: marca(calc(D, '5\\times 0.63^{4}\\times 0.37+0.63^{5}', '0.3906734328'), 'resultat'),
+      text: 'Error que cal evitar: si arrodoneixes $p\\approx 0{,}63$, surt 0,3907 i no 0,3969: ja falla la segona xifra decimal. Treballa amb $\\frac{19}{30}$.'},
+  ],
+  relacionades: ['exacte-decimal'],
+},
 ]);
 
 arrel.Dades = Object.freeze({BLOCS, FITXES});

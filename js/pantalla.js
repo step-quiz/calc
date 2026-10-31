@@ -19,6 +19,7 @@
        {tipus:'home', sel}
    · Missatge (text centrat i, opcionalment, opcions a triar)
        {tipus:'missatge', linies:[…], opcions:[…], sel}
+   · Definir f(x) (tecla FUNCTION): {tipus:'definicio', nom:'f', entrada, cursor}
    · Llista de variables (tecla VARIABLE; manual, p. 38): 5 files,
        A/B, C/D, E/F, x/y i z, amb els valors en decimal
        {tipus:'variables', valors:[[nom, valor], …], sel}
@@ -38,6 +39,8 @@ const OPCIONS_KATEX = Object.freeze({throwOnError: false, strict: 'ignore',
   trust: c => c.command === '\\htmlClass' && c.class === 'cursor-tex'});
 const escapa = s => String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
 const tex = t => (typeof katex !== 'undefined') ? katex.renderToString(t, OPCIONS_KATEX) : escapa(t);
+/** Les fórmules de la pantalla, en estil «display»: les fraccions i les arrels a mida completa, com a la calculadora. */
+const texLcd = t => tex('\\displaystyle ' + t);
 const marca = (estat, nom) => (estat.marca === nom ? ' marcat' : '');
 
 /* La icona de «E Mat»: una arrel amb un quadre (entrada com al llibre). */
@@ -63,7 +66,7 @@ function barra(estat) {
 
 function calc(estat) {
   const cursor = estat.cursor ? '<span class="lcd-cursor" aria-hidden="true"></span>' : '';
-  const escriu = t => (estat.linia ? `<span class="lcd-linia">${escapa(t)}</span>` : tex(t));
+  const escriu = t => (estat.linia ? `<span class="lcd-linia">${escapa(t)}</span>` : texLcd(t));
   const entrada = estat.entrada ? escriu(estat.entrada) : '';
   const resultat = estat.resultat ? escriu(estat.resultat) : '';
   return barra(estat)
@@ -126,7 +129,13 @@ function variables(estat) {
   return `<div class="lcd-variables">${html}</div>`;
 }
 
-const DIBUIXA = Object.freeze({calc, menu, home, missatge, variables});
+/** Definir f(x): una sola línia, «f(x)=» i l'expressió (manual, p. 60). */
+function definicio(estat) {
+  const cursor = estat.cursor ? '<span class="lcd-cursor" aria-hidden="true"></span>' : '';
+  return `<div class="lcd-definicio${marca(estat, 'entrada')}" data-marca="entrada">${texLcd(estat.nom + '(x)=' + (estat.entrada || ''))}${cursor}</div>`;
+}
+
+const DIBUIXA = Object.freeze({calc, menu, home, missatge, variables, definicio});
 
 /** HTML del contingut de la pantalla per a un estat. */
 function html(estat) {

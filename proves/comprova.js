@@ -54,7 +54,7 @@ function comprovaTeX(tex, on) {
 function comprovaText(t, on) {
   if (!ok(typeof t === 'string' && t.trim().length > 0, on, 'falta el text')) return;
   ok((t.match(/\$/g) || []).length % 2 === 0, on, 'hi ha un $ sense tancar');
-  const senseTeX = t.replace(/\$[^$]*\$/g, '');            // dins d'una fórmula, «}}» és normal
+  const senseTeX = t.replace(/\$\$[^$]*\$\$/g, '').replace(/\$[^$]*\$/g, '');            // dins d'una fórmula, «}}» és normal
   ok((senseTeX.match(/\{\{/g) || []).length === (senseTeX.match(/\}\}/g) || []).length, on, '{{ }} sense tancar');
   for (const m of t.matchAll(/\[\[([^\]]+)\]\]/g)) ok(Tecles.existeix(m[1]), on, `tecla desconeguda [[${m[1]}]]`);
   for (const m of t.matchAll(/\$([^$]+)\$/g)) comprovaTeX(m[1], on);
@@ -78,6 +78,9 @@ function comprovaPantalla(p, on) {
     for (const f of p.files) ok(typeof f.t === 'string' && f.t.length > 0, on, 'fila sense text');
   } else if (p.tipus === 'home') {
     ok(p.sel >= 0 && p.sel < 4, on, 'aplicació triada fora de la pantalla HOME');
+  } else if (p.tipus === 'definicio') {
+    ok(/^[fg]$/.test(p.nom), on, 'la funció ha de ser f o g');
+    comprovaTeX(p.nom + '(x)=' + (p.entrada || ''), on + ' (definició)');
   } else if (p.tipus === 'variables') {
     ok(Array.isArray(p.valors) && p.valors.length === 9, on, 'la llista de variables ha de tenir les 9 variables');
     ok(p.valors.some(([n]) => n === p.sel), on, `variable triada desconeguda (${p.sel})`);
