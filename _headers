@@ -1,0 +1,4 @@
+# Cloudflare Pages: el navegador ha de preguntar sempre si hi ha una versió nova
+# (si no ha canviat, el servidor respon «304» i no es torna a baixar res).
+/*
+  Cache-Control: no-cache

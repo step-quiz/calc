@@ -34,9 +34,15 @@ const TEMPS = Object.freeze({
 const VELOCITATS = Object.freeze([['normal', 1.65], ['ràpida', 1]]);
 const CORBA = 'cubic-bezier(.45,.05,.25,1)';
 
+/**
+ * Versió de la web. Quan es canvia qualsevol .js o .css, s'ha d'augmentar aquí I als «?v=» de
+ * index.html i fitxa.html (la prova ho comprova): així cap navegador no fa servir fitxers vells.
+ */
+const VERSIO = '5';
+
 const PEU = '© 2026 <strong>David Arso Civil</strong>. Ús educatiu lliure. Prohibida la comercialització '
   + 'i la modificació (<a rel="license" href="https://creativecommons.org/licenses/by-nc-nd/4.0/">CC BY-NC-ND 4.0</a>). '
-  + 'Web no oficial, sense relació amb el fabricant de la calculadora.';
+  + 'Web no oficial, sense relació amb el fabricant de la calculadora. <span class="versio">Versió ' + VERSIO + '</span>';
 
 
 /* ── 2. UTILITATS ──────────────────────────────────────────────────── */
@@ -411,6 +417,6 @@ function inicia(id = parametre('id'), contenidor = document.getElementById('fitx
   return reproductor;
 }
 
-arrel.Motor = Object.freeze({inicia, text});
+arrel.Motor = Object.freeze({inicia, text, VERSIO});
 
 })(globalThis);

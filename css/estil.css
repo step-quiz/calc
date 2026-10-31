@@ -61,6 +61,7 @@ a{color:inherit}
   margin-top:auto; background:#f1f5f9; border-top:1px solid var(--border); padding:8px 16px;
   font-family:var(--mono); font-size:.7rem; color:#334155; text-align:center;
 }
+.versio{white-space:nowrap; opacity:.7}
 .error-carrega{max-width:640px; margin:48px auto; padding:0 16px}
 
 /* ── TEXTOS: FÓRMULES, TECLES I OPCIONS DINS D'UNA FRASE ────────────── */

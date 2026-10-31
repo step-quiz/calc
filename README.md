@@ -64,6 +64,13 @@ Només cal escriure la pantalla del **final** de cada pas: les del mig (després
 coneix), les proves ho diuen i cal donar-les al pas amb `parcials: {<número de la tecla, des de 0>: pantalla}`.
 Les proves també comproven que el que s'escriu tecla a tecla coincideix amb la pantalla final del pas.
 
+## Versió
+
+Quan es canvia algun fitxer `.js` o `.css`, cal augmentar `VERSIO` a `js/motor.js` i tots els `?v=`
+d'`index.html` i `fitxa.html` (la prova comprova que coincideixen). Així els navegadors no fan servir
+fitxers vells. El número es veu al peu de la pàgina. `_headers` demana a Cloudflare Pages que el
+navegador pregunti sempre si hi ha una versió nova.
+
 ## Proves
 
 Des de l'arrel del repositori:

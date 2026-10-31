@@ -154,6 +154,17 @@ for (const [id, [x, y, d]] of posicions) {
   }
 }
 
+/* Versió: tots els .js i .css d'index.html i fitxa.html porten «?v=» igual a VERSIO de motor.js */
+{
+  const versio = (/const VERSIO = '([^']+)'/.exec(fs.readFileSync(path.join(arrel, 'js/motor.js'), 'utf8')) || [])[1];
+  ok(versio, 'motor.js', 'falta VERSIO');
+  for (const pag of ['index.html', 'fitxa.html']) {
+    const html = fs.readFileSync(path.join(arrel, pag), 'utf8');
+    const refs = [...html.matchAll(/(?:src|href)="((?:js|css)\/[^"]+)"/g)].map(m => m[1]);
+    for (const r of refs) ok(r.endsWith('?v=' + versio), pag, `${r} ha de portar ?v=${versio}`);
+  }
+}
+
 /* Totes les tecles del catàleg es poden dibuixar */
 for (const id of Object.keys(Tecles.TECLES)) ok(Tecles.html(id).includes('class="tecla'), `tecla ${id}`, 'no es dibuixa');
 
