@@ -57,7 +57,9 @@ Al final de la llista `FITXES` de `js/fitxes.js` s'hi afegeix un objecte com els
 `id`, `bloc`, `titol`, `enunciat`, `inici` (la pantalla de partida) i `passos`.
 Cada pas té `tecles` (ids de `js/tecles.js`), `pantalla` (feta amb les funcions de `js/guions.js`)
 i `text`. Als textos: `$…$` és una fórmula (`$$…$$`, en una línia pròpia), `[[format]]` dibuixa una tecla i `{{Decimal}}` és una opció
-d'un menú de la calculadora. La fitxa surt sola a la portada.
+d'un menú de la calculadora. Si l'enunciat té apartats, es marquen amb `[a]…[/a]`, `[b]…[/b]`… i
+cada pas pot dir `apartat: 'a'`: mentre es fa aquest pas, l'apartat es ressalta en verd a l'enunciat.
+La fitxa surt sola a la portada.
 
 Només cal escriure la pantalla del **final** de cada pas: les del mig (després de cada tecla) les calcula
 `js/simulador.js`. Si en algun cas no les sap deduir (per exemple, després d'un OK en un menú que no

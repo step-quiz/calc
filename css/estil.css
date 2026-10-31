@@ -253,6 +253,9 @@ a{color:inherit}
 .nomes-lectors{position:absolute; width:1px; height:1px; overflow:hidden; clip:rect(0 0 0 0); white-space:nowrap}
 .columna{display:flex; flex-direction:column; gap:12px; min-width:0}
 .enunciat .katex-display{margin:.35em 0}
+/* L'apartat que es resol al pas actual, subratllat amb fluorescent verd */
+.apartat{border-radius:3px; transition:background-color .25s, box-shadow .25s}
+.apartat.actiu{background:rgba(134,239,172,.6); box-shadow:0 0 0 2px rgba(134,239,172,.6)}
 .enunciat{margin:0; padding:12px 16px; border:1.5px solid var(--border); border-radius:12px; background:var(--surface); font-size:16.5px; line-height:1.55}
 .reproductor{display:flex; flex-wrap:wrap; align-items:center; gap:8px 14px}
 .botons{display:flex; gap:6px}

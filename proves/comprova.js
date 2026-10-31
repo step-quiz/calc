@@ -122,6 +122,8 @@ for (const f of Dades.FITXES) {
     comprovaPantalla(p.pantalla, onPas);
     comprovaText(p.text, onPas);
     ok(p.tecles.length > 0 || p.pantalla.marca, onPas, 'un pas sense tecles ha de ressaltar alguna cosa (marca)');
+    if (p.apartat) ok(new RegExp('\\[' + p.apartat + '\\][\\s\\S]*?\\[\\/' + p.apartat + '\\]').test(f.enunciat), onPas,
+      `l'apartat «${p.apartat}» no està marcat a l'enunciat amb [${p.apartat}]…[/${p.apartat}]`);
   });
 }
 /* El simulador: totes les pantalles intermèdies es poden deduir (o la fitxa les dona) i el que

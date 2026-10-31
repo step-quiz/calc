@@ -38,7 +38,7 @@ const CORBA = 'cubic-bezier(.45,.05,.25,1)';
  * Versió de la web. Quan es canvia qualsevol .js o .css, s'ha d'augmentar aquí I als «?v=» de
  * index.html i fitxa.html (la prova ho comprova): així cap navegador no fa servir fitxers vells.
  */
-const VERSIO = '8';
+const VERSIO = '9';
 
 const PEU = '© 2026 <strong>David Arso Civil</strong>. Ús educatiu lliure. Prohibida la comercialització '
   + 'i la modificació (<a rel="license" href="https://creativecommons.org/licenses/by-nc-nd/4.0/">CC BY-NC-ND 4.0</a>). '
@@ -65,7 +65,7 @@ const escapa = s => String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').repla
 const formula = t => katex.renderToString(t, {throwOnError: false});
 
 /** Text d'una fitxa → HTML: $$TeX$$ = fórmula en una línia pròpia, $TeX$ = fórmula, [[id]] = tecla petita, {{Opció}} = text d'un menú. */
-function text(t) {
+function textSimple(t) {
   return String(t || '').split(/(\$\$[^$]+\$\$|\$[^$]+\$|\[\[[^\]]+\]\]|\{\{[^}]+\}\})/).map(tros => {
     if (/^\$\$[^$]+\$\$$/.test(tros)) return katex.renderToString(tros.slice(2, -2), {throwOnError: false, displayMode: true});
     if (/^\$[^$]+\$$/.test(tros)) return formula(tros.slice(1, -1));
@@ -74,8 +74,18 @@ function text(t) {
     return escapa(tros).replace(/\n/g, '<br>');
   }).join('');
 }
+/**
+ * Text amb apartats: [a]…[/a] es converteix en un <span class="apartat" data-apartat="a">, que es
+ * ressalta quan el pas actual resol aquest apartat (pas.apartat). No confon les tecles [[x]].
+ */
+function text(t) {
+  return String(t || '').split(/((?<!\[)\[[a-z]\](?!\])[\s\S]*?\[\/[a-z]\])/).map(tros => {
+    const m = /^\[([a-z])\]([\s\S]*)\[\/\1\]$/.exec(tros);
+    return m ? `<span class="apartat" data-apartat="${m[1]}">${textSimple(m[2])}</span>` : textSimple(tros);
+  }).join('');
+}
 /** Text pla (per al lector de pantalla). */
-const textPla = t => String(t || '').replace(/\$([^$]+)\$/g, '$1').replace(/\[\[([^\]]+)\]\]/g, (_, id) =>
+const textPla = t => String(t || '').replace(/(?<!\[)\[\/?[a-z]\](?!\])/g, '').replace(/\$([^$]+)\$/g, '$1').replace(/\[\[([^\]]+)\]\]/g, (_, id) =>
   (Tecles.TECLES[id] ? Tecles.TECLES[id].nom : id)).replace(/\{\{([^}]+)\}\}/g, '«$1»');
 
 /** Anima un element i espera que acabi. Si l'animació es cancel·la (el pas s'interromp), també acaba, sense error. */
@@ -138,6 +148,7 @@ function construeixPagina(fitxa, bloc, germanes, contenidor) {
     anterior: boto('', 'Pas anterior', ICONES.anterior),
     seguent: boto('principal', 'Pas següent', ICONES.seguent),
     velocitat: element('select', {id: 'velocitat'}),
+    enunciat: element('p', {class: 'enunciat', html: text(fitxa.enunciat)}),
   };
   for (const [nom, factor] of VELOCITATS) r.velocitat.append(element('option', {value: String(factor), text: nom}));
 
@@ -162,7 +173,7 @@ function construeixPagina(fitxa, bloc, germanes, contenidor) {
     element('main', {class: 'contingut'}, [
       element('div', {class: 'columna'}, [
         element('h1', {class: 'nomes-lectors', text: fitxa.titol}),
-        element('p', {class: 'enunciat', html: text(fitxa.enunciat)}),
+        r.enunciat,
         element('div', {class: 'reproductor'}, [
           element('div', {class: 'botons'}, [r.anterior, r.seguent]),
           element('label', {class: 'velocitat', for: 'velocitat', text: 'Velocitat '}, [r.velocitat]),
@@ -298,6 +309,9 @@ function creaReproductor(r, fitxa, temps) {
 
   function pinta() {
     marcaPassos(llista, idx);
+    // L'apartat de l'enunciat que es resol en aquest pas, ressaltat (David, 31/10/2026)
+    const apartat = idx >= 0 ? passos[idx].apartat : null;
+    r.enunciat.querySelectorAll('.apartat').forEach(e => e.classList.toggle('actiu', e.dataset.apartat === apartat));
     r.anunci.textContent = idx < 0 ? textPla(fitxa.enunciat) : `Pas ${idx + 1} de ${passos.length}. ${textPla(passos[idx].text)}`;
     r.anterior.disabled = idx < 0;
     r.seguent.disabled = idx === darrer && !ocupat;
