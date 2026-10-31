@@ -29,12 +29,15 @@ veu en una columna.
 
 | Bloc | Fitxes |
 |---|---|
-| Abans de l'examen | Reinicia la calculadora · Comprova-la en deu segons |
-| Exacte o decimal | Llegeix la barra de dalt · Valor exacte i valor decimal · Em surt 0.5 en lloc d'1/2 · Tot em surt arrodonit (FIX) |
-| Fraccions | *(properament)* |
-| Graus o radians | Posa la calculadora en radians · Troba l'error: el mode equivocat · Un sol angle en radians, sense canviar el mode |
+| Treballar en mode 'exacte' o 'decimal' | Llegeix la barra de dalt · Valor exacte i valor decimal · Em surt 0.5 en lloc d'1/2 · Tot em surt arrodonit (FIX) |
+| Operar amb fraccions i potències | *(properament)* |
+| Treballar en mode 'graus' o 'radiants' | Posa la calculadora en radians · Troba l'error: el mode equivocat · Un sol angle en radians, sense canviar el mode |
 | Funcions útils per a la PAU | *(properament)* |
-| Exercicis PAU amb la calculadora | Àlgebra: comprova la solució d'un sistema (alg-24j-q2) · Geometria: distància d'un punt a un pla (geo-25s-q4b) · Anàlisi: Bolzano amb f(x) definida (ana-24i-q1) · Probabilitat: probabilitat total, Bayes i binomial (pro-24i-q4) |
+| Exercicis PAU. Àlgebra i Geometria | Àlgebra: comprova la solució d'un sistema (alg-24j-q2) · Geometria: distància d'un punt a un pla (geo-25s-q4b) |
+| Exercicis PAU. Anàlisi i Probabilitat | Anàlisi: Bolzano amb f(x) definida (ana-24i-q1) · Probabilitat: probabilitat total, Bayes i binomial (pro-24i-q4) |
+
+La portada només mostra els blocs i els títols de les fitxes: sense introducció, sense descripcions
+dels blocs ni nombre de passos (David, 31/10/2026).
 
 Adreça d'una fitxa: `fitxa.html?id=<id>` (per exemple, `fitxa.html?id=exacte-decimal`).
 
@@ -42,7 +45,7 @@ Adreça d'una fitxa: `fitxa.html?id=<id>` (per exemple, `fitxa.html?id=exacte-de
 
 | Fitxer | Què hi ha |
 |---|---|
-| `index.html` | La portada: una targeta per bloc (la dibuixa `js/portada.js`). |
+| `index.html` | La portada: una targeta per bloc, amb el títol i les fitxes (la dibuixa `js/portada.js`). |
 | `fitxa.html` | La pàgina de qualsevol fitxa (la construeix `js/motor.js`). |
 | `css/estil.css` | Tot l'estil: paleta de `pau`, pantalla, teclat, disposició. |
 | `js/tecles.js` | Les tecles (etiqueta, funció amb SHIFT, nom) i **la geometria de la calculadora** (on és cada tecla i quin diàmetre fa). |

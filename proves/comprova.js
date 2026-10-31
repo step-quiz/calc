@@ -97,7 +97,7 @@ for (const b of Dades.BLOCS) {
   ok(!idsBlocs.has(b.id), 'BLOCS', `id repetit (${b.id})`);
   idsBlocs.add(b.id);
   ok(/^#[0-9a-f]{6}$/i.test(b.color), `bloc ${b.id}`, 'color incorrecte');
-  ok(b.titol && b.descripcio, `bloc ${b.id}`, 'falta el títol o la descripció');
+  ok(b.titol, `bloc ${b.id}`, 'falta el títol');
 }
 
 /* Fitxes */

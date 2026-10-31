@@ -14,7 +14,7 @@ de CASIO) es veuen diferents, el que s'ha de corregir és la fitxa: la majoria s
 
 | # | Què | On és | Què s'ha posat |
 |---|---|---|---|
-| 1 | Pantalla de confirmació de *Reiniciar > Config y datos* | fitxa `reinicia`, pas 4 | «Config y datos / ¿Reiniciar?» amb {Sí} {No} i Sí triat. El manual només diu «[Sí]». |
+| 1 | Pantalla de confirmació de *Reiniciar > Config y datos* | `G.reiniciar` (ara no la fa servir cap fitxa: la fitxa `reinicia` es va treure) | «Config y datos / ¿Reiniciar?» amb {Sí} {No} i Sí triat. El manual només diu «[Sí]». |
 | 2 | Pantalla que surt en triar *Formato número > Normal* | fitxa `fix`, pas 5 (`G.normal`) | Una llista «Normal 1 / Normal 2», amb Normal 2 triada. |
 | 3 | Ordre del CATALOG després d'*Ang/Coord/Sexag* | `G.CATALOG` | Hiperb/Trigon, Otros. |
 | 4 | Ordre dins d'*Ang/Coord/Sexag* després de *Gradianes* | `G.ANG_COORD_SEXAG` | Rectang a polar, Polar a rectang, Grados Min Seg (les tres primeres, Grados, Radianes i Gradianes, surten a la guia ClassWiz). |

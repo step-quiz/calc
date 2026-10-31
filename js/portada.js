@@ -2,7 +2,8 @@
    portada.js — La portada: una targeta per bloc, amb les seves fitxes
    ───────────────────────────────────────────────────────────────────
    Tot surt de Dades (fitxes.js): una fitxa nova apareix sola a la
-   portada. Un bloc sense fitxes diu «Properament».
+   portada. Un bloc sense fitxes diu «Properament». Sense descripcions
+   ni nombre de passos (David, 31/10/2026: la portada ha de ser simple).
    ═══════════════════════════════════════════════════════════════════ */
 (function () {
 'use strict';
@@ -15,11 +16,11 @@ contenidor.innerHTML = Dades.BLOCS.map((b, i) => {
   const llista = fitxes.length
     ? '<ol class="llista">' + fitxes.map((f, j) =>
       `<li><a href="fitxa.html?id=${encodeURIComponent(f.id)}"><span class="n">${String(j + 1).padStart(2, '0')}</span>`
-      + `<span>${escapa(f.titol)}</span><span class="passos">${f.passos.length} passos</span></a></li>`).join('') + '</ol>'
+      + `<span>${escapa(f.titol)}</span></a></li>`).join('') + '</ol>'
     : '<span class="properament">Properament</span>';
   return `<section class="bloc" id="${b.id}" style="--cat:${b.color}">`
     + `<span class="num">${String(i + 1).padStart(2, '0')}</span>`
-    + `<h2>${escapa(b.titol)}</h2><p class="desc">${escapa(b.descripcio)}</p>${llista}</section>`;
+    + `<h2>${escapa(b.titol)}</h2>${llista}</section>`;
 }).join('');
 
 })();

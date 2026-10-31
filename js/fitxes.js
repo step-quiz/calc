@@ -1,7 +1,7 @@
 /* ═══════════════════════════════════════════════════════════════════
    fitxes.js — Els blocs i les fitxes (NOMÉS DADES)
    ───────────────────────────────────────────────────────────────────
-   BLOCS: els apartats de la portada, en ordre.
+   BLOCS: els apartats de la portada, en ordre (només id, títol i color: la portada no porta descripcions).
    FITXES: cada fitxa és un guió pas a pas:
      id         nom a l'adreça: fitxa.html?id=<id>
      bloc       clau de BLOCS
@@ -35,61 +35,15 @@ const D = IND.D, R = IND.R;
 const FIX = ind(D, {fix: true});
 
 const BLOCS = Object.freeze([
-  {id: 'examen', titol: 'Abans de l\'examen', color: '#9a5b16',
-    descripcio: 'Deixa la calculadora a punt i comprova-la en deu segons.'},
-  {id: 'exacte', titol: 'Exacte o decimal', color: '#1d4ed8',
-    descripcio: 'El mode «E Mat/S Mat», la tecla FORMAT, la drecera ≈ i què fer si tot surt decimal o arrodonit.'},
-  {id: 'fraccions', titol: 'Fraccions', color: '#b33c3c',
-    descripcio: 'Escriure fraccions, fraccions mixtes, prioritats i signes.'},
-  {id: 'angles', titol: 'Graus o radians', color: '#0f766e',
-    descripcio: 'Saber en quina unitat és la calculadora, canviar-la i fer un sol càlcul en l\'altra unitat.'},
-  {id: 'pau', titol: 'Funcions útils per a la PAU', color: '#7c5cbf',
-    descripcio: 'Taula de valors, f(x), Verificar, variables, Ans, combinacions… per comprovar el que fas a mà.'},
-  {id: 'exercicis', titol: 'Exercicis PAU amb la calculadora', color: '#4338ca',
-    descripcio: 'Exercicis reals de la PAU (2023-2026): on t\'ajuda la calculadora i quins errors cal evitar.'},
+  {id: 'exacte', titol: 'Treballar en mode \'exacte\' o \'decimal\'', color: '#1d4ed8'},
+  {id: 'fraccions', titol: 'Operar amb fraccions i potències', color: '#b33c3c'},
+  {id: 'angles', titol: 'Treballar en mode \'graus\' o \'radiants\'', color: '#0f766e'},
+  {id: 'pau', titol: 'Funcions útils per a la PAU', color: '#7c5cbf'},
+  {id: 'pau-ag', titol: 'Exercicis PAU. Àlgebra i Geometria', color: '#4338ca'},
+  {id: 'pau-ap', titol: 'Exercicis PAU. Anàlisi i Probabilitat', color: '#9a5b16'},
 ]);
 
 const FITXES = Object.freeze([
-
-/* ── ABANS DE L'EXAMEN ──────────────────────────────────────────── */
-{
-  id: 'reinicia', bloc: 'examen', titol: 'Reinicia la calculadora',
-  enunciat: 'Algú ha tocat la configuració (aquí: radians i FIX). Abans d\'un examen, torna-la a l\'estat de fàbrica.',
-  inici: calc(ind(R, {fix: true})),
-  passos: [
-    {tecles: ['settings'], pantalla: config(0),
-      text: 'Prem [[settings]]: s\'obre el menú CONFIG.'},
-    {tecles: ['down', 'down'], pantalla: config(2),
-      text: 'Baixa fins a {{Reiniciar}} amb [[down]].'},
-    {tecles: ['ok'], pantalla: reiniciar(0),
-      text: 'Prem [[ok]]. La primera opció, {{Config y datos}}, torna tots els ajustos a com venien de fàbrica, però deixa l\'idioma i el contrast.'},
-    {tecles: ['ok'], pantalla: missatge(['Config y datos', '¿Reiniciar?'], ['Sí', 'No'], 0),
-      text: 'Prem [[ok]] i la calculadora et demana que ho confirmis.'},
-    {tecles: ['ok'], pantalla: home(0),
-      text: 'Tria {{Sí}} amb [[ok]]. Torna a la pantalla HOME, amb {{Calcular}} triada.'},
-    {tecles: ['ok'], pantalla: marca(calc(D), 'ang'),
-      text: 'Prem [[ok]] per obrir {{Calcular}}. A dalt hi ha √ (mode matemàtic) i D (graus), i ja no hi ha FIX: la calculadora està a punt.'},
-  ],
-  relacionades: ['prova-rapida', 'canvia-radians'],
-},
-{
-  id: 'prova-rapida', bloc: 'examen', titol: 'Comprova-la en deu segons',
-  enunciat: 'Dos càlculs que diuen si la calculadora està ben configurada abans de començar l\'examen.',
-  inici: calc(D),
-  passos: [
-    {tecles: ['1', 'entre', '2'], pantalla: calc(D, '1\\div 2'),
-      text: 'Primera prova: escriu $1\\div 2$.'},
-    {tecles: ['exe'], pantalla: marca(calc(D, '1\\div 2', '\\frac{1}{2}'), 'resultat'),
-      text: 'Prem [[exe]]. Ha de sortir $\\frac{1}{2}$. Si surt 0.5, els resultats sortiran decimals: mira la fitxa «Em surt 0.5 en lloc d\'1/2».'},
-    {tecles: ['sen', '3', '0', 'rpar'], pantalla: calc(D, '\\mathrm{sen}(30)', '', {hist: true}),
-      text: 'Segona prova: escriu $\\mathrm{sen}(30)$ amb [[sen]], el 30 i [[rpar]].'},
-    {tecles: ['exe'], pantalla: marca(calc(D, '\\mathrm{sen}(30)', '\\frac{1}{2}'), 'resultat'),
-      text: 'Prem [[exe]]. En graus ha de sortir $\\frac{1}{2}$. Si surt −0.9880316241, la calculadora és en radians (R).'},
-    {tecles: [], pantalla: marca(calc(D, '\\mathrm{sen}(30)', '\\frac{1}{2}'), 'ang'),
-      text: 'Per acabar, mira la barra de dalt: hi ha d\'haver √ i D, i res més. Si hi veus FIX o SCI, els decimals sortiran arrodonits.'},
-  ],
-  relacionades: ['mode-decimal', 'error-angles', 'fix'],
-},
 
 /* ── EXACTE O DECIMAL ───────────────────────────────────────────── */
 {
@@ -156,7 +110,7 @@ const FITXES = Object.freeze([
     {tecles: ['1', 'entre', '2', 'exe'], pantalla: marca(calc(D, '1\\div 2', '\\frac{1}{2}'), 'resultat'),
       text: 'Torna a calcular $1\\div 2$: ara surt $\\frac{1}{2}$.'},
   ],
-  relacionades: ['exacte-decimal', 'reinicia'],
+  relacionades: ['exacte-decimal'],
 },
 {
   id: 'fix', bloc: 'exacte', titol: 'Tot em surt arrodonit (FIX)',
@@ -180,7 +134,7 @@ const FITXES = Object.freeze([
     {tecles: ['1', 'entre', '6', 'shift', 'exe'], pantalla: marca(calc(D, '1\\div 6', '0.1666666667'), 'resultat'),
       text: 'Torna a demanar el decimal: $0{,}1666666667$. Arrodoneix tu al final, només quan escriguis la resposta.'},
   ],
-  relacionades: ['indicadors', 'reinicia'],
+  relacionades: ['indicadors'],
 },
 
 /* ── GRAUS O RADIANS ────────────────────────────────────────────── */
@@ -259,7 +213,7 @@ const FITXES = Object.freeze([
 
 /* ── EXERCICIS PAU ──────────────────────────────────────────────── */
 {
-  id: 'pau-alg-24j-q2', bloc: 'exercicis', titol: 'Àlgebra · PAU 2024: comprova la solució d\'un sistema',
+  id: 'pau-alg-24j-q2', bloc: 'pau-ag', titol: 'Àlgebra · PAU 2024: comprova la solució d\'un sistema',
   enunciat: 'PAU juny 2024, qüestió 2 a). Per a $k=0$, el sistema és $$\\begin{cases}4x+2y-z=4\\\\ x-y=3\\\\ 3x+3y=1\\end{cases}$$ i has obtingut la solució $$x=\\frac{5}{3},\\qquad y=-\\frac{4}{3},\\qquad z=0.$$ Comprova-la amb la calculadora: substitueix-la a cada equació.',
   inici: calc(D),
   passos: [
@@ -283,7 +237,7 @@ const FITXES = Object.freeze([
 },
 
 {
-  id: 'pau-geo-25s-q4b', bloc: 'exercicis', titol: 'Geometria · PAU 2025: distància d\'un punt a un pla',
+  id: 'pau-geo-25s-q4b', bloc: 'pau-ag', titol: 'Geometria · PAU 2025: distància d\'un punt a un pla',
   enunciat: 'PAU setembre 2025, qüestió 4 B a). Considereu el pla $\\pi: 2x-y+z=5$ i el punt $P=(0,1,3)$. Comproveu que la distància de $P$ a $\\pi$ és $\\frac{\\sqrt{6}}{2}$. $$d(P,\\pi)=\\frac{|2\\cdot 0-1+3-5|}{\\sqrt{2^2+(-1)^2+1^2}}$$',
   inici: calc(D),
   passos: [
@@ -300,7 +254,7 @@ const FITXES = Object.freeze([
   relacionades: ['exacte-decimal', 'mode-decimal'],
 },
 {
-  id: 'pau-ana-24i-q1', bloc: 'exercicis', titol: 'Anàlisi · PAU 2024: Bolzano amb la calculadora',
+  id: 'pau-ana-24i-q1', bloc: 'pau-ap', titol: 'Anàlisi · PAU 2024: Bolzano amb la calculadora',
   enunciat: 'PAU juny 2024 (incidències), qüestió 1 a). Considereu $f(x)=-2+10(x-1)\\ln x$, per a $x>0$. Comproveu que $f$ té una arrel a l\'interval $[1;\\,1{,}5]$ i busqueu un interval d\'una dècima de longitud que també la contingui.',
   inici: calc(D),
   passos: [
@@ -329,7 +283,7 @@ const FITXES = Object.freeze([
   relacionades: ['exacte-decimal'],
 },
 {
-  id: 'pau-pro-24i-q4', bloc: 'exercicis', titol: 'Probabilitat · PAU 2024: probabilitat total, Bayes i binomial',
+  id: 'pau-pro-24i-q4', bloc: 'pau-ap', titol: 'Probabilitat · PAU 2024: probabilitat total, Bayes i binomial',
   enunciat: 'PAU juny 2024 (incidències), qüestió 4. La Rut tira un dau: si surt 1, 2, 3 o 4, resol el problema ella mateixa i l\'encerta el 75 % de les vegades; si surt 5 o 6, el copia d\'Internet i l\'encerta el 40 %. [a]a) Probabilitat que la solució sigui correcta.[/a] [b]b) Probabilitat que l\'hagi resolt ella si és correcta.[/b] [c]c) Probabilitat que, de 5 problemes, almenys 4 siguin correctes.[/c]',
   inici: calc(D),
   passos: [
