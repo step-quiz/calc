@@ -1,8 +1,13 @@
 # Què cal comprovar amb la calculadora
 
 Les fitxes reprodueixen les pantalles de la fx-82SP CW a partir del manual en castellà
-(*Guía del usuario fx-82SP CW / fx-85SP CW*) i de la guia ClassWiz de CASIO. La disposició del
-teclat es va comprovar amb una foto d'una fx-82SP CW Iberia (31/10/2026).
+(*Guía del usuario fx-82SP CW / fx-85SP CW*) i de la guia ClassWiz de CASIO.
+
+**La calculadora dibuixada.** La posició i el diàmetre de cada tecla, la pantalla, la creu del
+cursor i la peça de les tecles de pàgina es van mesurar (31/10/2026) sobre una imatge frontal de la
+fx-82SP CW Iberia, contrastada amb una foto d'una calculadora real i calibrada amb les mides
+oficials de CASIO (162 × 77 mm). Totes les tecles són cercles: 9,6 % de l'amplada les de dalt,
+12,2 % les de baix. Es retalla la franja de dalt del logotip, sense text.
 
 Hi ha detalls que el manual **no dibuixa** i que s'han deduït. Si a la calculadora (o a l'emulador
 de CASIO) es veuen diferents, el que s'ha de corregir és la fitxa: la majoria són a `js/guions.js`.

@@ -8,9 +8,9 @@
      nom:      com es diu, en català (lectors de pantalla i títols),
      tipus:    'num' | 'op' | 'fun' | 'nav' | 'menu' | 'exe' | 'shift'
    }
-   TECLAT: la disposició de les tecles, comprovada amb una foto d'una
-   fx-82SP CW Iberia (31/10/2026): una part de dalt de 6 columnes
-   (5 files) i una part de baix de 5 columnes (4 files).
+   TECLAT: la geometria de la calculadora (posició i diàmetre de cada
+   tecla, la pantalla, la creu del cursor), mesurada sobre imatges de
+   la fx-82SP CW Iberia i calibrada amb les mides oficials.
 
    Exporta «Tecles»: TECLES, TECLAT, html(id, opcions), existeix(id).
    ═══════════════════════════════════════════════════════════════════ */
@@ -97,24 +97,35 @@ const TECLES = Object.freeze({
 });
 
 /**
- * La disposició del teclat. null = forat. A la part de dalt, pgup i pgdn
- * fan una sola peça alta a la columna 6 (files 1 i 2), com a la calculadora,
- * i les fletxes i OK fan una creu al mig.
+ * La geometria de la calculadora, mesurada sobre una imatge frontal de la fx-82SP CW Iberia
+ * (sense perspectiva) i calibrada amb les mides oficials de CASIO (162 × 77 mm). Totes les
+ * mesures són en percentatge de l'AMPLADA del cos (unitat cqw a estil.css): així un cercle
+ * és sempre un cercle. Es retalla la franja de dalt del logotip (24 unitats), sense text.
+ *   tecles: id → [x del centre, y del centre, diàmetre]
  */
+const C6 = [13.5, 28.2, 43.0, 57.7, 72.4, 87.2];      // columnes de dalt (pas 14,7)
+const C5 = [14.1, 32.4, 50.3, 68.3, 86.4];            // columnes de baix (pas 18,0)
+const F = {r1: 56.5, r2: 71.0, r3: 86.3, r4: 99.3, r5: 112.2, b1: 126.3, b2: 141.4, b3: 156.5, b4: 171.6};
+const D = 9.6, DB = 12.2;                              // diàmetres: tecles de dalt i de baix
 const TECLAT = Object.freeze({
-  dalt: Object.freeze([
-    ['on', 'home', null, 'up', null, 'pgup'],
-    ['settings', 'back', 'left', 'ok', 'right', 'pgdn'],
-    ['shift', 'variable', 'funcio', 'down', 'catalog', 'tools'],
-    ['x', 'frac', 'arrel', 'pot', 'x2', 'logab'],
-    ['ans', 'sen', 'cos', 'tan', 'lpar', 'rpar'],
-  ]),
-  baix: Object.freeze([
-    ['7', '8', '9', 'del', 'ac'],
-    ['4', '5', '6', 'per', 'entre'],
-    ['1', '2', '3', 'mes', 'menys'],
-    ['0', 'punt', 'exp', 'format', 'exe'],
-  ]),
+  alcada: 186.4,                                       // l'amplada és 100
+  marc: Object.freeze({x: 6.3, y: 5.3, w: 85.8, h: 40.3}),
+  vidre: Object.freeze({x: 10.4, y: 7.4, w: 79.6, h: 31.5}),
+  creu: Object.freeze([{x: 51.9, y: 52.3, w: 11.1, h: 37.4}, {x: 37.6, y: 65.1, w: 40.6, h: 10.7}]),
+  pagina: Object.freeze({x: 82.5, y: 53.1, w: 9.4, h: 22.2}),   // pgup i pgdn, una peça alta
+  tecles: Object.freeze({
+    on: [C6[0], F.r1, 8.6], home: [C6[1], F.r1, D], up: [C6[3], 56.0, D],
+    settings: [C6[0], F.r2, D], back: [C6[1], F.r2, D], left: [C6[2], 70.4, D], ok: [C6[3], 70.4, D], right: [C6[4], 70.4, D],
+    shift: [C6[0], F.r3, D], variable: [C6[1], F.r3, D], funcio: [C6[2], F.r3, D], down: [C6[3], 84.3, D], catalog: [C6[4], F.r3, D], tools: [C6[5], F.r3, D],
+    x: [C6[0], F.r4, D], frac: [C6[1], F.r4, D], arrel: [C6[2], F.r4, D], pot: [C6[3], F.r4, D], x2: [C6[4], F.r4, D], logab: [C6[5], F.r4, D],
+    ans: [C6[0], F.r5, D], sen: [C6[1], F.r5, D], cos: [C6[2], F.r5, D], tan: [C6[3], F.r5, D], lpar: [C6[4], F.r5, D], rpar: [C6[5], F.r5, D],
+    7: [C5[0], F.b1, DB], 8: [C5[1], F.b1, DB], 9: [C5[2], F.b1, DB], del: [C5[3], F.b1, DB], ac: [C5[4], F.b1, DB],
+    4: [C5[0], F.b2, DB], 5: [C5[1], F.b2, DB], 6: [C5[2], F.b2, DB], per: [C5[3], F.b2, DB], entre: [C5[4], F.b2, DB],
+    1: [C5[0], F.b3, DB], 2: [C5[1], F.b3, DB], 3: [C5[2], F.b3, DB], mes: [C5[3], F.b3, DB], menys: [C5[4], F.b3, DB],
+    0: [C5[0], F.b4, DB], punt: [C5[1], F.b4, DB], exp: [C5[2], F.b4, DB], format: [C5[3], F.b4, DB], exe: [C5[4], F.b4, DB],
+  }),
+  /** Les tecles que van dins de la peça de pàgina (no tenen centre propi). */
+  aLaPagina: Object.freeze(['pgup', 'pgdn']),
 });
 
 const existeix = id => Object.prototype.hasOwnProperty.call(TECLES, id);

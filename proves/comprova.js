@@ -104,7 +104,6 @@ for (const f of Dades.FITXES) {
   ok(idsBlocs.has(f.bloc), on, `bloc desconegut (${f.bloc})`);
   ok(f.titol, on, 'falta el títol');
   comprovaText(f.enunciat, on + ' · enunciat');
-  comprovaText(f.recorda, on + ' · recorda');
   comprovaPantalla(f.inici, on + ' · inici');
   ok(Array.isArray(f.passos) && f.passos.length >= 2, on, 'calen almenys dos passos');
   f.passos.forEach((p, i) => {
@@ -125,14 +124,20 @@ for (const f of Dades.FITXES) {
   }
 }
 
-/* El teclat: cada tecla del catàleg hi és exactament una vegada; 6 columnes a dalt i 5 a baix */
-const alTeclat = [...Tecles.TECLAT.dalt.flat(), ...Tecles.TECLAT.baix.flat()].filter(Boolean);
+/* La calculadora: cada tecla del catàleg té posició (o és a la peça de pàgina), i cap no en trepitja cap altra */
+const T = Tecles.TECLAT;
 for (const id of Object.keys(Tecles.TECLES)) {
-  ok(alTeclat.filter(t => t === id).length === 1, `tecla ${id}`, 'ha de sortir una vegada (i només una) al teclat');
+  const n = (T.tecles[id] ? 1 : 0) + (T.aLaPagina.includes(id) ? 1 : 0);
+  ok(n === 1, `tecla ${id}`, 'ha de tenir posició al teclat (o ser a la peça de pàgina), i només una');
 }
-for (const id of alTeclat) ok(Tecles.existeix(id), 'TECLAT', `tecla desconeguda (${id})`);
-Tecles.TECLAT.dalt.forEach((f, i) => ok(f.length === 6, 'TECLAT', `la fila ${i + 1} de dalt ha de tenir 6 columnes`));
-Tecles.TECLAT.baix.forEach((f, i) => ok(f.length === 5, 'TECLAT', `la fila ${i + 1} de baix ha de tenir 5 columnes`));
+for (const id of [...Object.keys(T.tecles), ...T.aLaPagina]) ok(Tecles.existeix(id), 'TECLAT', `tecla desconeguda (${id})`);
+const posicions = Object.entries(T.tecles);
+for (const [id, [x, y, d]] of posicions) {
+  ok(x - d / 2 > 0 && x + d / 2 < 100 && y - d / 2 > T.vidre.y + T.vidre.h && y + d / 2 < T.alcada, `tecla ${id}`, 'surt de la calculadora o toca la pantalla');
+  for (const [id2, [x2, y2, d2]] of posicions) {
+    if (id < id2) ok(Math.hypot(x - x2, y - y2) >= (d + d2) / 2, `tecles ${id} i ${id2}`, 'es trepitgen');
+  }
+}
 
 /* Totes les tecles del catàleg es poden dibuixar */
 for (const id of Object.keys(Tecles.TECLES)) ok(Tecles.html(id).includes('class="tecla'), `tecla ${id}`, 'no es dibuixa');

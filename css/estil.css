@@ -108,151 +108,122 @@ a{color:inherit}
 .tecla.petita .icona-tecla{width:1.15em; height:1.15em}
 .tecla.petita.t-format{font-size:.66em; height:1.8em; vertical-align:-.36em}
 
-/* ── LA CALCULADORA: PANTALLA I TECLAT ─────────────────────────────── */
-/* Un esquema de la fx-82SP CW: la disposició de les tecles és la real (tecles.js), el dibuix és propi.
-   Tot es mesura en cqw (centèsimes de l'amplada de la calculadora): l'amplada surt de l'alçada de la
-   finestra, perquè la calculadora sencera hi càpiga (la calculadora fa ≈ 1,7 vegades l'amplada d'alt). */
+/* ── LA CALCULADORA ────────────────────────────────────────────────── */
+/* Un esquema de la fx-82SP CW amb la geometria real (tecles.js, TECLAT): tot es col·loca en cqw, és a dir,
+   en percentatge de l'AMPLADA de la calculadora, i la proporció és fixa (aspect-ratio). Així les tecles són
+   cercles perfectes a qualsevol mida. L'amplada surt de l'alçada de la finestra (vegeu DISPOSICIÓ). */
 .calculadora{
-  container-type:inline-size;
-  width:min(100%, 400px); margin:0 auto;
-  background:#262a31; border-radius:22px; padding:16px 14px 18px;
-  box-shadow:0 8px 22px rgba(15,23,42,.25);
+  position:relative; container-type:inline-size; flex-shrink:0;
+  width:min(100%, 340px);
+  /* Les cantonades: radi = 8 % de l'amplada (en un element contenidor, cqw no es refereix a ell mateix) */
+  background:#25292f; border-radius:8% 8% 9% 9% / 4.3% 4.3% 4.8% 4.8%;
+  box-shadow:0 10px 26px rgba(15,23,42,.28), inset 0 0 0 2px #1b1e23;
 }
-.marc-lcd{background:#14171b; border-radius:2.6cqw; padding:2.4cqw}
+.marc{position:absolute; background:#15181c; border-radius:3cqw}
+.creu{position:absolute; background:#17191d; border-radius:2.6cqw}
 .lcd{
-  position:relative; aspect-ratio:2.75;
-  background:var(--lcd-fons); border-radius:1.2cqw; overflow:hidden;
-  box-shadow:inset 0 .5cqw 1.5cqw rgba(0,0,0,.3); color:var(--lcd-tinta);
+  position:absolute; container-type:inline-size; overflow:hidden;
+  background:var(--lcd-fons); border-radius:1.2cqw; color:var(--lcd-tinta);
+  box-shadow:inset 0 .4cqw 1.2cqw rgba(0,0,0,.3);
 }
+/* Dins de la pantalla, cqw és el percentatge de l'amplada de la pantalla */
 .lcd-pantalla{position:absolute; inset:0}
-.lcd-dins{position:absolute; inset:0; padding:1cqw 3cqw 1.6cqw}
+.lcd-dins{position:absolute; inset:0; padding:1.2cqw 3.4cqw 1.8cqw}
 .lcd .katex{font-size:1em; color:var(--lcd-tinta)}
-.marcat{border-radius:1cqw; background:var(--marca); box-shadow:0 0 0 .7cqw var(--marca-vora); animation:pampallugueja 1.3s ease-in-out 2}
-@keyframes pampallugueja{50%{box-shadow:0 0 0 1.4cqw var(--marca)}}
+.marcat{border-radius:1.1cqw; background:var(--marca); box-shadow:0 0 0 .8cqw var(--marca-vora); animation:pampallugueja 1.3s ease-in-out 2}
+@keyframes pampallugueja{50%{box-shadow:0 0 0 1.6cqw var(--marca)}}
 @media (prefers-reduced-motion: reduce){ .marcat{animation:none} }
 
 /* Barra d'indicadors */
-.lcd-barra{height:5cqw; display:flex; align-items:center; justify-content:space-between; font:700 3cqw/1 var(--mono)}
-.lcd-ind{display:flex; align-items:center; gap:1.8cqw; padding-left:14%}
-.ind{display:inline-flex; align-items:center; height:3.8cqw; padding:0 .4cqw}
-.ind-mat{width:6cqw; height:3.3cqw}
-.ind-inv{background:var(--lcd-tinta); color:var(--lcd-fons); padding:0 .9cqw; border-radius:.4cqw}
-.ind-text{font-size:2.6cqw; letter-spacing:.04em}
-.ind-hist{font-size:2.8cqw; margin-right:15%}
-.lcd-barra .ind-inv.marcat{background:var(--lcd-tinta); box-shadow:0 0 0 .7cqw var(--marca-vora), 0 0 0 1.6cqw var(--marca)}
+.lcd-barra{height:5.8cqw; display:flex; align-items:center; justify-content:space-between; font:700 3.4cqw/1 var(--mono)}
+.lcd-ind{display:flex; align-items:center; gap:2cqw; padding-left:14%}
+.ind{display:inline-flex; align-items:center; height:4.4cqw; padding:0 .5cqw}
+.ind-mat{width:6.9cqw; height:3.8cqw}
+.ind-inv{background:var(--lcd-tinta); color:var(--lcd-fons); padding:0 1cqw; border-radius:.5cqw}
+.ind-text{font-size:3cqw; letter-spacing:.04em}
+.ind-hist{font-size:3.2cqw; margin-right:15%}
+.lcd-barra .ind-inv.marcat{background:var(--lcd-tinta); box-shadow:0 0 0 .8cqw var(--marca-vora), 0 0 0 1.8cqw var(--marca)}
 
 /* Càlcul: l'entrada a dalt a l'esquerra, el resultat a baix a la dreta */
-.lcd-entrada{font-size:6.3cqw; line-height:1.25; min-height:1.2em; display:inline-block; max-width:100%; padding:0 .6cqw; margin-left:-.6cqw}
-.lcd-resultat{position:absolute; right:3cqw; bottom:1.6cqw; font-size:7cqw; line-height:1.2; padding:0 .8cqw}
+.lcd-entrada{font-size:7.4cqw; line-height:1.25; min-height:1.2em; display:inline-block; max-width:100%; padding:0 .7cqw; margin-left:-.7cqw}
+.lcd-resultat{position:absolute; right:3.4cqw; bottom:2cqw; font-size:8.2cqw; line-height:1.2; padding:0 .9cqw}
 .lcd-resultat:empty, .lcd-entrada:empty{padding:0}
-.lcd-linia{font:600 5.6cqw/1.2 var(--mono)}
-.lcd-cursor{display:inline-block; width:.6cqw; height:1.05em; margin-left:.4cqw; vertical-align:-.15em; background:var(--lcd-tinta); animation:parpelleja 1s steps(1) infinite}
+.lcd-linia{font:600 6.4cqw/1.2 var(--mono)}
+.lcd-cursor{display:inline-block; width:.7cqw; height:1.05em; margin-left:.5cqw; vertical-align:-.15em; background:var(--lcd-tinta); animation:parpelleja 1s steps(1) infinite}
 @keyframes parpelleja{50%{opacity:0}}
 
 /* Menús: 4 files; la triada, en negatiu */
-.lcd-menu{position:absolute; inset:1.4cqw 6cqw 1.4cqw 2.2cqw; display:grid; grid-template-rows:repeat(4, 1fr)}
-.lcd-fila{display:flex; align-items:center; gap:.45em; padding:0 .4em; font:600 5.3cqw/1 var(--mono); border-radius:.4cqw; white-space:nowrap}
+.lcd-menu{position:absolute; inset:1.6cqw 7cqw 1.6cqw 2.5cqw; display:grid; grid-template-rows:repeat(4, 1fr)}
+.lcd-fila{display:flex; align-items:center; gap:.45em; padding:0 .4em; font:600 6.2cqw/1 var(--mono); border-radius:.5cqw; white-space:nowrap}
 .lcd-fila .t{flex:1; overflow:hidden; text-overflow:ellipsis}
 .lcd-fila .sub{font-size:.62em}
 .lcd-fila .radio{font-size:.9em}
 .lcd-fila.sel{background:var(--lcd-tinta); color:var(--lcd-fons)}
-.lcd-fila.marcat{box-shadow:0 0 0 .7cqw var(--marca-vora)}
-.lcd-scroll{position:absolute; right:2.2cqw; top:2cqw; bottom:2cqw; width:1.7cqw; border:.35cqw solid var(--lcd-tinta); border-radius:.4cqw}
+.lcd-fila.marcat{box-shadow:0 0 0 .8cqw var(--marca-vora)}
+.lcd-scroll{position:absolute; right:2.5cqw; top:2.3cqw; bottom:2.3cqw; width:2cqw; border:.4cqw solid var(--lcd-tinta); border-radius:.5cqw}
 .lcd-scroll span{position:absolute; left:0; right:0; background:var(--lcd-tinta)}
 
 /* HOME */
-.lcd-home{position:absolute; inset:2cqw 3.5cqw; display:grid; grid-template-columns:repeat(3, 1fr); grid-template-rows:1fr 1fr; gap:1.2cqw}
-.app{display:flex; flex-direction:column; align-items:center; justify-content:center; gap:.6cqw; border-radius:.6cqw; font:600 3.6cqw/1.1 var(--mono)}
-.app .i{font-size:3.9cqw; line-height:1; text-align:center}
+.lcd-home{position:absolute; inset:2.3cqw 4cqw; display:grid; grid-template-columns:repeat(3, 1fr); grid-template-rows:1fr 1fr; gap:1.4cqw}
+.app{display:flex; flex-direction:column; align-items:center; justify-content:center; gap:.7cqw; border-radius:.7cqw; font:600 4.1cqw/1.1 var(--mono)}
+.app .i{font-size:4.5cqw; line-height:1; text-align:center}
 .app.sel{background:var(--lcd-tinta); color:var(--lcd-fons)}
 
 /* Missatge */
-.lcd-missatge{position:absolute; inset:0; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:1.2cqw; font:600 5.2cqw/1.2 var(--mono)}
-.lcd-missatge .opcions{display:flex; gap:6cqw; margin-top:1.5cqw}
-.lcd-missatge .opcio{padding:.4cqw 2.6cqw; border:.45cqw solid var(--lcd-tinta); border-radius:.6cqw}
+.lcd-missatge{position:absolute; inset:0; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:1.4cqw; font:600 6cqw/1.2 var(--mono)}
+.lcd-missatge .opcions{display:flex; gap:7cqw; margin-top:1.7cqw}
+.lcd-missatge .opcio{padding:.5cqw 3cqw; border:.5cqw solid var(--lcd-tinta); border-radius:.7cqw}
 .lcd-missatge .opcio.sel{background:var(--lcd-tinta); color:var(--lcd-fons)}
 
-/* El teclat: 6 columnes a dalt, 5 a baix (tecles.js, TECLAT) */
-.teclat{margin-top:4cqw; --blau:#4f8ff7}
-.teclat-dalt{display:grid; grid-template-columns:repeat(6, 1fr); grid-auto-rows:12.2cqw}
-.teclat-baix{display:grid; grid-template-columns:repeat(5, 1fr); grid-auto-rows:13.6cqw; margin-top:1.6cqw}
-.cel{position:relative; display:flex; align-items:flex-end; justify-content:center; padding-bottom:.8cqw}
-.teclat .tecla{
-  width:10.8cqw; min-width:0; height:8cqw; padding:0; border:0; border-radius:50% / 48%;
-  background:#e4e7eb; color:#111827; box-shadow:0 .7cqw 0 #8f97a3;
-  font:700 3.5cqw/1 var(--lletra);
+/* Les tecles: cercles de diàmetre --d, centrats a (left, top) */
+.cel{position:absolute; width:var(--d); height:var(--d); transform:translate(-50%, -50%)}
+.calculadora .tecla{
+  width:100%; height:100%; min-width:0; padding:0; border:0; border-radius:50%;
+  background:#e2e5e9; color:#111827; box-shadow:0 .6cqw 0 #8b929c;
+  font:700 3.3cqw/1 var(--lletra);
 }
-.teclat .icona-tecla{width:5cqw; height:5cqw}
-.teclat .tecla-menu, .teclat .tecla-nav{background:#15181d; color:#e5e7eb; box-shadow:0 .7cqw 0 #000; font-family:var(--mono)}
-.teclat .tecla-shift{background:#2563eb; color:#fff; box-shadow:0 .7cqw 0 #1e3a8a}
-.teclat .tecla-exe{background:#e4e7eb; color:#111827; box-shadow:0 .7cqw 0 #8f97a3}
-.teclat .t-ok{font-size:3.6cqw}
-.teclat .t-logab{font-size:3cqw}
-.teclat .t-funcio{font-size:3.6cqw}
-.teclat-baix .tecla{width:14.6cqw; height:10.4cqw; font-size:5.6cqw; font-family:var(--mono); font-weight:600}
-.teclat-baix .icona-tecla{width:6.4cqw; height:6.4cqw}
-.teclat-baix .t-format{font-size:3.1cqw; letter-spacing:0}
-.teclat-baix .t-exe, .teclat-baix .t-ac{font-size:4.6cqw}
-.teclat-baix .t-exp{font-size:3.9cqw}
+.calculadora .icona-tecla{width:52%; height:52%}
+.calculadora .tecla-menu, .calculadora .tecla-nav{background:#14171b; color:#e5e7eb; box-shadow:0 .6cqw 0 #000, inset 0 0 0 .35cqw #2c3037; font-family:var(--mono)}
+.calculadora .tecla-shift{background:#2563eb; color:#fff; box-shadow:0 .6cqw 0 #1e3a8a}
+.calculadora .tecla-exe{background:#e2e5e9; color:#111827; box-shadow:0 .6cqw 0 #8b929c}
+.calculadora .t-ok{font-size:3.4cqw}
+.calculadora .t-logab{font-size:2.8cqw}
+.calculadora .t-funcio{font-size:3.4cqw}
+.calculadora .t-x{font-size:4.2cqw}
+/* Les tecles de baix, més grans */
+.calculadora .tecla-num, .calculadora .tecla-op, .calculadora .t-exe{font:600 5.4cqw/1 var(--mono)}
+.calculadora .t-format{font-size:2.6cqw; letter-spacing:0}
+.calculadora .t-exe, .calculadora .t-ac{font-size:4.3cqw}
+.calculadora .t-exp{font-size:3.5cqw}
+.calculadora .t-del .icona-tecla{width:46%; height:46%}
 /* Tecles de pàgina: una peça alta, partida */
-.pagina{flex-direction:column; justify-content:center; gap:.5cqw; padding:1.2cqw 0}
-.pagina .tecla{height:9.6cqw; width:10.4cqw}
-.pagina .t-pgup{border-radius:5cqw 5cqw 1.2cqw 1.2cqw}
-.pagina .t-pgdn{border-radius:1.2cqw 1.2cqw 5cqw 5cqw}
+.pagina{position:absolute; display:flex; flex-direction:column; gap:.5cqw}
+.pagina .tecla{flex:1; width:100%; height:auto}
+.pagina .t-pgup{border-radius:4.7cqw 4.7cqw 1.2cqw 1.2cqw}
+.pagina .t-pgdn{border-radius:1.2cqw 1.2cqw 4.7cqw 4.7cqw}
+.pagina .icona-tecla{width:60%; height:auto}
 /* Rètol (ON, HOME, CONFIG…) i funció amb SHIFT (en blau, a dalt a l'esquerra), com a la calculadora */
-.teclat .rotul{position:absolute; left:50%; bottom:calc(100% + .5cqw); transform:translateX(-50%); font:700 2.3cqw/1 var(--mono); color:#d1d5db; white-space:nowrap; letter-spacing:.02em}
-.teclat .t-shift .rotul{color:var(--blau)}
-.teclat .alt{
-  position:absolute; left:-1.2cqw; right:auto; bottom:calc(100% + .3cqw); transform:none;
-  font:700 2.5cqw/1 var(--mono); color:var(--blau); background:none; padding:0 .3cqw; border-radius:.5cqw; white-space:nowrap;
+.calculadora .rotul{position:absolute; left:50%; bottom:calc(100% + .7cqw); transform:translateX(-50%); font:700 2.4cqw/1 var(--mono); color:#d1d5db; white-space:nowrap}
+.calculadora .t-shift .rotul{color:#6aa1ff}
+.calculadora .alt{
+  position:absolute; left:-1.4cqw; bottom:calc(100% + .1cqw); transform:none;
+  font:700 2.6cqw/1 var(--mono); color:#6aa1ff; background:none; padding:0 .3cqw; border-radius:.5cqw; white-space:nowrap;
 }
-.teclat .alt sup{font-size:.7em}
-.teclat .alt .mixta{font-size:.8em}
+.calculadora .alt sup{font-size:.7em}
+.calculadora .alt .mixta{font-size:.8em}
 /* Després de SHIFT, les funcions blaves es ressalten */
-.teclat.shift-actiu .alt{background:#2563eb; color:#fff}
-/* Les tecles del pas, amb l'ordre en què es premen */
-.teclat .tecla.del-pas{outline:.7cqw solid var(--marca-vora); outline-offset:.5cqw}
-.teclat .tecla.del-pas::after{
-  content:attr(data-ordre); position:absolute; right:-2.4cqw; top:-2.4cqw; z-index:2;
-  min-width:4cqw; padding:.5cqw 1cqw; border-radius:999px; background:#ca8a04; color:#fff;
-  font:700 2.6cqw/1 var(--mono); text-align:center; box-shadow:0 0 0 .4cqw #262a31;
+.calculadora.shift-actiu .alt{background:#2563eb; color:#fff}
+/* Les tecles del pas (i, si n'hi ha més d'una, l'ordre en què es premen) */
+.calculadora .tecla.del-pas{outline:.8cqw solid var(--marca-vora); outline-offset:.6cqw}
+.calculadora .tecla.del-pas[data-ordre]::after{
+  content:attr(data-ordre); position:absolute; right:-3cqw; bottom:-2.4cqw; z-index:2;   /* a baix a la dreta: no tapa els rètols */
+  min-width:4.4cqw; padding:.6cqw 1.1cqw; border-radius:999px; background:#ca8a04; color:#fff;
+  font:700 2.8cqw/1 var(--mono); text-align:center; box-shadow:0 0 0 .45cqw #25292f;
 }
-.teclat .tecla.premuda{transform:translateY(.7cqw); box-shadow:0 0 0 transparent; background:#fde68a; color:#111827}
-.teclat .tecla-menu.premuda, .teclat .tecla-nav.premuda, .teclat .tecla-shift.premuda{background:#ca8a04; color:#fff}
+.calculadora .tecla.premuda{transform:translateY(.6cqw); box-shadow:0 0 0 transparent; background:#fde68a; color:#111827}
+.calculadora .tecla-menu.premuda, .calculadora .tecla-nav.premuda, .calculadora .tecla-shift.premuda{background:#ca8a04; color:#fff}
 
-/* ── L'ESCENARI I LA LLISTA DE PASSOS ──────────────────────────────── */
-.escenari{
-  position:relative;
-  background-color:var(--surface);
-  background-image:radial-gradient(var(--graella) 1.1px, transparent 1.3px);
-  background-size:22px 22px; background-position:11px 11px;
-  border:1px solid var(--border); border-radius:12px; padding:10px;
-}
-.costat{display:flex; flex-direction:column; gap:10px; min-width:0}
-.titol-tira{margin:0; font-family:var(--mono); font-size:11px; letter-spacing:.1em; text-transform:uppercase; color:var(--muted)}
-.tira{display:flex; flex-direction:column; gap:3px}
-.grup{
-  display:flex; align-items:center; gap:10px; width:100%; text-align:left;
-  padding:5px 10px; min-height:40px; border:1.5px solid transparent; border-radius:10px; background:transparent; cursor:pointer;
-  transition:background-color .2s, border-color .2s, opacity .2s;
-}
-.grup .num{min-width:1.4em; font:600 12px/1 var(--mono); color:var(--muted); text-align:right}
-.grup .tecles{display:flex; flex-wrap:wrap; gap:5px; align-items:center}
-.grup .tecla{min-width:32px; height:28px; padding:0 6px; font-size:12.5px; border-radius:7px; box-shadow:0 2px 0 var(--tecla-vora)}
-.grup .tecla-exe{box-shadow:0 2px 0 #0f172a}
-.grup .tecla-shift{background:#2563eb; border-color:#1e3a8a; box-shadow:0 2px 0 #1e3a8a; color:#fff}
-.grup .tecla-nav{min-width:28px}
-.grup .icona-tecla{width:16px; height:16px}
-.grup .t-format{font-size:10px}
-.grup .tecla .alt{left:auto; right:-7px; bottom:auto; top:-8px; transform:none; font-size:9.5px; background:#2563eb; color:#fff; padding:1px 3px; z-index:1}
-.grup .tecla.amb-shift .cara{opacity:.5}
-.grup .tecla.premuda{transform:translateY(2px); box-shadow:none; background:#fde68a}
-.nomes-mira{font-style:italic; font-size:13px; color:var(--muted)}
-.grup.fet{opacity:.5}
-.grup.actual{background:var(--cat-fons); border-color:var(--cat); opacity:1}
-.grup.actual .num{color:var(--cat)}
-@media (hover:hover){ .grup:hover{border-color:var(--border); opacity:1} .grup.actual:hover{border-color:var(--cat)} }
-
+.escenari{position:relative; display:flex; justify-content:center; align-items:flex-start}
 .efectes{position:absolute; inset:0; pointer-events:none}
 .ona{position:absolute; width:34px; height:34px; margin:-17px 0 0 -17px; border-radius:50%; border:2px solid #ca8a04}
 .cursor{
@@ -263,10 +234,10 @@ a{color:inherit}
 .cursor svg{display:block; width:100%; height:100%}
 .cursor.visible{opacity:1}
 
-/* ── COLUMNA DE L'EXPLICACIÓ ───────────────────────────────────────── */
-.enunciat{margin:0; padding:10px 14px; border:1.5px solid var(--border); border-radius:10px; background:var(--surface)}
-.enunciat.en-espera{visibility:hidden}
-.controls{display:flex; flex-direction:column; gap:12px}
+/* ── LA COLUMNA DE L'ESQUERRA: ENUNCIAT, REPRODUCTOR I PASSOS ─────── */
+.nomes-lectors{position:absolute; width:1px; height:1px; overflow:hidden; clip:rect(0 0 0 0); white-space:nowrap}
+.columna{display:flex; flex-direction:column; gap:12px; min-width:0}
+.enunciat{margin:0; padding:12px 16px; border:1.5px solid var(--border); border-radius:12px; background:var(--surface); font-size:16.5px; line-height:1.55}
 .reproductor{display:flex; flex-wrap:wrap; align-items:center; gap:8px 14px}
 .botons{display:flex; gap:6px}
 .boto{
@@ -280,92 +251,94 @@ a{color:inherit}
 .boto svg{width:17px; height:17px; fill:currentColor}
 .velocitat{display:flex; align-items:center; gap:6px; margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted)}
 .velocitat select{font:inherit; color:var(--txt); background:var(--surface); border:1px solid var(--border); border-radius:6px; padding:4px 6px}
-.punts{display:flex; flex-wrap:wrap; flex-basis:100%}
-.punt{width:20px; height:22px; padding:0; border:0; background:none; cursor:pointer; display:grid; place-items:center}
-.punt::before{content:''; width:12px; height:12px; border-radius:50%; border:1.5px solid var(--border)}
-.punt.fet::before{background:var(--border)}
-.punt.actual::before{background:var(--cat); border-color:var(--cat)}
-@media (hover:hover){ .punt:hover::before{border-color:#000; background:color-mix(in srgb, var(--cat) 30%, #fff)} }
 
-.explicacio{
-  margin:0; padding:10px 14px; min-height:calc(4 * 1.55em + 20px);
-  background:#fff; border:1.5px solid var(--txt); border-radius:10px; font-size:16px;
+/* La llista de passos: el pas actual es desplega amb la seva frase */
+.passos{list-style:none; margin:0; padding:2px; display:flex; flex-direction:column; gap:3px; min-height:0}
+.pas{border:1.5px solid transparent; border-radius:12px; transition:background-color .2s, border-color .2s, opacity .2s}
+.pas .cap{
+  display:flex; align-items:center; gap:12px; width:100%; text-align:left;
+  padding:5px 10px; min-height:40px; border:0; border-radius:10px; background:transparent; cursor:pointer;
 }
-.explicacio.inici{border-color:var(--cat)}
-.num-pas{font-family:var(--mono); font-size:12.5px; color:var(--muted); font-variant-numeric:tabular-nums}
-.num-pas::after{content:' · '}
+.pas .num{min-width:1.3em; font:600 12.5px/1 var(--mono); color:var(--muted); text-align:right}
+.pas .tecles{display:flex; flex-wrap:wrap; gap:5px; align-items:center}
+.pas .tecla{min-width:32px; height:28px; padding:0 6px; font-size:12.5px; border-radius:7px; box-shadow:0 2px 0 var(--tecla-vora)}
+.pas .tecla-exe{box-shadow:0 2px 0 #0f172a}
+.pas .tecla-shift{box-shadow:0 2px 0 #1e3a8a}
+.pas .tecla-nav{min-width:28px}
+.pas .icona-tecla{width:16px; height:16px}
+.pas .t-format{font-size:10px}
+.pas .tecla .alt{left:auto; right:-7px; bottom:auto; top:-8px; transform:none; font-size:9.5px; background:var(--shift); color:#fff; padding:1px 3px; z-index:1}
+.pas .tecla.amb-shift .cara{opacity:.5}
+.pas .tecla.premuda{transform:translateY(2px); box-shadow:none; background:#fde68a}
+.nomes-mira{font-style:italic; font-size:13px; color:var(--muted)}
+.pas .frase{display:none; margin:0; padding:2px 14px 12px 44px; font-size:16.5px; line-height:1.6}
+.pas.actual{background:var(--surface); border-color:var(--cat); box-shadow:0 2px 8px rgba(15,23,42,.07)}
+.pas.actual .frase{display:block}
+.pas.actual .num{color:var(--cat)}
+.pas.fet{opacity:.45}
+.pas.zero{display:none}
+.pas.zero.actual{display:block}
+.pas.zero .frase{padding:10px 14px}
+.icona-inline{width:1em; height:1em; vertical-align:-.12em; fill:currentColor}
+@media (hover:hover){ .pas:not(.actual):hover{border-color:var(--border); opacity:1} }
 
-.targeta{background:color-mix(in srgb, var(--cat) 9%, #fff); border:1px solid color-mix(in srgb, var(--cat) 35%, #fff); border-radius:12px; padding:10px 16px; font-size:14px}
-.targeta > summary{list-style:none; cursor:pointer; display:flex; align-items:center; justify-content:space-between; gap:10px}
-.targeta > summary::-webkit-details-marker{display:none}
-.targeta > summary::after{content:''; width:8px; height:8px; border-right:2px solid var(--muted); border-bottom:2px solid var(--muted); transform:rotate(45deg); margin:-4px 4px 0 0; transition:transform .15s}
-.targeta[open] > summary::after{transform:rotate(-135deg); margin-top:4px}
-.targeta h2{margin:0; font-size:13px; font-family:var(--mono); letter-spacing:.06em; text-transform:uppercase; color:var(--cat)}
-.targeta p{margin:8px 0 2px; line-height:1.65}
-
-.altres{display:flex; flex-wrap:wrap; gap:10px 28px}
-.titol-altres{margin:0 0 6px; font-family:var(--mono); font-size:11px; letter-spacing:.06em; text-transform:uppercase; color:var(--muted)}
+/* Les altres fitxes del bloc, plegades */
+.altres{border-top:1px solid var(--border); padding-top:8px}
+.altres > summary{cursor:pointer; font-family:var(--mono); font-size:12px; letter-spacing:.04em; color:var(--muted); padding:4px 0; list-style-position:inside}
+.altres > summary:hover{color:var(--cat)}
+.altres[open] > summary{margin-bottom:8px}
+.titol-altres{margin:10px 0 6px; font-family:var(--mono); font-size:11px; letter-spacing:.06em; text-transform:uppercase; color:var(--muted)}
 .pastilles{display:flex; flex-wrap:wrap; gap:6px}
 .pastilla{
-  font-size:13px; text-decoration:none; padding:5px 11px; border-radius:999px;
+  font-size:13.5px; text-decoration:none; padding:5px 11px; border-radius:999px;
   border:1px solid var(--border); background:var(--surface); transition:border-color .15s, background-color .15s;
 }
 .pastilla:hover{border-color:var(--cat)}
 .pastilla.actual{border-color:var(--cat); background:var(--cat-fons); font-weight:700}
 
 /* ── DISPOSICIÓ DE LA FITXA ────────────────────────────────────────── */
-.contingut{
-  flex:1; width:100%; max-width:960px; margin:0 auto; padding:16px;
-  display:flex; flex-direction:column; gap:14px;
-}
-/* Una columna (pantalles estretes): enunciat, calculadora, controls, passos, per recordar */
-.lateral{display:contents}
-.lateral > .enunciat{order:1}
-.contingut > .escenari{order:2}
-.lateral > .controls{order:3}
-.contingut > .costat{order:4}
-.lateral > .recorda{order:5}
+/* Una columna (pantalles estretes): enunciat, reproductor, calculadora, passos, altres fitxes */
+.contingut{flex:1; width:100%; max-width:640px; margin:0 auto; padding:14px; display:flex; flex-direction:column; gap:14px}
+.columna{display:contents}
+.enunciat{order:1}
+.reproductor{order:2}
+.contingut > .escenari{order:3}
+.passos{order:4}
+.altres{order:5}
 
-/* Portàtils: explicació i reproductor | calculadora | passos i altres fitxes */
+/* Portàtils: a l'esquerra, tot el que es llegeix; a la dreta, només la calculadora (David, 31/10/2026).
+   Les dues columnes fan l'alçada de la finestra menys la capçalera i el peu (--alt): la llista de passos
+   es desplaça per dins si no hi cap, i l'amplada de la calculadora surt de la seva alçada. */
 @media (min-width:1000px){
+  :root{--alt:calc(100vh - 102px); --alt:calc(100dvh - 102px)}   /* capçalera + peu + marges */
   .contingut{
-    max-width:1500px; display:grid; align-items:start; column-gap:18px; padding:10px 18px;
-    grid-template-columns:clamp(320px, 28vw, 420px) auto minmax(0, 1fr);
+    max-width:none; display:grid; grid-template-columns:minmax(400px, 600px) auto;
+    justify-content:center; align-items:start; column-gap:44px; padding:10px 24px;
   }
-  .lateral{display:flex; flex-direction:column; gap:12px; grid-column:1; grid-row:1; min-width:0}
-  .lateral > *{order:0}
-  .controls{display:contents}
-  .explicacio{order:-1}
-  .contingut > .escenari{grid-column:2; grid-row:1; order:0}
-  .contingut > .costat{grid-column:3; grid-row:1; order:0}
-  /* La calculadora sencera ha de cabre a l'alçada de la finestra (capçalera, marges i peu fora) */
-  .calculadora{width:min(440px, calc((100vh - 104px) / 1.72)); width:min(440px, calc((100dvh - 104px) / 1.72))}
+  .columna{display:flex; height:var(--alt)}
+  .columna > *{order:0}
+  .passos{flex:1; overflow-y:auto; overscroll-behavior:contain}
+  .contingut > .escenari{order:0; height:var(--alt)}
+  .calculadora{width:min(470px, calc(var(--alt) / 1.864))}
 }
-/* Pantalles baixes (1366×768 o 1280×720 amb la barra del navegador): tot una mica més compacte */
+/* Pantalles baixes (Chromebook): una mica més compacte */
 @media (min-width:1000px) and (max-height:700px){
-  .capcalera{padding-block:5px}
-  .explicacio{font-size:15.5px}
-  .targeta{font-size:13.5px; padding-block:8px}
-  .targeta p{line-height:1.55}
-  .enunciat{padding-block:8px}
-  .peu{padding-block:6px}
-  .calculadora{padding:12px 11px 13px; border-radius:18px}
-  .grup{min-height:36px; padding-block:3px}
+  :root{--alt:calc(100vh - 84px); --alt:calc(100dvh - 84px)}
+  .capcalera{padding-block:4px}
+  .peu{padding-block:5px}
+  .contingut{padding-block:8px}
+  .columna{gap:10px}
+  .enunciat{padding-block:9px; font-size:16px}
+  .pas .frase{font-size:16px}
+  .pas .cap{min-height:36px; padding-block:3px}
 }
 /* Pantalles tàctils (Chromebook): botons més grans */
 @media (any-pointer:coarse){
   .boto{width:46px; height:46px}
   .boto.principal{width:52px; height:52px}
-  .punt{width:26px; height:30px}
-  .punt::before{width:14px; height:14px}
   .pastilla{padding:8px 13px}
   .velocitat select{padding:8px}
-  .grup{min-height:44px}
-}
-/* Mòbil: el mínim perquè es pugui fer servir */
-@media (max-width:560px){
-  .contingut{padding:10px}
-  .calculadora{padding:10px 9px 12px; border-radius:16px}
+  .pas .cap{min-height:44px}
 }
 
 /* ── PORTADA ───────────────────────────────────────────────────────── */

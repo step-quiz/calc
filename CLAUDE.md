@@ -34,6 +34,7 @@ Static site with step-by-step demos ("fitxes") for the **CASIO fx-82SP CW** calc
 
 - Model scope: fx-82SP CW only (Calcular, Estadística, Tabla, Math Box). No solver, matrices, derivatives, integrals or distributions on this model.
 - Student-facing text in Catalan; calculator menu labels in Spanish, exactly as in the manual.
-- Fitxes are data in `js/fitxes.js`; recurring screens live in `js/guions.js`; the keyboard layout lives in `js/tecles.js` (verified against a photo of the real device).
+- Fitxes are data in `js/fitxes.js`; recurring screens live in `js/guions.js`; the calculator geometry lives in `js/tecles.js` (measured, keys are circles; never stretch it).
+- Layout: two columns only (left = statement, player, step list with the current step expanded, collapsed list of other fitxes; right = calculator only). David rejected a 3-column layout, a «Per recordar» box and a title in the header as too noisy.
 - Target devices: laptops (Chromebook / Lenovo, 1280×640 to 1920×1080 viewports, touch and mouse). Every step of every fitxa must fit the viewport without scrolling at 1366×657.
 - Tests: `node proves/comprova.js` must end with «Tot correcte» (with `KATEX=<katex 0.16.9>/dist` to also check every formula).

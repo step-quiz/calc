@@ -3,16 +3,20 @@
 Web estàtica per a l'alumnat de Matemàtiques de Batxillerat: fitxes curtes que ensenyen a fer servir
 la calculadora **CASIO fx-82SP CW** (la que porten els alumnes) i a evitar-ne els errors típics.
 
-Cada fitxa és una demostració pas a pas, com els DEMO de `step-quiz/pau`. A la pantalla hi ha:
+Cada fitxa és una demostració pas a pas, com els DEMO de `step-quiz/pau`, en dues columnes:
 
-- **a l'esquerra**, la frase del pas, el reproductor (▶, ← →, velocitat) i «Per recordar»;
-- **al mig**, la calculadora sencera (pantalla i teclat). Abans de prémer res, les tecles del pas es
-  numeren (1, 2, 3…) perquè l'alumne vegi on són i en quin ordre van. Després, el cursor les prem i
-  la pantalla canvia;
-- **a la dreta**, la llista de passos amb les seves tecles (es pot clicar per anar a un pas) i les
-  altres fitxes.
+- **a l'esquerra**, tot el que es llegeix: l'enunciat, el reproductor (▶, velocitat) i la llista de
+  passos. Cada pas mostra les seves tecles; el pas actual es desplega amb la frase que l'explica. A
+  sota, les altres fitxes del bloc, en un desplegable plegat;
+- **a la dreta**, només la calculadora: la pantalla i el teclat sencer, amb la geometria real (vegeu
+  `VERIFICAR.md`). En cada pas, les tecles que s'han de prémer s'emmarquen (amb el número d'ordre si
+  n'hi ha més d'una), el cursor les prem al seu lloc i la pantalla canvia.
 
-Està pensada per a portàtils (Chromebook i Lenovo, de 1280×720 a 1920×1080, tàctils o no): la
+Es fa anar amb ▶ i amb el teclat de l'ordinador: ↓ o → (pas següent), ↑ o ← (pas anterior) i espai
+(reprodueix o atura). Hi ha dues velocitats per a les tecles: «normal» (per defecte) i «ràpida»
+(un 50 % més ràpida).
+
+Està pensada per a portàtils (Chromebook i Lenovo, de 1280×640 a 1920×1080, tàctils o no): la
 calculadora s'ajusta a l'alçada de la finestra i tot hi cap sense desplaçar la pàgina. Al mòbil es
 veu en una columna.
 
@@ -35,7 +39,7 @@ Adreça d'una fitxa: `fitxa.html?id=<id>` (per exemple, `fitxa.html?id=exacte-de
 | `index.html` | La portada: una targeta per bloc (la dibuixa `js/portada.js`). |
 | `fitxa.html` | La pàgina de qualsevol fitxa (la construeix `js/motor.js`). |
 | `css/estil.css` | Tot l'estil: paleta de `pau`, pantalla, teclat, disposició. |
-| `js/tecles.js` | Les tecles (etiqueta, funció amb SHIFT, nom) i **la disposició del teclat**. |
+| `js/tecles.js` | Les tecles (etiqueta, funció amb SHIFT, nom) i **la geometria de la calculadora** (on és cada tecla i quin diàmetre fa). |
 | `js/pantalla.js` | Dibuixa la pantalla: càlcul amb indicadors, menús, HOME, missatges. |
 | `js/guions.js` | Les pantalles que es repeteixen (menús CONFIG, FORMAT, CATALOG…), amb els textos del manual. |
 | `js/fitxes.js` | **Només dades**: els blocs i les fitxes. Aquí és on s'afegeix o es canvia una fitxa. |
@@ -47,7 +51,7 @@ Adreça d'una fitxa: `fitxa.html?id=<id>` (per exemple, `fitxa.html?id=exacte-de
 ## Com s'afegeix una fitxa
 
 Al final de la llista `FITXES` de `js/fitxes.js` s'hi afegeix un objecte com els altres:
-`id`, `bloc`, `titol`, `enunciat`, `inici` (la pantalla de partida), `passos` i `recorda`.
+`id`, `bloc`, `titol`, `enunciat`, `inici` (la pantalla de partida) i `passos`.
 Cada pas té `tecles` (ids de `js/tecles.js`), `pantalla` (feta amb les funcions de `js/guions.js`)
 i `text`. Als textos: `$…$` és una fórmula, `[[format]]` dibuixa una tecla i `{{Decimal}}` és una opció
 d'un menú de la calculadora. La fitxa surt sola a la portada.

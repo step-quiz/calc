@@ -13,7 +13,6 @@
                            [] si el pas només explica la pantalla
                 pantalla = com queda la pantalla després de prémer-les (guions.js)
                 text     = la frase del pas
-     recorda    el que cal endur-se'n (targeta «Per recordar»)
      relacionades  ids d'altres fitxes (opcional)
 
    Als textos: $TeX$ = fórmula; [[id]] = tecla; {{Text}} = opció d'un menú
@@ -65,7 +64,6 @@ const FITXES = Object.freeze([
     {tecles: ['ok'], pantalla: marca(calc(D), 'ang'),
       text: 'Prem [[ok]] per obrir {{Calcular}}. A dalt hi ha √ (mode matemàtic) i D (graus), i ja no hi ha FIX: la calculadora està a punt.'},
   ],
-  recorda: 'Camí: [[settings]] → {{Reiniciar}} → {{Config y datos}} → {{Sí}}. Queda en {{E Mat/S Mat}}, en graus (D) i sense FIX. Si l\'examen té anàlisi amb trigonometria, quan calgui canvia a radians.',
   relacionades: ['prova-rapida', 'canvia-radians'],
 },
 {
@@ -84,7 +82,6 @@ const FITXES = Object.freeze([
     {tecles: [], pantalla: marca(calc(D, '\\mathrm{sen}(30)', '\\frac{1}{2}'), 'ang'),
       text: 'Per acabar, mira la barra de dalt: hi ha d\'haver √ i D, i res més. Si hi veus FIX o SCI, els decimals sortiran arrodonits.'},
   ],
-  recorda: '$1\\div 2$ ha de donar $\\frac{1}{2}$, i $\\mathrm{sen}(30)$ ha de donar $\\frac{1}{2}$ (en graus). A la barra, només √ i D.',
   relacionades: ['mode-decimal', 'error-angles', 'fix'],
 },
 
@@ -105,7 +102,6 @@ const FITXES = Object.freeze([
     {tecles: ['shift'], pantalla: marca(calc(ind(D, {shift: true}), '', '', {hist: true}), 'shift'),
       text: 'Si prems [[shift]], surt una S: la tecla següent farà el que hi ha escrit a sobre seu (per exemple, [[shift]] [[7]] escriu π). La S desapareix sola.'},
   ],
-  recorda: 'El normal és veure només √ i D (o R, si treballes en radians). Si hi ha FIX o SCI, els decimals surten arrodonits.',
   relacionades: ['fix', 'mode-decimal'],
 },
 {
@@ -130,7 +126,6 @@ const FITXES = Object.freeze([
     {tecles: ['shift', 'exe'], pantalla: marca(calc(D, SEN45, '0.7071067812'), 'resultat'),
       text: 'En lloc de [[exe]], prem [[shift]] i després [[exe]] (a sobre d\'EXE hi ha ≈): surt el resultat en decimal directament.'},
   ],
-  recorda: '[[exe]] dona el valor exacte; [[shift]] [[exe]] (≈) dona el decimal. Amb [[format]] pots passar d\'un a l\'altre: {{Decimal}} o {{Estándar}}. Quan escriguis un decimal a l\'examen, fes servir la coma.',
   relacionades: ['mode-decimal', 'indicadors'],
 },
 {
@@ -155,7 +150,6 @@ const FITXES = Object.freeze([
     {tecles: ['1', 'entre', '2', 'exe'], pantalla: marca(calc(D, '1\\div 2', '\\frac{1}{2}'), 'resultat'),
       text: 'Torna a calcular $1\\div 2$: ara surt $\\frac{1}{2}$.'},
   ],
-  recorda: 'Camí: [[settings]] → {{Config cálculo}} → {{Entrada/Salida}} → {{E Mat/S Mat}}. Si algun dia vols només decimals, no cal canviar el mode: fes [[shift]] [[exe]].',
   relacionades: ['exacte-decimal', 'reinicia'],
 },
 {
@@ -180,7 +174,6 @@ const FITXES = Object.freeze([
     {tecles: ['1', 'entre', '6', 'shift', 'exe'], pantalla: marca(calc(D, '1\\div 6', '0.1666666667'), 'resultat'),
       text: 'Torna a demanar el decimal: $0{,}1666666667$. Arrodoneix tu al final, només quan escriguis la resposta.'},
   ],
-  recorda: 'FIX (o SCI) a la barra = resultats arrodonits. Per treure\'l: [[settings]] → {{Config cálculo}} → {{Formato número}} → {{Normal}} → {{Normal 2}}. En mode {{E Mat/S Mat}}, [[exe]] continua donant $\\frac{1}{6}$: FIX només afecta els decimals.',
   relacionades: ['indicadors', 'reinicia'],
 },
 
@@ -211,7 +204,6 @@ const FITXES = Object.freeze([
     {tecles: ['exe'], pantalla: marca(calc(R, '\\mathrm{sen}(\\pi\\div 6)', '\\frac{1}{2}'), 'resultat'),
       text: 'Prem [[exe]]: $\\mathrm{sen}\\,\\frac{\\pi}{6}=\\frac{1}{2}$.'},
   ],
-  recorda: 'Camí: [[settings]] → {{Config cálculo}} → {{Unidad angular}} → {{Radián}}. Per tornar a graus, el mateix camí fins a {{Grado sexag (D)}}. En anàlisi (límits, derivades, integrals, Bolzano amb sinus o cosinus): R. En triangles i en angles de geometria: D.',
   relacionades: ['error-angles', 'grau-puntual'],
 },
 {
@@ -234,7 +226,6 @@ const FITXES = Object.freeze([
     {tecles: ['sen', '3', '0', 'rpar', 'exe'], pantalla: marca(calc(R, '\\mathrm{sen}(30)', '-0.9880316241'), 'resultat'),
       text: 'Ara l\'error contrari: en radians, $\\mathrm{sen}(30)$ és el sinus de 30 radians, −0.9880316241. Si el 30 són graus, la calculadora ha de ser en D.'},
   ],
-  recorda: 'Un resultat estrany en trigonometria? Mira primer la barra: D o R. Si hi ha π, normalment vols R; si són graus d\'un triangle, D.',
   relacionades: ['canvia-radians', 'grau-puntual'],
 },
 {
@@ -255,7 +246,6 @@ const FITXES = Object.freeze([
     {tecles: ['rpar', 'exe'], pantalla: marca(calc(D, '\\mathrm{sen}\\left({\\frac{\\pi}{6}}^{\\mathrm{r}}\\right)', '\\frac{1}{2}'), 'resultat'),
       text: 'Tanca el parèntesi i prem [[exe]]: $\\frac{1}{2}$, encara que la calculadora continua en D.'},
   ],
-  recorda: 'Amb [[catalog]] → {{Ang/Coord/Sexag}} pots posar ° o r a un sol angle. Fes servir la fracció [[frac]]: si escrius $\\pi\\div 6^{\\mathrm r}$, la r només afecta el 6!',
   relacionades: ['canvia-radians', 'error-angles'],
 },
 
