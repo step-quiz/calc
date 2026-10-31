@@ -30,7 +30,7 @@ veu en una columna.
 | Bloc | Fitxes |
 |---|---|
 | Treballar en mode 'exacte' o 'decimal' | Llegeix la barra de dalt · Valor exacte i valor decimal · Em surt 0.5 en lloc d'1/2 · Tot em surt arrodonit (FIX) |
-| Operar amb fraccions i potències | *(properament)* |
+| Operar amb fraccions i potències | Escriu una fracció amb la plantilla · Fracció de sumes: on van els parèntesis · Potències de negatius · Potència d'una fracció · Arrels d'índex n |
 | Treballar en mode 'graus' o 'radiants' | Posa la calculadora en radians · Troba l'error: el mode equivocat · Un sol angle en radians, sense canviar el mode |
 | Funcions útils per a la PAU | *(properament)* |
 | Exercicis PAU. Àlgebra i Geometria | Àlgebra: comprova la solució d'un sistema (alg-24j-q2) · Geometria: distància d'un punt a un pla (geo-25s-q4b) |
@@ -52,7 +52,7 @@ Adreça d'una fitxa: `fitxa.html?id=<id>` (per exemple, `fitxa.html?id=exacte-de
 | `js/pantalla.js` | Dibuixa la pantalla: càlcul amb indicadors, menús, HOME, missatges. |
 | `js/guions.js` | Les pantalles que es repeteixen (menús CONFIG, FORMAT, CATALOG…), amb els textos del manual. |
 | `js/fitxes.js` | **Només dades**: els blocs i les fitxes. Aquí és on s'afegeix o es canvia una fitxa. |
-| `js/simulador.js` | Calcula la pantalla després de cada tecla (escriure, fraccions, arrels, potències, menús, FUNCTION, SHIFT, AC). |
+| `js/simulador.js` | Calcula la pantalla després de cada tecla (escriure, fraccions, arrels quadrades i d'índex n, potències, menús, FUNCTION, SHIFT, AC). |
 | `js/motor.js` | La pàgina de la fitxa i el reproductor pas a pas. |
 | `proves/comprova.js` | Les proves de les dades. |
 | `VERIFICAR.md` | Detalls de pantalla que el manual no mostra i que cal comprovar amb la calculadora. |

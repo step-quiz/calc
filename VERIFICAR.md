@@ -27,6 +27,11 @@ de CASIO) es veuen diferents, el que s'ha de corregir és la fitxa: la majoria s
 | 11 | FUNCTION > {Definir f(x)}: la pantalla d'escriure f(x) | `G.definicio`, fitxa `pau-ana-24i-q1` | Una línia «f(x)=…» dins d'un requadre, com a la p. 60 del manual; sense barra d'indicadors. Després d'EXE, torna a la pantalla d'abans (el manual ho diu). |
 | 12 | Menú de FUNCTION | `G.menuFuncio` | f(x), g(x), Definir f(x), Definir g(x), amb f(x) triada (p. 60). En triar f(x) s'escriu «f(». |
 | 13 | Si $\frac{4}{6}\times 0.75+\frac{2}{6}\times 0.4$ dona la fracció 19/30 en mode E Mat/S Mat | fitxa `pau-pro-24i-q4` | Fracció 19/30 (decimals exactes barrejats amb fraccions). |
+| 14 | Plantilla de l'arrel d'índex n (SHIFT arrel): dues caselles, i en quina es comença | `js/simulador.js` (`arreln`), fitxa `arrel-n` | Cursor primer a l'índex (la casella petita); `→` passa al radicand. El manual (p. 34, exemple 5√32) ho indica amb la seqüència «5 ▶ 32», però no dibuixa les pantalles. |
+| 15 | Fracció escrita dins del denominador en oblidar el `→` | fitxa `frac-plantilla`, passos 5-6 | $\frac{3}{4+\frac{5}{6}}$, resultat $\frac{18}{29}$ (calculat). |
+| 16 | $-2^4$ sense parèntesis | fitxa `pot-negativa`, passos 4-5 | Resultat −16: la potència té més prioritat que el signe negatiu (seqüència de prioritat del manual, p. 113; comprovat a les guies CASIO de la sèrie CW). Es comença amb AC perquè, després d'un resultat, la tecla − podria continuar amb Ans. |
+| 17 | Exponent dins del denominador en no tancar la fracció | fitxa `pot-fraccio`, passos 5-7 | $\frac{2}{3^{-2}}$, resultat 18 (calculat). |
+| 18 | Plantilles a mig escriure | fitxes `arrel-n`, `frac-prioritat` | Les caselles buides es dibuixen amb □ i, en acabar cada pas, el cursor surt al final de la línia (a la calculadora és dins de la casella). Les pantalles de després de cada tecla sí que el porten al lloc. |
 
 La llista de variables (tecla VARIABLE, `G.variables`) i el menú que surt en prémer OK sobre una variable (`G.menuVariable`: Guardar, Recuperar, Editar) estan fets però cap fitxa no els fa servir ara: abans de fer-los servir, cal comprovar-ne l'ordre i l'aspecte.
 

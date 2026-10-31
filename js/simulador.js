@@ -12,8 +12,9 @@
 
    Què sap fer (prou per a les fitxes, no és un emulador):
      · escriure: xifres, punt, + − × ÷, ( ), sen( cos( tan( ln( log(, x², x, y, z,
-       π, e, Ans, el signe negatiu (−); les plantilles de fracció, d'arrel i
-       d'exponent, amb ↓ ↑ → ← per moure-s'hi;
+       π, e, Ans, el signe negatiu (−); les plantilles de fracció, d'arrel
+       quadrada, d'arrel d'índex n (SHIFT arrel: primer l'índex, → i el radicand)
+       i d'exponent, amb ↓ ↑ → ← per moure-s'hi;
        després d'un resultat, el que s'escriu comença un càlcul nou;
      · SHIFT (la S de la barra) i AC;
      · obrir CONFIG, CATALOG, FORMAT i VARIABLE; moure's pels menús i
@@ -48,7 +49,10 @@ const ESCRIU_SHIFT = Object.freeze({7: '\\pi ', 8: 'e', 0: 'x', punt: 'y', exp: 
   logab: '\\ln(', x2: '\\log('});
 /** Les plantilles: tecla → tipus de node; i els camps de cada node, en ordre. */
 const PLANTILLES = Object.freeze({frac: 'frac', arrel: 'arrel', pot: 'pot'});
-const CAMPS = Object.freeze({frac: ['num', 'den'], arrel: ['rad'], pot: ['exp']});
+/** Les plantilles amb SHIFT: SHIFT arrel = l'arrel d'índex n (camps: índex i radicand). */
+const PLANTILLES_SHIFT = Object.freeze({arrel: 'arreln'});
+const CAMPS = Object.freeze({frac: ['num', 'den'], arrel: ['rad'], pot: ['exp'], arreln: ['idx', 'rad']});
+const plantilla = (id, shift) => (shift ? PLANTILLES_SHIFT[id] : PLANTILLES[id]);
 const OPERACIONS = new Set(['mes', 'per', 'entre']);    // després d'un resultat, continuen amb Ans
 
 function editorBuit() {
@@ -86,11 +90,19 @@ function mou(ed, tecla) {
       if (CAMPS[seguent.t]) { const c = CAMPS[seguent.t][0]; ed.pila.push({llista: seguent[c], i: 0, node: seguent, camp: c}); }
       return true;
     }
+    if (m.node && m.node.t === 'arreln' && m.camp === 'idx') {   // de l'índex al radicand
+      ed.pila[ed.pila.length - 1] = {llista: m.node.rad, i: 0, node: m.node, camp: 'rad'};
+      return true;
+    }
     if (ed.pila.length > 1) { ed.pila.pop(); return true; }   // surt de la plantilla
     return false;
   }
   if (tecla === 'left') {
     if (m.i > 0) { m.i--; return !CAMPS[m.llista[m.i].t]; }   // entrar a una plantilla per la dreta: no cal
+    if (m.node && m.node.t === 'arreln' && m.camp === 'rad') {   // del radicand a l'índex
+      ed.pila[ed.pila.length - 1] = {llista: m.node.idx, i: m.node.idx.length, node: m.node, camp: 'idx'};
+      return true;
+    }
     if (ed.pila.length > 1) { ed.pila.pop(); dalt(ed).i--; return true; }
     return false;
   }
@@ -107,7 +119,8 @@ function tex(ed, ambCursor) {
       if (ambCursor && l === marc.llista && k === marc.i) s += CURSOR;
       s += e.t === 'frac' ? `\\frac{${buit(e.num)}}{${buit(e.den)}}`
         : e.t === 'arrel' ? `\\sqrt{${buit(e.rad)}}`
-          : e.t === 'pot' ? `^{${buit(e.exp)}}` : e.v;
+          : e.t === 'arreln' ? `\\sqrt[${buit(e.idx)}]{${buit(e.rad)}}`
+            : e.t === 'pot' ? `^{${buit(e.exp)}}` : e.v;
     });
     if (ambCursor && l === marc.llista && marc.i === l.length) s += CURSOR;
     return s;
@@ -209,7 +222,8 @@ function tecla(estat, id) {
   }
   if (p.tipus === 'definicio') {                        // escriure l'expressió de f(x)
     const tros = shift ? ESCRIU_SHIFT[id] : ESCRIU[id];
-    if (PLANTILLES[id] && !shift) insereixPlantilla(estat.ed, PLANTILLES[id]);
+    const pl = plantilla(id, shift);
+    if (pl) insereixPlantilla(estat.ed, pl);
     else if (tros !== undefined) insereix(estat.ed, {t: 'tex', v: tros});
     else if (!(['down', 'up', 'left', 'right'].includes(id) && mou(estat.ed, id))) return null;
     return G.definicio(p.nom, tex(estat.ed, true));
@@ -233,7 +247,8 @@ function tecla(estat, id) {
 
   // Escriure
   const tros = shift ? ESCRIU_SHIFT[id] : ESCRIU[id];
-  if (tros !== undefined || (PLANTILLES[id] && !shift)) {
+  const pl = plantilla(id, shift);
+  if (tros !== undefined || pl) {
     if (estat.resultat || !estat.ed) {                  // després d'un resultat: càlcul nou
       if (!estat.resultat && !estat.ed) return null;    // no se sap què hi ha escrit
       estat.ed = editorBuit();
@@ -241,7 +256,7 @@ function tecla(estat, id) {
       estat.resultat = false;
       estat.hist = true;
     }
-    if (PLANTILLES[id] && !shift) insereixPlantilla(estat.ed, PLANTILLES[id]);
+    if (pl) insereixPlantilla(estat.ed, pl);
     else insereix(estat.ed, {t: 'tex', v: tros});
     return pantallaCalc(estat);
   }
