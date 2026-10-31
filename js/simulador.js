@@ -13,15 +13,18 @@
    Què sap fer (prou per a les fitxes, no és un emulador):
      · escriure: xifres, punt, + − × ÷, ( ), sen( cos( tan( ln( log(, x², x, y, z,
        π, e, Ans, el signe negatiu (−); les plantilles de fracció, d'arrel
-       quadrada, d'arrel d'índex n (SHIFT arrel: primer l'índex, → i el radicand)
-       i d'exponent, amb ↓ ↑ → ← per moure-s'hi;
+       quadrada, d'arrel d'índex n (SHIFT arrel: primer l'índex, → i el radicand),
+       de logaritme en base a (logab: primer la base, → i l'argument) i d'exponent,
+       amb ↓ ↑ → ← per moure-s'hi;
        després d'un resultat, el que s'escriu comença un càlcul nou;
      · SHIFT (la S de la barra) i AC;
      · obrir CONFIG, CATALOG, FORMAT i VARIABLE; moure's pels menús i
        per la llista de variables; els OK que es poden deduir (llistes
        amb ◉, CONFIG > Config cálculo > Unidad angular / Formato número,
        CONFIG > Reiniciar, CATALOG > Ang/Coord/Sexag, OK sobre una variable);
-     · FUNCTION: {Definir f(x)} (escriure l'expressió de f) i {f(x)} (escriu «f(»).
+     · FUNCTION: {Definir f(x)} i {Definir g(x)} (escriure l'expressió) i {f(x)}, {g(x)} (escriuen «f(», «g(»);
+     · CATALOG > Probabilidad (%, !, P, C escriuen el seu símbol); TOOLS > Verificar ON / Verificar OFF (la
+       barra porta ✔ o no, i l'historial s'esborra) i, amb Verificar activat, CATALOG > Verificar (= ≠ > < ≥ ≤).
    Quan no ho sap deduir, la fitxa ha de donar la pantalla al pas:
      {tecles, pantalla, text, parcials: {<índex de la tecla>: pantalla}}.
 
@@ -48,10 +51,13 @@ const ESCRIU = Object.freeze({
 const ESCRIU_SHIFT = Object.freeze({7: '\\pi ', 8: 'e', 0: 'x', punt: 'y', exp: 'z', menys: '-',   // SHIFT − = signe negatiu (−)
   logab: '\\ln(', x2: '\\log('});
 /** Les plantilles: tecla → tipus de node; i els camps de cada node, en ordre. */
-const PLANTILLES = Object.freeze({frac: 'frac', arrel: 'arrel', pot: 'pot'});
+const PLANTILLES = Object.freeze({frac: 'frac', arrel: 'arrel', pot: 'pot', logab: 'logab'});
 /** Les plantilles amb SHIFT: SHIFT arrel = l'arrel d'índex n (camps: índex i radicand). */
 const PLANTILLES_SHIFT = Object.freeze({arrel: 'arreln'});
-const CAMPS = Object.freeze({frac: ['num', 'den'], arrel: ['rad'], pot: ['exp'], arreln: ['idx', 'rad']});
+const CAMPS = Object.freeze({frac: ['num', 'den'], arrel: ['rad'], pot: ['exp'], arreln: ['idx', 'rad'], logab: ['base', 'arg']});
+/** Plantilles de dos camps: de quin camp es passa a quin amb → (i al revés amb ←). */
+const SEGUENT = Object.freeze({arreln: {idx: 'rad'}, logab: {base: 'arg'}});
+const ANTERIOR = Object.freeze({arreln: {rad: 'idx'}, logab: {arg: 'base'}});
 const plantilla = (id, shift) => (shift ? PLANTILLES_SHIFT[id] : PLANTILLES[id]);
 const OPERACIONS = new Set(['mes', 'per', 'entre']);    // després d'un resultat, continuen amb Ans
 
@@ -90,8 +96,9 @@ function mou(ed, tecla) {
       if (CAMPS[seguent.t]) { const c = CAMPS[seguent.t][0]; ed.pila.push({llista: seguent[c], i: 0, node: seguent, camp: c}); }
       return true;
     }
-    if (m.node && m.node.t === 'arreln' && m.camp === 'idx') {   // de l'índex al radicand
-      ed.pila[ed.pila.length - 1] = {llista: m.node.rad, i: 0, node: m.node, camp: 'rad'};
+    const seg = m.node && SEGUENT[m.node.t] && SEGUENT[m.node.t][m.camp];   // de l'índex al radicand, de la base a l'argument
+    if (seg) {
+      ed.pila[ed.pila.length - 1] = {llista: m.node[seg], i: 0, node: m.node, camp: seg};
       return true;
     }
     if (ed.pila.length > 1) { ed.pila.pop(); return true; }   // surt de la plantilla
@@ -99,8 +106,9 @@ function mou(ed, tecla) {
   }
   if (tecla === 'left') {
     if (m.i > 0) { m.i--; return !CAMPS[m.llista[m.i].t]; }   // entrar a una plantilla per la dreta: no cal
-    if (m.node && m.node.t === 'arreln' && m.camp === 'rad') {   // del radicand a l'índex
-      ed.pila[ed.pila.length - 1] = {llista: m.node.idx, i: m.node.idx.length, node: m.node, camp: 'idx'};
+    const ant = m.node && ANTERIOR[m.node.t] && ANTERIOR[m.node.t][m.camp];
+    if (ant) {
+      ed.pila[ed.pila.length - 1] = {llista: m.node[ant], i: m.node[ant].length, node: m.node, camp: ant};
       return true;
     }
     if (ed.pila.length > 1) { ed.pila.pop(); dalt(ed).i--; return true; }
@@ -120,7 +128,8 @@ function tex(ed, ambCursor) {
       s += e.t === 'frac' ? `\\frac{${buit(e.num)}}{${buit(e.den)}}`
         : e.t === 'arrel' ? `\\sqrt{${buit(e.rad)}}`
           : e.t === 'arreln' ? `\\sqrt[${buit(e.idx)}]{${buit(e.rad)}}`
-            : e.t === 'pot' ? `^{${buit(e.exp)}}` : e.v;
+            : e.t === 'logab' ? `\\log_{${buit(e.base)}}(${buit(e.arg)})`
+              : e.t === 'pot' ? `^{${buit(e.exp)}}` : e.v;
     });
     if (ambCursor && l === marc.llista && marc.i === l.length) s += CURSOR;
     return s;
@@ -154,8 +163,41 @@ function okAlMenu(p, estat) {
     if (sel === 1) return G.unitatAngular(Math.max(0, ['D', 'R', 'G'].indexOf(ind.ang)));
     if (sel === 2) return G.formatNumero(ind.fix ? 0 : ind.sci ? 1 : 2);
   }
-  if (mateixMenu(p, G.CATALOG) && sel === 3) return G.angCoordSexag(0);
+  if (mateixMenu(p, G.CATALOG)) {
+    if (sel === 1) return G.probabilidad(0);
+    if (sel === 3) return G.angCoordSexag(0);
+  }
+  if (mateixMenu(p, G.CATALOG_VERIFICAR)) {              // amb Verificar activat, el CATALOG porta «Verificar» a dalt de tot
+    if (sel === 0) return G.verificar(0);
+    if (sel === 2) return G.probabilidad(0);
+  }
+  if (mateixMenu(p, G.PROBABILIDAD) && SIMBOLS_PROBABILIDAD[sel]) return escriuDelMenu(estat, SIMBOLS_PROBABILIDAD[sel]);
+  if (mateixMenu(p, G.VERIFICAR)) return escriuDelMenu(estat, SIMBOLS_VERIFICAR[sel]);
+  if (mateixMenu(p, G.TOOLS) && sel === 2) return canviaVerificar(estat, true);              // Verificar ON
+  if (mateixMenu(p, G.TOOLS_VERIFICAR) && sel === 2) return canviaVerificar(estat, false);   // Verificar OFF
   return null;
+}
+
+/** Activar o desactivar Verificar: la barra porta ✔ (o no) i l'historial s'esborra (manual, p. 63-64). */
+function canviaVerificar(estat, actiu) {
+  const ind = Object.assign({}, estat.ind);
+  if (actiu) ind.verif = true; else delete ind.verif;
+  estat.ind = ind;
+  estat.ed = editorBuit();
+  estat.resultat = false;
+  estat.hist = false;
+  return pantallaCalc(estat);
+}
+
+/** El que escriu cada opció de CATALOG > Probabilidad (%, !, P, C) i dels símbols de Verificar (VERIFICAR.md). */
+const SIMBOLS_PROBABILIDAD = Object.freeze({0: '\\%', 1: '!', 2: '\\mathrm{P}', 3: '\\mathrm{C}'});
+const SIMBOLS_VERIFICAR = Object.freeze(['=', '\\neq ', '>', '<', '\\geq ', '\\leq ']);
+/** Escriu un símbol triat en un menú a l'expressió i torna a la pantalla de càlcul (null si no se sap què hi havia escrit). */
+function escriuDelMenu(estat, tros) {
+  if (!estat.ed) return null;
+  if (estat.resultat) { estat.ed = editorBuit(); estat.resultat = false; estat.hist = true; }
+  insereix(estat.ed, {t: 'tex', v: tros});
+  return pantallaCalc(estat);
 }
 
 function mouVariables(p, tecla) {
@@ -205,15 +247,15 @@ function tecla(estat, id) {
       return Object.freeze(Object.assign({}, p, {sel, marca: null}));
     }
     if (id === 'ok' && mateixMenu(p, FUNCIO)) {
-      if (p.sel === 0) {                                // f(x): escriu «f(» a la pantalla de càlcul
+      if (p.sel === 0 || p.sel === 1) {                 // f(x), g(x): escriu «f(» o «g(» a la pantalla de càlcul
         if (estat.resultat || !estat.ed) { estat.ed = editorBuit(); estat.resultat = false; estat.hist = true; }
-        insereix(estat.ed, {t: 'tex', v: 'f('});
+        insereix(estat.ed, {t: 'tex', v: p.sel === 0 ? 'f(' : 'g('});
         return pantallaCalc(estat);
       }
-      if (p.sel === 2) {                                // Definir f(x): una pantalla nova, amb un editor buit
+      if (p.sel === 2 || p.sel === 3) {                 // Definir f(x) / g(x): una pantalla nova, amb un editor buit
         estat.ed = editorBuit();
         estat.resultat = false;
-        return G.definicio('f', tex(estat.ed, true));
+        return G.definicio(p.sel === 2 ? 'f' : 'g', tex(estat.ed, true));
       }
       return null;
     }
@@ -240,7 +282,8 @@ function tecla(estat, id) {
 
   // Tecles que obren un menú des de la pantalla de càlcul
   if (id === 'settings') return G.config(0);
-  if (id === 'catalog') return G.catalog(0);
+  if (id === 'catalog') return estat.ind && estat.ind.verif ? G.catalogVerificar(0) : G.catalog(0);
+  if (id === 'tools') return estat.ind && estat.ind.verif ? G.toolsVerificar(0) : G.tools(0);
   if (id === 'variable') return G.variables(estat.vars, 'A');
   if (id === 'format') return estat.resultat ? G.format(0) : null;
   if (id === 'funcio') return G.menu(FUNCIO, 0);
@@ -300,7 +343,7 @@ function pantalles(fitxa) {
       const explicita = pas.parcials && pas.parcials[j];
       let nova = tecla(estat, id);
       if (!['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'punt', 'mes', 'menys', 'per', 'entre', 'lpar', 'rpar', 'x',
-        'sen', 'cos', 'tan', 'frac', 'arrel', 'pot', 'x2', 'logab', 'shift', 'ac', 'down', 'up', 'left', 'right', 'exe', 'exp'].includes(id)) nomesEscriu = false;
+        'sen', 'cos', 'tan', 'frac', 'arrel', 'pot', 'x2', 'logab', 'ans', 'shift', 'ac', 'down', 'up', 'left', 'right', 'exe', 'exp'].includes(id)) nomesEscriu = false;
       if (darrera) nova = pas.pantalla;
       else if (explicita) { nova = explicita; nomesEscriu = false; }
       if (!nova) {

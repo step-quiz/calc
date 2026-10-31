@@ -1,6 +1,6 @@
 # BLOCS-PENDENTS.md — Work order for the two empty blocks (cold-start AI)
 
-> **Estat (31/10/2026, versió 13).** El bloc 2 `fraccions` ja està fet: `frac-plantilla`, `frac-prioritat`, `pot-negativa`, `pot-fraccio` i `arrel-n`. David va descartar `frac-mixta`, `frac-decimal`, `factor-primo` i `simp`. Correcció: escrit en una línia, `2+3÷4−1` dona 7/4 (no 5/4). Queda el bloc 4 `pau`.
+> **Estat (31/10/2026, versió 15).** El bloc 2 `fraccions` ja està fet: `frac-plantilla`, `frac-prioritat`, `pot-negativa`, `pot-fraccio` i `arrel-n`. David va descartar `frac-mixta`, `frac-decimal`, `factor-primo` i `simp`. Correcció: escrit en una línia, `2+3÷4−1` dona 7/4 (no 5/4). El bloc 4 `pau` també està fet: `definir-fx`, `ans`, `logaritmes`, `combinatoria` i `verificar`. Segona onada (`abs`, `taula`) no feta.
 
 
 Target repo: `step-quiz/calc` (static site, fx-82SP CW step-by-step demos). Site version at time of writing: **12** (31/10/2026).

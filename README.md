@@ -17,6 +17,8 @@ Cada fitxa és una demostració pas a pas, com els DEMO de `step-quiz/pau`, en d
 Es fa anar pas a pas, amb els botons ◀ ▶ o amb el teclat de l'ordinador: ↓ o → (pas següent) i
 ↑ o ← (pas anterior). No hi ha reproducció automàtica. Hi ha tres velocitats per a les tecles:
 «lenta», «normal» (per defecte) i «ràpida»; «normal» triga 1,65 vegades més que «ràpida», i «lenta» un 15 % més que «normal».
+Si l'usuari clica 5 vegades amb el ratolí els botons ◀ ▶ (els tocs amb el dit no compten: un mòbil o una tauleta pot no tenir teclat) sense haver fet servir mai les fletxes del teclat, surt una bombolla
+discreta que li ho recorda; es tanca amb la creueta i, si no, desapareix als 10 segons (surt una sola vegada per càrrega de la pàgina).
 
 A l'ordinador, l'amplada es reparteix així: 15 % de marge, 40 % per a les explicacions, 30 % per a la
 calculadora i 15 % de marge.
@@ -32,7 +34,7 @@ veu en una columna.
 | Treballar en mode 'exacte' o 'decimal' | Llegeix la barra de dalt · Valor exacte i valor decimal · Em surt 0.5 en lloc d'1/2 · Tot em surt arrodonit (FIX) |
 | Operar amb fraccions i potències | Escriu una fracció amb la plantilla · Fracció de sumes: on van els parèntesis · Potències de negatius · Potència d'una fracció · Arrels d'índex n |
 | Treballar en mode 'graus' o 'radiants' | Posa la calculadora en radians · Troba l'error: el mode equivocat · Un sol angle en radians, sense canviar el mode |
-| Funcions útils per a la PAU | *(properament)* |
+| Funcions útils per a la PAU | Defineix f(x) i g(x) i calcula'n valors · Reutilitza l'últim resultat (Ans) · Logaritme en qualsevol base · Nombres combinatoris · Comprova una igualtat |
 | Exercicis PAU. Àlgebra i Geometria | Àlgebra: comprova la solució d'un sistema (alg-24j-q2) · Geometria: distància d'un punt a un pla (geo-25s-q4b) |
 | Exercicis PAU. Anàlisi i Probabilitat | Anàlisi: Bolzano amb f(x) definida (ana-24i-q1) · Probabilitat: probabilitat total, Bayes i binomial (pro-24i-q4) |
 
@@ -52,7 +54,7 @@ Adreça d'una fitxa: `fitxa.html?id=<id>` (per exemple, `fitxa.html?id=exacte-de
 | `js/pantalla.js` | Dibuixa la pantalla: càlcul amb indicadors, menús, HOME, missatges. |
 | `js/guions.js` | Les pantalles que es repeteixen (menús CONFIG, FORMAT, CATALOG…), amb els textos del manual. |
 | `js/fitxes.js` | **Només dades**: els blocs i les fitxes. Aquí és on s'afegeix o es canvia una fitxa. |
-| `js/simulador.js` | Calcula la pantalla després de cada tecla (escriure, fraccions, arrels quadrades i d'índex n, potències, menús, FUNCTION, SHIFT, AC). |
+| `js/simulador.js` | Calcula la pantalla després de cada tecla (escriure, fraccions, arrels quadrades i d'índex n, logaritmes en base a, potències, menús, FUNCTION, CATALOG > Probabilidad, TOOLS > Verificar, SHIFT, AC). |
 | `js/motor.js` | La pàgina de la fitxa i el reproductor pas a pas. |
 | `proves/comprova.js` | Les proves de les dades. |
 | `VERIFICAR.md` | Detalls de pantalla que el manual no mostra i que cal comprovar amb la calculadora. |

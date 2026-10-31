@@ -87,6 +87,23 @@ const catalog = sel => menu(ambSubmenu(CATALOG), sel);
 const ANG_COORD_SEXAG = Object.freeze(['Grados', 'Radianes', 'Gradianes', 'Rectang a polar', 'Polar a rectang', 'Grados Min Seg']);
 const angCoordSexag = sel => menu(ANG_COORD_SEXAG, sel);
 
+/** CATALOG > Probabilidad (manual, p. 52-53; l'ordre és el de la secció del manual: VERIFICAR.md). */
+const PROBABILIDAD = Object.freeze(['%', 'Factorial(!)', 'Permutación(P)', 'Combinación(C)', 'Número aleatorio', 'Entero aleatorio']);
+const probabilidad = sel => menu(PROBABILIDAD, sel);
+
+/** Verificar (manual, «Utilizar Verificar»): TOOLS, CATALOG > Verificar i els símbols de relació. */
+/** Menú TOOLS de l'aplicació Calcular (manual, p. 25-26): Deshacer, Simplificar ► i Verificar ON.
+    Amb Verificar activat, l'última fila passa a ser «Verificar OFF» (p. 64; que la resta de files no canviïn és deduït: VERIFICAR.md). */
+const TOOLS = Object.freeze(['Deshacer', 'Simplificar', 'Verificar ON']);
+const TOOLS_VERIFICAR = Object.freeze(['Deshacer', 'Simplificar', 'Verificar OFF']);
+const filesTools = textos => textos.map(t => fila(t, t === 'Simplificar' ? {sub: true} : {}));
+const tools = sel => menu(filesTools(TOOLS), sel);
+const toolsVerificar = sel => menu(filesTools(TOOLS_VERIFICAR), sel);
+const CATALOG_VERIFICAR = Object.freeze(['Verificar', 'Análisis func', 'Probabilidad', 'Cálculo numérico', 'Ang/Coord/Sexag', 'Hiperb/Trigon', 'Otros']);
+const catalogVerificar = sel => menu(ambSubmenu(CATALOG_VERIFICAR), sel);
+const VERIFICAR = Object.freeze(['=', '≠', '>', '<', '≥', '≤']);
+const verificar = sel => menu(VERIFICAR, sel);
+
 /* ── Variables (tecla VARIABLE; manual, p. 38-39) ───────────────── */
 const VARIABLES = Object.freeze(['A', 'B', 'C', 'D', 'E', 'F', 'x', 'y', 'z']);
 /** La llista de variables. valors: {x: '1.666666667', …} (les altres valen 0); sel: el nom triat. */
@@ -112,6 +129,7 @@ arrel.G = Object.freeze({
   ENTRADA_SORTIDA, entradaSortida, UNITAT_ANGULAR, unitatAngular,
   FORMAT_NUMERO, formatNumero, normal, REINICIAR, reiniciar,
   FORMAT_IRRACIONAL, format, CATALOG, catalog, ANG_COORD_SEXAG, angCoordSexag,
+  PROBABILIDAD, probabilidad, TOOLS, tools, TOOLS_VERIFICAR, toolsVerificar, CATALOG_VERIFICAR, catalogVerificar, VERIFICAR, verificar,
   VARIABLES, variables, menuVariable, definicio, menuFuncio,
   home, missatge,
 });

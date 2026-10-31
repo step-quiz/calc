@@ -26,7 +26,8 @@
 'use strict';
 
 const {IND, ind, calc, marca, config, configCalcul, entradaSortida, unitatAngular,
-  formatNumero, normal, reiniciar, format, catalog, angCoordSexag, home, missatge, definicio, menuFuncio} = G;
+  formatNumero, normal, reiniciar, format, catalog, angCoordSexag, home, missatge, definicio, menuFuncio,
+  probabilidad, tools, catalogVerificar} = G;
 
 /* Fórmules que surten a diverses fitxes (com les escriu la pantalla) */
 const SEN45 = '\\mathrm{sen}(45)';
@@ -309,6 +310,124 @@ const FITXES = Object.freeze([
 },
 
 
+/* ── FUNCIONS ÚTILS PER A LA PAU ────────────────────────────────── */
+{
+  id: 'definir-fx', bloc: 'pau', titol: 'Defineix f(x) i g(x) i calcula\'n valors',
+  enunciat: 'Siguin $f(x)=x^3-3x+2$ i $g(x)=f\'(x)=3x^2-3$. Resolent $g(x)=0$ a mà has obtingut $x=-1$ i $x=1$. Amb la calculadora, troba les coordenades del mínim relatiu R i del màxim relatiu S de $f$.',
+  inici: calc(D),
+  passos: [
+    {tecles: ['funcio', 'down', 'down', 'ok'], pantalla: definicio('f'),
+      text: 'Defineix $f$ un sol cop. Prem [[funcio]] (FUNCTION), baixa fins a {{Definir f(x)}} i prem [[ok]].'},
+    {tecles: ['x', 'pot', '3', 'right', 'menys', '3', 'x', 'mes', '2'], pantalla: definicio('f', 'x^{3}-3x+2'),
+      text: 'Escriu $x^3-3x+2$. La $x$ és la tecla [[x]]; l\'exponent és [[pot]] i, amb [[right]], en surts.'},
+    {tecles: ['exe'], pantalla: calc(D),
+      text: 'Prem [[exe]]: $f$ queda desada i tornes a la pantalla de càlcul.'},
+    {tecles: ['funcio', 'down', 'down', 'down', 'ok'], pantalla: definicio('g'),
+      text: 'Ara $g$, igual però triant {{Definir g(x)}}: [[funcio]], tres cops [[down]] i [[ok]].'},
+    {tecles: ['3', 'x', 'x2', 'menys', '3'], pantalla: definicio('g', '3x^{2}-3'),
+      text: 'Escriu $3x^2-3$. L\'exponent 2 té tecla pròpia: [[x2]].'},
+    {tecles: ['exe'], pantalla: calc(D),
+      text: 'Prem [[exe]]: $f$ i $g$ ja són desades. No cal tornar-les a escriure.'},
+    {tecles: ['funcio', 'ok', 'menys', '1', 'rpar', 'exe'], pantalla: marca(calc(D, 'f(-1)', '4'), 'resultat'),
+      text: 'Calcula $f(-1)$: [[funcio]], {{f(x)}} amb [[ok]] (escriu «f(»), $-1$, [[rpar]] i [[exe]]. Surt 4: el punt és $(-1,\\,4)$.'},
+    {tecles: ['funcio', 'ok', '1', 'rpar', 'exe'], pantalla: marca(calc(D, 'f(1)', '0'), 'resultat'),
+      text: 'Igual amb $f(1)=0$: el punt és $(1,\\,0)$.'},
+    {tecles: ['funcio', 'down', 'ok', '0', 'rpar', 'exe'], pantalla: marca(calc(D, 'g(0)', '-3'), 'resultat'),
+      text: 'Per saber quin és el mínim, mira el signe de $g$ entre els dos punts: {{g(x)}} és la fila de sota de {{f(x)}}. $g(0)=-3<0$, així que $f$ decreix de $x=-1$ a $x=1$: el màxim és $S(-1,\\,4)$ i el mínim és $R(1,\\,0)$. R és a l\'eix $OX$ perquè $x=1$ és arrel doble de $f=(x-1)^2(x+2)$.'},
+  ],
+  relacionades: ['pau-ana-24i-q1', 'ans'],
+},
+{
+  id: 'ans', bloc: 'pau', titol: 'Reutilitza l\'últim resultat (Ans)',
+  enunciat: 'Calcula $\\dfrac{8}{\\sin 35^\\circ}$ amb la calculadora en graus, sense copiar cap decimal intermedi.',
+  inici: calc(D),
+  passos: [
+    {tecles: ['sen', '3', '5', 'rpar'], pantalla: calc(D, '\\mathrm{sen}(35)'),
+      text: 'Primer, $\\sin 35^\\circ$: [[sen]], el 35 i [[rpar]].'},
+    {tecles: ['exe'], pantalla: marca(calc(D, '\\mathrm{sen}(35)', '0.5735764364'), 'resultat'),
+      text: 'Prem [[exe]]. La calculadora desa el resultat a [[ans]] sense arrodonir-lo: la pantalla només en mostra els deu primers dígits.'},
+    {tecles: ['8', 'entre', 'ans'], pantalla: calc(D, '8\\div\\mathrm{Ans}', '', {hist: true}),
+      text: 'Ara vols $8\\div\\sin 35^\\circ$. No escriguis el decimal: escriu 8, [[entre]] i la tecla [[ans]].'},
+    {tecles: ['exe'], pantalla: marca(calc(D, '8\\div\\mathrm{Ans}', '13.94757436'), 'resultat'),
+      text: 'Prem [[exe]]: 13,94757436. Cap decimal copiat, cap error d\'arrodoniment.'},
+    {tecles: ['per', '2', 'exe'], pantalla: marca(calc(D, '\\mathrm{Ans}\\times 2', '27.89514873'), 'resultat'),
+      text: 'Si ara en vols el doble, no cal [[ans]]: després d\'un resultat, una operació com [[per]] ja comença amb Ans.'},
+    {tecles: ['8', 'entre', '0', 'punt', '5', '7', 'exe'], pantalla: marca(calc(D, '8\\div 0.57', '\\frac{800}{57}'), 'resultat'),
+      text: 'Error que cal evitar: copiar només 0,57 en lloc de $\\sin 35^\\circ$. Surt $\\frac{800}{57}\\approx 14{,}04$ i no 13,95: ja falla el primer decimal.'},
+  ],
+  relacionades: ['logaritmes', 'exacte-decimal'],
+},
+{
+  id: 'logaritmes', bloc: 'pau', titol: 'Logaritme en qualsevol base',
+  enunciat: 'Resol l\'equació $3^x=7$: calcula $x=\\log_3 7$ i comprova el resultat.',
+  inici: calc(D),
+  passos: [
+    {tecles: ['logab'], pantalla: calc(D, '\\log_{\\square}(\\square)', '', {cursor: false}),
+      text: 'Prem [[logab]]: surt un logaritme amb dos quadres. El petit és la base i el gran, el nombre.'},
+    {tecles: ['3', 'right'], pantalla: calc(D, '\\log_{3}(\\square)', '', {cursor: false}),
+      text: 'Escriu la base, el 3, i prem [[right]] per passar al nombre.'},
+    {tecles: ['7'], pantalla: calc(D, '\\log_{3}(7)'),
+      text: 'Escriu el 7. El parèntesi ja hi és: no cal tancar-lo.'},
+    {tecles: ['exe'], pantalla: marca(calc(D, '\\log_{3}(7)', '1.771243749'), 'resultat'),
+      text: 'Prem [[exe]]: $x=\\log_3 7\\approx 1{,}7712$.'},
+    {tecles: ['3', 'pot', 'ans'], pantalla: calc(D, '3^{\\mathrm{Ans}}', '', {hist: true}),
+      text: 'Comprova-ho: $3^x$ ha de valer 7. Escriu 3, [[pot]] i, a l\'exponent, [[ans]] (el resultat d\'abans, sense copiar-lo).'},
+    {tecles: ['exe'], pantalla: marca(calc(D, '3^{\\mathrm{Ans}}', '7'), 'resultat'),
+      text: 'Prem [[exe]]: surt 7. ✓'},
+    {tecles: ['shift', 'x2', '1', '0', '0', '0', 'rpar'], pantalla: calc(D, '\\log(1000)', '', {hist: true}),
+      text: 'Per a base 10 i per a base $e$ hi ha tecles pròpies: log és [[shift]] [[x2]] i ln és [[shift]] [[logab]]. Prova $\\log 1000$.'},
+    {tecles: ['exe'], pantalla: marca(calc(D, '\\log(1000)', '3'), 'resultat'),
+      text: 'Prem [[exe]]: $\\log 1000=3$.'},
+  ],
+  relacionades: ['ans', 'definir-fx'],
+},
+{
+  id: 'combinatoria', bloc: 'pau', titol: 'Nombres combinatoris',
+  enunciat: 'Una variable $X$ segueix una binomial amb $n=6$ i $p=\\frac{1}{2}$. Calcula $P(X=4)=\\binom{6}{4}\\left(\\frac{1}{2}\\right)^{6}$ sense calcular el nombre combinatori a mà.',
+  inici: calc(D),
+  passos: [
+    {tecles: ['6', 'catalog'], pantalla: catalog(0),
+      text: 'Escriu el 6 i prem [[catalog]]. El nombre combinatori s\'escriu entre el 6 i el 4, i és al CATALOG.'},
+    {tecles: ['down', 'ok'], pantalla: probabilidad(0),
+      text: 'Baixa fins a {{Probabilidad}} i prem [[ok]]: hi ha el percentatge, el factorial, les permutacions i les combinacions.'},
+    {tecles: ['down', 'down', 'down', 'ok'], pantalla: calc(D, '6\\mathrm{C}'),
+      text: 'Tria {{Combinación(C)}} amb tres cops [[down]] i prem [[ok]]: s\'escriu un C darrere del 6.'},
+    {tecles: ['4'], pantalla: calc(D, '6\\mathrm{C}4'),
+      text: 'Escriu el 4: «6C4» és $\\binom{6}{4}$.'},
+    {tecles: ['per', 'lpar', 'frac', '1', 'down', '2'], pantalla: calc(D, '6\\mathrm{C}4\\times (\\frac{1}{2}'),
+      text: 'Continua amb la probabilitat: [[per]], un parèntesi i la fracció $\\frac{1}{2}$ amb [[frac]].'},
+    {tecles: ['right', 'rpar', 'pot', '6'], pantalla: calc(D, '6\\mathrm{C}4\\times (\\frac{1}{2})^{6}'),
+      text: 'Surt de la fracció amb [[right]], tanca amb [[rpar]] i escriu l\'exponent amb [[pot]] i el 6.'},
+    {tecles: ['exe'], pantalla: marca(calc(D, '6\\mathrm{C}4\\times (\\frac{1}{2})^{6}', '\\frac{15}{64}'), 'resultat'),
+      text: 'Prem [[exe]]: $P(X=4)=\\frac{15}{64}$, perquè $\\binom{6}{4}=15$. Al mateix menú hi ha {{Factorial(!)}} i {{Permutación(P)}}.'},
+  ],
+  relacionades: ['pau-pro-24i-q4', 'pot-fraccio'],
+},
+{
+  id: 'verificar', bloc: 'pau', titol: 'Comprova una igualtat',
+  enunciat: 'Comprova amb la calculadora que $\\dfrac{1}{\\sqrt{2}}=\\dfrac{\\sqrt{2}}{2}$.',
+  inici: calc(D),
+  passos: [
+    {tecles: ['tools'], pantalla: tools(0),
+      text: 'Prem [[tools]] (TOOLS): surt un menú amb {{Deshacer}}, {{Simplificar}} i {{Verificar ON}}.'},
+    {tecles: ['down', 'down', 'ok'], pantalla: marca(calc(ind(D, {verif: true})), 'verif'),
+      text: 'Baixa dues files amb [[down]] fins a {{Verificar ON}} i prem [[ok]]: a dalt surt ✔. Compte: mentre Verificar és activat, la calculadora només serveix per verificar i l\'historial s\'esborra.'},
+    {tecles: ['frac', '1', 'down', 'arrel', '2'], pantalla: calc(ind(D, {verif: true}), '\\frac{1}{\\sqrt{2}}'),
+      text: 'Escriu el primer membre: [[frac]], el 1, [[down]], [[arrel]] i el 2.'},
+    {tecles: ['right', 'right', 'catalog'], pantalla: catalogVerificar(0),
+      text: 'Surt de l\'arrel i de la fracció amb dos [[right]] i prem [[catalog]]: ara hi ha {{Verificar}} a dalt de tot.'},
+    {tecles: ['ok', 'ok'], pantalla: calc(ind(D, {verif: true}), '\\frac{1}{\\sqrt{2}}='),
+      text: 'Prem [[ok]] per entrar a {{Verificar}} i [[ok]] un altre cop per triar el signe {{=}} (també hi ha $\\neq$, $>$, $<$, $\\geq$ i $\\leq$).'},
+    {tecles: ['frac', 'arrel', '2', 'right', 'down', '2'], pantalla: calc(ind(D, {verif: true}), '\\frac{1}{\\sqrt{2}}=\\frac{\\sqrt{2}}{2}'),
+      text: 'Escriu el segon membre: [[frac]], [[arrel]], el 2, [[right]] per sortir de l\'arrel, [[down]] i el 2.'},
+    {tecles: ['exe'], pantalla: marca(calc(ind(D, {verif: true}), '\\frac{1}{\\sqrt{2}}=\\frac{\\sqrt{2}}{2}', '\\text{Verdadero}'), 'resultat'),
+      text: 'Prem [[exe]]: {{Verdadero}}. Si no fos cert, diria {{Falso}}.'},
+    {tecles: ['tools', 'down', 'down', 'ok'], pantalla: calc(D),
+      text: 'Quan acabis, desactiva-ho: [[tools]], dues vegades [[down]] i [[ok]]. L\'última fila ara diu {{Verificar OFF}}; el ✔ desapareix i la calculadora torna a calcular amb normalitat.'},
+  ],
+  relacionades: ['exacte-decimal', 'definir-fx'],
+},
+
 /* ── EXERCICIS PAU ──────────────────────────────────────────────── */
 {
   id: 'pau-alg-24j-q2', bloc: 'pau-ag', titol: 'Àlgebra · PAU 2024: comprova la solució d\'un sistema',
@@ -378,7 +497,7 @@ const FITXES = Object.freeze([
     {tecles: ['exe'], pantalla: marca(calc(D, 'f(1.4)', '-0.6541110535'), 'resultat'),
       text: '$f(1{,}4)\\approx -0{,}654<0$: hi ha canvi de signe a $[1{,}4;\\,1{,}5]$, un interval d\'una dècima. ✓'},
   ],
-  relacionades: ['exacte-decimal'],
+  relacionades: ['exacte-decimal', 'definir-fx'],
 },
 {
   id: 'pau-pro-24i-q4', bloc: 'pau-ap', titol: 'Probabilitat · PAU 2024: probabilitat total, Bayes i binomial',
@@ -405,7 +524,7 @@ const FITXES = Object.freeze([
       pantalla: marca(calc(D, '5\\times 0.63^{4}\\times 0.37+0.63^{5}', '0.3906734328'), 'resultat'),
       text: 'Error que cal evitar: si arrodoneixes $p\\approx 0{,}63$, surt 0,3907 i no 0,3969: ja falla la segona xifra decimal. Treballa amb $\\frac{19}{30}$.'},
   ],
-  relacionades: ['exacte-decimal', 'frac-plantilla', 'pot-fraccio'],
+  relacionades: ['exacte-decimal', 'frac-plantilla', 'pot-fraccio', 'combinatoria'],
 },
 ]);
 

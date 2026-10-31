@@ -40,7 +40,7 @@ const CORBA = 'cubic-bezier(.45,.05,.25,1)';
  * Versió de la web. Quan es canvia qualsevol .js o .css, s'ha d'augmentar aquí I als «?v=» de
  * index.html i fitxa.html (la prova ho comprova): així cap navegador no fa servir fitxers vells.
  */
-const VERSIO = '13';
+const VERSIO = '15';
 
 const PEU = '© 2026 <strong>David Arso Civil</strong>. Ús educatiu lliure. Prohibida la comercialització '
   + 'i la modificació (<a rel="license" href="https://creativecommons.org/licenses/by-nc-nd/4.0/">CC BY-NC-ND 4.0</a>). '
@@ -144,6 +144,7 @@ function construeixPagina(fitxa, bloc, germanes, contenidor) {
   const r = {
     lcd: element('div', {class: 'lcd-pantalla', role: 'img', 'aria-label': 'Pantalla de la calculadora'}),
     passos: element('ol', {class: 'passos', 'aria-label': 'Passos'}),
+    reproductor: element('div', {class: 'reproductor'}),
     anunci: element('p', {class: 'nomes-lectors', 'aria-live': 'polite'}),
     efectes: element('div', {class: 'efectes', 'aria-hidden': 'true'}),
     cursor: element('div', {class: 'cursor', 'aria-hidden': 'true', html: CURSOR}),
@@ -154,6 +155,10 @@ function construeixPagina(fitxa, bloc, germanes, contenidor) {
   };
   for (const [nom, factor] of VELOCITATS) r.velocitat.append(element('option', {value: String(factor), text: nom}));
   r.velocitat.value = String(PER_DEFECTE);
+  r.reproductor.append(
+    element('div', {class: 'botons'}, [r.anterior, r.seguent]),
+    element('label', {class: 'velocitat', for: 'velocitat', text: 'Velocitat '}, [r.velocitat]),
+  );
 
   r.calculadora = element('div', {class: 'calculadora', style: `aspect-ratio:100/${T.alcada}`, html: htmlCalculadora()});
   r.calculadora.append(element('div', {class: 'lcd', style: `left:${T.vidre.x}cqw;top:${T.vidre.y}cqw;width:${T.vidre.w}cqw;height:${T.vidre.h}cqw`}, [r.lcd]));
@@ -177,10 +182,7 @@ function construeixPagina(fitxa, bloc, germanes, contenidor) {
       element('div', {class: 'columna'}, [
         element('h1', {class: 'nomes-lectors', text: fitxa.titol}),
         r.enunciat,
-        element('div', {class: 'reproductor'}, [
-          element('div', {class: 'botons'}, [r.anterior, r.seguent]),
-          element('label', {class: 'velocitat', for: 'velocitat', text: 'Velocitat '}, [r.velocitat]),
-        ]),
+        r.reproductor,
         r.passos,
         r.anunci,
         altres,
@@ -390,7 +392,58 @@ function creaReproductor(r, fitxa, temps) {
 }
 
 
-/* ── 8. INICI ──────────────────────────────────────────────────────── */
+/* ── 8. L'AVÍS DEL TECLAT ──────────────────────────────────────────── */
+
+/** Després de tants clics als botons ◀ ▶ (sense haver fet servir mai les fletxes del teclat), surt l'avís. */
+const AVIS_CLICS = 5;
+/** L'avís desapareix sol als 10 segons (si no l'han tancat abans amb la creueta). */
+const AVIS_DURADA = 10000;
+const AVIS_TEXT = 'Recorda que pots fer servir les fletxes ↑, ↓ del teclat per fer tots els passos';
+
+/**
+ * Una bombolla discreta sota els botons del reproductor. Surt una sola vegada per càrrega de la pàgina,
+ * quan l'usuari ha clicat AVIS_CLICS vegades els botons ◀ ▶ amb el ratolí i encara no ha
+ * premut cap fletxa del teclat. Només compta el ratolí: amb un mòbil o una tauleta (tocs amb el dit) o amb
+ * una pulsació del teclat (Tab + Intro) no compta, perquè avisar d'un teclat que potser no hi és no té sentit.
+ * Si surt i l'usuari prem una fletxa, es tanca.
+ */
+function creaAvis(r) {
+  let clics = 0, teclat = false, mostrat = false, rellotge = null, aparell = '';
+  const tanca = element('button', {class: 'avis-tanca', type: 'button', 'aria-label': 'Tanca l\'avís', title: 'Tanca', text: '×'});
+  const bombolla = element('div', {class: 'avis-teclat', role: 'status'}, [element('span', {text: AVIS_TEXT}), tanca]);
+  r.reproductor.append(bombolla);
+
+  function amaga() {
+    clearTimeout(rellotge);
+    bombolla.classList.remove('visible');
+  }
+  function mostra() {
+    mostrat = true;
+    bombolla.classList.add('visible');
+    rellotge = setTimeout(amaga, AVIS_DURADA);
+  }
+  tanca.addEventListener('click', amaga);
+
+  return {
+    /** Què ha premut el botó (pointerdown precedeix el clic): 'mouse', 'touch' o 'pen'. */
+    pulsacio(e) { aparell = e.pointerType; },
+    /** Un clic a un botó del reproductor: només es compta si és de ratolí (detail 0 = l'ha activat el teclat). */
+    clic(e) {
+      const delRatoli = aparell === 'mouse' && e.detail > 0;
+      aparell = '';
+      if (!delRatoli || teclat || mostrat) return;
+      if (++clics >= AVIS_CLICS) mostra();
+    },
+    /** S'ha fet servir una fletxa del teclat: l'avís ja no fa falta. */
+    teclat() {
+      teclat = true;
+      amaga();
+    },
+  };
+}
+
+
+/* ── 9. INICI ──────────────────────────────────────────────────────── */
 
 function inicia(id = parametre('id'), contenidor = document.getElementById('fitxa')) {
   if (typeof katex === 'undefined') {
@@ -416,6 +469,11 @@ function inicia(id = parametre('id'), contenidor = document.getElementById('fitx
   r.velocitat.addEventListener('change', () => { factor = parseFloat(r.velocitat.value) || PER_DEFECTE; });
 
   const reproductor = creaReproductor(r, fitxa, temps);
+  const avis = creaAvis(r);
+  for (const b of [r.anterior, r.seguent]) {
+    b.addEventListener('pointerdown', e => avis.pulsacio(e));
+    b.addEventListener('click', e => avis.clic(e));
+  }
 
   /* Teclat: ↓ o → = pas següent; ↑ o ← = pas anterior (no hi ha reproducció automàtica: David, 31/10/2026). */
   document.addEventListener('keydown', e => {
@@ -424,9 +482,11 @@ function inicia(id = parametre('id'), contenidor = document.getElementById('fitx
     if (t.closest('input, select, textarea')) return;
     if (e.key === 'ArrowRight' || e.key === 'ArrowDown') {
       e.preventDefault();
+      avis.teclat();
       reproductor.seguent();
     } else if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') {
       e.preventDefault();
+      avis.teclat();
       reproductor.anterior();
     }
   });

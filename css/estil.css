@@ -258,7 +258,7 @@ a{color:inherit}
 .apartat{border-radius:3px; transition:background-color .25s, box-shadow .25s}
 .apartat.actiu{background:rgba(134,239,172,.6); box-shadow:0 0 0 2px rgba(134,239,172,.6)}
 .enunciat{margin:0; padding:12px 16px; border:1.5px solid var(--border); border-radius:12px; background:var(--surface); font-size:16.5px; line-height:1.55}
-.reproductor{display:flex; flex-wrap:wrap; align-items:center; gap:8px 14px}
+.reproductor{position:relative; display:flex; flex-wrap:wrap; align-items:center; gap:8px 14px}
 .botons{display:flex; gap:6px}
 .boto{
   width:40px; height:40px; padding:0; border-radius:50%;
@@ -271,6 +271,24 @@ a{color:inherit}
 .boto svg{width:17px; height:17px; fill:currentColor}
 .velocitat{display:flex; align-items:center; gap:6px; margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted)}
 .velocitat select{font:inherit; color:var(--txt); background:var(--surface); border:1px solid var(--border); border-radius:6px; padding:4px 6px}
+
+/* L'avís discret del teclat: bombolla sota els botons ◀ ▶ (es tanca amb la creueta o als 10 s) */
+.avis-teclat{
+  position:absolute; left:0; top:calc(100% + 10px); z-index:20; box-sizing:border-box; max-width:min(330px, 100%);
+  display:flex; align-items:flex-start; gap:8px; padding:8px 8px 8px 12px; border-radius:10px;
+  background:var(--hd-bg); color:#fff; font-size:13.5px; line-height:1.4; box-shadow:0 4px 14px rgba(15,23,42,.25);
+  opacity:0; visibility:hidden; transform:translateY(-4px); transition:opacity .25s, transform .25s, visibility .25s;
+}
+.avis-teclat.visible{opacity:1; visibility:visible; transform:none}
+.avis-teclat::before{   /* el piquet de la bombolla, cap als botons */
+  content:''; position:absolute; left:22px; top:-5px; width:10px; height:10px; background:inherit; transform:rotate(45deg); border-radius:2px;
+}
+.avis-tanca{
+  flex:none; width:22px; height:22px; padding:0; border:0; border-radius:50%; background:transparent; color:#cbd5e1;
+  font:inherit; font-size:18px; line-height:1; cursor:pointer;
+}
+.avis-tanca:hover{background:rgba(255,255,255,.16); color:#fff}
+@media (prefers-reduced-motion: reduce){ .avis-teclat{transition:none; transform:none} }
 
 /* La llista de passos: el pas actual es desplega amb la seva frase */
 .passos{list-style:none; margin:0; padding:2px; display:flex; flex-direction:column; gap:3px; min-height:0}
