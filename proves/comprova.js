@@ -11,7 +11,7 @@
 
    Comprova:
      · els blocs i les fitxes: ids únics, bloc existent, camps obligatoris;
-     · cada pas: tecles existents, pantalla d'un tipus conegut, text;
+     · cada pas: tecles existents, pantalla d'un tipus conegut, text, error (zona d'error) true o absent;
      · els menús: la fila triada existeix; com a molt un ◉;
      · els textos: les [[tecles]] existeixen, els $ i {{ }} estan tancats;
      · les relacionades apunten a fitxes que existeixen;
@@ -122,6 +122,7 @@ for (const f of Dades.FITXES) {
     comprovaPantalla(p.pantalla, onPas);
     comprovaText(p.text, onPas);
     ok(p.tecles.length > 0 || p.pantalla.marca, onPas, 'un pas sense tecles ha de ressaltar alguna cosa (marca)');
+    ok(p.error === undefined || p.error === true, onPas, 'error ha de ser true (o no posar-lo)');
     if (p.apartat) ok(new RegExp('\\[' + p.apartat + '\\][\\s\\S]*?\\[\\/' + p.apartat + '\\]').test(f.enunciat), onPas,
       `l'apartat «${p.apartat}» no està marcat a l'enunciat amb [${p.apartat}]…[/${p.apartat}]`);
   });
@@ -178,4 +179,5 @@ if (errors) {
   process.exit(1);
 }
 console.log(`Tot correcte: ${comprovacions} comprovacions, ${Dades.FITXES.length} fitxes, ${Dades.FITXES.reduce((s, f) => s + f.passos.length, 0)} passos`
+  + ` (${Dades.FITXES.reduce((s, f) => s + f.passos.filter(p => p.error).length, 0)} en zona d'error)`
   + (katex ? ' (amb KaTeX).' : ' (sense KaTeX: per comprovar les fórmules, KATEX=<katex>/dist).'));

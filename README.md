@@ -17,6 +17,10 @@ Cada fitxa és una demostració pas a pas, com els DEMO de `step-quiz/pau`, en d
 Es fa anar pas a pas, amb els botons ◀ ▶ o amb el teclat de l'ordinador: ↓ o → (pas següent) i
 ↑ o ← (pas anterior). No hi ha reproducció automàtica. Hi ha tres velocitats per a les tecles:
 «lenta», «normal» (per defecte) i «ràpida»; «normal» triga 1,65 vegades més que «ràpida», i «lenta» un 15 % més que «normal».
+Els passos que ensenyen un ús erroni de la calculadora (per exemple, $-2^4$ sense parèntesis o una fracció
+de sumes escrita en una línia) són una **zona d'error**: mentre són el pas actual, totes les vores de la pàgina
+(enunciat, botons, pas actual, tecles dels passos, marcs de la calculadora…) es tornen de color vellut vermell
+(«red velvet», `#9e1b32`). Es marquen amb `error: true` al pas (`js/fitxes.js`).
 Si l'usuari clica 5 vegades amb el ratolí els botons ◀ ▶ (els tocs amb el dit no compten: un mòbil o una tauleta pot no tenir teclat) sense haver fet servir mai les fletxes del teclat, surt una bombolla
 (vora taronja pura, un 20 % més gran que la primera versió, que parpelleja i es sacseja durant 0,8 s en sortir) que li ho recorda; es tanca amb la creueta i, si no, desapareix als 10 segons (surt una sola vegada per càrrega de la pàgina).
 

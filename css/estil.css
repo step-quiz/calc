@@ -32,6 +32,8 @@
   /* Les tecles */
   --tecla-vora:#94a3b8;
   --shift:#2563eb;   /* el blau de la tecla SHIFT i de les seves funcions, com a la calculadora */
+  /* Zona d'error: el color de totes les vores quan el pas ensenya un ús erroni (David, 31/10/2026: «red velvet») */
+  --vellut:#9e1b32;
 }
 
 *{box-sizing:border-box}
@@ -422,3 +424,18 @@ a{color:inherit}
 .llista .n{font-family:var(--mono); font-size:.68rem; opacity:.7; min-width:1.6em}
 .properament{margin-top:6px; align-self:flex-start; font-family:var(--mono); font-size:.68rem; letter-spacing:.06em; text-transform:uppercase; color:var(--muted); border:1px dashed var(--border); border-radius:4px; padding:4px 8px}
 @media (any-pointer:coarse){ .llista a{padding-block:12px} }
+
+/* ── Zona d'error ─────────────────────────────────────────────────────
+   Quan el pas actual ensenya un ús erroni de la calculadora (pas.error a fitxes.js), motor.js posa
+   la classe «zona-error» al body i TOTES les vores de la pàgina passen a ser de color vellut vermell:
+   les caixes, els botons, les tecles petites dels passos, les pastilles, les línies de separació i els
+   marcs grocs de la calculadora (tecles del pas, part ressaltada de la pantalla). Les línies que formen
+   part del dibuix de la calculadora (dins de la pantalla, les vores de les tecles) no canvien. */
+body.zona-error{--marca-vora:var(--vellut)}
+body.zona-error .enunciat, body.zona-error .boto, body.zona-error .boto.principal, body.zona-error .velocitat select,
+body.zona-error .pas.actual, body.zona-error .pas:not(.actual):hover, body.zona-error .pastilla, body.zona-error .pastilla.actual,
+body.zona-error .tecla, body.zona-error .torna, body.zona-error .ona{border-color:var(--vellut)}
+body.zona-error .altres, body.zona-error .peu{border-top-color:var(--vellut)}
+body.zona-error .pas.actual{box-shadow:0 0 0 1px var(--vellut), 0 2px 8px rgba(158,27,50,.18)}
+.enunciat, .velocitat select, .altres, .peu{transition:border-color .25s}
+

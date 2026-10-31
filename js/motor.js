@@ -40,7 +40,7 @@ const CORBA = 'cubic-bezier(.45,.05,.25,1)';
  * Versió de la web. Quan es canvia qualsevol .js o .css, s'ha d'augmentar aquí I als «?v=» de
  * index.html i fitxa.html (la prova ho comprova): així cap navegador no fa servir fitxers vells.
  */
-const VERSIO = '18';
+const VERSIO = '19';
 
 const PEU = '© 2026 <strong>David Arso Civil</strong>. Ús educatiu lliure. Prohibida la comercialització '
   + 'i la modificació (<a rel="license" href="https://creativecommons.org/licenses/by-nc-nd/4.0/">CC BY-NC-ND 4.0</a>). '
@@ -317,7 +317,11 @@ function creaReproductor(r, fitxa, temps) {
     // L'apartat de l'enunciat que es resol en aquest pas, ressaltat (David, 31/10/2026)
     const apartat = idx >= 0 ? passos[idx].apartat : null;
     r.enunciat.querySelectorAll('.apartat').forEach(e => e.classList.toggle('actiu', e.dataset.apartat === apartat));
-    r.anunci.textContent = idx < 0 ? textPla(fitxa.enunciat) : `Pas ${idx + 1} de ${passos.length}. ${textPla(passos[idx].text)}`;
+    // Zona d'error (David, 31/10/2026): si el pas ensenya un ús erroni, totes les vores es tornen de color vellut vermell
+    const error = idx >= 0 && Boolean(passos[idx].error);
+    document.body.classList.toggle('zona-error', error);
+    r.anunci.textContent = idx < 0 ? textPla(fitxa.enunciat)
+      : `Pas ${idx + 1} de ${passos.length}.${error ? ' Atenció: aquest pas ensenya un ús erroni.' : ''} ${textPla(passos[idx].text)}`;
     r.anterior.disabled = idx < 0;
     r.seguent.disabled = idx === darrer && !ocupat;
   }
