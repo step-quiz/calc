@@ -38,7 +38,7 @@ const CORBA = 'cubic-bezier(.45,.05,.25,1)';
  * Versió de la web. Quan es canvia qualsevol .js o .css, s'ha d'augmentar aquí I als «?v=» de
  * index.html i fitxa.html (la prova ho comprova): així cap navegador no fa servir fitxers vells.
  */
-const VERSIO = '5';
+const VERSIO = '6';
 
 const PEU = '© 2026 <strong>David Arso Civil</strong>. Ús educatiu lliure. Prohibida la comercialització '
   + 'i la modificació (<a rel="license" href="https://creativecommons.org/licenses/by-nc-nd/4.0/">CC BY-NC-ND 4.0</a>). '
@@ -223,7 +223,7 @@ const MAX_ORDRE = 6;
  * l'ordre en què es premen (una tecla que es prem dues vegades porta «2·3»). pas < 0: cap.
  */
 function marcaTeclat(r, passos, pas) {
-  r.teclat.querySelectorAll('.del-pas').forEach(t => { t.classList.remove('del-pas'); t.removeAttribute('data-ordre'); });
+  r.teclat.querySelectorAll('.del-pas').forEach(t => { t.classList.remove('del-pas', 'pendent'); t.removeAttribute('data-ordre'); });
   if (pas < 0) return;
   const tecles = passos[pas].tecles;
   const ordre = new Map();
@@ -332,6 +332,8 @@ function creaReproductor(r, fitxa, temps) {
     pinta();
     const pas = passos[idx];
     marcaTeclat(r, passos, idx);
+    // Les tecles que encara s'han de prémer, amb el fons suau (David, 31/10/2026)
+    for (const id of pas.tecles) r.teclat.querySelector(`[data-tecla="${id}"]`).classList.add('pendent');
     const petites = [...llista.files[idx].querySelectorAll('.tecles .tecla')];
     if (!pas.tecles.length) cursor.amaga();
     for (let j = 0; j < pas.tecles.length; j++) {
@@ -348,6 +350,7 @@ function creaReproductor(r, fitxa, temps) {
       if (!viu()) return;
       cursor.prem(false);
       t.classList.remove('premuda');
+      if (!pas.tecles.slice(j + 1).includes(id)) t.classList.remove('pendent');   // ja no s'ha de tornar a prémer
       if (petites[j]) petites[j].classList.remove('premuda');
       // Després de SHIFT, les funcions blaves es ressalten fins a la tecla següent
       r.teclat.classList.toggle('shift-actiu', id === 'shift');

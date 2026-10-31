@@ -229,6 +229,9 @@ a{color:inherit}
   min-width:4.4cqw; padding:.6cqw 1.1cqw; border-radius:999px; background:#ca8a04; color:#fff;
   font:700 2.8cqw/1 var(--mono); text-align:center; box-shadow:0 0 0 .45cqw #25292f;
 }
+.calculadora .tecla.pendent{background:#fdf0c8; color:#111827}   /* encara s'ha de prémer: fons groc suau */
+.calculadora .tecla-menu.pendent, .calculadora .tecla-nav.pendent{background:#5c4a1a; color:#fff}
+.calculadora .tecla-shift.pendent{background:#7ea6f5; color:#fff}
 .calculadora .tecla.premuda{transform:translateY(.6cqw); box-shadow:0 0 0 transparent; background:#fde68a; color:#111827}
 .calculadora .tecla-menu.premuda, .calculadora .tecla-nav.premuda, .calculadora .tecla-shift.premuda{background:#ca8a04; color:#fff}
 
