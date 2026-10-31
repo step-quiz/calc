@@ -52,6 +52,10 @@ dels blocs ni nombre de passos (David, 31/10/2026).
 
 Adreça d'una fitxa: `fitxa.html?id=<id>` (per exemple, `fitxa.html?id=exacte-decimal`).
 
+El mode de càlcul: totes les fitxes suposen la calculadora en mode {{E Mat/S Mat}}. Per això, a cada fitxa, el
+primer resultat exacte (una fracció, una arrel o π) diu que surt així per aquest mode i què sortiria en mode
+{{E Mat/S Decimal}} (la prova ho exigeix).
+
 ## Fitxers
 
 | Fitxer | Què hi ha |

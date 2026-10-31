@@ -129,6 +129,20 @@ for (const f of Dades.FITXES) {
       `l'apartat «${p.apartat}» no està marcat a l'enunciat amb [${p.apartat}]…[/${p.apartat}]`);
   });
 }
+/* Mode E Mat/S Mat (David, 31/10/2026): un alumne pot tenir la calculadora en mode decimal. A cada fitxa, el primer
+   resultat exacte (fracció, arrel o π) ha d'anar amb una frase que digui que surt així pel mode {{E Mat/S Mat}}
+   (en aquell pas o abans). */
+for (const f of Dades.FITXES) {
+  let dit = /E Mat\/S Mat/.test(f.enunciat);
+  f.passos.forEach((p, i) => {
+    if (/E Mat\/S Mat/.test(p.text)) dit = true;
+    const exacte = p.pantalla.tipus === 'calc' && /\\frac|\\sqrt|\\pi/.test(p.pantalla.resultat || '');
+    if (exacte && !dit) error(`fitxa ${f.id} · pas ${i + 1}`, 'primer resultat exacte: cal dir que surt així pel mode {{E Mat/S Mat}}');
+    if (exacte) dit = true;
+    comprovacions++;
+  });
+}
+
 /* El simulador: totes les pantalles intermèdies es poden deduir (o la fitxa les dona) i el que
    s'escriu tecla a tecla coincideix amb la pantalla final de cada pas. */
 for (const f of Dades.FITXES) {
