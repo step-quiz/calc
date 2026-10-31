@@ -30,15 +30,17 @@ const TEMPS = Object.freeze({
   entreTecles: 170,    // pausa entre dues tecles del mateix pas (la pantalla ja ha canviat)
   pantalla: 220,       // la pantalla del final del pas apareix
 });
-/** Velocitats de les tecles (factor de les durades): «normal» és un 65 % més lenta que «ràpida» (David, 31/10/2026: 1,5 i després un 10 % més). */
-const VELOCITATS = Object.freeze([['normal', 1.65], ['ràpida', 1]]);
+/** Velocitats de les tecles (factor de les durades): «normal» és un 65 % més lenta que «ràpida» (David, 31/10/2026: 1,5 i després un 10 % més)
+    i «lenta» un 15 % més lenta que «normal» (1,65 × 1,15 ≈ 1,9). Per defecte, «normal». */
+const VELOCITATS = Object.freeze([['lenta', 1.9], ['normal', 1.65], ['ràpida', 1]]);
+const PER_DEFECTE = 1.65;
 const CORBA = 'cubic-bezier(.45,.05,.25,1)';
 
 /**
  * Versió de la web. Quan es canvia qualsevol .js o .css, s'ha d'augmentar aquí I als «?v=» de
  * index.html i fitxa.html (la prova ho comprova): així cap navegador no fa servir fitxers vells.
  */
-const VERSIO = '9';
+const VERSIO = '11';
 
 const PEU = '© 2026 <strong>David Arso Civil</strong>. Ús educatiu lliure. Prohibida la comercialització '
   + 'i la modificació (<a rel="license" href="https://creativecommons.org/licenses/by-nc-nd/4.0/">CC BY-NC-ND 4.0</a>). '
@@ -151,6 +153,7 @@ function construeixPagina(fitxa, bloc, germanes, contenidor) {
     enunciat: element('p', {class: 'enunciat', html: text(fitxa.enunciat)}),
   };
   for (const [nom, factor] of VELOCITATS) r.velocitat.append(element('option', {value: String(factor), text: nom}));
+  r.velocitat.value = String(PER_DEFECTE);
 
   r.calculadora = element('div', {class: 'calculadora', style: `aspect-ratio:100/${T.alcada}`, html: htmlCalculadora()});
   r.calculadora.append(element('div', {class: 'lcd', style: `left:${T.vidre.x}cqw;top:${T.vidre.y}cqw;width:${T.vidre.w}cqw;height:${T.vidre.h}cqw`}, [r.lcd]));
@@ -326,7 +329,6 @@ function creaReproductor(r, fitxa, temps) {
     marcaTeclat(r, passos, idx);
     r.teclat.classList.remove('shift-actiu');
     r.calculadora.querySelectorAll('.premuda').forEach(t => t.classList.remove('premuda'));
-    r.passos.querySelectorAll('.premuda').forEach(t => t.classList.remove('premuda'));
     cursor.amaga();
     pinta();
   }
@@ -348,7 +350,6 @@ function creaReproductor(r, fitxa, temps) {
     marcaTeclat(r, passos, idx);
     // Les tecles que encara s'han de prémer, amb el fons suau (David, 31/10/2026)
     for (const id of pas.tecles) r.teclat.querySelector(`[data-tecla="${id}"]`).classList.add('pendent');
-    const petites = [...llista.files[idx].querySelectorAll('.tecles .tecla')];
     if (!pas.tecles.length) cursor.amaga();
     for (let j = 0; j < pas.tecles.length; j++) {
       const id = pas.tecles[j];
@@ -358,14 +359,12 @@ function creaReproductor(r, fitxa, temps) {
       if (!viu()) return;
       cursor.prem(true);
       t.classList.add('premuda');
-      if (petites[j]) petites[j].classList.add('premuda');
       cursor.ona(q.cx, q.cy);
       await espera(temps(TEMPS.clic));
       if (!viu()) return;
       cursor.prem(false);
       t.classList.remove('premuda');
       if (!pas.tecles.slice(j + 1).includes(id)) t.classList.remove('pendent');   // ja no s'ha de tornar a prémer
-      if (petites[j]) petites[j].classList.remove('premuda');
       // Després de SHIFT, les funcions blaves es ressalten fins a la tecla següent
       r.teclat.classList.toggle('shift-actiu', id === 'shift');
       const darrera = j === pas.tecles.length - 1;
@@ -411,10 +410,10 @@ function inicia(id = parametre('id'), contenidor = document.getElementById('fitx
   document.body.style.setProperty('--cat', bloc.color);
 
   const r = construeixPagina(fitxa, bloc, germanes, contenidor);
-  let factor = VELOCITATS[0][1];               // «normal», per defecte
+  let factor = PER_DEFECTE;                    // «normal», per defecte
   const reduit = matchMedia('(prefers-reduced-motion: reduce)').matches;
   const temps = ms => Math.max(40, ms * factor * (reduit ? 0.35 : 1));
-  r.velocitat.addEventListener('change', () => { factor = parseFloat(r.velocitat.value) || VELOCITATS[0][1]; });
+  r.velocitat.addEventListener('change', () => { factor = parseFloat(r.velocitat.value) || PER_DEFECTE; });
 
   const reproductor = creaReproductor(r, fitxa, temps);
 

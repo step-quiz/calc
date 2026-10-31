@@ -6,7 +6,8 @@ la calculadora **CASIO fx-82SP CW** (la que porten els alumnes) i a evitar-ne el
 Cada fitxa és una demostració pas a pas, com els DEMO de `step-quiz/pau`, en dues columnes:
 
 - **a l'esquerra**, tot el que es llegeix: l'enunciat, els botons ◀ ▶ (pas anterior i següent), la velocitat i la llista de
-  passos. Cada pas mostra les seves tecles; el pas actual es desplega amb la frase que l'explica. A
+  passos. Cada pas mostra les seves tecles; el pas actual només mostra la frase que l'explica (les tecles ja es
+  veuen ressaltades a la calculadora). A
   sota, les altres fitxes del bloc, en un desplegable plegat;
 - **a la dreta**, només la calculadora: la pantalla i el teclat sencer, amb la geometria real (vegeu
   `VERIFICAR.md`). En cada pas, les tecles que s'han de prémer s'emmarquen (amb el número d'ordre si
@@ -14,8 +15,11 @@ Cada fitxa és una demostració pas a pas, com els DEMO de `step-quiz/pau`, en d
   la calculadora.
 
 Es fa anar pas a pas, amb els botons ◀ ▶ o amb el teclat de l'ordinador: ↓ o → (pas següent) i
-↑ o ← (pas anterior). No hi ha reproducció automàtica. Hi ha dues velocitats per a les tecles:
-«normal» (per defecte) i «ràpida»; «normal» triga 1,65 vegades més.
+↑ o ← (pas anterior). No hi ha reproducció automàtica. Hi ha tres velocitats per a les tecles:
+«lenta», «normal» (per defecte) i «ràpida»; «normal» triga 1,65 vegades més que «ràpida», i «lenta» un 15 % més que «normal».
+
+A l'ordinador, l'amplada es reparteix així: 15 % de marge, 40 % per a les explicacions, 30 % per a la
+calculadora i 15 % de marge.
 
 Està pensada per a portàtils (Chromebook i Lenovo, de 1280×640 a 1920×1080, tàctils o no): la
 calculadora s'ajusta a l'alçada de la finestra i tot hi cap sense desplaçar la pàgina. Al mòbil es

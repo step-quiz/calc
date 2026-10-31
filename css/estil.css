@@ -102,12 +102,13 @@ a{color:inherit}
 /* Petita, dins d'un text */
 .tecla.petita{
   min-width:1.85em; height:1.5em; padding:0 .32em; border-radius:.38em;
-  font-size:.8em; vertical-align:-.28em; box-shadow:0 1.5px 0 var(--tecla-vora);
+  font-size:.8em; vertical-align:middle; position:relative; top:-.08em;   /* centrada amb el text (David, 31/10/2026) */
+  box-shadow:0 1.5px 0 var(--tecla-vora);
 }
 .tecla.petita.tecla-exe{box-shadow:0 1.5px 0 #0f172a}
 .tecla.petita.tecla-nav{min-width:1.5em}
 .tecla.petita .icona-tecla{width:1.15em; height:1.15em}
-.tecla.petita.t-format{font-size:.66em; height:1.8em; vertical-align:-.36em}
+.tecla.petita.t-format{font-size:.66em; height:1.8em}
 
 /* ── LA CALCULADORA ────────────────────────────────────────────────── */
 /* Un esquema de la fx-82SP CW amb la geometria real (tecles.js, TECLAT): tot es col·loca en cqw, és a dir,
@@ -280,19 +281,22 @@ a{color:inherit}
 }
 .pas .num{min-width:1.3em; font:600 12.5px/1 var(--mono); color:var(--muted); text-align:right}
 .pas .tecles{display:flex; flex-wrap:wrap; gap:5px; align-items:center}
-.pas .tecla{min-width:32px; height:28px; padding:0 6px; font-size:12.5px; border-radius:7px; box-shadow:0 2px 0 var(--tecla-vora)}
-.pas .tecla-exe{box-shadow:0 2px 0 #0f172a}
-.pas .tecla-shift{box-shadow:0 2px 0 #1e3a8a}
-.pas .tecla-nav{min-width:28px}
-.pas .icona-tecla{width:16px; height:16px}
-.pas .t-format{font-size:10px}
-.pas .tecla .alt{left:auto; right:-7px; bottom:auto; top:-8px; transform:none; font-size:9.5px; background:var(--shift); color:#fff; padding:1px 3px; z-index:1}
-.pas .tecla.amb-shift .cara{opacity:.5}
-.pas .tecla.premuda{transform:translateY(2px); box-shadow:none; background:#fde68a}
+.pas .tecles .tecla{min-width:32px; height:28px; padding:0 6px; font-size:12.5px; border-radius:7px; box-shadow:0 2px 0 var(--tecla-vora)}
+.pas .tecles .tecla-exe{box-shadow:0 2px 0 #0f172a}
+.pas .tecles .tecla-shift{box-shadow:0 2px 0 #1e3a8a}
+.pas .tecles .tecla-nav{min-width:28px}
+.pas .tecles .icona-tecla{width:16px; height:16px}
+.pas .tecles .t-format{font-size:10px}
+.pas .tecles .tecla .alt{left:auto; right:-7px; bottom:auto; top:-8px; transform:none; font-size:9.5px; background:var(--shift); color:#fff; padding:1px 3px; z-index:1}
+.pas .tecles .tecla.amb-shift .cara{opacity:.5}
+.pas .tecles .tecla.premuda{transform:translateY(2px); box-shadow:none; background:#fde68a}
 .nomes-mira{font-style:italic; font-size:13px; color:var(--muted)}
 .pas .frase{display:none; margin:0; padding:2px 14px 12px 44px; font-size:16.5px; line-height:1.6}
 .pas.actual{background:var(--surface); border-color:var(--cat); box-shadow:0 2px 8px rgba(15,23,42,.07)}
-.pas.actual .frase{display:block}
+.pas.actual{display:flex; align-items:baseline}
+.pas.actual .cap{width:auto; flex:none; padding-right:12px; cursor:default}
+.pas.actual .tecles{display:none}                 /* no es repeteixen: ja surten a la frase i a la calculadora */
+.pas.actual .frase{display:block; flex:1; padding:6px 14px 10px 0}
 .pas.actual .num{color:var(--cat)}
 .pas.fet{opacity:.45}
 .pas.zero{display:none}
@@ -326,30 +330,37 @@ a{color:inherit}
 .altres{order:5}
 
 /* Portàtils: a l'esquerra, tot el que es llegeix; a la dreta, només la calculadora (David, 31/10/2026).
+   Amplada repartida 15 % (marge) · 40 % (explicacions) · 30 % (calculadora) · 15 % (marge): marges amb
+   padding de 15 % i columnes 4fr / 3fr sense gap (la separació és el padding esquerre de l'escenari).
    Les dues columnes fan l'alçada de la finestra menys la capçalera i el peu (--alt): la llista de passos
-   es desplaça per dins si no hi cap, i l'amplada de la calculadora surt de la seva alçada. */
+   es desplaça per dins si no hi cap, i la calculadora fa l'amplada de la columna si l'alçada ho permet
+   (si no, l'amplada surt de l'alçada i queda centrada a la columna). */
 @media (min-width:1000px){
   :root{--alt:calc(100vh - 102px); --alt:calc(100dvh - 102px)}   /* capçalera + peu + marges */
   .contingut{
-    max-width:none; display:grid; grid-template-columns:minmax(400px, 600px) auto;
-    justify-content:center; align-items:start; column-gap:44px; padding:10px 24px;
+    max-width:none; display:grid; grid-template-columns:minmax(0, 4fr) minmax(0, 3fr);
+    align-items:start; column-gap:0; padding:10px 15%;
   }
   .columna{display:flex; height:var(--alt)}
   .columna > *{order:0}
   .passos{flex:1; overflow-y:auto; overscroll-behavior:contain}
-  .contingut > .escenari{order:0; height:var(--alt)}
-  .calculadora{width:min(470px, calc(var(--alt) / 1.864))}
+  .contingut > .escenari{order:0; height:var(--alt); padding-left:clamp(20px, 2.5vw, 48px)}
+  .calculadora{width:min(100%, calc(var(--alt) / 1.864))}
 }
 /* Pantalles baixes (Chromebook): una mica més compacte */
 @media (min-width:1000px) and (max-height:700px){
   :root{--alt:calc(100vh - 84px); --alt:calc(100dvh - 84px)}
   .capcalera{padding-block:4px}
-  .peu{padding-block:5px}
+  .peu{padding-block:5px; font-size:.64rem}   /* que el peu càpiga en una línia a 1280 px */
   .contingut{padding-block:8px}
   .columna{gap:10px}
   .enunciat{padding-block:9px; font-size:16px}
   .pas .frase{font-size:16px}
   .pas .cap{min-height:36px; padding-block:3px}
+}
+/* Portàtils estrets (1024–1300 px): el peu ha de cabre en una línia */
+@media (min-width:1000px) and (max-width:1300px){
+  .peu{padding-block:5px; font-size:.6rem}
 }
 /* Pantalles tàctils (Chromebook): botons més grans */
 @media (any-pointer:coarse){
