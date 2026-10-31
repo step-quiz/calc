@@ -39,12 +39,12 @@ const D = IND.D, R = IND.R;
 const FIX = ind(D, {fix: true});
 
 const BLOCS = Object.freeze([
-  {id: 'exacte', titol: 'Treballar en mode \'exacte\' o \'decimal\'', color: '#1d4ed8'},
-  {id: 'fraccions', titol: 'Operar amb fraccions i potències', color: '#b33c3c'},
-  {id: 'angles', titol: 'Treballar en mode \'graus\' o \'radiants\'', color: '#0f766e'},
-  {id: 'pau', titol: 'Funcions útils per a la PAU', color: '#7c5cbf'},
-  {id: 'pau-ag', titol: 'Exercicis PAU. Àlgebra i Geometria', color: '#4338ca'},
-  {id: 'pau-ap', titol: 'Exercicis PAU. Anàlisi i Probabilitat', color: '#9a5b16'},
+  {id: 'exacte', titol: 'Treballar en mode \'exacte\' o \'decimal\'', color: '#0c1736'},
+  {id: 'fraccions', titol: 'Operar amb fraccions i potències', color: '#0d235e'},
+  {id: 'angles', titol: 'Treballar en mode \'graus\' o \'radiants\'', color: '#033d63'},
+  {id: 'pau', titol: 'Funcions útils per a la PAU', color: '#876d0d'},
+  {id: 'pau-ag', titol: 'Exercicis PAU. Àlgebra i Geometria', color: '#853300'},
+  {id: 'pau-ap', titol: 'Exercicis PAU. Anàlisi i Probabilitat', color: '#945600'},
 ]);
 
 const FITXES = Object.freeze([

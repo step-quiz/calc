@@ -8,8 +8,8 @@ Empty blocks to fill:
 
 | # | Block id (in `js/fitxes.js` → `BLOCS`) | Home-page title (do not change) | Colour |
 |---|---|---|---|
-| 2 | `fraccions` | Operar amb fraccions i potències | `#b33c3c` |
-| 4 | `pau` | Funcions útils per a la PAU | `#7c5cbf` |
+| 2 | `fraccions` | Operar amb fraccions i potències | `#0d235e` |
+| 4 | `pau` | Funcions útils per a la PAU | `#876d0d` |
 
 A block with no fitxes renders «Properament» on the home page. As soon as one fitxa has `bloc: 'fraccions'` (or `'pau'`), the block lists it automatically (`js/portada.js`). No HTML changes are needed.
 
