@@ -30,7 +30,7 @@ repositori, si n'hi ha més avall, manen sobre aquestes quan diuen una altra cos
 
 ## This repository
 
-Static site with step-by-step demos ("fitxes") for the **CASIO fx-82SP CW** calculator, for Batxillerat students. Read `ARCHITECTURE.md` (technical reference) and `VERIFICAR.md` (screens inferred, not drawn in the manual).
+Static site with step-by-step demos ("fitxes") for the **CASIO fx-82SP CW** calculator, for Batxillerat students. Read `ARCHITECTURE.md` (technical reference) and `VERIFICAR.md` (screens inferred, not drawn in the manual) and `BLOCS-PENDENTS.md` (work order for empty blocks)
 
 - Model scope: fx-82SP CW only (Calcular, Estadística, Tabla, Math Box). No solver, matrices, derivatives, integrals or distributions on this model.
 - Student-facing text in Catalan; calculator menu labels in Spanish, exactly as in the manual.
