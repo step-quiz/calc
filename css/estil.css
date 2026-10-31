@@ -272,23 +272,37 @@ a{color:inherit}
 .velocitat{display:flex; align-items:center; gap:6px; margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted)}
 .velocitat select{font:inherit; color:var(--txt); background:var(--surface); border:1px solid var(--border); border-radius:6px; padding:4px 6px}
 
-/* L'avís discret del teclat: bombolla sota els botons ◀ ▶ (es tanca amb la creueta o als 10 s) */
+/* L'avís del teclat: bombolla sota els botons ◀ ▶ (es tanca amb la creueta o als 10 s).
+   Mides: les d'abans ×1,2 (+20 %). Vora taronja pura (#ff8000). En sortir parpelleja i es sacseja durant 0,8 s. */
 .avis-teclat{
-  position:absolute; left:0; top:calc(100% + 10px); z-index:20; box-sizing:border-box; max-width:min(330px, 100%);
-  display:flex; align-items:flex-start; gap:8px; padding:8px 8px 8px 12px; border-radius:10px;
-  background:var(--hd-bg); color:#fff; font-size:13.5px; line-height:1.4; box-shadow:0 4px 14px rgba(15,23,42,.25);
-  opacity:0; visibility:hidden; transform:translateY(-4px); transition:opacity .25s, transform .25s, visibility .25s;
+  position:absolute; left:0; top:calc(100% + 12px); z-index:20; box-sizing:border-box; max-width:min(396px, 100%);
+  display:flex; align-items:flex-start; gap:10px; padding:10px 10px 10px 14px; border:2px solid #ff8000; border-radius:12px;
+  background:var(--hd-bg); color:#fff; font-size:16.2px; line-height:1.4; box-shadow:0 5px 17px rgba(15,23,42,.25);
+  opacity:0; visibility:hidden; transform:translateY(-5px); transition:opacity .25s, transform .25s, visibility .25s;
 }
-.avis-teclat.visible{opacity:1; visibility:visible; transform:none}
-.avis-teclat::before{   /* el piquet de la bombolla, cap als botons */
-  content:''; position:absolute; left:22px; top:-5px; width:10px; height:10px; background:inherit; transform:rotate(45deg); border-radius:2px;
+.avis-teclat.visible{opacity:1; visibility:visible; transform:none; animation:avis-parpelleig-sacseig .8s ease-in-out 1}
+.avis-teclat::before{   /* el piquet de la bombolla, cap als botons (amb la vora a les dues cares de fora) */
+  content:''; position:absolute; left:26px; top:-8px; width:12px; height:12px; box-sizing:border-box; background:inherit;
+  border-top:2px solid #ff8000; border-left:2px solid #ff8000; transform:rotate(45deg); border-radius:3px 0 0 0;
 }
 .avis-tanca{
-  flex:none; width:22px; height:22px; padding:0; border:0; border-radius:50%; background:transparent; color:#cbd5e1;
-  font:inherit; font-size:18px; line-height:1; cursor:pointer;
+  flex:none; width:26px; height:26px; padding:0; border:0; border-radius:50%; background:transparent; color:#cbd5e1;
+  font:inherit; font-size:22px; line-height:1; cursor:pointer;
 }
 .avis-tanca:hover{background:rgba(255,255,255,.16); color:#fff}
-@media (prefers-reduced-motion: reduce){ .avis-teclat{transition:none; transform:none} }
+/* Parpelleig (l'opacitat puja i baixa) i sacseig (a esquerra i dreta, cada cop menys): 0,8 s en total */
+@keyframes avis-parpelleig-sacseig{
+  0%{opacity:0; transform:translateX(0)}
+  12%{opacity:1; transform:translateX(-9px)}
+  24%{opacity:.2; transform:translateX(9px)}
+  36%{opacity:1; transform:translateX(-7px)}
+  48%{opacity:.2; transform:translateX(7px)}
+  60%{opacity:1; transform:translateX(-5px)}
+  72%{opacity:.4; transform:translateX(4px)}
+  84%{opacity:1; transform:translateX(-2px)}
+  100%{opacity:1; transform:translateX(0)}
+}
+@media (prefers-reduced-motion: reduce){ .avis-teclat{transition:none; transform:none} .avis-teclat.visible{animation:none} }
 
 /* La llista de passos: el pas actual es desplega amb la seva frase */
 .passos{list-style:none; margin:0; padding:2px; display:flex; flex-direction:column; gap:3px; min-height:0}

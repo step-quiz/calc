@@ -40,7 +40,7 @@ const CORBA = 'cubic-bezier(.45,.05,.25,1)';
  * Versió de la web. Quan es canvia qualsevol .js o .css, s'ha d'augmentar aquí I als «?v=» de
  * index.html i fitxa.html (la prova ho comprova): així cap navegador no fa servir fitxers vells.
  */
-const VERSIO = '15';
+const VERSIO = '16';
 
 const PEU = '© 2026 <strong>David Arso Civil</strong>. Ús educatiu lliure. Prohibida la comercialització '
   + 'i la modificació (<a rel="license" href="https://creativecommons.org/licenses/by-nc-nd/4.0/">CC BY-NC-ND 4.0</a>). '
@@ -398,10 +398,10 @@ function creaReproductor(r, fitxa, temps) {
 const AVIS_CLICS = 5;
 /** L'avís desapareix sol als 10 segons (si no l'han tancat abans amb la creueta). */
 const AVIS_DURADA = 10000;
-const AVIS_TEXT = 'Recorda que pots fer servir les fletxes ↑, ↓ del teclat per fer tots els passos';
+const AVIS_TEXT = 'Recorda: pots fer servir les fletxes ↑, ↓ del teclat per fer tots els passos';
 
 /**
- * Una bombolla discreta sota els botons del reproductor. Surt una sola vegada per càrrega de la pàgina,
+ * Una bombolla taronja (un 20 % més gran que la primera versió, parpelleja i es sacseja 0,8 s en sortir) sota els botons del reproductor. Surt una sola vegada per càrrega de la pàgina,
  * quan l'usuari ha clicat AVIS_CLICS vegades els botons ◀ ▶ amb el ratolí i encara no ha
  * premut cap fletxa del teclat. Només compta el ratolí: amb un mòbil o una tauleta (tocs amb el dit) o amb
  * una pulsació del teclat (Tab + Intro) no compta, perquè avisar d'un teclat que potser no hi és no té sentit.
