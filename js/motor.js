@@ -11,11 +11,12 @@
        frase; a sota, les altres fitxes del bloc, plegades;
      · a la dreta, només la calculadora (pantalla i teclat sencer).
    Animació d'un pas: les tecles del pas s'emmarquen al teclat (amb el
-   número d'ordre si n'hi ha més d'una), el cursor les prem una a una i,
-   al final, la pantalla canvia.
+   número d'ordre si n'hi ha de 2 a 6), el cursor les prem una a una i la
+   pantalla canvia després de CADA tecla, com a la calculadora: les
+   pantalles intermèdies les calcula simulador.js.
 
    Pas 0 (idx = -1): la pantalla de partida (fitxa.inici).
-   Depèn de KaTeX, Tecles, Pantalla, G i Dades. Exporta «Motor».
+   Depèn de KaTeX, Tecles, Pantalla, G, Dades i Simulador. Exporta «Motor».
    ═══════════════════════════════════════════════════════════════════ */
 (function (arrel) {
 'use strict';
@@ -26,9 +27,8 @@
 const TEMPS = Object.freeze({
   cursor: 430,         // el cursor va fins a una tecla
   clic: 150,           // la tecla està premuda
-  entreTecles: 170,    // pausa entre dues tecles del mateix pas
-  abansPantalla: 140,  // després de l'última tecla, abans que canviï la pantalla
-  pantalla: 220,       // la pantalla nova apareix
+  entreTecles: 170,    // pausa entre dues tecles del mateix pas (la pantalla ja ha canviat)
+  pantalla: 220,       // la pantalla del final del pas apareix
 });
 /** Velocitats de les tecles (factor de les durades): «normal» és un 65 % més lenta que «ràpida» (David, 31/10/2026: 1,5 i després un 10 % més). */
 const VELOCITATS = Object.freeze([['normal', 1.65], ['ràpida', 1]]);
@@ -72,8 +72,9 @@ function text(t) {
 const textPla = t => String(t || '').replace(/\$([^$]+)\$/g, '$1').replace(/\[\[([^\]]+)\]\]/g, (_, id) =>
   (Tecles.TECLES[id] ? Tecles.TECLES[id].nom : id)).replace(/\{\{([^}]+)\}\}/g, '«$1»');
 
+/** Anima un element i espera que acabi. Si l'animació es cancel·la (el pas s'interromp), també acaba, sense error. */
 function anima(el, fotogrames, opcions) {
-  return el.animate(fotogrames, Object.assign({fill: 'forwards', easing: CORBA}, opcions)).finished;
+  return el.animate(fotogrames, Object.assign({fill: 'forwards', easing: CORBA}, opcions)).finished.catch(() => {});
 }
 
 function rectangle(el, origen) {
@@ -277,12 +278,12 @@ function creaReproductor(r, fitxa, temps) {
   const passos = fitxa.passos;
   const darrer = passos.length - 1;
   const cursor = creaCursor(r, temps);
+  const parcials = Simulador.pantalles(fitxa).pantalles;   // parcials[i][j]: la pantalla després de la tecla j del pas i
   let idx = -1;                 // -1 = pas 0 (abans de començar)
-  let ocupat = false;
-  let pantallaActual = null;
+  let ocupat = false;           // hi ha un pas animant-se
+  let torn = 0;                 // canvia quan s'interromp l'animació
 
   function mostraPantalla(estat, canvi = false) {
-    pantallaActual = estat;
     r.lcd.innerHTML = Pantalla.html(estat);
     if (canvi) r.lcd.animate([{opacity: 0.35}, {opacity: 1}], {duration: temps(TEMPS.pantalla), easing: 'ease-out'});
   }
@@ -293,58 +294,68 @@ function creaReproductor(r, fitxa, temps) {
     marcaPassos(llista, idx);
     r.anunci.textContent = idx < 0 ? textPla(fitxa.enunciat) : `Pas ${idx + 1} de ${passos.length}. ${textPla(passos[idx].text)}`;
     r.anterior.disabled = idx < 0;
-    r.seguent.disabled = idx === darrer;
+    r.seguent.disabled = idx === darrer && !ocupat;
   }
 
-  /** Va al pas i (-1 = pas 0), sense animació. */
+  /** Va al pas i (-1 = pas 0), sense animació. Si hi ha un pas animant-se, l'interromp. */
   function salta(i) {
-    if (ocupat) return;
+    torn++;
+    ocupat = false;
     idx = Math.max(-1, Math.min(darrer, i));
     mostraPantalla(idx < 0 ? fitxa.inici : passos[idx].pantalla);
     marcaTeclat(r, passos, idx);
     r.teclat.classList.remove('shift-actiu');
+    r.calculadora.querySelectorAll('.premuda').forEach(t => t.classList.remove('premuda'));
+    r.passos.querySelectorAll('.premuda').forEach(t => t.classList.remove('premuda'));
     cursor.amaga();
     pinta();
   }
 
-  /** Anima el pas següent: el cursor prem les tecles del teclat i canvia la pantalla. */
+  /**
+   * Anima el pas següent: el cursor prem les tecles del teclat, una a una, i
+   * la pantalla canvia després de cada tecla. Si ja hi ha un pas animant-se,
+   * l'acaba a l'instant (la pulsació següent passarà al pas que ve).
+   */
   async function seguent() {
-    if (ocupat || idx >= darrer) return;
+    if (ocupat) { salta(idx); return; }
+    if (idx >= darrer) return;
     ocupat = true;
-    try {
-      idx++;
-      pinta();
-      const pas = passos[idx];
-      marcaTeclat(r, passos, idx);
-      const petites = [...llista.files[idx].querySelectorAll('.tecles .tecla')];
-      if (pas.tecles.length) {
-        for (let j = 0; j < pas.tecles.length; j++) {
-          const id = pas.tecles[j];
-          const t = r.teclat.querySelector(`[data-tecla="${id}"]`);
-          const q = rectangle(t, r.escenari);
-          await cursor.va(q.cx - 2, q.cy - 2);
-          cursor.prem(true);
-          t.classList.add('premuda');
-          if (petites[j]) petites[j].classList.add('premuda');
-          cursor.ona(q.cx, q.cy);
-          await espera(temps(TEMPS.clic));
-          cursor.prem(false);
-          t.classList.remove('premuda');
-          if (petites[j]) petites[j].classList.remove('premuda');
-          // SHIFT: surt la S a la pantalla i les funcions blaves es ressalten fins a la tecla següent
-          r.teclat.classList.toggle('shift-actiu', id === 'shift');
-          if (id === 'shift') mostraPantalla(Pantalla.ambIndicador(pantallaActual, 'shift'));
-          if (j < pas.tecles.length - 1) await espera(temps(TEMPS.entreTecles));
-        }
-        await espera(temps(TEMPS.abansPantalla));
-      } else {
-        cursor.amaga();
+    const meu = ++torn;
+    const viu = () => meu === torn;
+    idx++;
+    pinta();
+    const pas = passos[idx];
+    marcaTeclat(r, passos, idx);
+    const petites = [...llista.files[idx].querySelectorAll('.tecles .tecla')];
+    if (!pas.tecles.length) cursor.amaga();
+    for (let j = 0; j < pas.tecles.length; j++) {
+      const id = pas.tecles[j];
+      const t = r.teclat.querySelector(`[data-tecla="${id}"]`);
+      const q = rectangle(t, r.escenari);
+      await cursor.va(q.cx - 2, q.cy - 2);
+      if (!viu()) return;
+      cursor.prem(true);
+      t.classList.add('premuda');
+      if (petites[j]) petites[j].classList.add('premuda');
+      cursor.ona(q.cx, q.cy);
+      await espera(temps(TEMPS.clic));
+      if (!viu()) return;
+      cursor.prem(false);
+      t.classList.remove('premuda');
+      if (petites[j]) petites[j].classList.remove('premuda');
+      // Després de SHIFT, les funcions blaves es ressalten fins a la tecla següent
+      r.teclat.classList.toggle('shift-actiu', id === 'shift');
+      const darrera = j === pas.tecles.length - 1;
+      mostraPantalla(darrera ? pas.pantalla : parcials[idx][j], darrera);
+      if (!darrera) {
+        await espera(temps(TEMPS.entreTecles));
+        if (!viu()) return;
       }
-      mostraPantalla(pas.pantalla, true);
-    } finally {
-      ocupat = false;
     }
+    if (!pas.tecles.length) mostraPantalla(pas.pantalla, true);
+    ocupat = false;
     if (idx === darrer) cursor.amaga();
+    pinta();
   }
 
   r.seguent.addEventListener('click', () => seguent());

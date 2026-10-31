@@ -33,7 +33,9 @@
 /** Indicadors de la barra de dalt, en l'ordre en què surten. */
 const INDICADORS = Object.freeze(['shift', 'mat', 'ang', 'fix', 'sci', 'simp', 'verif']);
 
-const OPCIONS_KATEX = Object.freeze({throwOnError: false, strict: 'ignore'});
+/** KaTeX: l'única ordre «de confiança» és el cursor que posa simulador.js (\\htmlClass{cursor-tex}{…}). */
+const OPCIONS_KATEX = Object.freeze({throwOnError: false, strict: 'ignore',
+  trust: c => c.command === '\\htmlClass' && c.class === 'cursor-tex'});
 const escapa = s => String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
 const tex = t => (typeof katex !== 'undefined') ? katex.renderToString(t, OPCIONS_KATEX) : escapa(t);
 const marca = (estat, nom) => (estat.marca === nom ? ' marcat' : '');
@@ -133,12 +135,6 @@ function html(estat) {
   return `<div class="lcd-dins lcd-${estat.tipus}">${f(estat)}</div>`;
 }
 
-/** Afegeix un indicador a l'estat (p. ex. la S de ⇧), sense tocar l'original. */
-function ambIndicador(estat, nom, valor = true) {
-  if (!estat || estat.tipus !== 'calc') return estat;
-  return Object.assign({}, estat, {ind: Object.assign({}, estat.ind, {[nom]: valor}), marca: null});
-}
-
-arrel.Pantalla = Object.freeze({html, ambIndicador, finestra, INDICADORS, TIPUS: Object.keys(DIBUIXA)});
+arrel.Pantalla = Object.freeze({html, finestra, INDICADORS, OPCIONS_KATEX, TIPUS: Object.keys(DIBUIXA)});
 
 })(globalThis);

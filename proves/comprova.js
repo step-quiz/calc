@@ -32,10 +32,10 @@ if (process.env.KATEX) {
   const fitxer = path.join(process.env.KATEX, 'katex.js');
   katex = require(fs.existsSync(fitxer) ? fitxer : process.env.KATEX);
 }
-for (const f of ['js/tecles.js', 'js/pantalla.js', 'js/guions.js', 'js/fitxes.js']) {
+for (const f of ['js/tecles.js', 'js/pantalla.js', 'js/guions.js', 'js/fitxes.js', 'js/simulador.js']) {
   vm.runInContext(fs.readFileSync(path.join(arrel, f), 'utf8'), context, {filename: f});
 }
-const {Tecles, Pantalla, Dades} = context;
+const {Tecles, Pantalla, Dades, Simulador} = context;
 
 let errors = 0, comprovacions = 0;
 const error = (on, missatge) => { errors++; console.error(`✗ ${on}: ${missatge}`); };
@@ -45,7 +45,7 @@ function comprovaTeX(tex, on) {
   if (!katex || !tex) return;
   comprovacions++;
   try {
-    katex.renderToString(tex, {throwOnError: true, strict: 'ignore'});
+    katex.renderToString(tex, Object.assign({}, Pantalla.OPCIONS_KATEX, {throwOnError: true}));
   } catch (e) {
     error(on, `KaTeX no pot dibuixar «${tex}»: ${e.message}`);
   }
@@ -121,6 +121,18 @@ for (const f of Dades.FITXES) {
     ok(p.tecles.length > 0 || p.pantalla.marca, onPas, 'un pas sense tecles ha de ressaltar alguna cosa (marca)');
   });
 }
+/* El simulador: totes les pantalles intermèdies es poden deduir (o la fitxa les dona) i el que
+   s'escriu tecla a tecla coincideix amb la pantalla final de cada pas. */
+for (const f of Dades.FITXES) {
+  const {pantalles, errors: errorsSim} = Simulador.pantalles(f);
+  comprovacions++;
+  for (const e of errorsSim) error(`fitxa ${f.id} · simulador`, e);
+  pantalles.forEach((llista, i) => {
+    ok(llista.length === f.passos[i].tecles.length, `fitxa ${f.id} · pas ${i + 1}`, 'el simulador no dona una pantalla per tecla');
+    llista.forEach((p, j) => { if (j < llista.length - 1) comprovaPantalla(p, `fitxa ${f.id} · pas ${i + 1} · tecla ${j + 1}`); });
+  });
+}
+
 for (const f of Dades.FITXES) {
   for (const r of f.relacionades || []) {
     ok(idsFitxes.has(r) && r !== f.id, `fitxa ${f.id}`, `relacionada desconeguda (${r})`);

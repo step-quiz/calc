@@ -13,6 +13,8 @@
                            [] si el pas només explica la pantalla
                 pantalla = com queda la pantalla després de prémer-les (guions.js)
                 text     = la frase del pas
+                parcials = (opcional) {índex de tecla: pantalla}, per a les pantalles
+                           intermèdies que simulador.js no sap deduir
      relacionades  ids d'altres fitxes (opcional)
 
    Als textos: $$TeX$$ = fórmula en una línia pròpia; $TeX$ = fórmula; [[id]] = tecla; {{Text}} = opció d'un menú
@@ -235,7 +237,7 @@ const FITXES = Object.freeze([
   enunciat: 'La calculadora és en graus (D) i només necessites un càlcul en radians: $\\mathrm{sen}\\,\\frac{\\pi}{6}$.',
   inici: calc(D),
   passos: [
-    {tecles: ['sen', 'frac', 'shift', '7', 'down', '6', 'right'], pantalla: calc(D, '\\mathrm{sen}\\left(\\frac{\\pi}{6}\\right.'),
+    {tecles: ['sen', 'frac', 'shift', '7', 'down', '6', 'right'], pantalla: calc(D, '\\mathrm{sen}(\\frac{\\pi}{6}'),
       text: 'Escriu [[sen]] i la fracció $\\frac{\\pi}{6}$ amb la tecla [[frac]]: π, [[down]], 6 i [[right]] per sortir de la fracció.'},
     {tecles: ['catalog'], pantalla: catalog(0),
       text: 'Prem [[catalog]]: és el menú amb totes les funcions, agrupades.'},
@@ -243,9 +245,10 @@ const FITXES = Object.freeze([
       text: 'Baixa fins a {{Ang/Coord/Sexag}} (angles, coordenades i graus sexagesimals).'},
     {tecles: ['ok'], pantalla: angCoordSexag(0),
       text: 'Prem [[ok]]. Hi ha els símbols de les unitats: {{Grados}} (°), {{Radianes}} (r) i {{Gradianes}} (g).'},
-    {tecles: ['down', 'ok'], pantalla: calc(D, '\\mathrm{sen}\\left({\\frac{\\pi}{6}}^{\\mathrm{r}}\\right.'),
+    {tecles: ['down', 'ok'], pantalla: calc(D, '\\mathrm{sen}({\\frac{\\pi}{6}}^{\\mathrm{r}}'),
       text: 'Tria {{Radianes}}: la r s\'escriu darrere la fracció i vol dir «aquest angle és en radians».'},
-    {tecles: ['rpar', 'exe'], pantalla: marca(calc(D, '\\mathrm{sen}\\left({\\frac{\\pi}{6}}^{\\mathrm{r}}\\right)', '\\frac{1}{2}'), 'resultat'),
+    {tecles: ['rpar', 'exe'], pantalla: marca(calc(D, '\\mathrm{sen}({\\frac{\\pi}{6}}^{\\mathrm{r}})', '\\frac{1}{2}'), 'resultat'),
+      parcials: {0: calc(D, '\\mathrm{sen}({\\frac{\\pi}{6}}^{\\mathrm{r}})')},   // la r ve d'un menú: el simulador no sap on és
       text: 'Tanca el parèntesi i prem [[exe]]: $\\frac{1}{2}$, encara que la calculadora continua en D.'},
   ],
   relacionades: ['canvia-radians', 'error-angles'],
