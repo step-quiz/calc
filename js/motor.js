@@ -40,7 +40,7 @@ const CORBA = 'cubic-bezier(.45,.05,.25,1)';
  * Versió de la web. Quan es canvia qualsevol .js o .css, s'ha d'augmentar aquí I als «?v=» de
  * index.html i fitxa.html (la prova ho comprova): així cap navegador no fa servir fitxers vells.
  */
-const VERSIO = '22';
+const VERSIO = '23';
 
 const PEU = '© 2026 <strong>David Arso Civil</strong>. Ús educatiu lliure. Prohibida la comercialització '
   + 'i la modificació (<a rel="license" href="https://creativecommons.org/licenses/by-nc-nd/4.0/">CC BY-NC-ND 4.0</a>). '
@@ -88,9 +88,6 @@ function text(t) {
     return m ? `<span class="apartat" data-apartat="${m[1]}">${textSimple(m[2])}</span>` : textSimple(tros);
   }).join('');
 }
-/** Text pla (per al lector de pantalla). */
-const textPla = t => String(t || '').replace(/(?<!\[)\[\/?[a-z]\](?!\])/g, '').replace(/\$([^$]+)\$/g, '$1').replace(/\[\[([^\]]+)\]\]/g, (_, id) =>
-  (Tecles.TECLES[id] ? Tecles.TECLES[id].nom : id)).replace(/\{\{([^}]+)\}\}/g, '«$1»').replace(/!!([^!]+)!!/g, '$1');
 
 /** Anima un element i espera que acabi. Si l'animació es cancel·la (el pas s'interromp), també acaba, sense error. */
 function anima(el, fotogrames, opcions) {
@@ -227,10 +224,21 @@ function marcaPassos(llista, pas) {
     li.querySelector('.cap').setAttribute('aria-current', i === pas ? 'step' : 'false');
   });
   const actual = pas < 0 ? llista.zero : llista.files[pas];
-  // Que el pas actual es vegi sencer dins de la llista (només es desplaça la llista, no la pàgina)
-  const caixa = actual.parentElement, a = actual.offsetTop - caixa.offsetTop, b = a + actual.offsetHeight;
-  if (a < caixa.scrollTop) caixa.scrollTop = a - 6;
-  else if (b > caixa.scrollTop + caixa.clientHeight) caixa.scrollTop = b - caixa.clientHeight + 6;
+  const caixa = actual.parentElement;
+  if (/auto|scroll/.test(getComputedStyle(caixa).overflowY)) {
+    // Dues columnes: que el pas actual es vegi sencer dins de la llista (només es desplaça la llista, no la pàgina)
+    const a = actual.offsetTop - caixa.offsetTop, b = a + actual.offsetHeight;
+    if (a < caixa.scrollTop) caixa.scrollTop = a - 6;
+    else if (b > caixa.scrollTop + caixa.clientHeight) caixa.scrollTop = b - caixa.clientHeight + 6;
+  } else if (pas >= 0) {
+    // Una columna (tauleta en vertical, mòbil): la llista no es desplaça per dins, i la frase del pas
+    // pot quedar per sota de la finestra. Es desplaça la pàgina el mínim perquè es vegi.
+    const r = actual.getBoundingClientRect();
+    if (r.bottom > innerHeight || r.top < 0) {
+      const suau = !matchMedia('(prefers-reduced-motion: reduce)').matches;
+      actual.scrollIntoView({block: 'nearest', behavior: suau ? 'smooth' : 'auto'});
+    }
+  }
 }
 
 /** Fins a quantes tecles per pas es numeren: en una seqüència més llarga els números fan soroll (David, 31/10/2026). */
@@ -303,6 +311,8 @@ function creaReproductor(r, fitxa, temps) {
   const darrer = passos.length - 1;
   const cursor = creaCursor(r, temps);
   const parcials = Simulador.pantalles(fitxa).pantalles;   // parcials[i][j]: la pantalla després de la tecla j del pas i
+  /** La pantalla del final del pas i: la del simulador (amb el cursor de text al seu lloc) o, si no té tecles, la de la fitxa. */
+  const final = i => (i < 0 ? fitxa.inici : (parcials[i].length ? parcials[i][parcials[i].length - 1] : passos[i].pantalla));
   let idx = -1;                 // -1 = pas 0 (abans de començar)
   let ocupat = false;           // hi ha un pas animant-se
   let torn = 0;                 // canvia quan s'interromp l'animació
@@ -322,8 +332,9 @@ function creaReproductor(r, fitxa, temps) {
     // Zona d'error (David, 31/10/2026): si el pas ensenya un ús erroni, totes les vores es tornen de color vellut vermell
     const error = idx >= 0 && Boolean(passos[idx].error);
     document.body.classList.toggle('zona-error', error);
-    r.anunci.textContent = idx < 0 ? textPla(fitxa.enunciat)
-      : `Pas ${idx + 1} de ${passos.length}.${error ? ' Atenció: aquest pas ensenya un ús erroni.' : ''} ${textPla(passos[idx].text)}`;
+    // L'anunci per als lectors de pantalla porta l'HTML de KaTeX, que inclou MathML accessible (no el TeX en cru)
+    r.anunci.innerHTML = idx < 0 ? text(fitxa.enunciat)
+      : `Pas ${idx + 1} de ${passos.length}.${error ? ' Atenció: aquest pas ensenya un ús erroni.' : ''} ${text(passos[idx].text)}`;
     r.anterior.disabled = idx < 0;
     r.seguent.disabled = idx === darrer && !ocupat;
   }
@@ -333,7 +344,7 @@ function creaReproductor(r, fitxa, temps) {
     torn++;
     ocupat = false;
     idx = Math.max(-1, Math.min(darrer, i));
-    mostraPantalla(idx < 0 ? fitxa.inici : passos[idx].pantalla);
+    mostraPantalla(final(idx));
     marcaTeclat(r, passos, idx);
     r.teclat.classList.remove('shift-actiu');
     r.calculadora.querySelectorAll('.premuda').forEach(t => t.classList.remove('premuda'));
@@ -376,7 +387,7 @@ function creaReproductor(r, fitxa, temps) {
       // Després de SHIFT, les funcions blaves es ressalten fins a la tecla següent
       r.teclat.classList.toggle('shift-actiu', id === 'shift');
       const darrera = j === pas.tecles.length - 1;
-      mostraPantalla(darrera ? pas.pantalla : parcials[idx][j], darrera);
+      mostraPantalla(parcials[idx][j], darrera);
       if (!darrera) {
         await espera(temps(TEMPS.entreTecles));
         if (!viu()) return;
@@ -387,6 +398,10 @@ function creaReproductor(r, fitxa, temps) {
     if (idx === darrer) cursor.amaga();
     pinta();
   }
+
+  // Si la finestra canvia de mida (girar la tauleta, redimensionar), les coordenades del cursor ja no valen:
+  // s'amaga, i la tecla següent el torna a fer sortir al lloc bo.
+  addEventListener('resize', () => cursor.amaga());
 
   r.seguent.addEventListener('click', () => seguent());
   r.anterior.addEventListener('click', () => salta(idx - 1));
@@ -467,12 +482,15 @@ function inicia(id = parametre('id'), contenidor = document.getElementById('fitx
   const germanes = Dades.FITXES.filter(f => f.bloc === fitxa.bloc);
   document.title = fitxa.titol + ' — Calculadora fx-82SP CW';
   document.body.style.setProperty('--cat', bloc.color);
+  document.body.classList.add('pagina-fitxa');   // a l'ordinador, la pàgina fa l'alçada de la finestra (estil.css)
 
   const r = construeixPagina(fitxa, bloc, germanes, contenidor);
   let factor = PER_DEFECTE;                    // «normal», per defecte
   const reduit = matchMedia('(prefers-reduced-motion: reduce)').matches;
   const temps = ms => Math.max(40, ms * factor * (reduit ? 0.35 : 1));
-  r.velocitat.addEventListener('change', () => { factor = parseFloat(r.velocitat.value) || PER_DEFECTE; });
+  // En triar la velocitat, el selector deixa anar el focus: si no, les fletxes del teclat hi canviarien
+  // la velocitat en lloc de fer avançar els passos.
+  r.velocitat.addEventListener('change', () => { factor = parseFloat(r.velocitat.value) || PER_DEFECTE; r.velocitat.blur(); });
 
   const reproductor = creaReproductor(r, fitxa, temps);
   const avis = creaAvis(r);

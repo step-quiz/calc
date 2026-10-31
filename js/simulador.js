@@ -7,7 +7,9 @@
 
      Simulador.pantalles(fitxa) → {pantalles, errors}
        pantalles[i][j] = la pantalla després de la tecla j del pas i
-                         (l'última és sempre passos[i].pantalla);
+                         (l'última és passos[i].pantalla; si el pas només
+                         escriu, la mateixa però amb el cursor al seu lloc,
+                         per exemple dins del denominador);
        errors = llista de textos (la prova proves/comprova.js hi falla).
 
    Què sap fer (prou per a les fitxes, no és un emulador):
@@ -355,6 +357,13 @@ function pantalles(fitxa) {
         if (darrera && nomesEscriu && ['calc', 'definicio'].includes(nova.tipus) && nova.entrada && estat.ed && !['exe'].includes(id)) {
           const simulat = net(tex(estat.ed, false)), donat = net(nova.entrada);
           if (simulat !== donat) errors.push(`pas ${i + 1}: amb aquestes tecles s'escriu «${tex(estat.ed, false)}», però la pantalla diu «${nova.entrada}»`);
+          else if (!nova.resultat) {
+            // La pantalla final, amb el cursor on és de debò (dins de la plantilla, si no se n'ha sortit), com a la calculadora
+            const ambCursor = Object.freeze(Object.assign({}, nova, {entrada: tex(estat.ed, true), cursor: false}));
+            llista.push(ambCursor);
+            adopta(estat, nova, estat.ed);
+            return;
+          }
         }
         if (darrera && id === 'exe' && estat.ed && nova.tipus === 'calc' && estat.pantalla.tipus === 'calc') {   // (des de Definir f(x), EXE torna a una pantalla buida)
           const simulat = net(tex(estat.ed, false)), donat = net(nova.entrada);

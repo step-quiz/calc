@@ -15,6 +15,7 @@
      · els menús: la fila triada existeix; com a molt un ◉;
      · els textos: les [[tecles]] existeixen, els $ i {{ }} estan tancats;
      · les relacionades apunten a fitxes que existeixen;
+     · els resultats de les pantalles, tornant-los a calcular (proves/resultats.js);
      · (amb KATEX) cada fórmula de les pantalles i dels textos.
    ═══════════════════════════════════════════════════════════════════ */
 'use strict';
@@ -185,6 +186,14 @@ for (const [id, [x, y, d]] of posicions) {
     const refs = [...html.matchAll(/(?:src|href)="((?:js|css)\/[^"]+)"/g)].map(m => m[1]);
     for (const r of refs) ok(r.endsWith('?v=' + versio), pag, `${r} ha de portar ?v=${versio}`);
   }
+}
+
+/* Els resultats de les pantalles: es tornen a calcular i han de coincidir amb el que hi ha escrit (proves/resultats.js) */
+{
+  const {comprovats, errors: errorsRes} = require('./resultats.js').comprova(Dades);
+  comprovacions += comprovats;
+  ok(comprovats > 0, 'resultats', 'no s\'ha comprovat cap resultat');
+  for (const e of errorsRes) error('resultat', e);
 }
 
 /* Totes les tecles del catàleg es poden dibuixar */

@@ -103,7 +103,7 @@ Des de l'arrel del repositori:
 node proves/comprova.js
 ```
 
-Ha d'acabar amb «Tot correcte». Per comprovar també que KaTeX dibuixa totes les fórmules, cal tenir
+Ha d'acabar amb «Tot correcte». També torna a calcular tots els resultats de les pantalles (`proves/resultats.js`). Per comprovar també que KaTeX dibuixa totes les fórmules, cal tenir
 KaTeX a mà (per exemple, `npm install katex@0.16.9` en una carpeta qualsevol) i indicar-ne la ruta:
 
 ```
