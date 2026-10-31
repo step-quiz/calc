@@ -93,9 +93,9 @@ const probabilidad = sel => menu(PROBABILIDAD, sel);
 
 /** Verificar (manual, «Utilizar Verificar»): TOOLS, CATALOG > Verificar i els símbols de relació. */
 /** Menú TOOLS de l'aplicació Calcular (manual, p. 25-26): Deshacer, Simplificar ► i Verificar ON.
-    Amb Verificar activat, l'última fila passa a ser «Verificar OFF» (p. 64; que la resta de files no canviïn és deduït: VERIFICAR.md). */
+    Amb Verificar activat, el menú només té una fila, «Verificar OFF» (nom: manual, p. 64; una sola fila: comprovat a la calculadora, VERIFICAR.md). */
 const TOOLS = Object.freeze(['Deshacer', 'Simplificar', 'Verificar ON']);
-const TOOLS_VERIFICAR = Object.freeze(['Deshacer', 'Simplificar', 'Verificar OFF']);
+const TOOLS_VERIFICAR = Object.freeze(['Verificar OFF']);
 const filesTools = textos => textos.map(t => fila(t, t === 'Simplificar' ? {sub: true} : {}));
 const tools = sel => menu(filesTools(TOOLS), sel);
 const toolsVerificar = sel => menu(filesTools(TOOLS_VERIFICAR), sel);

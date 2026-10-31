@@ -174,7 +174,7 @@ function okAlMenu(p, estat) {
   if (mateixMenu(p, G.PROBABILIDAD) && SIMBOLS_PROBABILIDAD[sel]) return escriuDelMenu(estat, SIMBOLS_PROBABILIDAD[sel]);
   if (mateixMenu(p, G.VERIFICAR)) return escriuDelMenu(estat, SIMBOLS_VERIFICAR[sel]);
   if (mateixMenu(p, G.TOOLS) && sel === 2) return canviaVerificar(estat, true);              // Verificar ON
-  if (mateixMenu(p, G.TOOLS_VERIFICAR) && sel === 2) return canviaVerificar(estat, false);   // Verificar OFF
+  if (mateixMenu(p, G.TOOLS_VERIFICAR) && sel === 0) return canviaVerificar(estat, false);   // Verificar OFF (l'única fila)
   return null;
 }
 
