@@ -40,7 +40,7 @@ const CORBA = 'cubic-bezier(.45,.05,.25,1)';
  * Versió de la web. Quan es canvia qualsevol .js o .css, s'ha d'augmentar aquí I als «?v=» de
  * index.html i fitxa.html (la prova ho comprova): així cap navegador no fa servir fitxers vells.
  */
-const VERSIO = '19';
+const VERSIO = '20';
 
 const PEU = '© 2026 <strong>David Arso Civil</strong>. Ús educatiu lliure. Prohibida la comercialització '
   + 'i la modificació (<a rel="license" href="https://creativecommons.org/licenses/by-nc-nd/4.0/">CC BY-NC-ND 4.0</a>). '
@@ -66,13 +66,15 @@ const espera = ms => new Promise(resol => setTimeout(resol, ms));
 const escapa = s => String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
 const formula = t => katex.renderToString(t, {throwOnError: false});
 
-/** Text d'una fitxa → HTML: $$TeX$$ = fórmula en una línia pròpia, $TeX$ = fórmula, [[id]] = tecla petita, {{Opció}} = text d'un menú. */
+/** Text d'una fitxa → HTML: $$TeX$$ = fórmula en una línia pròpia, $TeX$ = fórmula, [[id]] = tecla petita, {{Opció}} = text d'un menú,
+    !!Error típic!! = l'avís d'un pas d'error (fons groc durant 1 s quan el pas es fa actual). */
 function textSimple(t) {
-  return String(t || '').split(/(\$\$[^$]+\$\$|\$[^$]+\$|\[\[[^\]]+\]\]|\{\{[^}]+\}\})/).map(tros => {
+  return String(t || '').split(/(\$\$[^$]+\$\$|\$[^$]+\$|\[\[[^\]]+\]\]|\{\{[^}]+\}\}|!![^!]+!!)/).map(tros => {
     if (/^\$\$[^$]+\$\$$/.test(tros)) return katex.renderToString(tros.slice(2, -2), {throwOnError: false, displayMode: true});
     if (/^\$[^$]+\$$/.test(tros)) return formula(tros.slice(1, -1));
     if (/^\[\[[^\]]+\]\]$/.test(tros)) return Tecles.html(tros.slice(2, -2), {petita: true});
     if (/^\{\{[^}]+\}\}$/.test(tros)) return `<span class="opcio-menu">${escapa(tros.slice(2, -2))}</span>`;
+    if (/^!![^!]+!!$/.test(tros)) return `<span class="avis-error">${escapa(tros.slice(2, -2))}</span>`;
     return escapa(tros).replace(/\n/g, '<br>');
   }).join('');
 }
@@ -88,7 +90,7 @@ function text(t) {
 }
 /** Text pla (per al lector de pantalla). */
 const textPla = t => String(t || '').replace(/(?<!\[)\[\/?[a-z]\](?!\])/g, '').replace(/\$([^$]+)\$/g, '$1').replace(/\[\[([^\]]+)\]\]/g, (_, id) =>
-  (Tecles.TECLES[id] ? Tecles.TECLES[id].nom : id)).replace(/\{\{([^}]+)\}\}/g, '«$1»');
+  (Tecles.TECLES[id] ? Tecles.TECLES[id].nom : id)).replace(/\{\{([^}]+)\}\}/g, '«$1»').replace(/!!([^!]+)!!/g, '$1');
 
 /** Anima un element i espera que acabi. Si l'animació es cancel·la (el pas s'interromp), també acaba, sense error. */
 function anima(el, fotogrames, opcions) {

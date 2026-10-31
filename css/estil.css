@@ -437,5 +437,15 @@ body.zona-error .pas.actual, body.zona-error .pas:not(.actual):hover, body.zona-
 body.zona-error .tecla, body.zona-error .torna, body.zona-error .ona{border-color:var(--vellut)}
 body.zona-error .altres, body.zona-error .peu{border-top-color:var(--vellut)}
 body.zona-error .pas.actual{box-shadow:0 0 0 1px var(--vellut), 0 2px 8px rgba(158,27,50,.18)}
-.enunciat, .velocitat select, .altres, .peu{transition:border-color .25s}
+.enunciat, .velocitat select, .altres{transition:border-color .25s}
+/* El fons de tota la pàgina (cos, capçalera i peu): 80 % el color de sempre i 20 % vellut vermell (David, 31/10/2026) */
+body.zona-error{background:color-mix(in srgb, var(--bg) 80%, var(--vellut))}
+body.zona-error .capcalera{background:color-mix(in srgb, var(--hd-bg) 80%, var(--vellut))}
+body.zona-error .peu{background:color-mix(in srgb, #f1f5f9 80%, var(--vellut))}
+body, .capcalera{transition:background-color .25s}
+.peu{transition:border-color .25s, background-color .25s}
+/* «Error típic» (!!…!! als textos): fons groc pur durant 1 segon, cada cop que el pas es fa actual */
+.avis-error{border-radius:3px; padding:0 .15em; margin:0 -.15em}
+.pas.actual .avis-error{animation:avis-error 1s linear}
+@keyframes avis-error{0%, 88%{background:#ffff00} 100%{background:transparent}}
 

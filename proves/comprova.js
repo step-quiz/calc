@@ -123,6 +123,8 @@ for (const f of Dades.FITXES) {
     comprovaText(p.text, onPas);
     ok(p.tecles.length > 0 || p.pantalla.marca, onPas, 'un pas sense tecles ha de ressaltar alguna cosa (marca)');
     ok(p.error === undefined || p.error === true, onPas, 'error ha de ser true (o no posar-lo)');
+    ok((p.text.match(/!!/g) || []).length % 2 === 0, onPas, '!! sense tancar');
+    ok(!/!!/.test(p.text) || p.error, onPas, 'l\'avís !!…!! només va en un pas amb error: true');
     if (p.apartat) ok(new RegExp('\\[' + p.apartat + '\\][\\s\\S]*?\\[\\/' + p.apartat + '\\]').test(f.enunciat), onPas,
       `l'apartat «${p.apartat}» no està marcat a l'enunciat amb [${p.apartat}]…[/${p.apartat}]`);
   });

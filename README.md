@@ -20,7 +20,9 @@ Es fa anar pas a pas, amb els botons ◀ ▶ o amb el teclat de l'ordinador: ↓
 Els passos que ensenyen un ús erroni de la calculadora (per exemple, $-2^4$ sense parèntesis o una fracció
 de sumes escrita en una línia) són una **zona d'error**: mentre són el pas actual, totes les vores de la pàgina
 (enunciat, botons, pas actual, tecles dels passos, marcs de la calculadora…) es tornen de color vellut vermell
-(«red velvet», `#9e1b32`). Es marquen amb `error: true` al pas (`js/fitxes.js`).
+(«red velvet», `#9e1b32`), i el fons de la pàgina (cos, capçalera i peu) passa a ser un 80 % del seu color i un 20 %
+de vellut vermell. Es marquen amb `error: true` al pas (`js/fitxes.js`). El primer pas de cada error comença
+amb «Error típic», escrit `!!Error típic!!`: quan el pas es fa actual, té el fons groc pur durant 1 segon.
 Si l'usuari clica 5 vegades amb el ratolí els botons ◀ ▶ (els tocs amb el dit no compten: un mòbil o una tauleta pot no tenir teclat) sense haver fet servir mai les fletxes del teclat, surt una bombolla
 (vora taronja pura, un 20 % més gran que la primera versió, que parpelleja i es sacseja durant 0,8 s en sortir) que li ho recorda; es tanca amb la creueta i, si no, desapareix als 10 segons (surt una sola vegada per càrrega de la pàgina).
 

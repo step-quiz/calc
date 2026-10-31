@@ -23,7 +23,7 @@
      relacionades  ids d'altres fitxes (opcional)
 
    Als textos: $$TeX$$ = fórmula en una línia pròpia; $TeX$ = fórmula; [[id]] = tecla; {{Text}} = opció d'un menú
-   de la calculadora, escrita tal com hi surt.
+   de la calculadora, escrita tal com hi surt; !!Error típic!! = avís d'error, amb fons groc durant 1 s (només en passos amb error: true).
    ═══════════════════════════════════════════════════════════════════ */
 (function (arrel) {
 'use strict';
@@ -156,7 +156,7 @@ const FITXES = Object.freeze([
     {tecles: ['exe'], pantalla: marca(calc(D, '\\frac{3}{4}+\\frac{5}{6}', '\\frac{19}{12}'), 'resultat'),
       text: 'Prem [[exe]]: $\\frac{3}{4}+\\frac{5}{6}=\\frac{19}{12}$.'},
     {error: true, tecles: ['frac', '3', 'down', '4', 'mes'], pantalla: calc(D, '\\frac{3}{4+}', '', {hist: true}),
-      text: 'Ara l\'error típic. Escriu $\\frac{3}{4}$ i, sense prémer [[right]], prem [[mes]]: el «+» queda dins del denominador.'},
+      text: '!!Error típic!!: escriu $\\frac{3}{4}$ i, sense prémer [[right]], prem [[mes]]: el «+» queda dins del denominador.'},
     {error: true, tecles: ['frac', '5', 'down', '6', 'exe'], pantalla: marca(calc(D, '\\frac{3}{4+\\frac{5}{6}}', '\\frac{18}{29}'), 'resultat'),
       text: 'Acaba igual i prem [[exe]]: surt $\\frac{18}{29}$, perquè has calculat $\\frac{3}{4+\\frac{5}{6}}$. Després del denominador, sempre [[right]].'},
   ],
@@ -168,7 +168,7 @@ const FITXES = Object.freeze([
   inici: calc(D),
   passos: [
     {error: true, tecles: ['2', 'mes', '3', 'entre', '4', 'menys', '1'], pantalla: calc(D, '2+3\\div 4-1'),
-      text: 'Primer, com no s\'ha de fer: tot en una línia, $2+3\\div 4-1$.'},
+      text: '!!Error típic!!, com no s\'ha de fer: tot en una línia, $2+3\\div 4-1$.'},
     {error: true, tecles: ['exe'], pantalla: marca(calc(D, '2+3\\div 4-1', '\\frac{7}{4}'), 'resultat'),
       text: 'Prem [[exe]]: surt $\\frac{7}{4}$, no $\\frac{5}{3}$. La calculadora divideix només el 3 entre 4: $2+\\frac{3}{4}-1$.'},
     {tecles: ['frac', '2', 'mes', '3'], pantalla: calc(D, '\\frac{2+3}{\\square}', '', {hist: true}),
@@ -192,7 +192,7 @@ const FITXES = Object.freeze([
     {tecles: ['exe'], pantalla: marca(calc(D, '(-2)^{4}', '16'), 'resultat'),
       text: 'Prem [[exe]]: $(-2)^4=16$.'},
     {error: true, tecles: ['ac', 'menys', '2', 'pot', '4'], pantalla: calc(D, '-2^{4}', '', {hist: true}),
-      text: 'Ara sense parèntesis. Esborra amb [[ac]] i escriu $-2^4$: [[menys]], el 2, [[pot]] i el 4.'},
+      text: '!!Error típic!!: sense parèntesis. Esborra amb [[ac]] i escriu $-2^4$: [[menys]], el 2, [[pot]] i el 4.'},
     {error: true, tecles: ['exe'], pantalla: marca(calc(D, '-2^{4}', '-16'), 'resultat'),
       text: 'Prem [[exe]]: surt −16. La potència té més prioritat que el signe: és $-(2^4)$. Per elevar un negatiu, sempre amb parèntesis.'},
   ],
@@ -212,7 +212,7 @@ const FITXES = Object.freeze([
     {tecles: ['exe'], pantalla: marca(calc(D, '(\\frac{2}{3})^{-2}', '\\frac{9}{4}'), 'resultat'),
       text: 'Prem [[exe]]: $\\left(\\frac{2}{3}\\right)^{-2}=\\frac{9}{4}$. Un exponent negatiu inverteix la fracció.'},
     {error: true, tecles: ['frac', '2', 'down', '3'], pantalla: calc(D, '\\frac{2}{3}', '', {hist: true}),
-      text: 'Error típic: sense parèntesis. Escriu [[frac]], el 2, [[down]] i el 3, i no surtis del denominador.'},
+      text: '!!Error típic!!: sense parèntesis. Escriu [[frac]], el 2, [[down]] i el 3, i no surtis del denominador.'},
     {error: true, tecles: ['pot', 'menys', '2'], pantalla: calc(D, '\\frac{2}{3^{-2}}', '', {hist: true}),
       text: 'Si ara prems [[pot]], l\'exponent $-2$ s\'escriu dins del denominador: només afecta el 3.'},
     {error: true, tecles: ['exe'], pantalla: marca(calc(D, '\\frac{2}{3^{-2}}', '18'), 'resultat'),
@@ -274,7 +274,7 @@ const FITXES = Object.freeze([
   inici: calc(D),
   passos: [
     {error: true, tecles: ['cos', 'shift', '7', 'entre', '3', 'rpar', 'exe'], pantalla: marca(calc(D, '\\cos(\\pi\\div 3)', '0.9998329795'), 'resultat'),
-      text: 'Fem el que ha fet la Laia: $\\cos(\\pi\\div 3)$ i [[exe]]. Surt 0.9998329795, i no $\\frac{1}{2}$.'},
+      text: '!!Error típic!!: el que ha fet la Laia, $\\cos(\\pi\\div 3)$ i [[exe]]. Surt 0.9998329795, i no $\\frac{1}{2}$.'},
     {error: true, tecles: [], pantalla: marca(calc(D, '\\cos(\\pi\\div 3)', '0.9998329795'), 'ang'),
       text: 'Mira la barra: D. La calculadora ha entès «π/3 graus», un angle d\'un grau escàs, i el seu cosinus és gairebé 1.'},
     {tecles: ['settings', 'ok', 'down', 'ok'], pantalla: unitatAngular(0),
@@ -286,7 +286,7 @@ const FITXES = Object.freeze([
     {tecles: ['cos', 'shift', '7', 'entre', '3', 'rpar', 'exe'], pantalla: marca(calc(R, '\\cos(\\pi\\div 3)', '\\frac{1}{2}'), 'resultat'),
       text: 'El mateix càlcul dona $\\frac{1}{2}$.'},
     {error: true, tecles: ['sen', '3', '0', 'rpar', 'exe'], pantalla: marca(calc(R, '\\mathrm{sen}(30)', '-0.9880316241'), 'resultat'),
-      text: 'Ara l\'error contrari: en radians, $\\mathrm{sen}(30)$ és el sinus de 30 radians, −0.9880316241. Si el 30 són graus, la calculadora ha de ser en D.'},
+      text: '!!Error típic!!, el contrari: en radians, $\\mathrm{sen}(30)$ és el sinus de 30 radians, −0.9880316241. Si el 30 són graus, la calculadora ha de ser en D.'},
   ],
   relacionades: ['canvia-radians', 'grau-puntual'],
 },
@@ -356,7 +356,7 @@ const FITXES = Object.freeze([
     {tecles: ['per', '2', 'exe'], pantalla: marca(calc(D, '\\mathrm{Ans}\\times 2', '27.89514873'), 'resultat'),
       text: 'Si ara en vols el doble, no cal [[ans]]: després d\'un resultat, una operació com [[per]] ja comença amb Ans.'},
     {error: true, tecles: ['8', 'entre', '0', 'punt', '5', '7', 'exe'], pantalla: marca(calc(D, '8\\div 0.57', '\\frac{800}{57}'), 'resultat'),
-      text: 'Error que cal evitar: copiar només 0,57 en lloc de $\\sin 35^\\circ$. Surt $\\frac{800}{57}\\approx 14{,}04$ i no 13,95: ja falla el primer decimal.'},
+      text: '!!Error típic!!: copiar només 0,57 en lloc de $\\sin 35^\\circ$. Surt $\\frac{800}{57}\\approx 14{,}04$ i no 13,95: ja falla el primer decimal.'},
   ],
   relacionades: ['logaritmes', 'exacte-decimal'],
 },
@@ -656,7 +656,7 @@ const FITXES = Object.freeze([
       text: 'Prem [[exe]]: $P(X\\ge 4)\\approx 0{,}3969$. La fracció exacta tindria massa xifres, i la calculadora la dona en decimal.'},
     {error: true, apartat: 'c', tecles: ['5', 'per', '0', 'punt', '6', '3', 'pot', '4', 'right', 'per', '0', 'punt', '3', '7', 'mes', '0', 'punt', '6', '3', 'pot', '5', 'exe'],
       pantalla: marca(calc(D, '5\\times 0.63^{4}\\times 0.37+0.63^{5}', '0.3906734328'), 'resultat'),
-      text: 'Error que cal evitar: si arrodoneixes $p\\approx 0{,}63$, surt 0,3907 i no 0,3969: ja falla la segona xifra decimal. Treballa amb $\\frac{19}{30}$.'},
+      text: '!!Error típic!!: si arrodoneixes $p\\approx 0{,}63$, surt 0,3907 i no 0,3969: ja falla la segona xifra decimal. Treballa amb $\\frac{19}{30}$.'},
   ],
   relacionades: ['exacte-decimal', 'frac-plantilla', 'pot-fraccio', 'combinatoria', 'pau-pro-24s-q4'],
 },
