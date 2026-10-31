@@ -36,6 +36,7 @@ Static site with step-by-step demos ("fitxes") for the **CASIO fx-82SP CW** calc
 - Student-facing text in Catalan; calculator menu labels in Spanish, exactly as in the manual.
 - Fitxes are data in `js/fitxes.js`; recurring screens live in `js/guions.js`; the calculator geometry lives in `js/tecles.js` (measured, keys are circles; never stretch it).
 - Layout: two columns only (left = statement, player, step list with the current step expanded, collapsed list of other fitxes; right = calculator only). David rejected a 3-column layout, a «Per recordar» box and a title in the header as too noisy.
+- PAU exercise fitxes: show the calculator the way a student would really use it in an exam, quickly and directly (e.g. check a solution by typing each left-hand side with the numbers and comparing with the right-hand side). No detours such as storing values in variables.
 - Target devices: laptops (Chromebook / Lenovo, 1280×640 to 1920×1080 viewports, touch and mouse). Every step of every fitxa must fit the viewport without scrolling at 1366×657.
 - Cache busting: every change to a `.js`/`.css` file must bump `VERSIO` in `js/motor.js` AND every `?v=` in `index.html` and `fitxa.html` (the test enforces they match; the footer shows the version). `_headers` sets `Cache-Control: no-cache` on Cloudflare Pages. David once saw an old `motor.js` on his phone.
 - Tests: `node proves/comprova.js` must end with «Tot correcte» (with `KATEX=<katex 0.16.9>/dist` to also check every formula).

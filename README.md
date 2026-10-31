@@ -30,7 +30,7 @@ veu en una columna.
 | Fraccions | *(properament)* |
 | Graus o radians | Posa la calculadora en radians · Troba l'error: el mode equivocat · Un sol angle en radians, sense canviar el mode |
 | Funcions útils per a la PAU | *(properament)* |
-| Exercicis PAU amb la calculadora | Àlgebra · PAU 2024: resol i comprova un sistema (alg-24j-q2) |
+| Exercicis PAU amb la calculadora | Àlgebra · PAU 2024: comprova la solució d'un sistema (alg-24j-q2) |
 
 Adreça d'una fitxa: `fitxa.html?id=<id>` (per exemple, `fitxa.html?id=exacte-decimal`).
 

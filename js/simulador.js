@@ -12,7 +12,7 @@
 
    Què sap fer (prou per a les fitxes, no és un emulador):
      · escriure: xifres, punt, + − × ÷, ( ), sen( cos( tan(, x, y, z,
-       π, e, Ans; la plantilla de fracció, amb ↓ ↑ → ← per moure-s'hi;
+       π, e, Ans, el signe negatiu (−); la plantilla de fracció, amb ↓ ↑ → ← per moure-s'hi;
        després d'un resultat, el que s'escriu comença un càlcul nou;
      · SHIFT (la S de la barra) i AC;
      · obrir CONFIG, CATALOG, FORMAT i VARIABLE; moure's pels menús i
@@ -42,7 +42,7 @@ const ESCRIU = Object.freeze({
   punt: '.', mes: '+', menys: '-', per: '\\times ', entre: '\\div ', lpar: '(', rpar: ')',
   x: 'x', ans: '\\mathrm{Ans}', sen: '\\mathrm{sen}(', cos: '\\cos(', tan: '\\tan(',
 });
-const ESCRIU_SHIFT = Object.freeze({7: '\\pi ', 8: 'e', 0: 'x', punt: 'y', exp: 'z'});
+const ESCRIU_SHIFT = Object.freeze({7: '\\pi ', 8: 'e', 0: 'x', punt: 'y', exp: 'z', menys: '-'});   // SHIFT − = signe negatiu (−)
 const OPERACIONS = new Set(['mes', 'per', 'entre']);    // després d'un resultat, continuen amb Ans
 
 function editorBuit() {
