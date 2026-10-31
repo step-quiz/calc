@@ -1,0 +1,5 @@
+# Fitxers del sistema
+.DS_Store
+Thumbs.db
+# Dependències per a proves locals (no es publiquen)
+node_modules/

@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="ca">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="author" content="David Arso Civil">
+<meta name="description" content="Fitxes pas a pas per aprendre a fer servir la calculadora fx-82SP CW a Matemàtiques de Batxillerat i a la PAU.">
+<title>Calculadora fx-82SP CW — Matemàtiques de Batxillerat</title>
+<link rel="icon" href="icon.png">
+<link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Source+Code+Pro:wght@400;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.css">
+<link rel="stylesheet" href="css/estil.css">
+</head>
+<body>
+<header class="capcalera">
+  <div>
+    <p class="nom-bloc">Matemàtiques · Batxillerat · PAU</p>
+    <h1>La calculadora fx-82SP CW, pas a pas</h1>
+  </div>
+</header>
+
+<main class="portada">
+  <p class="intro">Cada fitxa és una demostració pas a pas: veus quina tecla es prem, què surt a la pantalla i per què.
+    Fes-la anar amb el botó ▶, amb les fletxes ← → del teclat o tocant les tecles de la fitxa.</p>
+  <p class="intro-nota">Els menús de la calculadora surten en castellà, com al manual.</p>
+  <div class="blocs" id="blocs"></div>
+  <section class="ajuda">
+    <h2>Abans de cada examen</h2>
+    <p>1. Mira la barra de dalt: hi ha d'haver √ i D (o R si treballes en radians), i res més.</p>
+    <p>2. Si hi ha FIX o SCI, o els resultats surten decimals, reinicia la calculadora.</p>
+    <p>3. Porta una pila de recanvi (és una pila AAA).</p>
+  </section>
+</main>
+
+<footer class="peu">© 2026 <strong>David Arso Civil</strong>. Ús educatiu lliure. Prohibida la comercialització i la modificació
+  (<a rel="license" href="https://creativecommons.org/licenses/by-nc-nd/4.0/">CC BY-NC-ND 4.0</a>).
+  Web no oficial, sense relació amb el fabricant de la calculadora.</footer>
+
+<script src="js/tecles.js"></script>
+<script src="js/pantalla.js"></script>
+<script src="js/guions.js"></script>
+<script src="js/fitxes.js"></script>
+<script src="js/portada.js"></script>
+</body>
+</html>
