@@ -42,6 +42,7 @@ veu en una columna.
 | Treballar en mode 'graus' o 'radiants' | Posa la calculadora en radians · Troba l'error: el mode equivocat · Un sol angle en radians, sense canviar el mode |
 | Funcions útils per a la PAU | Defineix f(x) i g(x) i calcula'n valors · Reutilitza l'últim resultat (Ans) · Logaritme en qualsevol base · Nombres combinatoris · Comprova una igualtat |
 | Exercicis PAU. Àlgebra i Geometria | Àlgebra: comprova la solució d'un sistema (alg-24j-q2) · un menor orlat amb la regla de Sarrus (alg-24s-q2) · Geometria: distància d'un punt a un pla (geo-25s-q4b a) · el punt simètric respecte d'un pla (geo-25s-q4b c) · distàncies en centímetres (geo-26j2-q4b) |
+| Abans de l'examen (bombolla petita, a part dels blocs) | Comprova la calculadora en 30 segons |
 | Exercicis PAU. Anàlisi i Probabilitat | Anàlisi: Bolzano amb f(x) definida (ana-24i-q1) · una arrel cúbica en una optimització (ana-25i-q4a) · intueix els límits amb f(x) (ana-25j-q1) · un vitrall en radians (ana-25s-q4a) · Probabilitat: probabilitat total, Bayes i binomial (pro-24i-q4) · binomial, probabilitat total i Bayes (pro-24s-q4) · probabilitat total i un màxim (pro-25j-q3) |
 
 Exercicis PAU (31/10/2026): 12 fitxes, 3 per categoria (2 d'àlgebra i 4 d'anàlisi, per decisió del David: la
@@ -50,11 +51,31 @@ fitxa de límits ocupa el lloc de la tercera d'àlgebra).
 La portada només mostra els blocs i els títols de les fitxes: sense introducció, sense descripcions
 dels blocs ni nombre de passos (David, 31/10/2026).
 
-Adreça d'una fitxa: `fitxa.html?id=<id>` (per exemple, `fitxa.html?id=exacte-decimal`).
+Adreça d'una fitxa: `fitxa.html?id=<id>` (per exemple, `fitxa.html?id=exacte-decimal`). Amb `&pas=N` s'obre directament el pas N
+(`fitxa.html?id=verificar&pas=7`), i l'adreça es posa al dia a cada pas: es pot copiar per enllaçar o projectar un pas concret.
+
+Avisos a la capçalera de la fitxa (només quan cal): en una tauleta en vertical, que la giri (en horitzontal hi cap tot; al mòbil
+no s'hi dedica esforç); en un navegador massa antic per dibuixar la calculadora (sense unitats `cqw`, Chrome < 105), que l'actualitzi.
+
+Notació: als textos, «sin» (com als enunciats PAU); «sen» només és el nom de la tecla i el que surt a la pantalla. Els nombres
+que mostra o que es teclegen a la calculadora porten punt (0.7); els dels enunciats i de les respostes escrites, coma (0,7).
 
 El mode de càlcul: totes les fitxes suposen la calculadora en mode {{E Mat/S Mat}}. Per això, a cada fitxa, el
 primer resultat exacte (una fracció, una arrel o π) diu que surt així per aquest mode i què sortiria en mode
 {{E Mat/S Decimal}} (la prova ho exigeix).
+
+## La calculadora en català o en castellà (versió 25)
+
+A dalt de la portada i de cada fitxa, «Calculadora en: Castellano / Català»: l'alumne tria l'idioma de la seva calculadora un
+cop i el navegador el recorda. Els menús de la pantalla, les opcions `{{…}}` dels textos i «Vertader/Fals» de Verificar surten
+en aquell idioma. La traducció al català és a `js/guions.js` (`CATALA`) i **encara és provisional**: s'ha de confirmar amb la
+calculadora (`VERIFICAR.md`). La prova comprova que tots els textos de menú i tots els `{{…}}` hi tenen traducció.
+
+## «Ara tu» (prova pilot, versió 25)
+
+Una fitxa pot portar `araTu: {enunciat, solucio}`: en acabar l'últim pas surt un exercici semblant i un botó «Mostra la
+solució». De moment, a tres fitxes ben diferents: *Fracció de sumes*, *Troba l'error: el mode equivocat* i *Probabilitat ·
+PAU 2024: binomial, probabilitat total i Bayes*.
 
 ## Fitxers
 
@@ -114,7 +135,8 @@ KATEX=<carpeta>/node_modules/katex/dist node proves/comprova.js
 
 Web estàtica, sense compilació: GitHub → Cloudflare Pages a cada commit de `main` (sense ordre de
 compilació i amb el directori de sortida `/`). Els ZIP es pugen a `_uploads/` i el workflow
-`unzip-upload.yml` els descomprimeix a l'arrel. Dependència externa: KaTeX 0.16.9 (cdnjs) i les
-lletres de Google Fonts.
+`unzip-upload.yml` els descomprimeix a l'arrel. Cap dependència externa (versió 24): KaTeX 0.16.9 i les lletres
+(Libre Baskerville i Source Code Pro, llicència SIL OFL) són a `vendor/`, servides des del mateix web: funciona encara que
+el filtre del centre bloquegi cdnjs o Google Fonts, i no s'envia l'adreça IP de l'alumnat a cap altre servei.
 
 Web no oficial, sense relació amb el fabricant de la calculadora.

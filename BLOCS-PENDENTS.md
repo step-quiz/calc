@@ -1,5 +1,7 @@
 # BLOCS-PENDENTS.md — Work order for the two empty blocks (cold-start AI)
 
+> **HISTORICAL (1/11/2026, version 24).** Both blocks are done (`fraccions` in v13, `pau` in v17). Keep this file only as a record of how they were planned and of the process David requires (propose first, one block at a time). Names of simulator internals below are outdated: since v24 templates are the `PLANTILLA` table in `js/simulador.js` and menus are `G.MENUS` (ids and row keys). For current work, read `ARCHITECTURE.md` §7.
+
 > **Estat (31/10/2026, versió 18).** El bloc 2 `fraccions` ja està fet: `frac-plantilla`, `frac-prioritat`, `pot-negativa`, `pot-fraccio` i `arrel-n`. David va descartar `frac-mixta`, `frac-decimal`, `factor-primo` i `simp`. Correcció: escrit en una línia, `2+3÷4−1` dona 7/4 (no 5/4). El bloc 4 `pau` també està fet: `definir-fx`, `ans`, `logaritmes`, `combinatoria` i `verificar`. Segona onada (`abs`, `taula`) no feta.
 
 

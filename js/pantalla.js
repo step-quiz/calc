@@ -42,6 +42,11 @@ const tex = t => (typeof katex !== 'undefined') ? katex.renderToString(t, OPCION
 /** Les fórmules de la pantalla, en estil «display»: les fraccions i les arrels a mida completa, com a la calculadora. */
 const texLcd = t => tex('\\displaystyle ' + t);
 const marca = (estat, nom) => (estat.marca === nom ? ' marcat' : '');
+/** L'idioma de la calculadora del dibuix en curs ('es' o 'ca'; vegeu html). */
+let idioma = 'es';
+const tr = t => (typeof G !== 'undefined' ? G.textCalc(t, idioma) : t);
+/** Verdadero/Falso dins del TeX del resultat (Verificar), traduïts. */
+const trTex = t => (idioma === 'ca' ? String(t).replace(/\\text\{(Verdadero|Falso)\}/g, (m, w) => '\\text{' + tr(w) + '}') : t);
 
 /* La icona de «E Mat»: una arrel amb un quadre (entrada com al llibre). */
 const ICONA_MAT = '<svg class="ind-mat" viewBox="0 0 22 12" aria-hidden="true">'
@@ -59,16 +64,17 @@ function barra(estat) {
   if (ind.fix) peces.push(`<span class="ind ind-text${marca(estat, 'fix')}" data-marca="fix" title="Decimals fixos">FIX</span>`);
   if (ind.sci) peces.push(`<span class="ind ind-text${marca(estat, 'sci')}" data-marca="sci" title="Xifres significatives fixes">SCI</span>`);
   if (ind.simp) peces.push(`<span class="ind${marca(estat, 'simp')}" data-marca="simp" title="Simplificar: Manual">⇩</span>`);
-  if (ind.verif) peces.push(`<span class="ind${marca(estat, 'verif')}" data-marca="verif" title="Verificar ON">✔</span>`);
+  // A la dreta, com a la calculadora (manual, p. 63): el ✔ de Verificar i el ▲ de l'historial
+  const verif = ind.verif ? `<span class="ind ind-verif${marca(estat, 'verif')}" data-marca="verif" title="Verificar ON">✔</span>` : '';
   const hist = ind.hist ? `<span class="ind ind-hist${marca(estat, 'hist')}" data-marca="hist" title="Hi ha càlculs a l'historial">▲</span>` : '';
-  return `<div class="lcd-barra"><span class="lcd-ind">${peces.join('')}</span>${hist}</div>`;
+  return `<div class="lcd-barra"><span class="lcd-ind">${peces.join('')}</span><span class="lcd-ind-dreta">${verif}${hist}</span></div>`;
 }
 
 function calc(estat) {
   const cursor = estat.cursor ? '<span class="lcd-cursor" aria-hidden="true"></span>' : '';
   const escriu = t => (estat.linia ? `<span class="lcd-linia">${escapa(t)}</span>` : texLcd(t));
   const entrada = estat.entrada ? escriu(estat.entrada) : '';
-  const resultat = estat.resultat ? escriu(estat.resultat) : '';
+  const resultat = estat.resultat ? escriu(trTex(estat.resultat)) : '';
   return barra(estat)
     + `<div class="lcd-entrada${marca(estat, 'entrada')}" data-marca="entrada">${entrada}${cursor}</div>`
     + `<div class="lcd-resultat${marca(estat, 'resultat')}" data-marca="resultat">${resultat}</div>`;
@@ -89,7 +95,7 @@ function menu(estat) {
     const i = de + j;
     const radio = f.radio ? `<span class="radio">${f.radio === 'on' ? '◉' : '○'}</span>` : '';
     const sub = f.sub ? '<span class="sub">►</span>' : '';
-    return `<div class="lcd-fila${i === sel ? ' sel' : ''}${marca(estat, 'fila-' + i)}" data-marca="fila-${i}">${radio}<span class="t">${escapa(f.t)}</span>${sub}</div>`;
+    return `<div class="lcd-fila${i === sel ? ' sel' : ''}${marca(estat, 'fila-' + i)}" data-marca="fila-${i}">${radio}<span class="t">${escapa(tr(f.t))}</span>${sub}</div>`;
   }).join('');
   let barraLateral = '';
   if (files.length > 4) {
@@ -109,13 +115,13 @@ const APPS = Object.freeze([
 function home(estat) {
   const sel = estat.sel || 0;
   return '<div class="lcd-home">' + APPS.map((a, i) =>
-    `<div class="app${i === sel ? ' sel' : ''}"><span class="i">${a.i}</span><span class="t">${a.t}</span></div>`).join('') + '</div>';
+    `<div class="app${i === sel ? ' sel' : ''}"><span class="i">${a.i}</span><span class="t">${escapa(tr(a.t))}</span></div>`).join('') + '</div>';
 }
 
 function missatge(estat) {
-  const linies = (estat.linies || []).map(l => `<div>${escapa(l)}</div>`).join('');
+  const linies = (estat.linies || []).map(l => `<div>${escapa(tr(l))}</div>`).join('');
   const opcions = (estat.opcions || []).map((o, i) =>
-    `<span class="opcio${i === (estat.sel || 0) ? ' sel' : ''}">${escapa(o)}</span>`).join('');
+    `<span class="opcio${i === (estat.sel || 0) ? ' sel' : ''}">${escapa(tr(o))}</span>`).join('');
   return `<div class="lcd-missatge">${linies}${opcions ? `<div class="opcions">${opcions}</div>` : ''}</div>`;
 }
 
@@ -137,8 +143,9 @@ function definicio(estat) {
 
 const DIBUIXA = Object.freeze({calc, menu, home, missatge, variables, definicio});
 
-/** HTML del contingut de la pantalla per a un estat. */
-function html(estat) {
+/** HTML del contingut de la pantalla per a un estat. idioma: 'es' (per defecte) o 'ca', la calculadora en català. */
+function html(estat, llengua = 'es') {
+  idioma = llengua === 'ca' ? 'ca' : 'es';
   const f = estat && DIBUIXA[estat.tipus];
   if (!f) return '<div class="lcd-missatge"><div>?</div></div>';
   return `<div class="lcd-dins lcd-${estat.tipus}">${f(estat)}</div>`;

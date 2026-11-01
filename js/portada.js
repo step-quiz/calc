@@ -11,7 +11,16 @@
 const escapa = s => String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
 const contenidor = document.getElementById('blocs');
 
-contenidor.innerHTML = Dades.BLOCS.map((b, i) => {
+/* L'idioma de la calculadora (fase 3): l'alumne el tria aquí o a qualsevol fitxa, i el navegador el recorda */
+const idioma = document.getElementById('idioma');
+if (idioma) {
+  idioma.value = G.llegeixIdioma();
+  idioma.addEventListener('change', () => G.desaIdioma(idioma.value));
+}
+
+// Els blocs grans, numerats; els petits (petit: true, p. ex. «Abans de l'examen»), com a bombolles a part
+const grans = Dades.BLOCS.filter(b => !b.petit), petits = Dades.BLOCS.filter(b => b.petit);
+contenidor.innerHTML = grans.map((b, i) => {
   const fitxes = Dades.FITXES.filter(f => f.bloc === b.id);
   const llista = fitxes.length
     ? '<ol class="llista">' + fitxes.map((f, j) =>
@@ -22,5 +31,11 @@ contenidor.innerHTML = Dades.BLOCS.map((b, i) => {
     + `<span class="num">${String(i + 1).padStart(2, '0')}</span>`
     + `<h2>${escapa(b.titol)}</h2>${llista}</section>`;
 }).join('');
+const bombolles = document.createElement('div');
+bombolles.className = 'bombolles';
+bombolles.innerHTML = petits.map(b => Dades.FITXES.filter(f => f.bloc === b.id).map(f =>
+  `<a class="bombolla" id="${b.id}" style="--cat:${b.color}" href="fitxa.html?id=${encodeURIComponent(f.id)}">`
+  + `<span class="bombolla-bloc">${escapa(b.titol)}</span><span>${escapa(f.titol)}</span></a>`).join('')).join('');
+contenidor.after(bombolles);
 
 })();

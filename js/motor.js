@@ -40,7 +40,7 @@ const CORBA = 'cubic-bezier(.45,.05,.25,1)';
  * Versió de la web. Quan es canvia qualsevol .js o .css, s'ha d'augmentar aquí I als «?v=» de
  * index.html i fitxa.html (la prova ho comprova): així cap navegador no fa servir fitxers vells.
  */
-const VERSIO = '23';
+const VERSIO = '25';
 
 const PEU = '© 2026 <strong>David Arso Civil</strong>. Ús educatiu lliure. Prohibida la comercialització '
   + 'i la modificació (<a rel="license" href="https://creativecommons.org/licenses/by-nc-nd/4.0/">CC BY-NC-ND 4.0</a>). '
@@ -65,6 +65,17 @@ function element(etiqueta, atributs = {}, fills = []) {
 const espera = ms => new Promise(resol => setTimeout(resol, ms));
 const escapa = s => String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
 const formula = t => katex.renderToString(t, {throwOnError: false});
+/** L'idioma de la calculadora de l'alumne ('es' o 'ca'): el llegeix inicia() (G.llegeixIdioma). */
+let IDIOMA = 'es';
+
+/** El selector «Calculadora en: Castellano / Català». En canviar-lo, es desa i es torna a obrir la pàgina (al mateix pas). */
+function selectorIdioma() {
+  const sel = element('select', {id: 'idioma', 'aria-label': 'Idioma de la teva calculadora'});
+  for (const [v, nom] of Object.entries(G.IDIOMES)) sel.append(element('option', {value: v, text: nom}));
+  sel.value = IDIOMA;
+  sel.addEventListener('change', () => { G.desaIdioma(sel.value); location.reload(); });
+  return element('label', {class: 'tria-idioma', for: 'idioma', text: 'Calculadora en '}, [sel]);
+}
 
 /** Text d'una fitxa → HTML: $$TeX$$ = fórmula en una línia pròpia, $TeX$ = fórmula, [[id]] = tecla petita, {{Opció}} = text d'un menú,
     !!Error típic!! = l'avís d'un pas d'error (fons groc durant 1 s quan el pas es fa actual). */
@@ -73,7 +84,7 @@ function textSimple(t) {
     if (/^\$\$[^$]+\$\$$/.test(tros)) return katex.renderToString(tros.slice(2, -2), {throwOnError: false, displayMode: true});
     if (/^\$[^$]+\$$/.test(tros)) return formula(tros.slice(1, -1));
     if (/^\[\[[^\]]+\]\]$/.test(tros)) return Tecles.html(tros.slice(2, -2), {petita: true});
-    if (/^\{\{[^}]+\}\}$/.test(tros)) return `<span class="opcio-menu">${escapa(tros.slice(2, -2))}</span>`;
+    if (/^\{\{[^}]+\}\}$/.test(tros)) return `<span class="opcio-menu">${escapa(G.textCalc(tros.slice(2, -2), IDIOMA))}</span>`;
     if (/^!![^!]+!!$/.test(tros)) return `<span class="avis-error">${escapa(tros.slice(2, -2))}</span>`;
     return escapa(tros).replace(/\n/g, '<br>');
   }).join('');
@@ -162,6 +173,20 @@ function construeixPagina(fitxa, bloc, germanes, contenidor) {
   r.calculadora = element('div', {class: 'calculadora', style: `aspect-ratio:100/${T.alcada}`, html: htmlCalculadora()});
   r.calculadora.append(element('div', {class: 'lcd', style: `left:${T.vidre.x}cqw;top:${T.vidre.y}cqw;width:${T.vidre.w}cqw;height:${T.vidre.h}cqw`}, [r.lcd]));
   r.teclat = r.calculadora;
+  // «Ara tu» (fase 4, prova pilot): un exercici semblant que surt en acabar l'últim pas; la solució, amb un botó
+  if (fitxa.araTu) {
+    const solucio = element('div', {class: 'ara-tu-solucio', html: text(fitxa.araTu.solucio), hidden: true});
+    const boto = element('button', {class: 'ara-tu-boto', type: 'button', 'aria-expanded': 'false', text: 'Mostra la solució'});
+    boto.addEventListener('click', () => {
+      solucio.hidden = !solucio.hidden;
+      boto.textContent = solucio.hidden ? 'Mostra la solució' : 'Amaga la solució';
+      boto.setAttribute('aria-expanded', String(!solucio.hidden));
+    });
+    r.araTu = element('section', {class: 'ara-tu', 'aria-label': 'Ara tu', hidden: true}, [
+      element('p', {class: 'ara-tu-titol', text: 'Ara tu'}),
+      element('p', {class: 'ara-tu-enunciat', html: text(fitxa.araTu.enunciat)}), boto, solucio]);
+    r.araTu.amagaSolucio = () => { solucio.hidden = true; boto.textContent = 'Mostra la solució'; boto.setAttribute('aria-expanded', 'false'); };
+  }
   r.escenari = element('div', {class: 'escenari'}, [r.calculadora, r.efectes, r.cursor]);
 
   const enllac = f => element('a', {class: 'pastilla' + (f.id === fitxa.id ? ' actual' : ''), href: 'fitxa.html?id=' + encodeURIComponent(f.id),
@@ -176,13 +201,20 @@ function construeixPagina(fitxa, bloc, germanes, contenidor) {
   ]);
 
   contenidor.replaceChildren(
-    element('header', {class: 'capcalera'}, [element('a', {class: 'torna', href: 'index.html#' + bloc.id, text: '← Calculadora'})]),
+    element('header', {class: 'capcalera'}, [
+      element('a', {class: 'torna', href: 'index.html#' + bloc.id, text: '← Calculadora'}),
+      selectorIdioma(),
+      // Avisos que només mostra el CSS quan cal (estil.css): navegador sense unitats cqw, tauleta en vertical
+      element('p', {class: 'avis-capcalera avis-navegador', text: 'Aquest navegador és massa antic per dibuixar la calculadora. Actualitza\'l (Chrome 105 o posterior).'}),
+      element('p', {class: 'avis-capcalera avis-gira', text: 'Gira la tauleta: en horitzontal veuràs alhora la calculadora i les explicacions.'}),
+    ]),
     element('main', {class: 'contingut'}, [
       element('div', {class: 'columna'}, [
         element('h1', {class: 'nomes-lectors', text: fitxa.titol}),
         r.enunciat,
         r.reproductor,
         r.passos,
+        r.araTu || null,
         r.anunci,
         altres,
       ]),
@@ -318,14 +350,30 @@ function creaReproductor(r, fitxa, temps) {
   let torn = 0;                 // canvia quan s'interromp l'animació
 
   function mostraPantalla(estat, canvi = false) {
-    r.lcd.innerHTML = Pantalla.html(estat);
+    r.lcd.innerHTML = Pantalla.html(estat, IDIOMA);
     if (canvi) r.lcd.animate([{opacity: 0.35}, {opacity: 1}], {duration: temps(TEMPS.pantalla), easing: 'ease-out'});
   }
 
   const llista = omplPassos(r, passos, i => salta(i));
 
+  /** A l'ordinador (dues columnes), que l'«Ara tu» es vegi dins de la columna, que llavors es desplaça sencera. */
+  function mostraAraTu() {
+    const columna = r.araTu.parentElement;
+    if (getComputedStyle(columna).display !== 'flex') return;   // una columna: ja hi porta marcaPassos
+    const c = columna.getBoundingClientRect(), a = r.araTu.getBoundingClientRect();
+    if (a.bottom > c.bottom) columna.scrollTop += Math.min(a.bottom - c.bottom + 8, a.top - c.top);
+  }
+  if (r.araTu) r.araTu.querySelector('.ara-tu-boto').addEventListener('click', () => requestAnimationFrame(mostraAraTu));
+
   function pinta() {
+    if (r.araTu) {   // l'«Ara tu» surt quan s'ha acabat l'últim pas
+      const visible = idx === darrer && !ocupat;
+      if (!visible) r.araTu.amagaSolucio();
+      if (r.araTu.hidden === visible) r.araTu.hidden = !visible;
+    }
+    // (abans de marcaPassos: l'«Ara tu» ocupa lloc a la columna, i el pas actual s'ha de veure sencer igualment)
     marcaPassos(llista, idx);
+    if (r.araTu && !r.araTu.hidden) mostraAraTu();
     // L'apartat de l'enunciat que es resol en aquest pas, ressaltat (David, 31/10/2026)
     const apartat = idx >= 0 ? passos[idx].apartat : null;
     r.enunciat.querySelectorAll('.apartat').forEach(e => e.classList.toggle('actiu', e.dataset.apartat === apartat));
@@ -335,6 +383,12 @@ function creaReproductor(r, fitxa, temps) {
     // L'anunci per als lectors de pantalla porta l'HTML de KaTeX, que inclou MathML accessible (no el TeX en cru)
     r.anunci.innerHTML = idx < 0 ? text(fitxa.enunciat)
       : `Pas ${idx + 1} de ${passos.length}.${error ? ' Atenció: aquest pas ensenya un ús erroni.' : ''} ${text(passos[idx].text)}`;
+    // L'adreça porta el pas actual (fitxa.html?id=…&pas=N): es pot copiar per enllaçar-lo o projectar-lo
+    try {
+      const u = new URL(location.href);
+      if (idx < 0) u.searchParams.delete('pas'); else u.searchParams.set('pas', String(idx + 1));
+      history.replaceState(null, '', u);
+    } catch (e) { /* sense history (p. ex. file://): no passa res */ }
     r.anterior.disabled = idx < 0;
     r.seguent.disabled = idx === darrer && !ocupat;
   }
@@ -472,6 +526,7 @@ function inicia(id = parametre('id'), contenidor = document.getElementById('fitx
       text: 'No s\'ha pogut carregar KaTeX, la biblioteca que dibuixa les fórmules. Comprova la connexió i torna a carregar la pàgina.'}));
     return null;
   }
+  IDIOMA = G.llegeixIdioma();
   const fitxa = Dades.FITXES.find(f => f.id === id) || null;
   if (!fitxa) {
     contenidor.replaceChildren(element('p', {class: 'error-carrega', html:
@@ -492,7 +547,11 @@ function inicia(id = parametre('id'), contenidor = document.getElementById('fitx
   // la velocitat en lloc de fer avançar els passos.
   r.velocitat.addEventListener('change', () => { factor = parseFloat(r.velocitat.value) || PER_DEFECTE; r.velocitat.blur(); });
 
+  // fitxa.html?id=…&pas=N obre directament el pas N (1 = el primer; sense número o fora de rang, el pas 0).
+  // Es llegeix abans de crear el reproductor, que reescriu l'adreça amb el pas actual.
+  const pasInicial = parseInt(parametre('pas'), 10);
   const reproductor = creaReproductor(r, fitxa, temps);
+  if (pasInicial >= 1 && pasInicial <= fitxa.passos.length) reproductor.salta(pasInicial - 1);
   const avis = creaAvis(r);
   for (const b of [r.anterior, r.seguent]) {
     b.addEventListener('pointerdown', e => avis.pulsacio(e));

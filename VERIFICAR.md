@@ -45,6 +45,16 @@ i arrodonit a 10 xifres significatives, com fa la calculadora en el format Norma
 
 **Contrastat amb el manual (31/10/2026) i ja no deduït:** el menú TOOLS de Calcular (Deshacer, Simplificar ►, Verificar ON; p. 25-26); «Verificar ON»/«Verificar OFF», l'indicador ✔, que s'hi torna a la pantalla anterior i que l'historial s'esborra (p. 63-64); «Verdadero»/«Falso» alineats a la dreta de la línia del resultat (p. 65); la plantilla del logaritme (tecla `log■□`, la base, `→`, el nombre; es dibuixa $\log_{2}(16)$ i el parèntesi de tancament ja hi és; p. 51); `nCr` i `nPr` es dibuixen «10C4» i «10P4» (p. 53); el menú FUNCTION (f(x), g(x), Definir f(x), Definir g(x)), «f(x)=» / «g(x)=» i que EXE torna a la pantalla anterior (p. 60-61); les quatre primeres files del CATALOG (p. 25).
 
+**La calculadora en català (versió 25).** Les etiquetes en català de `G.CATALA` (`js/guions.js`) són una traducció
+provisional, feta amb el manual català de la fx-570/991SP X II on hi coincideix (Entrada/Sortida, E Línia/S Línia, Unitat
+angular, Graus sexag (D), Radian, Format nombre, Fixar decim, Result fracció, Símbol decimal, Separar dígits, Taula). La resta
+s'han de comprovar a la calculadora posada en català: Config càlcul, Recursos en línia, Grau cent (G), Not cient, Config i dades,
+Iniciar tot, Estàndard, Notació ENG, Anàlisi func, Probabilitat, Càlcul numèric, Altres, Graus, Radians, Gradians, Graus Min Seg,
+Permutació(P), Combinació(C), Nombre aleatori, Enter aleatori, Desfer, Desar, Vertader i Fals. Tampoc no se sap si, en català, la
+pantalla escriu «sen(» o «sin(» (la tecla és «sen»): ara es deixa «sen(».
+
+**Des de la versió 24,** l'indicador ✔ de Verificar es dibuixa a la dreta, al costat de ▲, com a la imatge del manual (p. 63).
+
 **Contrastat a la calculadora real (David, 31/10/2026) i ja no deduït:**
 1. Amb Verificar activat, el menú TOOLS només té **una fila**: «Verificar OFF» (que desactiva Verificar). No hi ha «Deshacer» ni «Simplificar».
 2. Amb Verificar activat, el CATALOG porta «Verificar» com a primera fila i, darrere, les files de sempre.
