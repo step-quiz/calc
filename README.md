@@ -49,7 +49,7 @@ veu en una columna.
 
 | Bloc | Fitxes |
 |---|---|
-| La pantalla: fracció o decimal, i arrodonir | (properament) |
+| Fracció o decimal. Arrodonir. Notació científica | Em surt una fracció: vull el decimal · Arrodonir el que surt a la pantalla · Nombres molt grans: notació científica (exemples propis) |
 | Ús dels parèntesis | Les patates rebaixades: el percentatge de descompte (cb2-26-q4) · El quadrat d'un nombre negatiu (exemple propi) · Les valoracions d'1 o 2 estrelles (cb4-24-q7) |
 | Percentatges i proporcions | Un descompte del 25 % (cb4-23-q23) · Quantes fotos amb descompte? (cb4-23-q24) · Una foto més petita, sense deformar-la (cb4-23-q26) |
 | Mitjanes | L'hotel: la mitjana de quatre setmanes (cb4-26-q15) · Les estrelles: la mitjana d'una taula (cb4-24-q8) · El mercat: la mitjana d'un gràfic de barres (cb4-25-q17) |

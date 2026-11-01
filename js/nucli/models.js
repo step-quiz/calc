@@ -42,7 +42,7 @@
  * index.html i fitxa.html (la prova ho comprova): així cap navegador no fa servir fitxers vells.
  * Els fitxers dels models es carreguen amb aquest mateix «?v=».
  */
-const VERSIO = '43';
+const VERSIO = '44';
 
 /** Les parts que ha de donar cada model, amb les funcions o els camps que el nucli hi fa servir. */
 const CONTRACTE = Object.freeze({

@@ -29,7 +29,7 @@ M.blocs = Object.freeze([
   {id: 'examen', titol: 'Abans de l\'examen', color: '#3d4f1f', etapes: ['batx'], petit: true},
   // ESO (v37, David, 1/11/2026): sis blocs propis (no es comparteix cap bloc amb Batxillerat). Colors: verds i morats
   // foscos, lluny del blau i l'or de Batxillerat i del vellut de la zona d'error (contrast ≥ 7,8 sobre blanc).
-  {id: 'eso-pantalla', titol: 'La pantalla: fracció o decimal, i arrodonir', color: '#0b4a40', etapes: ['eso']},
+  {id: 'eso-pantalla', titol: 'Fracció o decimal. Arrodonir. Notació científica', color: '#0b4a40', etapes: ['eso']},
   {id: 'eso-parentesis', titol: 'Ús dels parèntesis', color: '#0d5c4f', etapes: ['eso']},
   {id: 'eso-percentatges', titol: 'Percentatges i proporcions', color: '#14532d', etapes: ['eso']},
   {id: 'eso-mitjanes', titol: 'Mitjanes', color: '#3b2a6b', etapes: ['eso']},
