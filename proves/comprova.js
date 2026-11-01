@@ -286,11 +286,12 @@ for (const id of Models.ids) {
     // Els exercicis PAU reals (v39, David): «PAU juny 2024, qüestió 2 a)» va a «font», no al començament de l'enunciat
     ok(!/^PAU /.test(f.enunciat), onF, 'la font («PAU …») no va a l\'enunciat (va a «font»)');
     if (['pau-ag', 'pau-ap'].includes(f.bloc)) ok(typeof f.font === 'string' && /^PAU /.test(f.font), onF, 'un exercici PAU real porta «font: \'PAU …\'»');
-    if (!(etapesBloc.get(f.bloc) || []).includes('eso')) continue;
-    f.passos.forEach((p, i) => {
+    // A tot el web (v40, David): cada frase d'un pas, també de l'«Ara tu», és [mat]…[/mat] o [calc]…[/calc]
+    for (const [nom, passos] of [['', f.passos], [' · ara tu', (f.araTu && f.araTu.passos) || []]]) passos.forEach((p, i) => {
       const fora = String(p.text).replace(/\[(mat|calc)\][\s\S]*?\[\/\1\]/g, '');
-      ok(/\[(mat|calc)\]/.test(p.text) && !fora.trim(), `${onF} · pas ${i + 1}`, 'a l\'ESO, cada frase és [mat]…[/mat] o [calc]…[/calc]');
+      ok(/\[(mat|calc)\]/.test(p.text) && !fora.trim(), `${onF}${nom} · pas ${i + 1}`, 'cada frase és [mat]…[/mat] o [calc]…[/calc]');
     });
+    if (!(etapesBloc.get(f.bloc) || []).includes('eso')) continue;
     for (const t of [f.enunciat, ...f.passos.map(p => p.text)]) ok(!/(^|[^\p{L}])opci[óo](?!\p{L})/iu.test(t), onF, 'no es parla de l\'opció bona ni dels distractors');
   }
 

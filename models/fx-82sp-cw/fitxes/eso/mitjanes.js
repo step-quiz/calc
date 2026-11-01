@@ -32,7 +32,7 @@ M.fitxes.push(
 
 {
   id: 'cb4-26-q15', bloc: 'eso-mitjanes', titol: 'L\'hotel: la mitjana de quatre setmanes', font: 'CB 4ESO (2026), pregunta 15',
-  enunciat: 'Un hotel ha ocupat 168, 154, 210 i 260 places en 4 setmanes. Quina ha estat la mitjana de places ocupades?',
+  enunciat: 'Un hotel apunta quantes places ha ocupat cada setmana:\n• 1a setmana: 168 places\n• 2a setmana: 154 places\n• 3a setmana: 210 places\n• 4a setmana: 260 places\nQuina ha estat la mitjana de places ocupades en aquestes 4 setmanes?',
   inici: calc(D),
   passos: [
     {tecles: ['lpar', '1', '6', '8', 'mes', '1', '5', '4', 'mes', '2', '1', '0', 'mes', '2', '6', '0', 'rpar'], pantalla: calc(D, '(168+154+210+260)'),
@@ -50,7 +50,7 @@ M.fitxes.push(
 },
 {
   id: 'cb4-24-q8', bloc: 'eso-mitjanes', titol: 'Les estrelles: la mitjana d\'una taula', font: 'CB 4ESO (2024), pregunta 8',
-  enunciat: 'Els 80 clients d\'una botiga han valorat la compra amb estrelles. Quina és la mitjana d\'estrelles?'
+  enunciat: 'Els 80 clients d\'una botiga han valorat la compra amb una puntuació d\'1 a 5 estrelles. La taula diu quants clients han donat cada puntuació. Quina és la mitjana d\'estrelles?'
     + '$$\\begin{array}{l|ccccc}\\text{Estrelles} & 5 & 4 & 3 & 2 & 1\\\\ \\hline \\text{Clients} & 22 & 32 & 16 & 8 & 2\\end{array}$$',
   inici: calc(D),
   passos: [
@@ -67,7 +67,7 @@ M.fitxes.push(
 },
 {
   id: 'cb4-25-q17', bloc: 'eso-mitjanes', titol: 'El mercat: la mitjana d\'un gràfic de barres', font: 'CB 4ESO (2025), pregunta 17',
-  enunciat: 'Dels enquestats de més de 50 anys, 25 van al mercat 1 vegada per setmana; 35, 2 vegades; 25, 3 vegades, i 10, 4 vegades. De mitjana, quants dies hi van per setmana?',
+  enunciat: 'Es fa una enquesta que pregunta quantes vegades es va al mercat. Entre les persones de més de 50 anys:\n• 25 persones van al mercat 1 vegada per setmana\n• 35 persones, 2 vegades\n• 25 persones, 3 vegades\n• 10 persones, 4 vegades.\nDe mitjana, quants dies hi van per setmana?',
   inici: calc(D),
   passos: [
     {tecles: ['frac', '1', 'per', '2', '5', 'mes', '2', 'per', '3', '5', 'mes', '3', 'per', '2', '5', 'mes', '4', 'per', '1', '0'],

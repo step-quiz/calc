@@ -72,6 +72,10 @@ Com és una fitxa d'ESO (David, 1/11/2026; les tres de mitjanes són el model):
   s'escriu l'error (a la fx-82MS, la línia de baix el continua mostrant).
 - Les mitjanes es teclegen a Calcular (sense l'app Estadística ni el mode SD). Sense «Ara tu».
 
+**A tot el web (versions 39 i 40):** totes les frases dels passos, també les de Batxillerat i dels «Ara tu», són `[mat]` o `[calc]`; les
+fitxes PAU reals porten la font a la icona («PAU juny 2024, qüestió 2 a)»), no a l'enunciat. Els enunciats d'ESO s'escriuen perquè els
+entengui un alumne de 13 anys: primer la situació, després les dades, una per línia (`\n• …`), i la pregunta al final.
+
 La prova (`proves/comprova.js`) exigeix totes aquestes normes: la font a part, només frases `[mat]` i `[calc]` a l'ESO, cap «opció»,
 i l'AC al començament de cada error.
 
