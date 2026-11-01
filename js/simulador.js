@@ -330,7 +330,7 @@ function tecla(estat, id) {
 /** Posa l'estat d'acord amb una pantalla donada per la fitxa (final de pas o inici). */
 function adopta(estat, p, edSimulat) {
   estat.pantalla = p;
-  estat.shift = false;
+  estat.shift = Boolean(p.tipus === 'calc' && p.ind && p.ind.shift);   // un pas pot acabar amb ⇧ (la S de la barra): la tecla del pas següent és la de SHIFT
   if (p.tipus === 'variables') {
     estat.vars = Object.fromEntries(p.valors);
   }

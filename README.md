@@ -71,14 +71,15 @@ cop i el navegador el recorda. Els menús de la pantalla, les opcions `{{…}}` 
 en aquell idioma. La traducció al català és a `js/guions.js` (`CATALA`), comprovada amb fotos de la calculadora (versió 27);
 les poques pantalles que encara no s'han fotografiat són a `VERIFICAR.md`. La prova comprova que tots els textos de menú i tots els `{{…}}` hi tenen traducció.
 
-## «Ara tu» (prova pilot, versió 25)
+## «Ara tu» (versió 25; a totes les fitxes des de la versió 30)
 
-Una fitxa pot portar `araTu: {enunciat, resultat, error, inici, passos}`: en acabar l'últim pas surt un exercici semblant.
-«Mostra la solució» ensenya el **resultat correcte** i, en vermell, l'**error típic** (el que no s'ha de fer). «Comprova-ho pas a
-pas» posa la pàgina en mode «Ara tu»: fons verd oliva clar, i la calculadora fa els passos de l'«Ara tu» amb uns botons ◀ ▶
-propis (i les fletxes del teclat). «Torna a l'exercici», o tocar el reproductor principal, en surt. Els passos de l'«Ara tu»
-s'escriuen i es comproven igual que els d'una fitxa (també poden portar `error: true`). De moment, a tres fitxes ben diferents: *Fracció de sumes*, *Troba l'error: el mode equivocat* i *Probabilitat ·
-PAU 2024: binomial, probabilitat total i Bayes*.
+Cada fitxa porta `araTu: {enunciat, resultat, error, inici, passos}`: en acabar l'últim pas surt un exercici semblant, amb
+altres nombres. «Mostra la solució» ensenya el **resultat correcte** i, en vermell, l'**error típic** (el que no s'ha de fer).
+«Comprova-ho pas a pas» posa la pàgina en mode «Ara tu»: fons verd oliva clar, i la calculadora fa els passos de l'«Ara tu»
+amb uns botons ◀ ▶ propis (i les fletxes del teclat). «Torna a l'exercici», o tocar el reproductor principal, en surt. Els
+passos de l'«Ara tu» s'escriuen i es comproven igual que els d'una fitxa (també poden portar `error: true`). L'«Ara tu» comença
+amb la calculadora tal com l'ha deixada la fitxa: les f(x) i g(x) que s'hi han definit encara hi són (per exemple, a *Regla de
+Barrow amb f(x)* es calcula una altra integral amb la mateixa primitiva).
 
 ## Fitxers
 

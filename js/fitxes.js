@@ -21,6 +21,8 @@
                 parcials = (opcional) {índex de tecla: pantalla}, per a les pantalles
                            intermèdies que simulador.js no sap deduir
      relacionades  ids d'altres fitxes (opcional)
+     araTu      exercici semblant, al final: {enunciat, resultat (TeX), error (text, sense !!), inici, passos}.
+                Els passos són com els de la fitxa; la calculadora conserva les f(x) i g(x) definides a la fitxa.
 
    Als textos: $$TeX$$ = fórmula en una línia pròpia; $TeX$ = fórmula; [[id]] = tecla; {{Text}} = opció d'un menú
    de la calculadora, escrita tal com hi surt; !!Error típic!! = avís d'error, amb fons groc durant 1 s (només en passos amb error: true).
@@ -68,6 +70,20 @@ const FITXES = Object.freeze([
     {tecles: ['shift'], pantalla: marca(calc(ind(D, {shift: true}), '', '', {hist: true}), 'shift'),
       text: 'Si prems [[shift]], surt una S: la tecla següent farà el que hi ha escrit a sobre seu (per exemple, [[shift]] [[7]] escriu π). La S desapareix sola.'},
   ],
+  araTu: {
+    enunciat: 'Calcula $2\\pi$ i dona\'n el decimal. Mira la barra mentre escrius la π.',
+    resultat: '2\\pi\\approx 6{,}283185307',
+    error: 'Escriure 3.14 en lloc de π: $2\\cdot 3{,}14=6{,}28$, i ja falla el tercer decimal.',
+    inici: calc(D),
+    passos: [
+      {tecles: ['2', 'shift'], pantalla: marca(calc(ind(D, {shift: true}), '2'), 'shift'),
+        text: 'Escriu el 2 i prem [[shift]]: a la barra surt la S.'},
+      {tecles: ['7'], pantalla: calc(D, '2\\pi'),
+        text: 'Prem [[7]]: s\'escriu π (el que hi ha a sobre de la tecla) i la S desapareix.'},
+      {tecles: ['shift', 'exe'], pantalla: marca(calc(D, '2\\pi', '6.283185307'), 'resultat'),
+        text: 'Amb [[shift]] [[exe]], el decimal: 6.283185307.'},
+    ],
+  },
   relacionades: ['fix', 'mode-decimal'],
 },
 {
@@ -92,6 +108,18 @@ const FITXES = Object.freeze([
     {tecles: ['shift', 'exe'], pantalla: marca(calc(D, SEN45, '0.7071067812'), 'resultat'),
       text: 'En lloc de [[exe]], prem [[shift]] i després [[exe]] (a sobre d\'EXE hi ha ≈): surt el resultat en decimal directament.'},
   ],
+  araTu: {
+    enunciat: 'Calcula $\\cos 30^\\circ$ en forma exacta i en forma decimal.',
+    resultat: '\\frac{\\sqrt{3}}{2}\\approx 0{,}8660254038',
+    error: 'Donar només el decimal arrodonit, 0,87, quan es demana el valor exacte: la resposta és $\\frac{\\sqrt{3}}{2}$.',
+    inici: calc(D),
+    passos: [
+      {tecles: ['cos', '3', '0', 'rpar', 'exe'], pantalla: marca(calc(D, '\\cos(30)', '\\frac{\\sqrt{3}}{2}'), 'resultat'),
+        text: 'Escriu $\\cos(30)$ amb la calculadora en graus (D) i prem [[exe]]: $\\frac{\\sqrt{3}}{2}$, el valor exacte.'},
+      {tecles: ['format', 'down', 'ok'], pantalla: marca(calc(D, '\\cos(30)', '0.8660254038'), 'resultat'),
+        text: 'El decimal: [[format]], {{Decimal}} amb [[down]] i [[ok]]. Surt 0.8660254038.'},
+    ],
+  },
   relacionades: ['mode-decimal', 'indicadors'],
 },
 {
@@ -116,6 +144,22 @@ const FITXES = Object.freeze([
     {tecles: ['1', 'entre', '2', 'exe'], pantalla: marca(calc(D, '1\\div 2', '\\frac{1}{2}'), 'resultat'),
       text: 'Torna a calcular $1\\div 2$: ara surt $\\frac{1}{2}$.'},
   ],
+  araTu: {
+    enunciat: 'La calculadora és en mode {{E Mat/S Decimal}} i $\\sqrt{8}$ dona 2.828427125. Posa-la en mode {{E Mat/S Mat}} i torna-ho a calcular.',
+    resultat: '2\\sqrt{2}',
+    error: 'Quedar-se amb 2.828427125: a la PAU es demana el valor exacte, $2\\sqrt{2}$.',
+    inici: calc(D),
+    passos: [
+      {tecles: ['settings', 'ok', 'ok'], pantalla: entradaSortida(1),
+        text: '[[settings]], [[ok]] ({{Config cálculo}}) i [[ok]] ({{Entrada/Salida}}): el ◉ és a {{E Mat/S Decimal}}.'},
+      {tecles: ['up', 'ok'], pantalla: entradaSortida(0),
+        text: 'Puja a {{E Mat/S Mat}} amb [[up]] i prem [[ok]].'},
+      {tecles: ['ac'], pantalla: calc(D),
+        text: 'Prem [[ac]] per tornar a la pantalla de càlcul.'},
+      {tecles: ['arrel', '8', 'exe'], pantalla: marca(calc(D, '\\sqrt{8}', '2\\sqrt{2}'), 'resultat'),
+        text: '[[arrel]], el 8 i [[exe]]: ara surt $2\\sqrt{2}$.'},
+    ],
+  },
   relacionades: ['exacte-decimal'],
 },
 {
@@ -140,6 +184,24 @@ const FITXES = Object.freeze([
     {tecles: ['1', 'entre', '6', 'shift', 'exe'], pantalla: marca(calc(D, '1\\div 6', '0.1666666667'), 'resultat'),
       text: 'Torna a demanar el decimal: 0.1666666667. Arrodoneix tu al final, només quan escriguis la resposta.'},
   ],
+  araTu: {
+    enunciat: 'A la barra hi ha FIX. Treu-lo i calcula el decimal de $\\frac{2}{3}$ amb tots els decimals.',
+    resultat: '0{,}6666666667',
+    error: 'Copiar el 0.67 de FIX i continuar calculant amb aquest valor: els errors d\'arrodoniment s\'acumulen.',
+    inici: calc(FIX),
+    passos: [
+      {tecles: ['2', 'entre', '3', 'shift', 'exe'], pantalla: marca(calc(FIX, '2\\div 3', '0.67'), 'fix'),
+        text: 'Amb FIX, $2\\div 3$ i [[shift]] [[exe]] donen 0.67.'},
+      {tecles: ['settings', 'ok', 'down', 'down', 'ok'], pantalla: formatNumero(0),
+        text: '[[settings]], [[ok]] ({{Config cálculo}}), baixa a {{Formato número}} i [[ok]].'},
+      {tecles: ['down', 'down', 'ok', 'down', 'ok'], pantalla: formatNumero(2),
+        text: 'Baixa a {{Normal}}, [[ok]], tria Norm2 amb [[down]] i [[ok]].'},
+      {tecles: ['ac'], pantalla: calc(D, '', '', {hist: true}),
+        text: 'Prem [[ac]]: ja no hi ha FIX.'},
+      {tecles: ['2', 'entre', '3', 'shift', 'exe'], pantalla: marca(calc(D, '2\\div 3', '0.6666666667'), 'resultat'),
+        text: 'Torna a demanar el decimal: 0.6666666667.'},
+    ],
+  },
   relacionades: ['indicadors'],
 },
 
@@ -162,6 +224,20 @@ const FITXES = Object.freeze([
     {error: true, tecles: ['frac', '5', 'down', '6', 'exe'], pantalla: marca(calc(D, '\\frac{3}{4+\\frac{5}{6}}', '\\frac{18}{29}'), 'resultat'),
       text: 'Acaba igual i prem [[exe]]: surt $\\frac{18}{29}$, perquè has calculat $\\frac{3}{4+\\frac{5}{6}}$. Després del denominador, sempre [[right]].'},
   ],
+  araTu: {
+    enunciat: 'Calcula $\\frac{2}{5}+\\frac{1}{3}$ amb la plantilla de fracció.',
+    resultat: '\\frac{11}{15}',
+    error: 'Prémer [[mes]] sense sortir del denominador amb [[right]]: surt $\\frac{3}{8}$, perquè has calculat $\\frac{2}{5+\\frac{1}{3}}$.',
+    inici: calc(D),
+    passos: [
+      {tecles: ['frac', '2', 'down', '5', 'right', 'mes'], pantalla: calc(D, '\\frac{2}{5}+'),
+        text: '[[frac]], el 2, [[down]], el 5 i, abans del [[mes]], [[right]] per sortir del denominador.'},
+      {tecles: ['frac', '1', 'down', '3', 'exe'], pantalla: marca(calc(D, '\\frac{2}{5}+\\frac{1}{3}', '\\frac{11}{15}'), 'resultat'),
+        text: 'La segona fracció i [[exe]]: $\\frac{11}{15}$.'},
+      {error: true, tecles: ['frac', '2', 'down', '5', 'mes', 'frac', '1', 'down', '3', 'exe'], pantalla: marca(calc(D, '\\frac{2}{5+\\frac{1}{3}}', '\\frac{3}{8}'), 'resultat'),
+        text: '!!Error típic!!: sense el [[right]], el «+» queda dins del denominador i surt $\\frac{3}{8}$.'},
+    ],
+  },
   relacionades: ['frac-prioritat', 'pot-fraccio', 'mode-decimal'],
 },
 {
@@ -214,6 +290,20 @@ const FITXES = Object.freeze([
     {error: true, tecles: ['exe'], pantalla: marca(calc(D, '-2^{4}', '-16'), 'resultat'),
       text: 'Prem [[exe]]: surt −16. La potència té més prioritat que el signe: és $-(2^4)$. Per elevar un negatiu, sempre amb parèntesis.'},
   ],
+  araTu: {
+    enunciat: 'Calcula $(-3)^4$.',
+    resultat: '81',
+    error: 'Escriure $-3^4$ sense parèntesis: surt −81, perquè la calculadora fa $-(3^4)$.',
+    inici: calc(D),
+    passos: [
+      {tecles: ['lpar', 'menys', '3', 'rpar', 'pot', '4'], pantalla: calc(D, '(-3)^{4}'),
+        text: 'La base, entre parèntesis: [[lpar]], [[menys]], el 3 i [[rpar]]. Després, [[pot]] i el 4.'},
+      {tecles: ['exe'], pantalla: marca(calc(D, '(-3)^{4}', '81'), 'resultat'),
+        text: 'Prem [[exe]]: 81.'},
+      {error: true, tecles: ['ac', 'menys', '3', 'pot', '4', 'exe'], pantalla: marca(calc(D, '-3^{4}', '-81'), 'resultat'),
+        text: '!!Error típic!!: sense parèntesis, $-3^4$ dona −81.'},
+    ],
+  },
   relacionades: ['pot-fraccio', 'pau-geo-25s-q4b'],
 },
 {
@@ -236,6 +326,20 @@ const FITXES = Object.freeze([
     {error: true, tecles: ['exe'], pantalla: marca(calc(D, '\\frac{2}{3^{-2}}', '18'), 'resultat'),
       text: 'Prem [[exe]]: surt 18, perquè $\\frac{2}{3^{-2}}=\\frac{2}{1/9}$. Els parèntesis són imprescindibles.'},
   ],
+  araTu: {
+    enunciat: 'Calcula $\\left(\\frac{3}{2}\\right)^{-3}$.',
+    resultat: '\\frac{8}{27}',
+    error: 'Escriure-ho sense parèntesis: l\'exponent queda dins del denominador i surt 24, perquè has calculat $\\frac{3}{2^{-3}}$.',
+    inici: calc(D),
+    passos: [
+      {tecles: ['lpar', 'frac', '3', 'down', '2', 'right', 'rpar'], pantalla: calc(D, '(\\frac{3}{2})'),
+        text: '[[lpar]], la fracció amb [[frac]], [[right]] per sortir-ne i [[rpar]].'},
+      {tecles: ['pot', 'menys', '3', 'exe'], pantalla: marca(calc(D, '(\\frac{3}{2})^{-3}', '\\frac{8}{27}'), 'resultat'),
+        text: '[[pot]], $-3$ i [[exe]]: $\\frac{8}{27}$. L\'exponent negatiu inverteix la fracció: $\\left(\\frac{2}{3}\\right)^3$.'},
+      {error: true, tecles: ['frac', '3', 'down', '2', 'pot', 'menys', '3', 'exe'], pantalla: marca(calc(D, '\\frac{3}{2^{-3}}', '24'), 'resultat'),
+        text: '!!Error típic!!: sense parèntesis, l\'exponent només afecta el 2 i surt 24.'},
+    ],
+  },
   relacionades: ['pot-negativa', 'frac-plantilla', 'mode-decimal'],
 },
 {
@@ -254,6 +358,18 @@ const FITXES = Object.freeze([
     {tecles: ['shift', 'arrel', '4', 'right', '1', '6', 'exe'], pantalla: marca(calc(D, '\\sqrt[4]{16}', '2'), 'resultat'),
       text: 'Amb qualsevol altre índex, igual: [[shift]] [[arrel]], l\'índex, [[right]] i el radicand. Per exemple, $\\sqrt[4]{16}=2$.'},
   ],
+  araTu: {
+    enunciat: 'Calcula $\\sqrt[5]{-32}$.',
+    resultat: '-2',
+    error: 'Fer servir [[arrel]] sola en lloc de [[shift]] [[arrel]]: és l\'arrel quadrada, i d\'un nombre negatiu surt un missatge d\'error.',
+    inici: calc(D),
+    passos: [
+      {tecles: ['shift', 'arrel', '5', 'right'], pantalla: calc(D, '\\sqrt[5]{\\square}', '', {cursor: false}),
+        text: '[[shift]] [[arrel]], l\'índex 5 i [[right]] per passar al radicand.'},
+      {tecles: ['menys', '3', '2', 'exe'], pantalla: marca(calc(D, '\\sqrt[5]{-32}', '-2'), 'resultat'),
+        text: 'Escriu $-32$ i prem [[exe]]: −2, perquè $(-2)^5=-32$.'},
+    ],
+  },
   relacionades: ['pot-negativa'],
 },
 
@@ -284,6 +400,18 @@ const FITXES = Object.freeze([
     {tecles: ['exe'], pantalla: marca(calc(R, '\\mathrm{sen}(\\pi\\div 6)', '\\frac{1}{2}'), 'resultat'),
       text: 'Prem [[exe]]: $\\sin\\frac{\\pi}{6}=\\frac{1}{2}$. Surt exacte perquè la calculadora és en mode {{E Mat/S Mat}}; en mode {{E Mat/S Decimal}} sortiria 0.5.'},
   ],
+  araTu: {
+    enunciat: 'Ara que la calculadora és en radians (R), calcula $\\cos\\frac{\\pi}{4}$.',
+    resultat: '\\frac{\\sqrt{2}}{2}',
+    error: 'Calcular-ho amb la calculadora en graus (D): surt 0.9999060498, el cosinus de π/4 graus.',
+    inici: calc(R),
+    passos: [
+      {tecles: ['cos', 'shift', '7', 'entre', '4', 'rpar'], pantalla: calc(R, '\\cos(\\pi\\div 4)'),
+        text: 'Amb R a la barra, escriu $\\cos(\\pi\\div 4)$. La π és [[shift]] [[7]].'},
+      {tecles: ['exe'], pantalla: marca(calc(R, '\\cos(\\pi\\div 4)', '\\frac{\\sqrt{2}}{2}'), 'resultat'),
+        text: 'Prem [[exe]]: $\\frac{\\sqrt{2}}{2}$.'},
+    ],
+  },
   relacionades: ['error-angles', 'grau-puntual', 'mode-decimal'],
 },
 {
@@ -339,6 +467,23 @@ const FITXES = Object.freeze([
       parcials: {0: calc(D, '\\mathrm{sen}({\\frac{\\pi}{6}}^{\\mathrm{r}})')},   // la r ve d'un menú: el simulador no sap on és
       text: 'Tanca el parèntesi i prem [[exe]]: $\\frac{1}{2}$, encara que la calculadora continua en D. Surt exacte perquè la calculadora és en mode {{E Mat/S Mat}}; en mode {{E Mat/S Decimal}} sortiria 0.5.'},
   ],
+  araTu: {
+    enunciat: 'Amb la calculadora en graus (D), calcula $\\cos\\frac{\\pi}{3}$ sense canviar el mode.',
+    resultat: '\\frac{1}{2}',
+    error: 'Oblidar la r: surt 0.9998329795, el cosinus de π/3 graus.',
+    inici: calc(D),
+    passos: [
+      {tecles: ['cos', 'frac', 'shift', '7', 'down', '3', 'right'], pantalla: calc(D, '\\cos(\\frac{\\pi}{3}'),
+        text: '[[cos]] i la fracció $\\frac{\\pi}{3}$ amb [[frac]]; surt-ne amb [[right]].'},
+      {tecles: ['catalog', 'down', 'down', 'down', 'ok'], pantalla: angCoordSexag(0),
+        text: '[[catalog]], baixa fins a {{Ang/Coord/Sexag}} i [[ok]].'},
+      {tecles: ['down', 'ok'], pantalla: calc(D, '\\cos({\\frac{\\pi}{3}}^{\\mathrm{r}}'),
+        text: 'Tria {{Radianes}}: s\'escriu la r.'},
+      {tecles: ['rpar', 'exe'], pantalla: marca(calc(D, '\\cos({\\frac{\\pi}{3}}^{\\mathrm{r}})', '\\frac{1}{2}'), 'resultat'),
+        parcials: {0: calc(D, '\\cos({\\frac{\\pi}{3}}^{\\mathrm{r}})')},   // la r ve d'un menú: el simulador no sap on és
+        text: '[[rpar]] i [[exe]]: $\\frac{1}{2}$, amb la calculadora encara en D.'},
+    ],
+  },
   relacionades: ['canvia-radians', 'error-angles', 'mode-decimal'],
 },
 
@@ -371,6 +516,18 @@ const FITXES = Object.freeze([
       parcials: {4: marca(calc(D, 'f(2)', '4'), 'resultat')},   // EXE a mig pas: el simulador no calcula
       text: 'Com que ja tens $f$ i $g=f\'$, la recta tangent és immediata. A $x=2$: $f(2)=4$ (el punt) i $g(2)=9$ (el pendent). La tangent és $y-4=9(x-2)$, és a dir, $y=9x-14$.'},
   ],
+  araTu: {
+    enunciat: 'Amb $f$ i $g=f\'$ encara desades, troba la recta tangent a la gràfica de $f$ a $x=-2$.',
+    resultat: 'y=9x+18',
+    error: 'Fer servir $f(-2)$ com a pendent: $f(-2)$ és l\'ordenada del punt, i el pendent és $g(-2)=f\'(-2)$.',
+    inici: calc(D),
+    passos: [
+      {tecles: ['funcio', 'ok', 'menys', '2', 'rpar', 'exe'], pantalla: marca(calc(D, 'f(-2)', '0'), 'resultat'),
+        text: '$f(-2)$: [[funcio]], {{f(x)}} amb [[ok]], $-2$, [[rpar]] i [[exe]]. Surt 0: el punt és $(-2,\\,0)$.'},
+      {tecles: ['funcio', 'down', 'ok', 'menys', '2', 'rpar', 'exe'], pantalla: marca(calc(D, 'g(-2)', '9'), 'resultat'),
+        text: '$g(-2)$: [[funcio]], {{g(x)}} amb [[down]] i [[ok]]. Surt 9, el pendent. La tangent és $y=9(x+2)$, és a dir, $y=9x+18$.'},
+    ],
+  },
   relacionades: ['pau-ana-24i-q1', 'ans', 'barrow'],
 },
 {
@@ -395,6 +552,20 @@ const FITXES = Object.freeze([
     {tecles: ['ans', 'menys', 'frac', '2', '5', 'down', '2', 'exe'], pantalla: marca(calc(D, '\\mathrm{Ans}-\\frac{25}{2}', '\\frac{1025}{12}'), 'resultat'),
       text: 'Resta-hi el triangle: [[ans]], [[menys]] i $\\frac{25}{2}$. La superfície és $\\frac{1025}{12}\\approx 85{,}42\\,\\text{u}^2$, com a la pauta.'},
   ],
+  araTu: {
+    enunciat: 'La primitiva $F$ continua desada a la calculadora com a f(x). Calcula $\\int_2^5 f(x)\\,dx=F(5)-F(2)$.',
+    resultat: '\\frac{291}{4}=72{,}75',
+    error: 'Posar els límits a l\'inrevés, $F(2)-F(5)$: surt $-\\frac{291}{4}$.',
+    inici: calc(D),
+    passos: [
+      {tecles: ['funcio', 'ok', '5', 'rpar', 'menys', 'funcio', 'ok', '2', 'rpar'], pantalla: calc(D, 'f(5)-f(2)'),
+        text: 'Escriu $f(5)-f(2)$: cada $f($ és [[funcio]] i [[ok]]. Primer el límit de dalt.'},
+      {tecles: ['exe'], pantalla: marca(calc(D, 'f(5)-f(2)', '\\frac{291}{4}'), 'resultat'),
+        text: 'Prem [[exe]]: $\\frac{291}{4}=72{,}75$.'},
+      {error: true, tecles: ['funcio', 'ok', '2', 'rpar', 'menys', 'funcio', 'ok', '5', 'rpar', 'exe'], pantalla: marca(calc(D, 'f(2)-f(5)', '-\\frac{291}{4}'), 'resultat'),
+        text: '!!Error típic!!: amb els límits a l\'inrevés, surt el mateix nombre amb el signe canviat.'},
+    ],
+  },
   relacionades: ['definir-fx', 'ans', 'pau-ana-25s-q4a', 'mode-decimal'],
 },
 {
@@ -415,6 +586,20 @@ const FITXES = Object.freeze([
     {error: true, tecles: ['8', 'entre', '0', 'punt', '5', '7', 'exe'], pantalla: marca(calc(D, '8\\div 0.57', '\\frac{800}{57}'), 'resultat'),
       text: '!!Error típic!!: copiar només 0.57 en lloc de $\\sin 35^\\circ$. Surt $\\frac{800}{57}\\approx 14{,}04$ i no 13,95: ja falla el primer decimal. (Surt en fracció perquè la calculadora és en mode {{E Mat/S Mat}}.)'},
   ],
+  araTu: {
+    enunciat: 'Calcula $\\dfrac{10}{\\cos 40^\\circ}$ amb la calculadora en graus, sense copiar cap decimal intermedi.',
+    resultat: '13{,}05407289',
+    error: 'Copiar només 0.77 en lloc de $\\cos 40^\\circ$: surt $\\frac{1000}{77}\\approx 12{,}99$, i ja falla el primer decimal.',
+    inici: calc(D),
+    passos: [
+      {tecles: ['cos', '4', '0', 'rpar', 'exe'], pantalla: marca(calc(D, '\\cos(40)', '0.7660444431'), 'resultat'),
+        text: '$\\cos(40)$ i [[exe]]: el resultat queda desat a [[ans]].'},
+      {tecles: ['1', '0', 'entre', 'ans', 'exe'], pantalla: marca(calc(D, '10\\div\\mathrm{Ans}', '13.05407289'), 'resultat'),
+        text: '10, [[entre]], [[ans]] i [[exe]]: 13.05407289.'},
+      {error: true, tecles: ['1', '0', 'entre', '0', 'punt', '7', '7', 'exe'], pantalla: marca(calc(D, '10\\div 0.77', '\\frac{1000}{77}'), 'resultat'),
+        text: '!!Error típic!!: amb 0.77 copiat, surt $\\frac{1000}{77}\\approx 12{,}99$.'},
+    ],
+  },
   relacionades: ['logaritmes', 'exacte-decimal', 'mode-decimal'],
 },
 {
@@ -439,6 +624,20 @@ const FITXES = Object.freeze([
     {tecles: ['exe'], pantalla: marca(calc(D, '\\log(1000)', '3'), 'resultat'),
       text: 'Prem [[exe]]: $\\log 1000=3$.'},
   ],
+  araTu: {
+    enunciat: 'Resol l\'equació $2^x=10$: calcula $x=\\log_2 10$ i comprova el resultat.',
+    resultat: 'x=\\log_2 10\\approx 3{,}3219',
+    error: 'Escriure la base i el nombre a l\'inrevés, $\\log_{10}2$: surt 0.3010299957.',
+    inici: calc(D),
+    passos: [
+      {tecles: ['logab', '2', 'right', '1', '0'], pantalla: calc(D, '\\log_{2}(10)'),
+        text: '[[logab]], la base 2, [[right]] i el 10.'},
+      {tecles: ['exe'], pantalla: marca(calc(D, '\\log_{2}(10)', '3.321928095'), 'resultat'),
+        text: 'Prem [[exe]]: $x\\approx 3{,}3219$.'},
+      {tecles: ['2', 'pot', 'ans', 'exe'], pantalla: marca(calc(D, '2^{\\mathrm{Ans}}', '10'), 'resultat'),
+        text: 'Comprova-ho: 2, [[pot]], [[ans]] i [[exe]]. Surt 10. ✓'},
+    ],
+  },
   relacionades: ['ans', 'definir-fx'],
 },
 {
@@ -461,6 +660,20 @@ const FITXES = Object.freeze([
     {tecles: ['exe'], pantalla: marca(calc(D, '6\\mathrm{C}4\\times (\\frac{1}{2})^{6}', '\\frac{15}{64}'), 'resultat'),
       text: 'Prem [[exe]]: $P(X=4)=\\frac{15}{64}$, perquè $\\binom{6}{4}=15$. Surt exacte perquè la calculadora és en mode {{E Mat/S Mat}}; en mode {{E Mat/S Decimal}} sortiria 0.234375. Al mateix menú hi ha {{Factorial(!)}} i {{Permutación(P)}}.'},
   ],
+  araTu: {
+    enunciat: 'Amb $n=8$ i $p=\\frac{1}{2}$, calcula $P(X=3)=\\binom{8}{3}\\left(\\frac{1}{2}\\right)^{8}$.',
+    resultat: '\\frac{7}{32}',
+    error: 'Triar {{Permutación(P)}} en lloc de {{Combinación(C)}}: $8\\mathrm{P}3=336$ compta l\'ordre, i $\\binom{8}{3}=56$.',
+    inici: calc(D),
+    passos: [
+      {tecles: ['8', 'catalog', 'down', 'ok'], pantalla: probabilidad(0),
+        text: 'El 8, [[catalog]] i {{Probabilidad}} amb [[down]] i [[ok]].'},
+      {tecles: ['down', 'down', 'down', 'ok', '3'], pantalla: calc(D, '8\\mathrm{C}3'),
+        text: '{{Combinación(C)}}: tres cops [[down]] i [[ok]]. Després, el 3.'},
+      {tecles: ['per', 'lpar', 'frac', '1', 'down', '2', 'right', 'rpar', 'pot', '8', 'exe'], pantalla: marca(calc(D, '8\\mathrm{C}3\\times (\\frac{1}{2})^{8}', '\\frac{7}{32}'), 'resultat'),
+        text: '[[per]], $\\left(\\frac{1}{2}\\right)^8$ i [[exe]]: $\\frac{7}{32}$, perquè $\\binom{8}{3}=56$.'},
+    ],
+  },
   relacionades: ['pau-pro-24i-q4', 'pot-fraccio', 'mode-decimal'],
 },
 {
@@ -485,6 +698,24 @@ const FITXES = Object.freeze([
     {tecles: ['tools', 'down', 'ok'], pantalla: calc(D),
       text: 'Quan acabis, desactiva-ho: [[tools]], baixa a {{Verificar OFF}} amb [[down]] (la primera fila és {{Deshacer}}) i [[ok]]. El ✔ desapareix i la calculadora torna a calcular amb normalitat.'},
   ],
+  araTu: {
+    enunciat: 'Comprova amb {{Verificar}} que $\\sqrt{12}=2\\sqrt{3}$.',
+    resultat: '\\text{és cert: }\\sqrt{12}=2\\sqrt{3}',
+    error: 'Deixar {{Verificar ON}}: mentre hi ha el ✔ a la barra, la calculadora no calcula amb normalitat. Acaba sempre amb {{Verificar OFF}}.',
+    inici: calc(D),
+    passos: [
+      {tecles: ['tools', 'down', 'down', 'ok'], pantalla: marca(calc(ind(D, {verif: true})), 'verif'),
+        text: '[[tools]], {{Verificar ON}} amb dos [[down]] i [[ok]].'},
+      {tecles: ['arrel', '1', '2', 'right', 'catalog'], pantalla: catalogVerificar(0),
+        text: '$\\sqrt{12}$, [[right]] per sortir de l\'arrel i [[catalog]].'},
+      {tecles: ['ok', 'ok'], pantalla: calc(ind(D, {verif: true}), '\\sqrt{12}='),
+        text: '{{Verificar}} i el signe {{=}}: dos cops [[ok]].'},
+      {tecles: ['2', 'arrel', '3', 'exe'], pantalla: marca(calc(ind(D, {verif: true}), '\\sqrt{12}=2\\sqrt{3}', '\\text{Verdadero}'), 'resultat'),
+        text: '$2\\sqrt{3}$ i [[exe]]: {{Verdadero}}.'},
+      {tecles: ['tools', 'down', 'ok'], pantalla: calc(D),
+        text: 'Desactiva-ho: [[tools]], {{Verificar OFF}} amb [[down]] i [[ok]].'},
+    ],
+  },
   relacionades: ['exacte-decimal', 'definir-fx'],
 },
 
@@ -505,6 +736,16 @@ const FITXES = Object.freeze([
     {tecles: ['ac'], pantalla: calc(D, '', '', {hist: true}),
       text: 'Prem [[ac]] per tornar a la pantalla de càlcul. Ja pots començar l\'examen.'},
   ],
+  araTu: {
+    enunciat: 'Una sola operació ho comprova gairebé tot: calcula $\\cos 60$. Què ha de sortir per a un examen amb angles en graus?',
+    resultat: '\\frac{1}{2}',
+    error: 'Començar l\'examen si surt 0.5 (la calculadora és en mode {{E Mat/S Decimal}}) o −0.9524129804 (és en radians: és el cosinus de 60 radians).',
+    inici: calc(D),
+    passos: [
+      {tecles: ['cos', '6', '0', 'rpar', 'exe'], pantalla: marca(calc(D, '\\cos(60)', '\\frac{1}{2}'), 'resultat'),
+        text: '[[cos]], el 60, [[rpar]] i [[exe]]: $\\frac{1}{2}$. La calculadora és en graus i en mode {{E Mat/S Mat}}.'},
+    ],
+  },
   relacionades: ['indicadors', 'mode-decimal', 'fix', 'canvia-radians', 'verificar'],
 },
 
@@ -530,6 +771,23 @@ const FITXES = Object.freeze([
     {tecles: ['exe'], pantalla: marca(calc(D, '3\\times\\frac{5}{3}+3\\times(-\\frac{4}{3})', '1'), 'resultat'),
       text: 'Prem [[exe]]: surt 1, el membre de la dreta. ✓ Es compleixen les tres equacions: la solució és correcta.'},
   ],
+  araTu: {
+    enunciat: 'Comprova si $x=\\frac{1}{2}$, $y=-\\frac{3}{2}$ és la solució del sistema $\\begin{cases}3x-y=3\\\\ x+y=-1\\end{cases}$',
+    resultat: '\\text{Sí: surten }3\\text{ i }-1',
+    error: 'Escriure $-y$ com a $-\\frac{3}{2}$, sense el parèntesi del signe de $y$: surt 0 i sembla que no és solució.',
+    inici: calc(D),
+    passos: [
+      {tecles: ['3', 'per', 'frac', '1', 'down', '2', 'right', 'menys', 'lpar', 'menys', 'frac', '3', 'down', '2', 'right', 'rpar', 'exe'],
+        pantalla: marca(calc(D, '3\\times\\frac{1}{2}-(-\\frac{3}{2})', '3'), 'resultat'),
+        text: 'Primera equació: $3\\times\\frac{1}{2}-\\left(-\\frac{3}{2}\\right)$ i [[exe]]. Surt 3. ✓'},
+      {tecles: ['frac', '1', 'down', '2', 'right', 'mes', 'lpar', 'menys', 'frac', '3', 'down', '2', 'right', 'rpar', 'exe'],
+        pantalla: marca(calc(D, '\\frac{1}{2}+(-\\frac{3}{2})', '-1'), 'resultat'),
+        text: 'Segona: $\\frac{1}{2}+\\left(-\\frac{3}{2}\\right)$ i [[exe]]. Surt −1. ✓ És la solució.'},
+      {error: true, tecles: ['3', 'per', 'frac', '1', 'down', '2', 'right', 'menys', 'frac', '3', 'down', '2', 'exe'],
+        pantalla: marca(calc(D, '3\\times\\frac{1}{2}-\\frac{3}{2}', '0'), 'resultat'),
+        text: '!!Error típic!!: sense el parèntesi, $3\\times\\frac{1}{2}-\\frac{3}{2}$ dona 0, i no 3.'},
+    ],
+  },
   relacionades: ['exacte-decimal', 'frac-plantilla', 'pau-alg-24s-q2'],
 },
 {
@@ -548,6 +806,22 @@ const FITXES = Object.freeze([
     {tecles: ['exe'], pantalla: marca(calc(D, '\\mathrm{Ans}-((-2)\\times 1\\times 1+1\\times 3\\times 1+(-3)\\times 1\\times 1)', '-8'), 'resultat'),
       text: 'Prem [[exe]]: el menor val $-8\\neq 0$. Per tant, el rang de la matriu $A\'$ és 3 i, com que el de la matriu $A$ és 2, per a $m=1$ el sistema és incompatible.'},
   ],
+  araTu: {
+    enunciat: 'Calcula amb la regla de Sarrus $\\begin{vmatrix}1&2&0\\\\-1&3&1\\\\2&0&1\\end{vmatrix}$.',
+    resultat: '9',
+    error: 'Escriure [[ans]] [[menys]] i els tres productes sense parèntesis: només es resta el primer, i surt 5.',
+    inici: calc(D),
+    passos: [
+      {tecles: ['1', 'per', '3', 'per', '1', 'mes', '2', 'per', '1', 'per', '2', 'mes', '0', 'per', 'lpar', 'menys', '1', 'rpar', 'per', '0'],
+        pantalla: calc(D, '1\\times 3\\times 1+2\\times 1\\times 2+0\\times(-1)\\times 0'),
+        text: 'Els tres productes amb signe +: $1\\times 3\\times 1+2\\times 1\\times 2+0\\times(-1)\\times 0$.'},
+      {tecles: ['exe'], pantalla: marca(calc(D, '1\\times 3\\times 1+2\\times 1\\times 2+0\\times(-1)\\times 0', '7'), 'resultat'),
+        text: 'Prem [[exe]]: 7.'},
+      {tecles: ['ans', 'menys', 'lpar', '0', 'per', '3', 'per', '2', 'mes', '1', 'per', '1', 'per', '0', 'mes', '2', 'per', 'lpar', 'menys', '1', 'rpar', 'per', '1', 'rpar', 'exe'],
+        pantalla: marca(calc(D, '\\mathrm{Ans}-(0\\times 3\\times 2+1\\times 1\\times 0+2\\times(-1)\\times 1)', '9'), 'resultat'),
+        text: '[[ans]], [[menys]] i, entre parèntesis, els tres productes amb signe −. Prem [[exe]]: el determinant val 9.'},
+    ],
+  },
   relacionades: ['ans', 'pau-alg-24j-q2', 'pot-negativa'],
 },
 
@@ -566,6 +840,22 @@ const FITXES = Object.freeze([
     {tecles: ['exe'], pantalla: marca(calc(D, '\\frac{3}{\\sqrt{2^{2}+(-1)^{2}+1^{2}}}', '\\frac{\\sqrt{6}}{2}'), 'resultat'),
       text: 'Prem [[exe]]: surt $\\frac{\\sqrt{6}}{2}$, el valor de l\'enunciat. ✓ En mode {{E Mat/S Mat}} la calculadora racionalitza sola; en mode decimal sortiria 1.224744871 i no ho podries comparar.'},
   ],
+  araTu: {
+    enunciat: 'Calcula la distància del punt $Q=(1,0,2)$ al pla $\\pi: 2x-y+z=5$.',
+    resultat: '\\frac{\\sqrt{6}}{6}',
+    error: 'Escriure $-1^2$ sense parèntesis dins de l\'arrel: la calculadora fa $2^2-1^2+1^2=4$ i surt $\\frac{1}{2}$.',
+    inici: calc(D),
+    passos: [
+      {tecles: ['2', 'per', '1', 'menys', '0', 'mes', '2', 'menys', '5', 'exe'], pantalla: marca(calc(D, '2\\times 1-0+2-5', '-1'), 'resultat'),
+        text: 'El numerador: $2\\times 1-0+2-5=-1$. El valor absolut el fas tu: 1.'},
+      {tecles: ['frac', '1', 'down', 'arrel', '2', 'x2', 'mes', 'lpar', 'menys', '1', 'rpar', 'x2', 'mes', '1', 'x2', 'exe'],
+        pantalla: marca(calc(D, '\\frac{1}{\\sqrt{2^{2}+(-1)^{2}+1^{2}}}', '\\frac{\\sqrt{6}}{6}'), 'resultat'),
+        text: 'La fracció, amb l\'1 a dalt i l\'arrel de $2^2+(-1)^2+1^2$ a baix. Prem [[exe]]: $\\frac{\\sqrt{6}}{6}$.'},
+      {error: true, tecles: ['frac', '1', 'down', 'arrel', '2', 'x2', 'menys', '1', 'x2', 'mes', '1', 'x2', 'exe'],
+        pantalla: marca(calc(D, '\\frac{1}{\\sqrt{2^{2}-1^{2}+1^{2}}}', '\\frac{1}{2}'), 'resultat'),
+        text: '!!Error típic!!: sense el parèntesi, $-1^2$ resta 1 en lloc de sumar-lo, i surt $\\frac{1}{2}$.'},
+    ],
+  },
   relacionades: ['exacte-decimal', 'mode-decimal', 'pot-negativa', 'pau-geo-25s-q4b-c'],
 },
 {
@@ -588,6 +878,24 @@ const FITXES = Object.freeze([
     {tecles: ['exe'], pantalla: marca(calc(D, '\\frac{3}{\\sqrt{2^{2}+(-1)^{2}+1^{2}}}', '\\frac{\\sqrt{6}}{2}'), 'resultat'),
       text: 'Prem [[exe]]: $\\frac{\\sqrt{6}}{2}$. ✓ El punt $P\'$ és a la mateixa distància del pla que $P$, a l\'altra banda. El pla $\\pi_2$ és $2x-y+z=E$ amb $E=2\\cdot 2-0+4=8$: $\\pi_2: 2x-y+z=8$. (Surt exacte perquè la calculadora és en mode {{E Mat/S Mat}}; en mode {{E Mat/S Decimal}} sortiria 1.224744871.)'},
   ],
+  araTu: {
+    enunciat: 'Troba el simètric $Q\'$ de $Q=(1,0,2)$ respecte del pla $\\pi: 2x-y+z=5$. La perpendicular per $Q$, $(1+2\\lambda,\\,-\\lambda,\\,2+\\lambda)$, talla el pla per a $\\lambda=\\frac{1}{6}$, al punt $M=\\left(\\frac{4}{3},-\\frac{1}{6},\\frac{13}{6}\\right)$.',
+    resultat: 'Q\'=\\left(\\frac{5}{3},-\\frac{1}{3},\\frac{7}{3}\\right)',
+    error: 'Donar $M$ com a simètric: $M$ és el punt mitjà de $Q$ i $Q\'$, i el simètric és $Q\'=2M-Q$.',
+    inici: calc(D),
+    passos: [
+      {tecles: ['2', 'per', 'frac', '4', 'down', '3', 'right', 'menys', 'lpar', 'menys', 'frac', '1', 'down', '6', 'right', 'rpar', 'mes', 'frac', '1', '3', 'down', '6', 'exe'],
+        pantalla: marca(calc(D, '2\\times\\frac{4}{3}-(-\\frac{1}{6})+\\frac{13}{6}', '5'), 'resultat'),
+        text: 'Comprova que $M$ és al pla: $2\\times\\frac{4}{3}-\\left(-\\frac{1}{6}\\right)+\\frac{13}{6}=5$. ✓'},
+      {tecles: ['2', 'per', 'frac', '4', 'down', '3', 'right', 'menys', '1', 'exe'], pantalla: marca(calc(D, '2\\times\\frac{4}{3}-1', '\\frac{5}{3}'), 'resultat'),
+        text: 'Primera coordenada de $Q\'=2M-Q$: $2\\times\\frac{4}{3}-1=\\frac{5}{3}$. La segona, de cap: $2\\cdot\\left(-\\frac{1}{6}\\right)-0=-\\frac{1}{3}$.'},
+      {tecles: ['2', 'per', 'frac', '1', '3', 'down', '6', 'right', 'menys', '2', 'exe'], pantalla: marca(calc(D, '2\\times\\frac{13}{6}-2', '\\frac{7}{3}'), 'resultat'),
+        text: 'Tercera: $2\\times\\frac{13}{6}-2=\\frac{7}{3}$.'},
+      {tecles: ['2', 'per', 'frac', '5', 'down', '3', 'right', 'menys', 'lpar', 'menys', 'frac', '1', 'down', '3', 'right', 'rpar', 'mes', 'frac', '7', 'down', '3', 'right', 'menys', '5', 'exe'],
+        pantalla: marca(calc(D, '2\\times\\frac{5}{3}-(-\\frac{1}{3})+\\frac{7}{3}-5', '1'), 'resultat'),
+        text: 'Comprova-ho: substitueix $Q\'$ a $2x-y+z-5$. Surt 1, i amb $Q$ sortia −1: la mateixa distància, a l\'altra banda del pla. ✓'},
+    ],
+  },
   relacionades: ['pau-geo-25s-q4b', 'frac-plantilla', 'pot-negativa', 'mode-decimal'],
 },
 {
@@ -611,6 +919,23 @@ const FITXES = Object.freeze([
     {apartat: 'b', tecles: ['format', 'down', 'ok'], pantalla: marca(calc(D, '\\frac{3}{\\sqrt{1^{2}+(-1)^{2}+0^{2}}}', '2.121320344'), 'resultat'),
       text: 'En decimal, amb [[format]] i {{Decimal}}: el sensor és a $\\frac{3\\sqrt{2}}{2}\\approx 2{,}12$ cm del pla.'},
   ],
+  araTu: {
+    enunciat: 'Després, el sensor va de $B=(5,3,7)$ a $C=(2,1,1)$. Quina distància recorre? A quina distància del pla $x-y-5=0$ queda?',
+    resultat: '7\\text{ cm i }2\\sqrt{2}\\approx 2{,}83\\text{ cm}',
+    error: 'Escriure les components negatives de $\\vec{BC}$ sense parèntesis: $-3^2$ és $-9$, i dins de l\'arrel surt un nombre negatiu.',
+    inici: calc(D),
+    passos: [
+      {tecles: ['arrel', '3', 'x2', 'mes', '2', 'x2', 'mes', '6', 'x2', 'exe'], pantalla: marca(calc(D, '\\sqrt{3^{2}+2^{2}+6^{2}}', '7'), 'resultat'),
+        text: '$\\vec{BC}=(-3,-2,-6)$. Com que cada component s\'eleva al quadrat, el signe no importa: $\\sqrt{3^2+2^2+6^2}=7$ cm.'},
+      {tecles: ['2', 'menys', '1', 'menys', '5', 'exe'], pantalla: marca(calc(D, '2-1-5', '-4'), 'resultat'),
+        text: 'Distància de $C$ al pla. El numerador: $2-1-5=-4$; en valor absolut, 4.'},
+      {tecles: ['frac', '4', 'down', 'arrel', '1', 'x2', 'mes', 'lpar', 'menys', '1', 'rpar', 'x2', 'mes', '0', 'x2', 'exe'],
+        pantalla: marca(calc(D, '\\frac{4}{\\sqrt{1^{2}+(-1)^{2}+0^{2}}}', '2\\sqrt{2}'), 'resultat'),
+        text: 'La fracció i [[exe]]: $2\\sqrt{2}$.'},
+      {tecles: ['format', 'down', 'ok'], pantalla: marca(calc(D, '\\frac{4}{\\sqrt{1^{2}+(-1)^{2}+0^{2}}}', '2.828427125'), 'resultat'),
+        text: 'En decimal, amb [[format]] i {{Decimal}}: $\\approx 2{,}83$ cm.'},
+    ],
+  },
   relacionades: ['exacte-decimal', 'pau-geo-25s-q4b', 'mode-decimal'],
 },
 {
@@ -640,6 +965,16 @@ const FITXES = Object.freeze([
     {tecles: ['exe'], pantalla: marca(calc(D, 'f(1.4)', '-0.6541110535'), 'resultat'),
       text: '$f(1{,}4)\\approx -0{,}654<0$: hi ha canvi de signe a $[1{,}4;\\,1{,}5]$, un interval d\'una dècima. ✓'},
   ],
+  araTu: {
+    enunciat: 'Amb la mateixa $f$, encara desada, troba un interval d\'una centèsima de longitud que contingui l\'arrel.',
+    resultat: '[1{,}49;\\,1{,}5]',
+    error: 'Dir que l\'arrel és 1,49 perquè $f(1{,}49)$ és molt a prop de 0: només sabem que és entre 1,49 i 1,5.',
+    inici: calc(D),
+    passos: [
+      {tecles: ['funcio', 'ok', '1', 'punt', '4', '9', 'rpar', 'exe'], pantalla: marca(calc(D, 'f(1.49)', '-0.04599701221'), 'resultat'),
+        text: 'Ja saps que $f(1{,}5)>0$. Prova $f(1{,}49)$: [[funcio]], [[ok]], 1.49, [[rpar]] i [[exe]]. Surt negatiu: l\'arrel és a $[1{,}49;\\,1{,}5]$. ✓'},
+    ],
+  },
   relacionades: ['exacte-decimal', 'definir-fx', 'pau-ana-25j-q1'],
 },
 {
@@ -659,6 +994,20 @@ const FITXES = Object.freeze([
       pantalla: marca(calc(D, '3\\pi\\times 2.1974^{2}+\\frac{200}{2.1974}', '136.5248256'), 'resultat'),
       text: 'Ara [[ans]] ja és l\'altura: per a $S(r)$, escriu el radi amb quatre decimals, 2.1974. Amb [[shift]] [[exe]], la superfície mínima és $S\\approx 136{,}52\\,\\text{cm}^2$.'},
   ],
+  araTu: {
+    enunciat: 'Una llauna cilíndrica de $500\\,\\text{cm}^3$ té l\'altura $h=\\frac{500}{\\pi r^2}$. Amb la derivada has obtingut $r^3=\\frac{250}{\\pi}$. Calcula el radi i l\'altura.',
+    resultat: 'r\\approx 4{,}30\\text{ cm},\\ h\\approx 8{,}60\\text{ cm}',
+    error: 'Calcular l\'altura amb el radi arrodonit, 4,3: surt 8.607622666 i no 8.602540138.',
+    inici: calc(D),
+    passos: [
+      {tecles: ['shift', 'arrel', '3', 'right', 'frac', '2', '5', '0', 'down', 'shift', '7'], pantalla: calc(D, '\\sqrt[3]{\\frac{250}{\\pi}}'),
+        text: '[[shift]] [[arrel]], el 3, [[right]] i la fracció $\\frac{250}{\\pi}$.'},
+      {tecles: ['shift', 'exe'], pantalla: marca(calc(D, '\\sqrt[3]{\\frac{250}{\\pi}}', '4.301270069'), 'resultat'),
+        text: '[[shift]] [[exe]]: $r\\approx 4{,}30$ cm, desat a [[ans]].'},
+      {tecles: ['frac', '5', '0', '0', 'down', 'shift', '7', 'ans', 'x2', 'shift', 'exe'], pantalla: marca(calc(D, '\\frac{500}{\\pi\\mathrm{Ans}^{2}}', '8.602540138'), 'resultat'),
+        text: '$\\frac{500}{\\pi\\,\\mathrm{Ans}^2}$ i [[shift]] [[exe]]: $h\\approx 8{,}60$ cm.'},
+    ],
+  },
   relacionades: ['arrel-n', 'ans', 'exacte-decimal'],
 },
 {
@@ -687,6 +1036,22 @@ const FITXES = Object.freeze([
     {tecles: ['funcio', 'ok', 'menys', '2', '0', '1', 'rpar', 'shift', 'exe'], pantalla: marca(calc(D, 'f(-201)', '-201.9950495'), 'resultat'),
       text: '$f(-201)\\approx -201{,}995$: $\\lim\\limits_{x\\to-\\infty}f(x)=-\\infty$. Ara ja pots calcular el pendent $m$ i l\'ordenada a l\'origen $n$ de l\'asímptota obliqua: surt $y=x-1$. Fixa\'t que $f(200)\\approx 200-1$.'},
   ],
+  araTu: {
+    enunciat: 'Defineix $g(x)=\\dfrac{x+1}{x-2}$ i intueix $\\lim\\limits_{x\\to 2^+}g(x)$ i $\\lim\\limits_{x\\to+\\infty}g(x)$.',
+    resultat: '+\\infty\\text{ i }1',
+    error: 'Donar 301, el valor de $g(2{,}01)$, com a límit: com més a prop de 2, més gran, i el límit és $+\\infty$.',
+    inici: calc(D),
+    passos: [
+      {tecles: ['funcio', 'down', 'down', 'down', 'ok', 'frac', 'x', 'mes', '1', 'down', 'x', 'menys', '2'], pantalla: definicio('g', '\\frac{x+1}{x-2}'),
+        text: '[[funcio]], {{Definir g(x)}} amb tres cops [[down]] i [[ok]]. Escriu la fracció.'},
+      {tecles: ['exe'], pantalla: calc(D),
+        text: 'Prem [[exe]]: $g$ queda desada.'},
+      {tecles: ['funcio', 'down', 'ok', '2', 'punt', '0', '1', 'rpar', 'shift', 'exe'], pantalla: marca(calc(D, 'g(2.01)', '301'), 'resultat'),
+        text: '$g(2{,}01)=301$; amb 2.001 sortiria 3001: el límit per la dreta és $+\\infty$.'},
+      {tecles: ['funcio', 'down', 'ok', '1', '0', '0', '0', 'rpar', 'shift', 'exe'], pantalla: marca(calc(D, 'g(1000)', '1.003006012'), 'resultat'),
+        text: '$g(1000)\\approx 1{,}003$: el límit a $+\\infty$ és 1, i $y=1$ és una asímptota horitzontal.'},
+    ],
+  },
   relacionades: ['definir-fx', 'pau-ana-24i-q1', 'exacte-decimal'],
 },
 {
@@ -708,6 +1073,21 @@ const FITXES = Object.freeze([
     {apartat: 'b', tecles: ['per', '7', '5', '0', 'shift', 'exe'], pantalla: marca(calc(R, '\\mathrm{Ans}\\times 750', '3727.922061'), 'resultat'),
       text: 'Ara [[per]] 750: després d\'un resultat, el càlcul comença amb Ans, sense arrodonir. Amb [[shift]] [[exe]], el preu del vitrall és de $3\\,727{,}92$ €.'},
   ],
+  araTu: {
+    enunciat: 'Si el vitrall fos entre $y=2\\sin\\frac{x}{4}$ i $y=2\\cos\\frac{x}{4}$, l\'àrea seria $\\left[8\\sin\\frac{x}{4}+8\\cos\\frac{x}{4}\\right]_0^{\\pi}$. Calcula-la i el preu, a 750 € el m².',
+    resultat: '8(\\sqrt{2}-1)\\approx 3{,}31\\text{ m}^2;\\ 2\\,485{,}28\\text{ euros}',
+    error: 'Calcular-ho amb la calculadora en graus (D): l\'àrea surt 0.1089072353 m².',
+    inici: calc(R),
+    passos: [
+      {tecles: ['8', 'sen', 'frac', 'shift', '7', 'down', '4', 'right', 'rpar', 'mes', '8', 'cos', 'frac', 'shift', '7', 'down', '4', 'right', 'rpar', 'menys', '8'],
+        pantalla: calc(R, '8\\mathrm{sen}(\\frac{\\pi}{4})+8\\cos(\\frac{\\pi}{4})-8'),
+        text: 'Amb R a la barra: $F(\\pi)-F(0)$, amb $F(0)=8$. Escriu $8\\sin\\frac{\\pi}{4}+8\\cos\\frac{\\pi}{4}-8$.'},
+      {tecles: ['shift', 'exe'], pantalla: marca(calc(R, '8\\mathrm{sen}(\\frac{\\pi}{4})+8\\cos(\\frac{\\pi}{4})-8', '3.313708499'), 'resultat'),
+        text: '[[shift]] [[exe]]: l\'àrea és $\\approx 3{,}31\\,\\text{m}^2$.'},
+      {tecles: ['per', '7', '5', '0', 'shift', 'exe'], pantalla: marca(calc(R, '\\mathrm{Ans}\\times 750', '2485.281374'), 'resultat'),
+        text: '[[per]] 750 i [[shift]] [[exe]]: el preu és de $2\\,485{,}28$ €.'},
+    ],
+  },
   relacionades: ['canvia-radians', 'exacte-decimal', 'ans', 'barrow', 'mode-decimal'],
 },
 {
@@ -735,6 +1115,20 @@ const FITXES = Object.freeze([
       pantalla: marca(calc(D, '5\\times 0.63^{4}\\times 0.37+0.63^{5}', '0.3906734328'), 'resultat'),
       text: '!!Error típic!!: si arrodoneixes $p\\approx 0{,}63$, surt 0.3906734328 i no 0.3968623045: ja falla la segona xifra decimal. Treballa amb $\\frac{19}{30}$.'},
   ],
+  araTu: {
+    enunciat: 'Si la Rut encertés el 60 % dels problemes que copia (i no el 40 %), quina seria la probabilitat que la solució sigui correcta? I la que l\'hagi resolt ella, si és correcta?',
+    resultat: '\\frac{7}{10}\\text{ i }\\frac{5}{7}',
+    error: 'Per Bayes, dividir $0{,}75$ entre $\\frac{7}{10}$ sense multiplicar per $\\frac{4}{6}$: surt $\\frac{15}{14}$, més gran que 1, i una probabilitat no pot passar d\'1.',
+    inici: calc(D),
+    passos: [
+      {tecles: ['frac', '4', 'down', '6', 'right', 'per', '0', 'punt', '7', '5', 'mes', 'frac', '2', 'down', '6', 'right', 'per', '0', 'punt', '6', 'exe'],
+        pantalla: marca(calc(D, '\\frac{4}{6}\\times 0.75+\\frac{2}{6}\\times 0.6', '\\frac{7}{10}'), 'resultat'),
+        text: 'Probabilitat total: $\\frac{4}{6}\\times 0.75+\\frac{2}{6}\\times 0.6$ i [[exe]]: $\\frac{7}{10}$.'},
+      {tecles: ['lpar', 'frac', '4', 'down', '6', 'right', 'per', '0', 'punt', '7', '5', 'rpar', 'entre', 'ans', 'exe'],
+        pantalla: marca(calc(D, '(\\frac{4}{6}\\times 0.75)\\div\\mathrm{Ans}', '\\frac{5}{7}'), 'resultat'),
+        text: 'Bayes: $\\left(\\frac{4}{6}\\times 0.75\\right)\\div$ [[ans]] i [[exe]]: $\\frac{5}{7}$.'},
+    ],
+  },
   relacionades: ['exacte-decimal', 'frac-plantilla', 'pot-fraccio', 'combinatoria', 'pau-pro-24s-q4', 'mode-decimal'],
 },
 {
@@ -787,6 +1181,21 @@ const FITXES = Object.freeze([
     {apartat: 'c', tecles: ['exe'], pantalla: marca(calc(D, '5\\times(0.8^{4}-0.8^{5})', '\\frac{256}{625}'), 'resultat'),
       text: 'Prem [[exe]]: $\\frac{256}{625}$, el valor exacte del màxim, perquè la calculadora és en mode {{E Mat/S Mat}}. En mode {{E Mat/S Decimal}} sortiria 0.4096, és a dir, $\\approx 0{,}41$.'},
   ],
+  araTu: {
+    enunciat: 'Si el 90 % de les peces de ferro no tinguessin cap defecte (i el 3 % de les d\'acer fossin defectuoses), quina seria la probabilitat que una peça sigui defectuosa?',
+    resultat: '0{,}072',
+    error: 'Fer servir el 0,9 de les peces sense defecte en lloc del 0,1 de les defectuoses: surt 0.552.',
+    inici: calc(D),
+    passos: [
+      {tecles: ['0', 'punt', '1', 'per', '0', 'punt', '6', 'mes', '0', 'punt', '0', '3', 'per', '0', 'punt', '4'], pantalla: calc(D, '0.1\\times 0.6+0.03\\times 0.4'),
+        text: 'De les de ferro, en són defectuoses el 10 %: escriu $0.1\\times 0.6+0.03\\times 0.4$.'},
+      {tecles: ['shift', 'exe'], pantalla: marca(calc(D, '0.1\\times 0.6+0.03\\times 0.4', '0.072'), 'resultat'),
+        text: '[[shift]] [[exe]]: 0.072, un 7,2 %.'},
+      {error: true, tecles: ['0', 'punt', '9', 'per', '0', 'punt', '6', 'mes', '0', 'punt', '0', '3', 'per', '0', 'punt', '4', 'shift', 'exe'],
+        pantalla: marca(calc(D, '0.9\\times 0.6+0.03\\times 0.4', '0.552'), 'resultat'),
+        text: '!!Error típic!!: amb el 0.9 de les peces sense defecte, surt 0.552.'},
+    ],
+  },
   relacionades: ['pau-pro-24i-q4', 'exacte-decimal', 'pot-negativa', 'mode-decimal'],
 },
 ]);

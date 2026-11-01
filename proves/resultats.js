@@ -187,7 +187,7 @@ function comprova(Dades) {
   const errors = [];
   let comprovats = 0;
   for (const f of Dades.FITXES) {
-    const ctx = {graus: true, ans: 0, funcions: {}, x: 0};
+    const ctx = {graus: true, ans: 0, funcions: Object.assign({}, f.funcions), x: 0};   // f.funcions: les de la fitxa, a l'«Ara tu»
     f.passos.forEach((pas, i) => {
       const p = pas.pantalla;
       if (p.tipus === 'definicio' && p.entrada) ctx.funcions[p.nom] = p.entrada;

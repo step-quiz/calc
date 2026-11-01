@@ -125,7 +125,9 @@ for (const f of Dades.FITXES) {
 
 /* Els «Ara tu» amb passos es comproven com una fitxa més (pantalles, simulador, resultats) */
 const PSEUDO = new Map(Dades.FITXES.filter(f => f.araTu && f.araTu.passos).map(f =>
-  [f.id, {id: f.id + '-ara-tu', enunciat: f.araTu.enunciat, inici: f.araTu.inici, passos: f.araTu.passos}]));
+  [f.id, {id: f.id + '-ara-tu', enunciat: f.araTu.enunciat, inici: f.araTu.inici, passos: f.araTu.passos,
+    // les f(x) i g(x) definides a la fitxa continuen desades a la calculadora durant l'«Ara tu»
+    funcions: Object.fromEntries(f.passos.filter(p => p.pantalla.tipus === 'definicio' && p.pantalla.entrada).map(p => [p.pantalla.nom, p.pantalla.entrada]))}]));
 const AMB_ARA_TU = Dades.FITXES.concat([...PSEUDO.values()]);
 
 /* Fitxes */
