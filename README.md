@@ -125,6 +125,7 @@ fx-82SP CW; la fx-82MS 2a edició hi anirà com una carpeta més.
 | `models/fx-82sp-cw/proves.js`, `calcul.js` | Les proves pròpies de la CW (pantalles, català, teclat, regla «E Mat/S Mat») i el càlcul dels resultats. |
 | `models/fx-82ms/` | La fx-82MS, amb els mateixos fitxers: teclat mesurat sobre una foto, pantalla de dues línies (7 segments a baix), menús MODE i DRG▸, simulador d'escriptura en una línia, fitxes, estil i proves (també la del signe negatiu: [[neg]], no [[menys]]). |
 | `proves/comprova.js` | Les proves: el nucli, el web i cada calculadora del catàleg. |
+| `proves/encaix.js` | Comprova amb un navegador (Playwright) que cada pas de cada fitxa cap a la finestra sense scroll. |
 | `VERIFICAR.md` | Detalls de pantalla que el manual no mostra i que cal comprovar amb la calculadora. |
 | `ARCHITECTURE.md` | Referència tècnica per a una IA (en anglès), amb el contracte d'una calculadora. |
 
@@ -165,6 +166,15 @@ KaTeX a mà (per exemple, `npm install katex@0.16.9` en una carpeta qualsevol) i
 ```
 KATEX=<carpeta>/node_modules/katex/dist node proves/comprova.js
 ```
+
+Per comprovar que cada pas de cada fitxa cap a la finestra (1366×657, 1280×559 i una tauleta de 10") sense scroll,
+amb la calculadora sencera i el pas actual visible, i sense errors de JavaScript, cal Playwright amb el seu Chromium:
+
+```
+node proves/encaix.js
+```
+
+Ha d'acabar amb «Tot hi cap». `MODEL=fx-82ms`, `FITXES=ans,fix` o `VP='[[1366,657]]'` en limiten la prova.
 
 ## Publicació
 

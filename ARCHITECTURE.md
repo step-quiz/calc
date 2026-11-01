@@ -69,9 +69,11 @@ Model files are IIFEs on `Models.obre('<id>')` and set those parts. The core nev
 - `marca` on an indicator requires that indicator to be present.
 - With `KATEX=<katex>/dist`, every TeX in screens and texts renders with `throwOnError: true`.
 
-## 5. Visual checks used during development (not in repo)
+## 5. Visual checks
 
-Playwright against `python3 -m http.server` (assets are local since v24): for every fitxa and every step, at 1280×640, 1366×657, 1536×730, 1280×800 and 1920×960, assert `scrollHeight ≤ innerHeight`, the calculator bottom is inside the viewport, the current step is fully visible inside the step list, no LCD menu label is truncated (`.lcd-fila .t` `scrollWidth ≤ clientWidth`), entry/result do not overlap, and no JS errors.
+`proves/encaix.js` (in the repo since 1/11/2026; Node + Playwright, serves the repo itself on a free port; not loaded by any page, so no `VERSIO` bump): for every catalogue model, fitxa and step (including step 0) at 1366×657, 1280×559 and a 10" Android tablet (1280×632, touch, DPR 1.5): no vertical or horizontal page scroll, the calculator bottom inside the viewport (two columns), the current step fully visible inside the step list, no JS errors. Exits 1 on any failure. Env: `MODEL`, `FITXES` (comma list), `VP` (JSON `[[w,h,opts]…]`). Result on v35: 1227 steps, all fit.
+
+Older checks (not in repo) used during development: Playwright against `python3 -m http.server` (assets are local since v24): for every fitxa and every step, at 1280×640, 1366×657, 1536×730, 1280×800 and 1920×960, assert `scrollHeight ≤ innerHeight`, the calculator bottom is inside the viewport, the current step is fully visible inside the step list, no LCD menu label is truncated (`.lcd-fila .t` `scrollWidth ≤ clientWidth`), entry/result do not overlap, and no JS errors.
 
 ## 6. Known approximations
 
