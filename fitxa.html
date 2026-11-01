@@ -9,22 +9,21 @@
 <link rel="icon" href="icon.png">
 <link rel="stylesheet" href="vendor/lletres/lletres.css">
 <link rel="stylesheet" href="vendor/katex/katex.min.css">
-<link rel="stylesheet" href="css/estil.css?v=31">
+<link rel="stylesheet" href="css/estil.css?v=33">
 </head>
 <body>
 
-<!-- La pàgina la construeix js/motor.js a partir de js/fitxes.js. Adreça: fitxa.html?id=<id de la fitxa> -->
+<!-- La pàgina la construeix js/nucli/motor.js amb la calculadora de models/<id>/. Adreça: fitxa.html?id=<id de la fitxa>[&model=<id del model>] -->
 <div id="fitxa" style="display:contents">
   <noscript><p class="error-carrega">Aquesta pàgina necessita JavaScript per mostrar la fitxa.</p></noscript>
 </div>
 
 <script src="vendor/katex/katex.min.js"></script>
-<script src="js/tecles.js?v=31"></script>
-<script src="js/pantalla.js?v=31"></script>
-<script src="js/guions.js?v=31"></script>
-<script src="js/fitxes.js?v=31"></script>
-<script src="js/simulador.js?v=31"></script>
-<script src="js/motor.js?v=31"></script>
-<script>const fitxa = Motor.inicia();   // el controlador: útil per provar-lo des de la consola</script>
+<script src="js/nucli/models.js?v=33"></script>
+<script src="models/cataleg.js?v=33"></script>
+<script src="js/nucli/preferencies.js?v=33"></script>
+<script src="js/nucli/text.js?v=33"></script>
+<script src="js/nucli/motor.js?v=33"></script>
+<script>Motor.arrenca();   // carrega la calculadora (models/<id>/) i obre la fitxa; el controlador queda a «fitxa»</script>
 </body>
 </html>

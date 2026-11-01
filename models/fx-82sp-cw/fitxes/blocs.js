@@ -1,0 +1,57 @@
+/* ═══════════════════════════════════════════════════════════════════
+   models/fx-82sp-cw/fitxes/blocs.js — Els blocs i el format de les fitxes
+   ───────────────────────────────────────────────────────────────────
+   M.blocs (aquí): els apartats de la portada, en ordre (només id, títol i color: la portada no porta descripcions).
+   M.comu (aquí): fórmules i indicadors que fan servir les fitxes de diversos blocs.
+   Les fitxes, a fitxes/<bloc>.js (M.fitxes.push(…), en l'ordre de la portada). Cada fitxa és un guió pas a pas:
+     id         nom a l'adreça: fitxa.html?id=<id>. Si una altra calculadora té una fitxa del mateix tema, el mateix id
+     bloc       clau de BLOCS
+     titol      títol curt (portada i capçalera)
+     enunciat   què farem (es veu al pas 0)
+     inici      la pantalla del pas 0 (com està la calculadora abans de començar)
+     passos     [{tecles, pantalla, text}]
+                tecles   = ids de tecles.js, en ordre ('shift' afecta la tecla següent);
+                           [] si el pas només explica la pantalla
+                pantalla = com queda la pantalla després de prémer-les (guions.js)
+                text     = la frase del pas
+                error    = (opcional) true si el pas ensenya un ús erroni de la calculadora
+                           («zona d'error»: mentre és el pas actual, les vores de la pàgina es
+                           tornen de color vellut vermell, --vellut a estil.css)
+                apartat  = (opcional) la lletra de l'apartat de l'enunciat que es resol: es
+                           ressalta a l'enunciat, marcat amb [a]…[/a]
+                parcials = (opcional) {índex de tecla: pantalla}, per a les pantalles
+                           intermèdies que simulador.js no sap deduir
+     relacionades  ids d'altres fitxes (opcional)
+     araTu      exercici semblant, al final: {enunciat, resultat (TeX), error (text, sense !!), inici, passos}.
+                Els passos són com els de la fitxa; la calculadora conserva les f(x) i g(x) definides a la fitxa.
+                Als exercicis PAU (blocs pau-ag i pau-ap) està desactivat, dins d'un comentari (v31, ARCHITECTURE.md, punt 14).
+
+   Als textos: $$TeX$$ = fórmula en una línia pròpia; $TeX$ = fórmula; [[id]] = tecla; {{Text}} = opció d'un menú
+   de la calculadora, escrita tal com hi surt; !!Error típic!! = avís d'error, amb fons groc durant 1 s (només en passos amb error: true).
+   ═══════════════════════════════════════════════════════════════════ */
+(function (M) {
+'use strict';
+
+const {IND, ind} = M.guions;
+
+/* Fórmules que surten a diverses fitxes (com les escriu la pantalla) */
+const SEN45 = '\\mathrm{sen}(45)';
+const ARREL2_2 = '\\frac{\\sqrt{2}}{2}';
+const D = IND.D, R = IND.R;
+const FIX = ind(D, {fix: true});
+
+/** Per a les fitxes de cada bloc (fitxes/<bloc>.js). */
+M.comu = Object.freeze({SEN45, ARREL2_2, D, R, FIX});
+
+M.blocs = Object.freeze([
+  {id: 'exacte', titol: 'Treballar en mode \'exacte\' o \'decimal\'', color: '#0c1736'},
+  {id: 'fraccions', titol: 'Operar amb fraccions i potències', color: '#0d235e'},
+  {id: 'angles', titol: 'Treballar en mode \'graus\' o \'radiants\'', color: '#033d63'},
+  {id: 'pau', titol: 'Funcions útils per a la PAU', color: '#876d0d'},
+  {id: 'pau-ag', titol: 'Exercicis PAU. Àlgebra i Geometria', color: '#853300'},
+  {id: 'pau-ap', titol: 'Exercicis PAU. Anàlisi i Probabilitat', color: '#945600'},
+  // Fase 4 (David, 1/11/2026): una bombolla petita a la portada, a part dels 6 blocs (petit: true)
+  {id: 'examen', titol: 'Abans de l\'examen', color: '#3d4f1f', petit: true},
+]);
+
+})(Models.obre('fx-82sp-cw'));

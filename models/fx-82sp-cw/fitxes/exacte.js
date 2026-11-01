@@ -1,0 +1,168 @@
+/* ═══════════════════════════════════════════════════════════════════
+   models/fx-82sp-cw/fitxes/exacte.js — Les fitxes del bloc «Treballar en mode 'exacte' o 'decimal'»
+   ───────────────────────────────────────────────────────────────────
+   NOMÉS DADES. El format d'una fitxa és a fitxes/blocs.js.
+   ═══════════════════════════════════════════════════════════════════ */
+(function (M) {
+'use strict';
+const {IND, ind, calc, marca, config, configCalcul, entradaSortida, unitatAngular,
+  formatNumero, normal, reiniciar, format, catalog, angCoordSexag, home, missatge, definicio, menuFuncio,
+  probabilidad, tools, catalogVerificar} = M.guions;
+const {SEN45, ARREL2_2, D, R, FIX} = M.comu;
+
+M.fitxes.push(
+
+{
+  id: 'indicadors', bloc: 'exacte', titol: 'Llegeix la barra de dalt',
+  enunciat: 'Abans de calcular, mira la barra d\'indicadors de dalt de la pantalla: diu com està configurada la calculadora.',
+  inici: calc(D, SEN45, ARREL2_2),
+  passos: [
+    {tecles: [], pantalla: marca(calc(D, SEN45, ARREL2_2), 'mat'),
+      text: 'Aquesta icona vol dir que escrius en format matemàtic, com al llibre: les fraccions i les arrels es veuen tal com les escrius. Aquí el resultat surt exacte perquè la calculadora és en mode {{E Mat/S Mat}}; en mode {{E Mat/S Decimal}} sortiria 0.7071067812.'},
+    {tecles: [], pantalla: marca(calc(D, SEN45, ARREL2_2), 'ang'),
+      text: 'La lletra amb fons fosc és la unitat dels angles: D = graus, R = radians, G = graus centesimals (aquests, no els facis servir mai).'},
+    {tecles: [], pantalla: marca(calc(D, SEN45, ARREL2_2), 'hist'),
+      text: 'El triangle ▲ vol dir que hi ha càlculs anteriors: amb [[up]] els tornes a veure.'},
+    {tecles: [], pantalla: marca(calc(FIX, '1\\div 6', '0.17', {}), 'fix'),
+      text: 'Si hi veus FIX, la calculadora arrodoneix tots els decimals (aquí, a 2 decimals). SCI és semblant: fixa les xifres significatives. Si no ho has triat tu, treu-ho.'},
+    {tecles: ['shift'], pantalla: marca(calc(ind(D, {shift: true}), '', '', {hist: true}), 'shift'),
+      text: 'Si prems [[shift]], surt una S: la tecla següent farà el que hi ha escrit a sobre seu (per exemple, [[shift]] [[7]] escriu π). La S desapareix sola.'},
+  ],
+  araTu: {
+    enunciat: 'Calcula $2\\pi$ i dona\'n el decimal. Mira la barra mentre escrius la π.',
+    resultat: '2\\pi\\approx 6{,}283185307',
+    error: 'Escriure 3.14 en lloc de π: $2\\cdot 3{,}14=6{,}28$, i ja falla el tercer decimal.',
+    inici: calc(D),
+    passos: [
+      {tecles: ['2', 'shift'], pantalla: marca(calc(ind(D, {shift: true}), '2'), 'shift'),
+        text: 'Escriu el 2 i prem [[shift]]: a la barra surt la S.'},
+      {tecles: ['7'], pantalla: calc(D, '2\\pi'),
+        text: 'Prem [[7]]: s\'escriu π (el que hi ha a sobre de la tecla) i la S desapareix.'},
+      {tecles: ['shift', 'exe'], pantalla: marca(calc(D, '2\\pi', '6.283185307'), 'resultat'),
+        text: 'Amb [[shift]] [[exe]], el decimal: 6.283185307.'},
+    ],
+  },
+  relacionades: ['fix', 'mode-decimal'],
+},
+{
+  id: 'exacte-decimal', bloc: 'exacte', titol: 'Valor exacte i valor decimal',
+  enunciat: 'Calcula $\\sin 45^\\circ$ en forma exacta i en forma decimal.',
+  inici: calc(D),
+  passos: [
+    {tecles: ['sen', '4', '5', 'rpar'], pantalla: calc(D, SEN45),
+      text: 'Escriu $\\mathrm{sen}(45)$: [[sen]], el 45 i [[rpar]]. A la tecla de la calculadora, el sinus es diu sen; als enunciats en català, sin. La calculadora és en graus (D).'},
+    {tecles: ['exe'], pantalla: marca(calc(D, SEN45, ARREL2_2), 'resultat'),
+      text: 'Prem [[exe]]. Com que la calculadora és en mode {{E Mat/S Mat}}, el resultat és el valor exacte, $\\frac{\\sqrt{2}}{2}$. A la PAU, aquesta és la resposta.'},
+    {tecles: ['format'], pantalla: format(0),
+      text: 'La tecla [[format]] obre un menú per canviar com es mostra el resultat. La primera opció, {{Estándar}}, és la forma exacta.'},
+    {tecles: ['down'], pantalla: format(1),
+      text: 'Baixa fins a {{Decimal}} amb [[down]].'},
+    {tecles: ['ok'], pantalla: marca(calc(D, SEN45, '0.7071067812'), 'resultat'),
+      text: 'Prem [[ok]]. És el mateix nombre, però ara en decimal: 0.7071067812.'},
+    {tecles: ['format', 'ok'], pantalla: marca(calc(D, SEN45, ARREL2_2), 'resultat'),
+      text: 'Per tornar a la forma exacta: [[format]] i [[ok]], perquè {{Estándar}} ja està triada.'},
+    {tecles: ['ac', 'sen', '4', '5', 'rpar'], pantalla: calc(D, SEN45, '', {hist: true}),
+      text: 'Ara una drecera. Esborra amb [[ac]] i torna a escriure $\\mathrm{sen}(45)$.'},
+    {tecles: ['shift', 'exe'], pantalla: marca(calc(D, SEN45, '0.7071067812'), 'resultat'),
+      text: 'En lloc de [[exe]], prem [[shift]] i després [[exe]] (a sobre d\'EXE hi ha ≈): surt el resultat en decimal directament.'},
+  ],
+  araTu: {
+    enunciat: 'Calcula $\\cos 30^\\circ$ en forma exacta i en forma decimal.',
+    resultat: '\\frac{\\sqrt{3}}{2}\\approx 0{,}8660254038',
+    error: 'Donar només el decimal arrodonit, 0,87, quan es demana el valor exacte: la resposta és $\\frac{\\sqrt{3}}{2}$.',
+    inici: calc(D),
+    passos: [
+      {tecles: ['cos', '3', '0', 'rpar', 'exe'], pantalla: marca(calc(D, '\\cos(30)', '\\frac{\\sqrt{3}}{2}'), 'resultat'),
+        text: 'Escriu $\\cos(30)$ amb la calculadora en graus (D) i prem [[exe]]: $\\frac{\\sqrt{3}}{2}$, el valor exacte.'},
+      {tecles: ['format', 'down', 'ok'], pantalla: marca(calc(D, '\\cos(30)', '0.8660254038'), 'resultat'),
+        text: 'El decimal: [[format]], {{Decimal}} amb [[down]] i [[ok]]. Surt 0.8660254038.'},
+    ],
+  },
+  relacionades: ['mode-decimal', 'indicadors'],
+},
+{
+  id: 'mode-decimal', bloc: 'exacte', titol: 'Em surt 0.5 en lloc d\'1/2',
+  enunciat: 'Calcules $1\\div 2$ i la calculadora dona 0.5, mai fraccions ni arrels. Arregla-ho.',
+  inici: calc(D),
+  passos: [
+    {tecles: ['1', 'entre', '2', 'exe'], pantalla: marca(calc(D, '1\\div 2', '0.5'), 'resultat'),
+      text: 'Calcules $1\\div 2$ i surt 0.5. La icona √ hi és, però no ajuda: surt tant en {{E Mat/S Mat}} com en {{E Mat/S Decimal}}.'},
+    {tecles: ['settings'], pantalla: config(0),
+      text: 'Prem [[settings]]: s\'obre el menú CONFIG, amb {{Config cálculo}} triat.'},
+    {tecles: ['ok'], pantalla: configCalcul(0),
+      text: 'Prem [[ok]]. La primera opció és {{Entrada/Salida}}.'},
+    {tecles: ['ok'], pantalla: entradaSortida(1),
+      text: 'Prem [[ok]]. Aquí hi ha el problema: el ◉ és a {{E Mat/S Decimal}}. Vol dir «entrada matemàtica, sortida sempre decimal».'},
+    {tecles: ['up'], pantalla: entradaSortida(1, 0),
+      text: 'Puja a {{E Mat/S Mat}} amb [[up]]: entrada i sortida matemàtiques (fraccions, arrels, π).'},
+    {tecles: ['ok'], pantalla: entradaSortida(0),
+      text: 'Prem [[ok]]: el ◉ passa a {{E Mat/S Mat}}.'},
+    {tecles: ['ac'], pantalla: calc(D),
+      text: 'Prem [[ac]] per tornar a la pantalla de càlcul. En canviar aquest ajust, l\'historial s\'esborra (ja no hi ha ▲).'},
+    {tecles: ['1', 'entre', '2', 'exe'], pantalla: marca(calc(D, '1\\div 2', '\\frac{1}{2}'), 'resultat'),
+      text: 'Torna a calcular $1\\div 2$: ara surt $\\frac{1}{2}$.'},
+  ],
+  araTu: {
+    enunciat: 'La calculadora és en mode {{E Mat/S Decimal}} i $\\sqrt{8}$ dona 2.828427125. Posa-la en mode {{E Mat/S Mat}} i torna-ho a calcular.',
+    resultat: '2\\sqrt{2}',
+    error: 'Quedar-se amb 2.828427125: a la PAU es demana el valor exacte, $2\\sqrt{2}$.',
+    inici: calc(D),
+    passos: [
+      {tecles: ['settings', 'ok', 'ok'], pantalla: entradaSortida(1),
+        text: '[[settings]], [[ok]] ({{Config cálculo}}) i [[ok]] ({{Entrada/Salida}}): el ◉ és a {{E Mat/S Decimal}}.'},
+      {tecles: ['up', 'ok'], pantalla: entradaSortida(0),
+        text: 'Puja a {{E Mat/S Mat}} amb [[up]] i prem [[ok]].'},
+      {tecles: ['ac'], pantalla: calc(D),
+        text: 'Prem [[ac]] per tornar a la pantalla de càlcul.'},
+      {tecles: ['arrel', '8', 'exe'], pantalla: marca(calc(D, '\\sqrt{8}', '2\\sqrt{2}'), 'resultat'),
+        text: '[[arrel]], el 8 i [[exe]]: ara surt $2\\sqrt{2}$.'},
+    ],
+  },
+  relacionades: ['exacte-decimal'],
+},
+{
+  id: 'fix', bloc: 'exacte', titol: 'Tot em surt arrodonit (FIX)',
+  enunciat: 'Vols el decimal d\'$\\frac{1}{6}$ i surt 0.17. A la barra hi ha FIX: algú hi va fixar 2 decimals.',
+  inici: calc(FIX),
+  passos: [
+    {tecles: ['1', 'entre', '6', 'shift', 'exe'], pantalla: marca(calc(FIX, '1\\div 6', '0.17'), 'fix'),
+      text: 'Amb [[shift]] [[exe]] demanes el decimal i surt 0.17: és arrodonit a 2 decimals per culpa de FIX. Si calcules amb arrodoniments, s\'acumulen errors.'},
+    {tecles: ['settings', 'ok'], pantalla: configCalcul(0),
+      text: 'Obre [[settings]] i entra a {{Config cálculo}} amb [[ok]].'},
+    {tecles: ['down', 'down'], pantalla: configCalcul(2),
+      text: 'Baixa fins a {{Formato número}}.'},
+    {tecles: ['ok'], pantalla: formatNumero(0),
+      text: 'Prem [[ok]]. El ◉ és a {{Fijar decim}}: decimals fixos.'},
+    {tecles: ['down', 'down', 'ok'], pantalla: normal(0),
+      text: 'Baixa fins a {{Normal}} i prem [[ok]]. Surten els dos tipus, Norm1 i Norm2, amb un exemple de cada un. La de fàbrica és Norm2.'},
+    {tecles: ['down', 'ok'], pantalla: formatNumero(2),
+      text: 'El menú s\'obre a Norm1: baixa a Norm2 amb [[down]] i prem [[ok]]. El ◉ passa a {{Normal}}.'},
+    {tecles: ['ac'], pantalla: calc(D, '', '', {hist: true}),
+      text: 'Prem [[ac]]. A la barra ja no hi ha FIX.'},
+    {tecles: ['1', 'entre', '6', 'shift', 'exe'], pantalla: marca(calc(D, '1\\div 6', '0.1666666667'), 'resultat'),
+      text: 'Torna a demanar el decimal: 0.1666666667. Arrodoneix tu al final, només quan escriguis la resposta.'},
+  ],
+  araTu: {
+    enunciat: 'A la barra hi ha FIX. Treu-lo i calcula el decimal de $\\frac{2}{3}$ amb tots els decimals.',
+    resultat: '0{,}6666666667',
+    error: 'Copiar el 0.67 de FIX i continuar calculant amb aquest valor: els errors d\'arrodoniment s\'acumulen.',
+    inici: calc(FIX),
+    passos: [
+      {tecles: ['2', 'entre', '3', 'shift', 'exe'], pantalla: marca(calc(FIX, '2\\div 3', '0.67'), 'fix'),
+        text: 'Amb FIX, $2\\div 3$ i [[shift]] [[exe]] donen 0.67.'},
+      {tecles: ['settings', 'ok', 'down', 'down', 'ok'], pantalla: formatNumero(0),
+        text: '[[settings]], [[ok]] ({{Config cálculo}}), baixa a {{Formato número}} i [[ok]].'},
+      {tecles: ['down', 'down', 'ok', 'down', 'ok'], pantalla: formatNumero(2),
+        text: 'Baixa a {{Normal}}, [[ok]], tria Norm2 amb [[down]] i [[ok]].'},
+      {tecles: ['ac'], pantalla: calc(D, '', '', {hist: true}),
+        text: 'Prem [[ac]]: ja no hi ha FIX.'},
+      {tecles: ['2', 'entre', '3', 'shift', 'exe'], pantalla: marca(calc(D, '2\\div 3', '0.6666666667'), 'resultat'),
+        text: 'Torna a demanar el decimal: 0.6666666667.'},
+    ],
+  },
+  relacionades: ['indicadors'],
+},
+
+);
+
+})(Models.obre('fx-82sp-cw'));

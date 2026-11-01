@@ -30,13 +30,13 @@ repositori, si n'hi ha més avall, manen sobre aquestes quan diuen una altra cos
 
 ## This repository
 
-Static site with step-by-step demos ("fitxes") for the **CASIO fx-82SP CW** calculator, for Batxillerat students. Read `ARCHITECTURE.md` (technical reference) and `VERIFICAR.md` (screens inferred, not drawn in the manual) and `BLOCS-PENDENTS.md` (work order for empty blocks)
+Static site with step-by-step demos ("fitxes") for CASIO calculators, for Batxillerat students: today the **fx-82SP CW**; the **fx-82MS 2nd edition** is being added (plan in `ARCHITECTURE.md` §3a). The site is a core (`js/nucli/`) plus one folder per calculator (`models/<id>/`); the core never names a key or a menu. Read `ARCHITECTURE.md` (technical reference) and `VERIFICAR.md` (screens inferred, not drawn in the manual) and `BLOCS-PENDENTS.md` (work order for empty blocks)
 
-- Model scope: fx-82SP CW only (Calcular, Estadística, Tabla, Math Box). No solver, matrices, derivatives, integrals or distributions on this model.
-- Student-facing text in Catalan; calculator menu labels in Spanish, exactly as in the manual.
-- Fitxes are data in `js/fitxes.js`; recurring screens live in `js/guions.js`; the calculator geometry lives in `js/tecles.js` (measured, keys are circles; never stretch it).
+- Model scope: fx-82SP CW (Calcular, Estadística, Tabla, Math Box; no solver, matrices, derivatives, integrals or distributions) and, from phase 4, fx-82MS 2nd edition only. Content scope on both: only what is useful for PAU questions and basic ESO/Batxillerat work (David, 1/11/2026), with the same topics and the same fitxa ids on both calculators.
+- Student-facing text in Catalan; fx-82SP CW menu labels in Spanish, exactly as in the manual (Catalan translation in `models/fx-82sp-cw/guions.js`).
+- Fitxes are data in `models/<id>/fitxes/<bloc>.js`; recurring screens live in `models/<id>/guions.js`; the calculator geometry lives in `models/<id>/tecles.js` (measured; CW keys are circles; never stretch it).
 - Layout: two columns only (left = statement, player, step list with the current step expanded, collapsed list of other fitxes; right = calculator only; width split 15 % / 40 % / 30 % / 15 %). David rejected a 3-column layout, a «Per recordar» box and a title in the header as too noisy.
 - PAU exercise fitxes: show the calculator the way a student would really use it in an exam, quickly and directly (e.g. check a solution by typing each left-hand side with the numbers and comparing with the right-hand side). No detours such as storing values in variables.
 - Target devices: laptops (Chromebook / Lenovo, 1280×640 to 1920×1080 viewports, touch and mouse). Every step of every fitxa must fit the viewport without scrolling at 1366×657.
-- Cache busting: every change to a `.js`/`.css` file must bump `VERSIO` in `js/motor.js` AND every `?v=` in `index.html` and `fitxa.html` (the test enforces they match; the footer shows the version). `_headers` sets `Cache-Control: no-cache` on Cloudflare Pages. David once saw an old `motor.js` on his phone.
+- Cache busting: every change to a `.js`/`.css` file must bump `VERSIO` in `js/nucli/models.js` AND every `?v=` in `index.html` and `fitxa.html` (the test enforces they match; the footer shows the version). `_headers` sets `Cache-Control: no-cache` on Cloudflare Pages. David once saw an old `motor.js` on his phone.
 - Tests: `node proves/comprova.js` must end with «Tot correcte» (with `KATEX=<katex 0.16.9>/dist` to also check every formula).

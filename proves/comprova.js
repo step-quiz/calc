@@ -1,5 +1,5 @@
 /* ═══════════════════════════════════════════════════════════════════
-   proves/comprova.js — Comprova les dades de les fitxes
+   proves/comprova.js — Comprova el nucli i totes les calculadores
    ───────────────────────────────────────────────────────────────────
    Ús (des de l'arrel del repositori):
        node proves/comprova.js
@@ -9,14 +9,21 @@
    (per exemple, després de «npm install katex@0.16.9» en una carpeta
    qualsevol: KATEX=<carpeta>/node_modules/katex/dist)
 
-   Comprova:
+   Per a CADA model del catàleg (models/cataleg.js), carregat com al
+   navegador (model.js i els seus fitxers, en ordre):
+     · el contracte (Models.tanca) i el descriptor;
      · els blocs i les fitxes: ids únics, bloc existent, camps obligatoris;
-     · cada pas: tecles existents, pantalla d'un tipus conegut, text, error (zona d'error) true o absent;
-     · els menús: la fila triada existeix; com a molt un ◉;
+     · cada pas: tecles del model, text, error (zona d'error) true o absent,
+       apartats marcats a l'enunciat;
      · els textos: les [[tecles]] existeixen, els $ i {{ }} estan tancats;
      · les relacionades apunten a fitxes que existeixen;
-     · els resultats de les pantalles, tornant-los a calcular (proves/resultats.js);
-     · (amb KATEX) cada fórmula de les pantalles i dels textos.
+     · el simulador: una pantalla per tecla, i el que s'escriu coincideix
+       amb la pantalla final de cada pas (també als «Ara tu»);
+     · les proves pròpies del model (models/<id>/proves.js): les pantalles,
+       les traduccions, el teclat, els resultats…;
+     · (amb KATEX) cada fórmula dels textos.
+   I del web: el nucli (js/nucli/ i css/estil.css) no coneix cap
+   calculadora, i els «?v=» de les pàgines coincideixen amb Models.VERSIO.
    ═══════════════════════════════════════════════════════════════════ */
 'use strict';
 const fs = require('fs');
@@ -27,221 +34,206 @@ const arrel = path.join(__dirname, '..');
 const context = {console};
 context.globalThis = context;
 vm.createContext(context);
+const executa = f => vm.runInContext(fs.readFileSync(path.join(arrel, f), 'utf8'), context, {filename: f});
 
 let katex = null;
 if (process.env.KATEX) {
   const fitxer = path.join(process.env.KATEX, 'katex.js');
   katex = require(fs.existsSync(fitxer) ? fitxer : process.env.KATEX);
 }
-for (const f of ['js/tecles.js', 'js/pantalla.js', 'js/guions.js', 'js/fitxes.js', 'js/simulador.js']) {
-  vm.runInContext(fs.readFileSync(path.join(arrel, f), 'utf8'), context, {filename: f});
-}
-const {Tecles, Pantalla, Dades, Simulador, G} = context;
 
 let errors = 0, comprovacions = 0;
 const error = (on, missatge) => { errors++; console.error(`✗ ${on}: ${missatge}`); };
 const ok = (condicio, on, missatge) => { comprovacions++; if (!condicio) error(on, missatge); return condicio; };
+const compta = n => { comprovacions += n; };
 
-function comprovaTeX(tex, on) {
+/** Una fórmula: KaTeX l'ha de poder dibuixar (opcions = les del model, si en té). */
+function comprovaTeX(tex, on, opcions = {}) {
   if (!katex || !tex) return;
   comprovacions++;
   try {
-    katex.renderToString(tex, Object.assign({}, Pantalla.OPCIONS_KATEX, {throwOnError: true}));
+    katex.renderToString(tex, Object.assign({}, opcions, {throwOnError: true}));
   } catch (e) {
     error(on, `KaTeX no pot dibuixar «${tex}»: ${e.message}`);
   }
 }
 
-function comprovaText(t, on) {
-  if (!ok(typeof t === 'string' && t.trim().length > 0, on, 'falta el text')) return;
-  ok((t.match(/\$/g) || []).length % 2 === 0, on, 'hi ha un $ sense tancar');
-  const senseTeX = t.replace(/\$\$[^$]*\$\$/g, '').replace(/\$[^$]*\$/g, '');            // dins d'una fórmula, «}}» és normal
-  ok((senseTeX.match(/\{\{/g) || []).length === (senseTeX.match(/\}\}/g) || []).length, on, '{{ }} sense tancar');
-  for (const m of t.matchAll(/\[\[([^\]]+)\]\]/g)) ok(Tecles.existeix(m[1]), on, `tecla desconeguda [[${m[1]}]]`);
-  for (const m of t.matchAll(/\$([^$]+)\$/g)) comprovaTeX(m[1], on);
-  ok(!/\[\[[^\]]*$/.test(t), on, '[[ sense tancar');
+/* ── El nucli i el catàleg ─────────────────────────────────────────── */
+
+executa('js/nucli/models.js');
+executa('models/cataleg.js');
+const {Models} = context;
+ok(Models.ids.length > 0, 'models/cataleg.js', 'el catàleg és buit');
+
+/* El nucli no coneix cap calculadora: no fa servir els noms globals d'abans (Tecles, Pantalla, G, Dades, Simulador)
+   ni cap id de tecla entre cometes (els tipus de tecla, com 'shift', sí que hi poden ser). */
+const NUCLI = fs.readdirSync(path.join(arrel, 'js/nucli')).filter(f => f.endsWith('.js')).map(f => 'js/nucli/' + f);
+const nucli = NUCLI.map(f => [f, fs.readFileSync(path.join(arrel, f), 'utf8')]);
+for (const [f, codi] of nucli) {
+  const senseComentaris = codi.replace(/\/\*[\s\S]*?\*\//g, '').replace(/\/\/.*$/gm, '');
+  ok(!/\b(Tecles|Pantalla|Dades|Simulador|G)\.[A-Za-z]/.test(senseComentaris), f, 'el nucli no pot fer servir els mòduls d\'una calculadora (ho ha de demanar al model)');
 }
 
-function comprovaPantalla(p, on) {
-  if (!ok(p && Pantalla.TIPUS.includes(p.tipus), on, `pantalla de tipus desconegut (${p && p.tipus})`)) return;
-  if (p.tipus === 'calc') {
-    ok(p.ind && typeof p.ind === 'object', on, 'falten els indicadors');
-    ok(!p.ind.ang || ['D', 'R', 'G'].includes(p.ind.ang), on, `unitat d'angle desconeguda (${p.ind.ang})`);
-    ok(!(p.ind.fix && p.ind.sci), on, 'FIX i SCI alhora');
-    if (!p.linia) { comprovaTeX(p.entrada, on + ' (entrada)'); comprovaTeX(p.resultat, on + ' (resultat)'); }
-    ok(!p.marca || ['mat', 'ang', 'fix', 'sci', 'shift', 'hist', 'simp', 'verif', 'entrada', 'resultat'].includes(p.marca), on, `marca desconeguda (${p.marca})`);
-    if (p.marca && Pantalla.INDICADORS.includes(p.marca)) ok(p.ind[p.marca], on, `es marca l'indicador ${p.marca}, però no hi és`);
-    if (p.marca === 'hist') ok(p.ind.hist, on, 'es marca ▲, però no hi és');
-  } else if (p.tipus === 'menu') {
-    ok(Array.isArray(p.files) && p.files.length > 0, on, 'menú buit');
-    ok(Number.isInteger(p.sel) && p.sel >= 0 && p.sel < p.files.length, on, `fila triada fora del menú (${p.sel})`);
-    ok(p.files.filter(f => f.radio === 'on').length <= 1, on, 'més d\'un ◉');
-    // Fase 2 (v24): el simulador navega pels menús per l'id i la clau de cada fila, mai pel text
-    if (ok(p.id && G.MENUS[p.id], on, `menú sense id conegut (${p.id}): fes-lo amb els constructors de guions.js`)) {
-      ok(p.files.every((f, k) => f.clau === G.MENUS[p.id][k][0]), on, `les files del menú ${p.id} no coincideixen amb G.MENUS`);
-    }
-    for (const f of p.files) ok(typeof f.t === 'string' && f.t.length > 0, on, 'fila sense text');
-  } else if (p.tipus === 'home') {
-    ok(p.sel >= 0 && p.sel < 4, on, 'aplicació triada fora de la pantalla HOME');
-  } else if (p.tipus === 'definicio') {
-    ok(/^[fg]$/.test(p.nom), on, 'la funció ha de ser f o g');
-    comprovaTeX(p.nom + '(x)=' + (p.entrada || ''), on + ' (definició)');
-  } else if (p.tipus === 'variables') {
-    ok(Array.isArray(p.valors) && p.valors.length === 9, on, 'la llista de variables ha de tenir les 9 variables');
-    ok(p.valors.some(([n]) => n === p.sel), on, `variable triada desconeguda (${p.sel})`);
-  } else if (p.tipus === 'missatge') {
-    ok(Array.isArray(p.linies) && p.linies.length > 0, on, 'missatge sense text');
+/* ── Cada model ────────────────────────────────────────────────────── */
+
+const models = [];
+for (const id of Models.ids) {
+  const on = `model ${id}`;
+  const carpeta = Models.carpeta(id);
+  if (!ok(fs.existsSync(path.join(arrel, carpeta, 'model.js')), on, `falta ${carpeta}model.js`)) continue;
+  executa(carpeta + 'model.js');
+  const d = Models.descriptor(id);
+  if (!ok(d && d.id === id, on, 'model.js no descriu aquest id')) continue;
+  ok(typeof d.nom === 'string' && d.nom && typeof d.curt === 'string' && d.curt, on, 'falten el nom i el nom curt');
+  ok(d.idiomes === null || (typeof d.idiomes === 'object' && Object.keys(d.idiomes).length > 0), on, 'idiomes ha de ser {codi: nom} o null');
+  let tot = true;
+  for (const f of d.fitxers.concat(d.estils)) tot = ok(fs.existsSync(path.join(arrel, carpeta, f)), on, `falta el fitxer ${f}`) && tot;
+  ok(d.estils.length > 0, on, 'el model ha de portar el seu full d\'estil (estils)');
+  if (!tot) continue;
+  for (const f of d.fitxers) executa(carpeta + f);
+  let M;
+  try { M = Models.tanca(id); comprovacions++; } catch (e) { error(on, e.message); continue; }
+  models.push(M);
+
+  // Les tecles de prefix: la capa és un nom curt (fa la classe «prefix-<capa>» del teclat)
+  for (const [t, def] of Object.entries(M.tecles.TECLES)) {
+    if (def.prefix !== undefined) ok(/^[a-z]+$/.test(def.prefix), on, `la tecla ${t}: prefix ha de ser un nom en minúscules`);
   }
-  // Que es pugui dibuixar (sense KaTeX, Pantalla escriu el TeX tal qual)
-  ok(typeof Pantalla.html(p) === 'string', on, 'Pantalla.html falla');
-}
+  // L'estil del nucli no dibuixa cap tecla concreta ni cap tipus de tecla d'aquest model (això va a models/<id>/estil.css)
+  {
+    const css = fs.readFileSync(path.join(arrel, 'css/estil.css'), 'utf8').replace(/\/\*[\s\S]*?\*\//g, '');
+    for (const m of css.matchAll(/\.t-([a-z0-9]+)\b/g)) ok(!M.tecles.existeix(m[1]), 'css/estil.css', `parla de la tecla «${m[1]}» de ${id}`);
+    for (const m of css.matchAll(/\.tecla-([a-z]+)\b/g)) ok(false, 'css/estil.css', `parla del tipus de tecla «${m[1]}» (va a l'estil del model)`);
+    ok(!/\.prefix-/.test(css), 'css/estil.css', 'els rètols d\'una capa (.prefix-…) van a l\'estil del model');
+  }
 
-/* Blocs */
-const idsBlocs = new Set();
-for (const b of Dades.BLOCS) {
-  ok(!idsBlocs.has(b.id), 'BLOCS', `id repetit (${b.id})`);
-  idsBlocs.add(b.id);
-  ok(/^#[0-9a-f]{6}$/i.test(b.color), `bloc ${b.id}`, 'color incorrecte');
-  ok(b.titol, `bloc ${b.id}`, 'falta el títol');
-}
-
-/* Menús de G.MENUS: claus úniques dins de cada menú */
-for (const [id, files] of Object.entries(G.MENUS)) {
-  ok(new Set(files.map(f => f[0])).size === files.length, `menú ${id}`, 'claus repetides');
-}
-
-/* Calculadora en català (fase 3): cada text de menú i cada {{…}} dels textos ha de tenir traducció a G.CATALA */
-for (const [id, files] of Object.entries(G.MENUS)) {
-  for (const f of files) ok(Object.prototype.hasOwnProperty.call(G.CATALA, f[1]), `menú ${id}`, `«${f[1]}» no té traducció al català (G.CATALA)`);
-}
-for (const f of Dades.FITXES) {
-  const textos = [f.enunciat, ...f.passos.map(p => p.text)].concat(f.araTu ? [f.araTu.enunciat, f.araTu.error || '', ...(f.araTu.passos || []).map(p => p.text)] : []);
-  for (const t of textos) {
-    for (const m of String(t).replace(/\$[^$]*\$/g, '').matchAll(/\{\{([^}]+)\}\}/g)) {
-      ok(Object.prototype.hasOwnProperty.call(G.CATALA, m[1]), `fitxa ${f.id}`, `{{${m[1]}}} no té traducció al català (G.CATALA)`);
+  // Cap id de tecla d'aquest model al nucli
+  const tipus = new Set(Object.values(M.tecles.TECLES).map(t => t.tipus));
+  for (const [f, codi] of nucli) {
+    for (const t of Object.keys(M.tecles.TECLES)) {
+      if (tipus.has(t) || t.length < 2) continue;
+      ok(!new RegExp(`['"\`]${t.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}['"\`]`).test(codi), f, `el nucli parla de la tecla «${t}» de ${id}`);
     }
   }
-}
 
-/* Els «Ara tu» amb passos es comproven com una fitxa més (pantalles, simulador, resultats) */
-const PSEUDO = new Map(Dades.FITXES.filter(f => f.araTu && f.araTu.passos).map(f =>
-  [f.id, {id: f.id + '-ara-tu', enunciat: f.araTu.enunciat, inici: f.araTu.inici, passos: f.araTu.passos,
-    // les f(x) i g(x) definides a la fitxa continuen desades a la calculadora durant l'«Ara tu»
-    funcions: Object.fromEntries(f.passos.filter(p => p.pantalla.tipus === 'definicio' && p.pantalla.entrada).map(p => [p.pantalla.nom, p.pantalla.entrada]))}]));
-const AMB_ARA_TU = Dades.FITXES.concat([...PSEUDO.values()]);
+  // Les proves pròpies del model (Node): {comprovaPantalla(p, on), comprova()}
+  const eines = {ok, error, compta, comprovaTeX, katex, context};
+  const propies = (d.proves || []).map(f => require(path.join(arrel, carpeta, f))(M, eines));
+  const comprovaPantalla = (p, on2) => {
+    ok(p && typeof p === 'object' && M.pantalla.TIPUS.includes(p.tipus), on2, `pantalla de tipus desconegut (${p && p.tipus})`);
+    for (const P of propies) if (P.comprovaPantalla) P.comprovaPantalla(p, on2);
+  };
 
-/* Fitxes */
-const idsFitxes = new Set();
-for (const f of Dades.FITXES) {
-  const on = `fitxa ${f.id}`;
-  ok(/^[a-z0-9-]+$/.test(f.id), on, 'l\'id només pot tenir minúscules, xifres i guions');
-  ok(!idsFitxes.has(f.id), on, 'id repetit');
-  idsFitxes.add(f.id);
-  ok(idsBlocs.has(f.bloc), on, `bloc desconegut (${f.bloc})`);
-  ok(f.titol, on, 'falta el títol');
-  comprovaText(f.enunciat, on + ' · enunciat');
-  comprovaPantalla(f.inici, on + ' · inici');
-  if (f.araTu) {   // «Ara tu» (v26): enunciat, resultat correcte (TeX), error típic (opcional) i els passos per comprovar-ho
-    comprovaText(f.araTu.enunciat, on + ' · ara tu');
-    ok(typeof f.araTu.resultat === 'string' && f.araTu.resultat, on, 'l\'«Ara tu» ha de portar el resultat correcte');
-    comprovaTeX(f.araTu.resultat, on + ' · ara tu (resultat)');
-    if (f.araTu.error) { comprovaText(f.araTu.error, on + ' · ara tu (error)'); ok(!/!!/.test(f.araTu.error), on, 'l\'error de l\'«Ara tu» ja porta «Error típic»: sense !!…!!'); }
-    if (f.araTu.passos) { comprovaPantalla(f.araTu.inici, on + ' · ara tu · inici'); comprovaPassos(PSEUDO.get(f.id), on + ' · ara tu', f.araTu.enunciat); }
+  function comprovaText(t, on2) {
+    if (!ok(typeof t === 'string' && t.trim().length > 0, on2, 'falta el text')) return;
+    ok((t.match(/\$/g) || []).length % 2 === 0, on2, 'hi ha un $ sense tancar');
+    const senseTeX = t.replace(/\$\$[^$]*\$\$/g, '').replace(/\$[^$]*\$/g, '');            // dins d'una fórmula, «}}» és normal
+    ok((senseTeX.match(/\{\{/g) || []).length === (senseTeX.match(/\}\}/g) || []).length, on2, '{{ }} sense tancar');
+    for (const m of t.matchAll(/\[\[([^\]]+)\]\]/g)) ok(M.tecles.existeix(m[1]), on2, `tecla desconeguda [[${m[1]}]]`);
+    for (const m of t.matchAll(/\$\$([^$]+)\$\$|\$([^$]+)\$/g)) comprovaTeX(m[1] || m[2], on2);   // $$…$$ abans que $…$
+    ok(!/\[\[[^\]]*$/.test(t), on2, '[[ sense tancar');
   }
-  ok(Array.isArray(f.passos) && f.passos.length >= 2, on, 'calen almenys dos passos');
-  comprovaPassos(f, on, f.enunciat);
-}
-function comprovaPassos(f, on, enunciat) {
-  f.passos.forEach((p, i) => {
-    const onPas = `${on} · pas ${i + 1}`;
-    ok(Array.isArray(p.tecles), onPas, 'tecles ha de ser una llista');
-    for (const t of p.tecles) ok(Tecles.existeix(t), onPas, `tecla desconeguda (${t})`);
-    // Un pas pot acabar amb ⇧ només si és per ensenyar la S de la barra
-    ok(p.tecles[p.tecles.length - 1] !== 'shift' || (p.pantalla.ind && p.pantalla.ind.shift), onPas,
-      'el pas acaba amb ⇧ (falta la tecla de després)');
-    comprovaPantalla(p.pantalla, onPas);
-    comprovaText(p.text, onPas);
-    ok(p.tecles.length > 0 || p.pantalla.marca, onPas, 'un pas sense tecles ha de ressaltar alguna cosa (marca)');
-    ok(p.error === undefined || p.error === true, onPas, 'error ha de ser true (o no posar-lo)');
-    ok((p.text.match(/!!/g) || []).length % 2 === 0, onPas, '!! sense tancar');
-    ok(!/!!/.test(p.text) || p.error, onPas, 'l\'avís !!…!! només va en un pas amb error: true');
-    if (p.apartat) ok(new RegExp('\\[' + p.apartat + '\\][\\s\\S]*?\\[\\/' + p.apartat + '\\]').test(enunciat), onPas,
-      `l'apartat «${p.apartat}» no està marcat a l'enunciat amb [${p.apartat}]…[/${p.apartat}]`);
-  });
-}
-/* Mode E Mat/S Mat (David, 31/10/2026): un alumne pot tenir la calculadora en mode decimal. A cada fitxa, el primer
-   resultat exacte (fracció, arrel o π) ha d'anar amb una frase que digui que surt així pel mode {{E Mat/S Mat}}
-   (en aquell pas o abans). */
-for (const f of Dades.FITXES) {
-  let dit = /E Mat\/S Mat/.test(f.enunciat);
-  f.passos.forEach((p, i) => {
-    if (/E Mat\/S Mat/.test(p.text)) dit = true;
-    const exacte = p.pantalla.tipus === 'calc' && /\\frac|\\sqrt|\\pi/.test(p.pantalla.resultat || '');
-    if (exacte && !dit) error(`fitxa ${f.id} · pas ${i + 1}`, 'primer resultat exacte: cal dir que surt així pel mode {{E Mat/S Mat}}');
-    if (exacte) dit = true;
+
+  function comprovaPassos(f, on2, enunciat) {
+    f.passos.forEach((p, i) => {
+      const onPas = `${on2} · pas ${i + 1}`;
+      ok(Array.isArray(p.tecles), onPas, 'tecles ha de ser una llista');
+      for (const t of p.tecles) ok(M.tecles.existeix(t), onPas, `tecla desconeguda (${t})`);
+      // Un pas pot acabar amb una tecla de prefix (SHIFT, ALPHA…) només si és per ensenyar-ne l'indicador (ind.<capa>)
+      const darrera = M.tecles.TECLES[p.tecles[p.tecles.length - 1]];
+      ok(!darrera || !darrera.prefix || (p.pantalla.ind && p.pantalla.ind[darrera.prefix]), onPas,
+        `el pas acaba amb la tecla de prefix «${darrera && darrera.prefix}» (falta la tecla de després)`);
+      comprovaPantalla(p.pantalla, onPas);
+      comprovaText(p.text, onPas);
+      ok(p.tecles.length > 0 || p.pantalla.marca, onPas, 'un pas sense tecles ha de ressaltar alguna cosa (marca)');
+      ok(p.error === undefined || p.error === true, onPas, 'error ha de ser true (o no posar-lo)');
+      ok((p.text.match(/!!/g) || []).length % 2 === 0, onPas, '!! sense tancar');
+      ok(!/!!/.test(p.text) || p.error, onPas, 'l\'avís !!…!! només va en un pas amb error: true');
+      if (p.apartat) ok(new RegExp('\\[' + p.apartat + '\\][\\s\\S]*?\\[\\/' + p.apartat + '\\]').test(enunciat), onPas,
+        `l'apartat «${p.apartat}» no està marcat a l'enunciat amb [${p.apartat}]…[/${p.apartat}]`);
+    });
+  }
+
+  const {BLOCS, FITXES} = M.dades;
+
+  /* Blocs */
+  const idsBlocs = new Set();
+  for (const b of BLOCS) {
+    ok(!idsBlocs.has(b.id), `${on} · BLOCS`, `id repetit (${b.id})`);
+    idsBlocs.add(b.id);
+    ok(/^#[0-9a-f]{6}$/i.test(b.color), `${on} · bloc ${b.id}`, 'color incorrecte');
+    ok(b.titol, `${on} · bloc ${b.id}`, 'falta el títol');
+  }
+
+  /* Els «Ara tu» amb passos es comproven com una fitxa més (pantalles, simulador, resultats). Comencen amb la calculadora
+     com l'ha deixada la fitxa: les f(x) i g(x) definides a la fitxa continuen desades (funcions). */
+  const PSEUDO = new Map(FITXES.filter(f => f.araTu && f.araTu.passos).map(f =>
+    [f.id, {id: f.id + '-ara-tu', enunciat: f.araTu.enunciat, inici: f.araTu.inici, passos: f.araTu.passos,
+      funcions: Object.fromEntries(f.passos.filter(p => p.pantalla.tipus === 'definicio' && p.pantalla.entrada).map(p => [p.pantalla.nom, p.pantalla.entrada]))}]));
+  const AMB_ARA_TU = FITXES.concat([...PSEUDO.values()]);
+
+  /* Fitxes */
+  const idsFitxes = new Set();
+  for (const f of FITXES) {
+    const onF = `${on} · fitxa ${f.id}`;
+    ok(/^[a-z0-9-]+$/.test(f.id), onF, 'l\'id només pot tenir minúscules, xifres i guions');
+    ok(!idsFitxes.has(f.id), onF, 'id repetit');
+    idsFitxes.add(f.id);
+    ok(idsBlocs.has(f.bloc), onF, `bloc desconegut (${f.bloc})`);
+    ok(f.titol, onF, 'falta el títol');
+    comprovaText(f.enunciat, onF + ' · enunciat');
+    comprovaPantalla(f.inici, onF + ' · inici');
+    if (f.araTu) {   // «Ara tu» (v26): enunciat, resultat correcte (TeX), error típic (opcional) i els passos per comprovar-ho
+      comprovaText(f.araTu.enunciat, onF + ' · ara tu');
+      ok(typeof f.araTu.resultat === 'string' && f.araTu.resultat, onF, 'l\'«Ara tu» ha de portar el resultat correcte');
+      comprovaTeX(f.araTu.resultat, onF + ' · ara tu (resultat)');
+      if (f.araTu.error) { comprovaText(f.araTu.error, onF + ' · ara tu (error)'); ok(!/!!/.test(f.araTu.error), onF, 'l\'error de l\'«Ara tu» ja porta «Error típic»: sense !!…!!'); }
+      if (f.araTu.passos) { comprovaPantalla(f.araTu.inici, onF + ' · ara tu · inici'); comprovaPassos(PSEUDO.get(f.id), onF + ' · ara tu', f.araTu.enunciat); }
+    }
+    ok(Array.isArray(f.passos) && f.passos.length >= 2, onF, 'calen almenys dos passos');
+    comprovaPassos(f, onF, f.enunciat);
+  }
+  for (const f of FITXES) {
+    for (const r of f.relacionades || []) ok(idsFitxes.has(r) && r !== f.id, `${on} · fitxa ${f.id}`, `relacionada desconeguda (${r})`);
+  }
+
+  /* El simulador: totes les pantalles intermèdies es poden deduir (o la fitxa les dona) i el que
+     s'escriu tecla a tecla coincideix amb la pantalla final de cada pas. */
+  for (const f of AMB_ARA_TU) {
+    const {pantalles, errors: errorsSim} = M.simulador.pantalles(f);
     comprovacions++;
-  });
+    for (const e of errorsSim) error(`${on} · fitxa ${f.id} · simulador`, e);
+    pantalles.forEach((llista, i) => {
+      ok(llista.length === f.passos[i].tecles.length, `${on} · fitxa ${f.id} · pas ${i + 1}`, 'el simulador no dona una pantalla per tecla');
+      llista.forEach((p, j) => { if (j < llista.length - 1) comprovaPantalla(p, `${on} · fitxa ${f.id} · pas ${i + 1} · tecla ${j + 1}`); });
+    });
+  }
+
+  /* Les proves pròpies del model que miren el conjunt (traduccions, teclat, resultats…) */
+  for (const P of propies) if (P.comprova) P.comprova({AMB_ARA_TU});
 }
 
-/* El simulador: totes les pantalles intermèdies es poden deduir (o la fitxa les dona) i el que
-   s'escriu tecla a tecla coincideix amb la pantalla final de cada pas. */
-for (const f of AMB_ARA_TU) {
-  const {pantalles, errors: errorsSim} = Simulador.pantalles(f);
-  comprovacions++;
-  for (const e of errorsSim) error(`fitxa ${f.id} · simulador`, e);
-  pantalles.forEach((llista, i) => {
-    ok(llista.length === f.passos[i].tecles.length, `fitxa ${f.id} · pas ${i + 1}`, 'el simulador no dona una pantalla per tecla');
-    llista.forEach((p, j) => { if (j < llista.length - 1) comprovaPantalla(p, `fitxa ${f.id} · pas ${i + 1} · tecla ${j + 1}`); });
-  });
-}
+/* ── El web ────────────────────────────────────────────────────────── */
 
-for (const f of Dades.FITXES) {
-  for (const r of f.relacionades || []) {
-    ok(idsFitxes.has(r) && r !== f.id, `fitxa ${f.id}`, `relacionada desconeguda (${r})`);
+/* Versió: tots els .js i .css d'index.html i fitxa.html porten «?v=» igual a Models.VERSIO (els fitxers dels models
+   ja el porten, perquè els carrega Models.carrega amb aquest mateix «?v=») */
+for (const pag of ['index.html', 'fitxa.html']) {
+  const html = fs.readFileSync(path.join(arrel, pag), 'utf8');
+  const refs = [...html.matchAll(/(?:src|href)="((?:js|css|models)\/[^"]+)"/g)].map(m => m[1]);
+  ok(refs.length > 0, pag, 'no carrega cap fitxer del web');
+  for (const r of refs) {
+    ok(r.endsWith('?v=' + Models.VERSIO), pag, `${r} ha de portar ?v=${Models.VERSIO}`);
+    ok(fs.existsSync(path.join(arrel, r.replace(/\?.*$/, ''))), pag, `${r} no existeix`);
   }
 }
-
-/* La calculadora: cada tecla del catàleg té posició (o és a la peça de pàgina), i cap no en trepitja cap altra */
-const T = Tecles.TECLAT;
-for (const id of Object.keys(Tecles.TECLES)) {
-  const n = (T.tecles[id] ? 1 : 0) + (T.aLaPagina.includes(id) ? 1 : 0);
-  ok(n === 1, `tecla ${id}`, 'ha de tenir posició al teclat (o ser a la peça de pàgina), i només una');
-}
-for (const id of [...Object.keys(T.tecles), ...T.aLaPagina]) ok(Tecles.existeix(id), 'TECLAT', `tecla desconeguda (${id})`);
-const posicions = Object.entries(T.tecles);
-for (const [id, [x, y, d]] of posicions) {
-  ok(x - d / 2 > 0 && x + d / 2 < 100 && y - d / 2 > T.vidre.y + T.vidre.h && y + d / 2 < T.alcada, `tecla ${id}`, 'surt de la calculadora o toca la pantalla');
-  for (const [id2, [x2, y2, d2]] of posicions) {
-    if (id < id2) ok(Math.hypot(x - x2, y - y2) >= (d + d2) / 2, `tecles ${id} i ${id2}`, 'es trepitgen');
-  }
-}
-
-/* Versió: tots els .js i .css d'index.html i fitxa.html porten «?v=» igual a VERSIO de motor.js */
-{
-  const versio = (/const VERSIO = '([^']+)'/.exec(fs.readFileSync(path.join(arrel, 'js/motor.js'), 'utf8')) || [])[1];
-  ok(versio, 'motor.js', 'falta VERSIO');
-  for (const pag of ['index.html', 'fitxa.html']) {
-    const html = fs.readFileSync(path.join(arrel, pag), 'utf8');
-    const refs = [...html.matchAll(/(?:src|href)="((?:js|css)\/[^"]+)"/g)].map(m => m[1]);
-    for (const r of refs) ok(r.endsWith('?v=' + versio), pag, `${r} ha de portar ?v=${versio}`);
-  }
-}
-
-/* Els resultats de les pantalles: es tornen a calcular i han de coincidir amb el que hi ha escrit (proves/resultats.js) */
-{
-  const {comprovats, errors: errorsRes} = require('./resultats.js').comprova({FITXES: AMB_ARA_TU});
-  comprovacions += comprovats;
-  ok(comprovats > 0, 'resultats', 'no s\'ha comprovat cap resultat');
-  for (const e of errorsRes) error('resultat', e);
-}
-
-/* Totes les tecles del catàleg es poden dibuixar */
-for (const id of Object.keys(Tecles.TECLES)) ok(Tecles.html(id).includes('class="tecla'), `tecla ${id}`, 'no es dibuixa');
 
 if (errors) {
   console.error(`\n${errors} error(s) en ${comprovacions} comprovacions.`);
   process.exit(1);
 }
-console.log(`Tot correcte: ${comprovacions} comprovacions, ${Dades.FITXES.length} fitxes, ${Dades.FITXES.reduce((s, f) => s + f.passos.length, 0)} passos`
-  + ` (${Dades.FITXES.reduce((s, f) => s + f.passos.filter(p => p.error).length, 0)} en zona d'error)`
+const fitxes = models.reduce((s, M) => s + M.dades.FITXES.length, 0);
+const passos = models.reduce((s, M) => s + M.dades.FITXES.reduce((t, f) => t + f.passos.length, 0), 0);
+const zona = models.reduce((s, M) => s + M.dades.FITXES.reduce((t, f) => t + f.passos.filter(p => p.error).length, 0), 0);
+console.log(`Tot correcte: ${comprovacions} comprovacions, ${models.length} calculadora${models.length === 1 ? '' : 'es'} (${models.map(M => M.curt).join(', ')}), `
+  + `${fitxes} fitxes, ${passos} passos (${zona} en zona d'error)`
   + (katex ? ' (amb KaTeX).' : ' (sense KaTeX: per comprovar les fórmules, KATEX=<katex>/dist).'));

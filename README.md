@@ -21,7 +21,7 @@ Els passos que ensenyen un ús erroni de la calculadora (per exemple, $-2^4$ sen
 de sumes escrita en una línia) són una **zona d'error**: mentre són el pas actual, totes les vores de la pàgina
 (enunciat, botons, pas actual, tecles dels passos, marcs de la calculadora…) es tornen de color vellut vermell
 («red velvet», `#9e1b32`), i el fons de la pàgina (cos, capçalera i peu) passa a ser un 80 % del seu color i un 20 %
-de vellut vermell. Es marquen amb `error: true` al pas (`js/fitxes.js`). El primer pas de cada error comença
+de vellut vermell. Es marquen amb `error: true` al pas (`models/fx-82sp-cw/fitxes/`). El primer pas de cada error comença
 amb «Error típic», escrit `!!Error típic!!`: quan el pas es fa actual, té el fons groc pur durant 1 segon.
 Si l'usuari clica 5 vegades amb el ratolí els botons ◀ ▶ (els tocs amb el dit no compten: un mòbil o una tauleta pot no tenir teclat) sense haver fet servir mai les fletxes del teclat, surt una bombolla
 (vora taronja pura, un 20 % més gran que la primera versió, que parpelleja i es sacseja durant 0,8 s en sortir) que li ho recorda; es tanca amb la creueta i, si no, desapareix als 10 segons (surt una sola vegada per càrrega de la pàgina).
@@ -68,7 +68,7 @@ primer resultat exacte (una fracció, una arrel o π) diu que surt així per aqu
 
 A dalt de la portada i de cada fitxa, «Calculadora en: Castellano / Català»: l'alumne tria l'idioma de la seva calculadora un
 cop i el navegador el recorda. Els menús de la pantalla, les opcions `{{…}}` dels textos i «Vertader/Fals» de Verificar surten
-en aquell idioma. La traducció al català és a `js/guions.js` (`CATALA`), comprovada amb fotos de la calculadora (versió 27);
+en aquell idioma. La traducció al català és a `models/fx-82sp-cw/guions.js` (`CATALA`), comprovada amb fotos de la calculadora (versió 27);
 les poques pantalles que encara no s'han fotografiat són a `VERIFICAR.md`. La prova comprova que tots els textos de menú i tots els `{{…}}` hi tenen traducció.
 
 ## «Ara tu» (versió 25; a totes les fitxes des de la versió 30; als exercicis PAU, desactivat des de la versió 31)
@@ -82,48 +82,60 @@ amb la calculadora tal com l'ha deixada la fitxa: les f(x) i g(x) que s'hi han d
 Barrow amb f(x)* es calcula una altra integral amb la mateixa primitiva).
 
 **Exercicis PAU (blocs «Exercicis PAU. Àlgebra i Geometria» i «Exercicis PAU. Anàlisi i Probabilitat»):** de moment
-l'«Ara tu» no hi surt (decisió de David, versió 31). Els 12 «Ara tu» ja fets no s'han esborrat: són a `js/fitxes.js`,
+l'«Ara tu» no hi surt (decisió de David, versió 31). Els 12 «Ara tu» ja fets no s'han esborrat: són a `models/fx-82sp-cw/fitxes/pau-ag.js` i `pau-ap.js`,
 dins d'un comentari `/* «Ara tu» DESACTIVAT … */` just abans de `relacionades` de cada fitxa. Per tornar a activar-ne un,
 treu les dues línies d'encapçalament del comentari i el `*/` final, puja la versió i passa les proves.
 
 ## Fitxers
 
+El web té un **nucli** comú i una carpeta per a cada **calculadora** («model»). El nucli no coneix cap
+tecla ni cap menú: tot el que sap d'una calculadora ho demana al model (versió 32). Ara només hi ha la
+fx-82SP CW; la fx-82MS 2a edició hi anirà com una carpeta més.
+
 | Fitxer | Què hi ha |
 |---|---|
-| `index.html` | La portada: una targeta per bloc, amb el títol i les fitxes (la dibuixa `js/portada.js`). |
-| `fitxa.html` | La pàgina de qualsevol fitxa (la construeix `js/motor.js`). |
-| `css/estil.css` | Tot l'estil: paleta de `pau`, pantalla, teclat, disposició. |
-| `js/tecles.js` | Les tecles (etiqueta, funció amb SHIFT, nom) i **la geometria de la calculadora** (on és cada tecla i quin diàmetre fa). |
-| `js/pantalla.js` | Dibuixa la pantalla: càlcul amb indicadors, menús, HOME, missatges. |
-| `js/guions.js` | Les pantalles que es repeteixen (menús CONFIG, FORMAT, CATALOG…), amb els textos del manual. |
-| `js/fitxes.js` | **Només dades**: els blocs i les fitxes. Aquí és on s'afegeix o es canvia una fitxa. |
-| `js/simulador.js` | Calcula la pantalla després de cada tecla (escriure, fraccions, arrels quadrades i d'índex n, logaritmes en base a, potències, menús, FUNCTION, CATALOG > Probabilidad, TOOLS > Verificar, SHIFT, AC). |
-| `js/motor.js` | La pàgina de la fitxa i el reproductor pas a pas. |
-| `proves/comprova.js` | Les proves de les dades. |
+| `index.html` | La portada: una targeta per bloc, amb el títol i les fitxes (la dibuixa `js/nucli/portada.js`). |
+| `fitxa.html` | La pàgina de qualsevol fitxa (la construeix `js/nucli/motor.js`). Adreça: `fitxa.html?id=<fitxa>`; amb `&model=<calculadora>`, una altra calculadora. |
+| `css/estil.css` | L'estil del nucli: paleta de `pau`, disposició, reproductor, passos, portada, i com es col·loca qualsevol calculadora (versió 33). |
+| `js/nucli/models.js` | El registre i el carregador de les calculadores, i la **versió** del web (`VERSIO`). |
+| `js/nucli/preferencies.js` | El que el navegador recorda (l'idioma de la calculadora). |
+| `js/nucli/text.js` | Els textos de les fitxes en HTML: fórmules, tecles, opcions de menú, «Error típic», apartats. |
+| `js/nucli/motor.js` | La pàgina de la fitxa i el reproductor pas a pas (també l'«Ara tu»). |
+| `js/nucli/portada.js` | La portada. |
+| `models/cataleg.js` | Quines calculadores hi ha (la primera és la de per defecte). |
+| `models/fx-82sp-cw/model.js` | La fx-82SP CW: nom, idiomes i quins fitxers i fulls d'estil té, en ordre. |
+| `models/fx-82sp-cw/estil.css` | Com es veu la fx-82SP CW: el cos, les tecles rodones i els rètols, la pantalla per dins i les tecles petites dels textos. |
+| `models/fx-82sp-cw/tecles.js` | Les tecles (etiqueta, funció amb SHIFT, nom) i **la geometria de la calculadora** (on és cada tecla i quin diàmetre fa). |
+| `models/fx-82sp-cw/pantalla.js` | Dibuixa la pantalla: càlcul amb indicadors, menús, HOME, missatges. |
+| `models/fx-82sp-cw/guions.js` | Les pantalles que es repeteixen (menús CONFIG, FORMAT, CATALOG…), amb els textos del manual, i la traducció al català. |
+| `models/fx-82sp-cw/simulador.js` | Calcula la pantalla després de cada tecla (escriure, fraccions, arrels quadrades i d'índex n, logaritmes en base a, potències, menús, FUNCTION, CATALOG > Probabilidad, TOOLS > Verificar, SHIFT, AC). |
+| `models/fx-82sp-cw/fitxes/` | **Només dades**: `blocs.js` (els blocs i el format d'una fitxa) i un fitxer per bloc amb les seves fitxes. Aquí és on s'afegeix o es canvia una fitxa. |
+| `models/fx-82sp-cw/proves.js`, `calcul.js` | Les proves pròpies de la CW (pantalles, català, teclat, regla «E Mat/S Mat») i el càlcul dels resultats. |
+| `proves/comprova.js` | Les proves: el nucli, el web i cada calculadora del catàleg. |
 | `VERIFICAR.md` | Detalls de pantalla que el manual no mostra i que cal comprovar amb la calculadora. |
-| `ARCHITECTURE.md` | Referència tècnica per a una IA (en anglès). |
+| `ARCHITECTURE.md` | Referència tècnica per a una IA (en anglès), amb el contracte d'una calculadora. |
 
 ## Com s'afegeix una fitxa
 
-Al final de la llista `FITXES` de `js/fitxes.js` s'hi afegeix un objecte com els altres:
-`id`, `bloc`, `titol`, `enunciat`, `inici` (la pantalla de partida) i `passos`.
-Cada pas té `tecles` (ids de `js/tecles.js`), `pantalla` (feta amb les funcions de `js/guions.js`)
+Al fitxer del seu bloc, `models/fx-82sp-cw/fitxes/<bloc>.js`, dins de `M.fitxes.push(…)`, s'hi afegeix un objecte com els altres:
+`id`, `bloc`, `titol`, `enunciat`, `inici` (la pantalla de partida) i `passos` (el format complet és a `fitxes/blocs.js`).
+Cada pas té `tecles` (ids de `tecles.js`), `pantalla` (feta amb les funcions de `guions.js`)
 i `text`. Als textos: `$…$` és una fórmula (`$$…$$`, en una línia pròpia), `[[format]]` dibuixa una tecla i `{{Decimal}}` és una opció
 d'un menú de la calculadora. Si l'enunciat té apartats, es marquen amb `[a]…[/a]`, `[b]…[/b]`… i
 cada pas pot dir `apartat: 'a'`: mentre es fa aquest pas, l'apartat es ressalta en verd a l'enunciat.
-La fitxa surt sola a la portada.
+La fitxa surt sola a la portada. Un bloc nou va a `fitxes/blocs.js`, amb el seu fitxer a `model.js` (`fitxers`).
 
 Només cal escriure la pantalla del **final** de cada pas: les del mig (després de cada tecla) les calcula
-`js/simulador.js`. Si en algun cas no les sap deduir (per exemple, després d'un OK en un menú que no
+`simulador.js`. Si en algun cas no les sap deduir (per exemple, després d'un OK en un menú que no
 coneix), les proves ho diuen i cal donar-les al pas amb `parcials: {<número de la tecla, des de 0>: pantalla}`.
 Les proves també comproven que el que s'escriu tecla a tecla coincideix amb la pantalla final del pas.
 
 ## Versió
 
-Quan es canvia algun fitxer `.js` o `.css`, cal augmentar `VERSIO` a `js/motor.js` i tots els `?v=`
-d'`index.html` i `fitxa.html` (la prova comprova que coincideixen). Així els navegadors no fan servir
-fitxers vells. El número es veu al peu de la pàgina. `_headers` demana a Cloudflare Pages que el
-navegador pregunti sempre si hi ha una versió nova.
+Quan es canvia algun fitxer `.js` o `.css`, cal augmentar `VERSIO` a `js/nucli/models.js` i tots els `?v=`
+d'`index.html` i `fitxa.html` (la prova comprova que coincideixen). Els fitxers de les calculadores es
+carreguen amb aquest mateix `?v=`. Així els navegadors no fan servir fitxers vells. El número es veu al peu
+de la pàgina. `_headers` demana a Cloudflare Pages que el navegador pregunti sempre si hi ha una versió nova.
 
 ## Proves
 
@@ -133,7 +145,8 @@ Des de l'arrel del repositori:
 node proves/comprova.js
 ```
 
-Ha d'acabar amb «Tot correcte». També torna a calcular tots els resultats de les pantalles (`proves/resultats.js`). Per comprovar també que KaTeX dibuixa totes les fórmules, cal tenir
+Ha d'acabar amb «Tot correcte». Comprova el nucli, el web i cada calculadora del catàleg, i torna a calcular tots
+els resultats de les pantalles (`models/fx-82sp-cw/calcul.js`). Per comprovar també que KaTeX dibuixa totes les fórmules, cal tenir
 KaTeX a mà (per exemple, `npm install katex@0.16.9` en una carpeta qualsevol) i indicar-ne la ruta:
 
 ```

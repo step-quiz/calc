@@ -10,7 +10,7 @@ oficials de CASIO (162 × 77 mm). Totes les tecles són cercles: 9,6 % de l'ampl
 12,2 % les de baix. Es retalla la franja de dalt del logotip, sense text.
 
 Hi ha detalls que el manual **no dibuixa** i que s'han deduït. Si a la calculadora (o a l'emulador
-de CASIO) es veuen diferents, el que s'ha de corregir és la fitxa: la majoria són a `js/guions.js`.
+de CASIO) es veuen diferents, el que s'ha de corregir és la fitxa: la majoria són a `models/fx-82sp-cw/guions.js`.
 
 | # | Què | On és | Què s'ha posat |
 |---|---|---|---|
@@ -46,7 +46,7 @@ i arrodonit a 10 xifres significatives, com fa la calculadora en el format Norma
 **Contrastat amb el manual (31/10/2026) i ja no deduït:** el menú TOOLS de Calcular (Deshacer, Simplificar ►, Verificar ON; p. 25-26); «Verificar ON»/«Verificar OFF», l'indicador ✔, que s'hi torna a la pantalla anterior i que l'historial s'esborra (p. 63-64); «Verdadero»/«Falso» alineats a la dreta de la línia del resultat (p. 65); la plantilla del logaritme (tecla `log■□`, la base, `→`, el nombre; es dibuixa $\log_{2}(16)$ i el parèntesi de tancament ja hi és; p. 51); `nCr` i `nPr` es dibuixen «10C4» i «10P4» (p. 53); el menú FUNCTION (f(x), g(x), Definir f(x), Definir g(x)), «f(x)=» / «g(x)=» i que EXE torna a la pantalla anterior (p. 60-61); les quatre primeres files del CATALOG (p. 25).
 
 **La calculadora en català (versió 27): comprovada amb 43 fotos de la calculadora (David, 1/11/2026).** Les etiquetes de
-`G.CATALA` (`js/guions.js`) ja són les de la pantalla: CONFIG (Config Càlcul, Config Sistema, Reiniciar, Recursos online),
+`G.CATALA` (`models/fx-82sp-cw/guions.js`) ja són les de la pantalla: CONFIG (Config Càlcul, Config Sistema, Reiniciar, Recursos online),
 Config Càlcul (Entrada/Sortida, Unitat angular, Format nombre, Result fracció, Símbol decimal, Separar dígits) i les seves
 opcions (Grau sexag (D), Radian, Grau centesimal; Fixar dec, Notac Cientí, Normal; Fracció mixta, Fracció impròpia; Punt, Coma),
 Reiniciar (Config i Dades, Mem. variables, Iniciar tot), CATALOG (Anàlisi func, Probabilitat, Càlcul numèric, Ang/Coord/Sexag,
