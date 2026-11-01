@@ -37,6 +37,7 @@
    Als textos: $$TeX$$ = fórmula en una línia pròpia; $TeX$ = fórmula; [[id]] = tecla; {{Text}} = opció d'un menú
    de la calculadora, escrita tal com hi surt; !!Error típic!! = avís d'error, amb fons groc durant 1 s (només en passos amb error: true);
    [mat]…[/mat] i [calc]…[/calc] = frase de matemàtiques i indicació de calculadora (v38).
+   [nota]…[/nota] = nota de l'enunciat (una fórmula donada): línia pròpia, cursiva (v48).
    ═══════════════════════════════════════════════════════════════════ */
 (function (M) {
 'use strict';

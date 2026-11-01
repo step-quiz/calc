@@ -33,7 +33,7 @@ M.fitxes.push(
 {
   id: 'cb4-22-q8', bloc: 'eso-geometria', titol: 'El volum d\'un got cilíndric', font: 'CB 4ESO (2022), pregunta 8',
   figura: {src: 'img/eso/cb4eso2022e2.png', alt: 'Dibuix del got de vidre (radi 3 cm, alçada 15 cm) i de l\'envàs de iogurt'},
-  enunciat: 'Un got de vidre té forma de cilindre:\n• radi de la base: 3 cm;\n• alçada: 15 cm.\nQuin és el volum del got, aproximadament? (Volum d\'un cilindre $=\\pi\\cdot r^2\\cdot h$, amb $\\pi=3{,}14$.)',
+  enunciat: 'Un got de vidre té forma de cilindre:\n• radi de la base: 3 cm;\n• alçada: 15 cm.\nQuin és el volum del got, aproximadament?[nota](Volum d\'un cilindre $=\\pi\\cdot r^2\\cdot h$, amb $\\pi=3{,}14$.)[/nota]',
   inici: calc(D),
   passos: [
     {tecles: ['shift', '7', 'per', '3', 'x2', 'per', '1', '5'], pantalla: calc(D, GOT),
@@ -46,7 +46,7 @@ M.fitxes.push(
 },
 {
   id: 'cb4-25-q27', bloc: 'eso-geometria', titol: 'La tela d\'un para-sol: l\'àrea d\'un cercle', font: 'CB 4ESO (2025), pregunta 27',
-  enunciat: 'Per saber quanta tela té un para-sol, se n\'aproxima la superfície per la d\'un cercle:\n• radi del cercle: 0,75 m.\nQuina superfície de tela té el para-sol? (Àrea del cercle $=\\pi\\cdot r^2$, amb $\\pi=3{,}14$.)',
+  enunciat: 'Per saber quanta tela té un para-sol, se n\'aproxima la superfície per la d\'un cercle:\n• radi del cercle: 0,75 m.\nQuina superfície de tela té el para-sol?[nota](Àrea del cercle $=\\pi\\cdot r^2$, amb $\\pi=3{,}14$.)[/nota]',
   inici: calc(D),
   passos: [
     {tecles: ['shift', '7', 'per', '0', 'punt', '7', '5', 'x2'], pantalla: calc(D, PARASOL),

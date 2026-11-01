@@ -150,6 +150,8 @@ function botoFigura(fitxa) {
 
 /** Quant de temps es veu la bombolla de la font si no es tanca abans (David, 1/11/2026: 8 s). */
 const FONT_MS = 8000;
+/** Quant de temps sense avançar abans que el botó ▶ parpellegi per recordar que es pot avançar (v48, David: 8 s). */
+const RECORDA_MS = 8000;
 
 /**
  * La font d'un exercici real (v38, David): fitxa.font («CB 4ESO (2026), pregunta 15») no surt a l'enunciat. Davant de
@@ -449,7 +451,23 @@ function creaReproductor(r, fitxa, temps, opcions = {}) {
     } catch (e) { /* sense history (p. ex. file://): no passa res */ }
     r.anterior.disabled = idx < 0;
     r.seguent.disabled = idx === darrer && !ocupat;
+    recordaSeguent();
   }
+
+  /* v48 (David): si en 8 s l'alumne no ha passat al pas següent, el botó ▶ parpelleja i es sacseja 0,8 s per recordar-li
+     que pot avançar. Només el reproductor principal, i no mentre s'és al mode «Ara tu». */
+  let rellotgeRecorda = null;
+  function recordaSeguent() {
+    clearTimeout(rellotgeRecorda);
+    r.seguent.classList.remove('recorda');
+    if (opcions.adreca === false || r.seguent.disabled) return;
+    rellotgeRecorda = setTimeout(() => {
+      if (r.seguent.disabled || document.body.classList.contains('mode-ara-tu')) return;
+      void r.seguent.offsetWidth;            // perquè l'animació torni a començar
+      r.seguent.classList.add('recorda');
+    }, RECORDA_MS);
+  }
+  r.seguent.addEventListener('animationend', () => r.seguent.classList.remove('recorda'));
 
   /** Va al pas i (-1 = pas 0), sense animació. Si hi ha un pas animant-se, l'interromp. */
   function salta(i) {

@@ -230,6 +230,7 @@ Copy the shape of `models/fx-82sp-cw/fitxes/eso/mitjanes.js` (and its MS twin). 
 
 - **Id and source:** `cb<course>-<yy>-q<question>`; `font: 'CB 4ESO (2026), pregunta 15'`; the statement is only the problem (no source, no a–d options), ≤ 3 lines, data as in the test (a small KaTeX `array` for a table).
 - **Sentences:** every step text is a sequence of `[mat]…[/mat]` (the mathematics: what a mean is, why we divide by 80, the answer) and `[calc]…[/calc]` (what to press and what the screen shows). Usually one or two sentences of each kind per step.
+- **Formula notes (v48):** a formula the statement gives (area of a circle, volume of a cylinder, π = 3,14) goes at the end of the statement as `[nota](…)[/nota]`: rendered on its own line, in italics.
 - **Fixed wordings:** «Primer escriu …», «Ara fes l'operació [[entre]] 4.», «Prem [[exe]]: obtens el resultat, que és 198.» then `[mat]`«La resposta correcta és que la mitjana és de 198 places ocupades.» With ≈: «Prem [[shift]] [[exe]] (≈): obtens …». Rounded answers: «Arrodonint a les centèsimes, la resposta correcta és que …». Written maths uses a decimal comma (3,8), the calculator a point (3.8).
 - **Never** the option letter, and never mention the distractors outside the error zone.
 - **Error zone:** the first error step starts with [[ac]] («!!Error típic!!: esborra amb [[ac]] i escriu-ho …»), then a step that shows the wrong result and a `[mat]` sentence saying why it cannot be right («No pot ser: …»).

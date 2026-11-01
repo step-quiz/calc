@@ -160,7 +160,10 @@ a{color:inherit}
 .font{position:relative; display:inline-block; vertical-align:-.12em}
 .font-boto{display:inline-flex; width:1em; height:1em; padding:0; border:0; background:none; color:var(--muted); cursor:pointer; border-radius:3px}
 .font-boto svg{width:100%; height:100%}
+.font-boto{transition:transform .12s, color .12s}
 .font-boto:hover, .font-boto:focus-visible, .font-boto[aria-expanded="true"]{color:var(--cat)}
+/* v48 (David): en passar-hi el ratolí, una vora fina negra i un 5 % més gran (també la miniatura de la figura) */
+.font-boto:hover, .font-boto:focus-visible{outline:1px solid #000; outline-offset:1px; transform:scale(1.05)}
 .font-bombolla{position:absolute; z-index:5; left:-6px; top:calc(100% + 6px); display:flex; align-items:center; gap:10px; white-space:nowrap;
   padding:5px 6px 5px 11px; border:1.5px solid var(--cat); border-radius:8px; background:#eceff3; box-shadow:0 4px 14px rgba(15,23,42,.18);
   font:600 .8rem/1.2 var(--mono); color:var(--txt)}
@@ -170,7 +173,10 @@ a{color:inherit}
 /* La figura de l'enunciat (v46): miniatura a la dreta; en clicar-la, gran en un <dialog> (motor.js, botoFigura) */
 .figura-mini{float:right; margin:2px 0 6px 12px; padding:3px; border:1px solid var(--border); border-radius:6px; background:#fff; cursor:zoom-in}
 .figura-mini img{display:block; height:54px; width:auto}
-.figura-mini:hover, .figura-mini:focus-visible{border-color:var(--cat)}
+.figura-mini{transition:transform .12s, border-color .12s}
+.figura-mini:hover, .figura-mini:focus-visible{border-color:#000; transform:scale(1.05)}
+/* Una nota de l'enunciat ([nota]…[/nota], v48): línia pròpia, cursiva */
+.frase-nota{display:block; font-style:italic; margin-top:.2em}
 .figura-gran{max-width:min(92vw, 1100px); padding:14px; border:2px solid var(--cat); border-radius:12px; background:#fff}
 .figura-gran::backdrop{background:rgba(15,23,42,.55)}
 .figura-gran img{display:block; max-width:100%; max-height:82vh; width:auto; height:auto}
@@ -218,6 +224,9 @@ a{color:inherit}
 }
 .avis-tanca:hover{background:rgba(255,255,255,.16); color:#fff}
 /* Parpelleig (l'opacitat puja i baixa) i sacseig (a esquerra i dreta, cada cop menys): 0,8 s en total */
+/* v48: el botó ▶ parpelleja i es sacseja si l'alumne no avança en 8 s (motor.js, recordaSeguent) */
+.boto.recorda{animation:avis-parpelleig-sacseig .8s ease-in-out 1}
+@media (prefers-reduced-motion: reduce){ .boto.recorda{animation:none} }
 @keyframes avis-parpelleig-sacseig{
   0%{opacity:0; transform:translateX(0)}
   12%{opacity:1; transform:translateX(-9px)}

@@ -8,7 +8,9 @@
    l'enunciat (es ressalta quan el pas el resol).
    [mat]…[/mat] i [calc]…[/calc] (v38, David): una frase de matemàtiques
    o una indicació de calculadora; cadascuna surt en un bloc amb la seva
-   lletra i el seu fons (a l'ESO, totes les frases dels passos ho són).
+   lletra i el seu fons (totes les frases dels passos ho són).
+   [nota]…[/nota] (v48): una nota de l'enunciat (una fórmula donada, per
+   exemple), en una línia pròpia i en cursiva.
 
    Text.creador({model, idioma}) → text(t): l'HTML d'un text.
    Depèn de KaTeX. Exporta «Text».
@@ -39,10 +41,10 @@ function creador({model, idioma}) {
   }
   /** [mat]…[/mat] → <span class="frase-mat">, [calc]…[/calc] → <span class="frase-calc"> (blocs; els espais entre blocs no compten). */
   return function text(t) {
-    const trossos = String(t || '').split(/(\[(?:mat|calc)\][\s\S]*?\[\/(?:mat|calc)\])/);
+    const trossos = String(t || '').split(/(\[(?:mat|calc|nota)\][\s\S]*?\[\/(?:mat|calc|nota)\])/);
     const ambFrases = trossos.length > 1;
     return trossos.map(tros => {
-      const m = /^\[(mat|calc)\]([\s\S]*)\[\/\1\]$/.exec(tros);
+      const m = /^\[(mat|calc|nota)\]([\s\S]*)\[\/\1\]$/.exec(tros);
       if (m) return `<span class="frase-${m[1]}">${ambApartats(m[2])}</span>`;
       return ambFrases && !tros.trim() ? '' : ambApartats(tros);
     }).join('');

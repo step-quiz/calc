@@ -162,6 +162,7 @@ for (const id of Models.ids) {
       if (!m.startsWith('/')) { if (obert) bones = false; obert = m; } else { if (obert !== m.slice(1)) bones = false; obert = null; }
     }
     ok(bones && !obert, on2, '[mat]…[/mat] o [calc]…[/calc] sense tancar o niats');
+    ok((t.match(/\[nota\]/g) || []).length === (t.match(/\[\/nota\]/g) || []).length, on2, '[nota]…[/nota] sense tancar');
   }
 
   function comprovaPassos(f, on2, enunciat) {
