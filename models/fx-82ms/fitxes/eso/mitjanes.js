@@ -24,6 +24,7 @@ M.fitxes.push(
 
 {
   id: 'cb4-26-q15', bloc: 'eso-mitjanes', titol: 'L\'hotel: la mitjana de quatre setmanes', font: 'CB 4ESO (2026), pregunta 15',
+  figura: {src: 'img/eso/cb4eso2026e6.png', alt: 'Gràfics de barres de l\'hotel: places ocupades i diners ingressats cada setmana'},
   enunciat: 'Un hotel apunta quantes places ha ocupat cada setmana:\n• 1a setmana: 168 places\n• 2a setmana: 154 places\n• 3a setmana: 210 places\n• 4a setmana: 260 places\nQuina ha estat la mitjana de places ocupades en aquestes 4 setmanes?',
   inici: calc(D),
   passos: [
@@ -42,6 +43,7 @@ M.fitxes.push(
 },
 {
   id: 'cb4-24-q8', bloc: 'eso-mitjanes', titol: 'Les estrelles: la mitjana d\'una taula', font: 'CB 4ESO (2024), pregunta 8',
+  figura: {src: 'img/eso/cb4eso2024e2.png', alt: 'Les 80 valoracions de la botiga, d\'1 a 5 estrelles'},
   enunciat: 'Els 80 clients d\'una botiga han valorat la compra amb una puntuació d\'1 a 5 estrelles. La taula diu quants clients han donat cada puntuació. Quina és la mitjana d\'estrelles?'
     + '$$\\begin{array}{l|ccccc}\\text{Estrelles} & 5 & 4 & 3 & 2 & 1\\\\ \\hline \\text{Clients} & 22 & 32 & 16 & 8 & 2\\end{array}$$',
   inici: calc(D),

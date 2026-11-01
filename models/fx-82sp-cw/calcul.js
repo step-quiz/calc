@@ -26,6 +26,7 @@
 /* ── Lectura del TeX ──────────────────────────────────────────────── */
 
 const ORDRES = [   // ordre → testimoni (les més llargues primer)
+  ['\\mathrm{sen}^{-1}', 'asen'], ['\\cos^{-1}', 'acos'], ['\\tan^{-1}', 'atan'],   // v47: SHIFT sen/cos/tan (abans que sen, cos, tan)
   ['\\mathrm{sen}', 'sen'], ['\\mathrm{Ans}', 'Ans'], ['\\mathrm{C}', 'C'], ['\\mathrm{r}', 'r'],
   ['\\displaystyle', null], ['\\frac', 'frac'], ['\\dfrac', 'frac'], ['\\sqrt', 'sqrt'], ['\\log_', 'logb'],
   ['\\left', null], ['\\right', null], ['\\times', '*'], ['\\div', '/'], ['\\cdot', '*'],
@@ -67,7 +68,7 @@ function avalua(tex, ctx) {
   };
   const grup = (obre = '{', tanca = '}') => { pren(obre); const v = expressio(); pren(tanca); return v; };
   const angle = v => (ctx.graus ? v * Math.PI / 180 : v);
-  const COMENCA = v => typeof v === 'number' || ['(', '{', 'frac', 'sqrt', 'logb', 'sen', 'cos', 'tan', 'log', 'ln', 'pi', 'Ans', 'x', 'e', 'f', 'g'].includes(v);
+  const COMENCA = v => typeof v === 'number' || ['(', '{', 'frac', 'sqrt', 'logb', 'sen', 'cos', 'tan', 'asen', 'acos', 'atan', 'log', 'ln', 'pi', 'Ans', 'x', 'e', 'f', 'g'].includes(v);
 
   function primari() {
     const v = pren();
@@ -93,6 +94,13 @@ function avalua(tex, ctx) {
         if (mira() === ')') pren(')');
         const arg = r.radians ? a : angle(a);
         return v === 'sen' ? Math.sin(arg) : v === 'cos' ? Math.cos(arg) : Math.tan(arg);
+      }
+      case 'asen': case 'acos': case 'atan': {   // v47: el resultat, en la unitat de la barra (D: graus)
+        pren('(');
+        const a = expressio();
+        if (mira() === ')') pren(')');
+        const r = v === 'asen' ? Math.asin(a) : v === 'acos' ? Math.acos(a) : Math.atan(a);
+        return ctx.graus ? r * 180 / Math.PI : r;
       }
       case 'log': { pren('('); const a = expressio(); if (mira() === ')') pren(')'); return Math.log10(a); }
       case 'ln': { pren('('); const a = expressio(); if (mira() === ')') pren(')'); return Math.log(a); }

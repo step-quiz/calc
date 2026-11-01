@@ -1,0 +1,60 @@
+/* ═══════════════════════════════════════════════════════════════════
+   models/fx-82ms/fitxes/eso/trigonometria.js — ESO · bloc «Trigonometria» (fx-82MS)
+   ───────────────────────────────────────────────────────────────────
+   NOMÉS DADES. Les mateixes fitxes que a la fx-82SP CW (vegeu-ne la
+   capçalera). La fx-82MS dona els resultats en decimal.
+   ═══════════════════════════════════════════════════════════════════ */
+(function (M) {
+'use strict';
+const {calc, marca} = M.guions;
+const {D} = M.comu;
+
+const ARBRE = '12tan 35';
+const ESCALA = '5sin 60';
+const ANGLE = 'cos⁻¹ (1.5÷5)', ANGLE_ERROR = 'cos (1.5÷5)';
+
+M.fitxes.push(
+
+{
+  id: 'll4-7-37', bloc: 'eso-trigonometria', titol: 'L\'altura d\'un arbre: la tangent', font: 'Llibre 4t ESO, unitat 7, exercici 37',
+  enunciat: 'Un arbre fa una ombra a terra quan els raigs del sol arriben inclinats:\n• l\'ombra fa 12 m;\n• els raigs del sol formen 35° amb el terra.\nQuant fa d\'alt l\'arbre?',
+  inici: calc(D),
+  passos: [
+    {tecles: [], pantalla: marca(calc(D), 'ang'),
+      text: '[calc]Abans de res, mira la pantalla: hi ha d\'haver una D (graus), perquè els angles d\'aquest problema són en graus.[/calc]'},
+    {tecles: ['1', '2', 'tan', '3', '5'], pantalla: calc(D, ARBRE),
+      text: '[mat]L\'altura és el catet oposat a l\'angle de 35°, i l\'ombra, el contigu: oposat i contigu → tangent. Altura $=12\\cdot\\tan 35^\\circ$.[/mat] [calc]Escriu 12, [[tan]] i 35. No cal el [[per]].[/calc]'},
+    {tecles: ['igual'], pantalla: marca(calc(D, ARBRE, '8.402490459'), 'resultat'),
+      text: '[calc]Prem [[igual]]: obtens el resultat, que és 8.402490459.[/calc] [mat]La resposta correcta és que l\'arbre fa uns 8,4 m d\'alt.[/mat]'},
+  ],
+},
+{
+  id: 'll4-7-38', bloc: 'eso-trigonometria', titol: 'L\'escala recolzada: el sinus', font: 'Llibre 4t ESO, unitat 7, exercici 38',
+  enunciat: 'Una escala està recolzada a la paret:\n• l\'escala fa 5 m de llarg;\n• forma un angle de 60° amb el terra.\nA quina altura arriba a la paret?',
+  inici: calc(D),
+  passos: [
+    {tecles: ['5', 'sin', '6', '0'], pantalla: calc(D, ESCALA),
+      text: '[mat]L\'escala és la hipotenusa i l\'altura, el catet oposat a l\'angle de 60°: oposat i hipotenusa → sinus. Altura $=5\\cdot\\sin 60^\\circ$.[/mat] [calc]Amb la D a la pantalla, escriu 5, [[sin]] i 60.[/calc]'},
+    {tecles: ['igual'], pantalla: marca(calc(D, ESCALA, '4.330127019'), 'resultat'),
+      text: '[calc]Prem [[igual]]: obtens el resultat, que és 4.330127019.[/calc] [mat]La resposta correcta és que l\'escala arriba a uns 4,33 m d\'altura.[/mat]'},
+  ],
+},
+{
+  id: 'll4-7-39', bloc: 'eso-trigonometria', titol: 'L\'angle d\'una escala: la tecla inversa', font: 'Llibre 4t ESO, unitat 7, exercici 39',
+  enunciat: 'Una escala està recolzada a la paret:\n• l\'escala fa 5 m de llarg;\n• la base és a 1,5 m de la paret.\nQuin angle forma l\'escala amb el terra?',
+  inici: calc(D),
+  passos: [
+    {tecles: ['shift', 'cos', 'lpar', '1', 'punt', '5', 'entre', '5', 'rpar'], pantalla: calc(D, ANGLE),
+      text: '[mat]Coneixem el contigu (1,5) i la hipotenusa (5): $\\cos\\alpha=\\frac{1{,}5}{5}$. Per trobar l\'angle, $\\alpha=\\cos^{-1}(1{,}5\\div 5)$.[/mat] [calc]Prem [[shift]] [[cos]] (a sobre hi ha cos⁻¹) i escriu, entre parèntesis, 1.5 [[entre]] 5.[/calc]'},
+    {tecles: ['igual'], pantalla: marca(calc(D, ANGLE, '72.54239688'), 'resultat'),
+      text: '[calc]Prem [[igual]]: obtens el resultat, que és 72.54239688 (en graus, perquè a la pantalla hi ha D).[/calc] [mat]La resposta correcta és que l\'escala forma uns 72,5° amb el terra.[/mat]'},
+    {error: true, tecles: ['ac', 'cos', 'lpar', '1', 'punt', '5', 'entre', '5', 'rpar'], pantalla: calc(D, ANGLE_ERROR),
+      text: '[calc]!!Error típic!!: esborra amb [[ac]] i escriu-ho sense [[shift]]: [[cos]] i, entre parèntesis, 1.5 [[entre]] 5.[/calc]'},
+    {error: true, tecles: ['igual'], pantalla: marca(calc(D, ANGLE_ERROR, '0.999986292'), 'resultat'),
+      text: '[calc]Prem [[igual]]: obtens 0.999986292.[/calc] [mat]No és un angle: és el cosinus d\'un angle de 0,3°. Per trobar un angle a partir d\'una raó, cal la tecla inversa, [[shift]] [[cos]].[/mat]'},
+  ],
+},
+
+);
+
+})(Models.obre('fx-82ms'));

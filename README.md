@@ -54,7 +54,7 @@ veu en una columna.
 | Percentatges i proporcions | Un descompte del 25 % (cb4-23-q23) · Quantes fotos amb descompte? (cb4-23-q24) · Una foto més petita, sense deformar-la (cb4-23-q26) |
 | Mitjanes | L'hotel: la mitjana de quatre setmanes (cb4-26-q15) · Les estrelles: la mitjana d'una taula (cb4-24-q8) · El mercat: la mitjana d'un gràfic de barres (cb4-25-q17) |
 | Pitàgores, àrees i volums | El tram d'escala: Pitàgores (cb4-26-q7) · El volum d'un got cilíndric (cb4-22-q8) · La tela d'un para-sol: l'àrea d'un cercle (cb4-25-q27) |
-| Trigonometria | (properament) |
+| Trigonometria | L'altura d'un arbre: la tangent (ll4-7-37) · L'escala recolzada: el sinus (ll4-7-38) · L'angle d'una escala: la tecla inversa (ll4-7-39) — del llibre de 4t d'ESO del departament, unitat 7 |
 
 Com és una fitxa d'ESO (David, 1/11/2026; les tres de mitjanes són el model):
 
@@ -74,7 +74,7 @@ Com és una fitxa d'ESO (David, 1/11/2026; les tres de mitjanes són el model):
 
 **Pas final després d'un error (versió 42):** si l'últim pas d'una fitxa és un error típic, el motor hi afegeix un pas més, sense tecles: el fons torna a ser el normal (surt de la zona d'error), la pantalla queda esborrada i el pas diu «Activitat finalitzada». No s'escriu a les dades; ho fa el motor a totes les fitxes (ESO i Batxillerat).
 
-**Versió 46:** la tecla ×10■ de la CW (la fitxa de notació científica ja la fa servir); els resultats en notació científica es dibuixen com a la calculadora («×10» i l'exponent petits, foto del David); i **figures a l'enunciat**: `figura: {src: 'img/eso/….png', alt: '…'}` posa una miniatura a la dreta de l'enunciat que, en clicar-la, s'obre gran (es tanca amb la creu, Esc o clicant fora). Les imatges són a `img/eso/`, copiades de `cb` (només les dels enunciats, mai les de les preguntes amb les opcions). **Pendent:** com es veu l'EXP a la fx-82MS, i el bloc de trigonometria (amb els exàmens del David).
+**Versió 46:** la tecla ×10■ de la CW (la fitxa de notació científica ja la fa servir); els resultats en notació científica es dibuixen com a la calculadora («×10» i l'exponent petits, foto del David); i **figures a l'enunciat**: `figura: {src: 'img/eso/….png', alt: '…'}` posa una miniatura a la dreta de l'enunciat que, en clicar-la, s'obre gran (es tanca amb la creu, Esc o clicant fora). Les imatges són a `img/eso/`, copiades de `cb` (només les dels enunciats, mai les de les preguntes amb les opcions). **Pendent:** com es veu l'EXP a la fx-82MS, i si la CW escriu «cos⁻¹(» o «Arccos(» (`VERIFICAR.md`, fila 27).
 
 **A tot el web (versions 39 i 40):** totes les frases dels passos, també les de Batxillerat i dels «Ara tu», són `[mat]` o `[calc]`; les
 fitxes PAU reals porten la font a la icona («PAU juny 2024, qüestió 2 a)»), no a l'enunciat. Els enunciats d'ESO s'escriuen perquè els

@@ -257,3 +257,5 @@ v46: (1) the CW ×10■ key (`exp`) is a template in `simulador.js` (`x10`: «×
 2. **How the CW draws a result too big for 10 digits** (`2.592×10¹³` in `eso-notacio-cientifica`, step 3) is inferred, not seen in the manual: `VERIFICAR.md` row 26. Ask David to try 3×10⁸×86400 on his calculator and report (or send a photo); then fix `pantalla.js`/`calcul.js` if needed.
 3. **Figures in statements** (PNG from `cb`): proposed to David (optional `figura` field, small thumbnail that opens large, data still in text), waiting for his OK.
 4. **Trigonometry block**: waiting for David's exams.
+
+**v47:** all six ESO blocks have fitxes. Trigonometry comes from David's 4t book (`step-quiz/llibre`, unit 7), not from exams. Open checks: MS EXP display; CW «cos⁻¹(» vs «Arccos(» (`VERIFICAR.md` row 27).
