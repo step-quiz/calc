@@ -16,7 +16,8 @@
      · escriure: xifres, punt, + − × ÷, ( ), sen( cos( tan( ln( log(, x², x, y, z,
        π, e, Ans, el signe negatiu (−); les plantilles de fracció, d'arrel
        quadrada, d'arrel d'índex n (SHIFT arrel: primer l'índex, → i el radicand),
-       de logaritme en base a (logab: primer la base, → i l'argument) i d'exponent,
+       de logaritme en base a (logab: primer la base, → i l'argument), d'exponent i de ×10■
+       (tecla exp, v46: escriu ×10 i obre l'exponent; com l'exponent, se'n surt amb →),
        amb ↓ ↑ → ← per moure-s'hi;
        després d'un resultat, el que s'escriu comença un càlcul nou;
      · SHIFT (la S de la barra) i AC;
@@ -66,8 +67,9 @@ const PLANTILLA = Object.freeze({
   arreln: {camps: ['idx', 'rad'], tex: c => `\\sqrt[${c.idx}]{${c.rad}}`},   // SHIFT arrel: primer l'índex, → i el radicand
   logab: {camps: ['base', 'arg'], tex: c => `\\log_{${c.base}}(${c.arg})`},   // primer la base, → i l'argument
   pot: {camps: ['exp'], tex: c => `^{${c.exp}}`},
+  x10: {camps: ['exp'], tex: c => `\\times 10^{${c.exp}}`},   // v46: la tecla ×10■ (exp) escriu «×10» i obre l'exponent
 });
-const TECLA_PLANTILLA = Object.freeze({frac: 'frac', arrel: 'arrel', pot: 'pot', logab: 'logab'});
+const TECLA_PLANTILLA = Object.freeze({frac: 'frac', arrel: 'arrel', pot: 'pot', logab: 'logab', exp: 'x10'});
 const TECLA_PLANTILLA_SHIFT = Object.freeze({arrel: 'arreln'});
 const plantilla = (id, shift) => (shift ? TECLA_PLANTILLA_SHIFT[id] : TECLA_PLANTILLA[id]);
 const CAMPS = Object.freeze(Object.fromEntries(Object.entries(PLANTILLA).map(([t, p]) => [t, p.camps])));

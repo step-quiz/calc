@@ -277,6 +277,9 @@ for (const id of Models.ids) {
      no a l'enunciat; a l'ESO, cada frase d'un pas és [mat]…[/mat] o [calc]…[/calc], i cap text no parla de l'opció bona. */
   for (const f of FITXES) {
     const onF = `${on} · fitxa ${f.id}`;
+    // La figura de l'enunciat (v46): {src, alt}; la imatge és al repositori, a img/
+    if (f.figura !== undefined) ok(f.figura && typeof f.alt !== 'object' && /^img\/[a-z0-9/_.-]+\.(png|svg|jpg)$/.test(f.figura.src || '')
+      && fs.existsSync(path.join(arrel, f.figura.src)) && typeof f.figura.alt === 'string' && f.figura.alt.trim(), onF, 'figura ha de ser {src: \'img/…\' (un fitxer que existeixi), alt: \'…\'}');
     if (f.font !== undefined) ok(typeof f.font === 'string' && f.font.trim() && !/[$[\]{}!]/.test(f.font), onF, 'font ha de ser un text pla');
     // v42: si l'últim pas és un error, el motor hi afegeix «Activitat finalitzada» amb la pantalla esborrada (M.pantalla.buida)
     const darrer = f.passos[f.passos.length - 1];

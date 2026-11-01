@@ -44,8 +44,8 @@ M.fitxes.push(
   enunciat: 'La llum recorre $3\\cdot 10^8$ metres cada segon.\n• Un dia té 86 400 segons.\nQuants metres recorre la llum en un dia?',
   inici: calc(D),
   passos: [
-    {tecles: ['3', 'per', '1', '0', 'pot', '8', 'right'], pantalla: calc(D, '3\\times 10^{8}'),
-      text: '[calc]Escriu 3 [[per]] 10, prem [[pot]] i escriu l\'exponent 8. Surt de l\'exponent amb [[right]].[/calc]'},
+    {tecles: ['3', 'exp', '8', 'right'], pantalla: calc(D, '3\\times 10^{8}'),
+      text: '[mat]$3\\cdot 10^8$ és un nombre en notació científica.[/mat] [calc]Escriu 3 i prem [[exp]]: surt «×10» amb el lloc de l\'exponent. Escriu el 8 i surt de l\'exponent amb [[right]].[/calc]'},
     {tecles: ['per', '8', '6', '4', '0', '0'], pantalla: calc(D, LLUM),
       text: '[mat]En un dia, la llum recorre 86 400 vegades el que recorre en un segon.[/mat] [calc]Ara fes l\'operació [[per]] 86400.[/calc]'},
     {tecles: ['exe'], pantalla: marca(calc(D, LLUM, '2.592\\times 10^{13}'), 'resultat'),

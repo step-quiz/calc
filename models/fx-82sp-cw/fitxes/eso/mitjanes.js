@@ -67,7 +67,8 @@ M.fitxes.push(
 },
 {
   id: 'cb4-25-q17', bloc: 'eso-mitjanes', titol: 'El mercat: la mitjana d\'un gràfic de barres', font: 'CB 4ESO (2025), pregunta 17',
-  enunciat: 'Es fa una enquesta que pregunta quantes vegades es va al mercat. Entre les persones de més de 50 anys:\n• 25 persones van al mercat 1 vegada per setmana\n• 35 persones, 2 vegades\n• 25 persones, 3 vegades\n• 10 persones, 4 vegades.\nDe mitjana, quants dies hi van per setmana?',
+  figura: {src: 'img/eso/cb4eso2025e5.png', alt: 'Gràfic de barres de l\'enquesta: quantes vegades per setmana van al mercat les persones de cada edat'},
+  enunciat: 'Una enquesta pregunta quantes vegades per setmana es va al mercat. Respostes de les persones de més de 50 anys:\n• 25 persones: 1 vegada\n• 35 persones: 2 vegades\n• 25 persones: 3 vegades\n• 10 persones: 4 vegades.\nDe mitjana, quants dies hi van per setmana?',
   inici: calc(D),
   passos: [
     {tecles: ['frac', '1', 'per', '2', '5', 'mes', '2', 'per', '3', '5', 'mes', '3', 'per', '2', '5', 'mes', '4', 'per', '1', '0'],
@@ -81,7 +82,7 @@ M.fitxes.push(
       'entre', '2', '5', 'mes', '3', '5', 'mes', '2', '5', 'mes', '1', '0'], pantalla: calc(D, MERCAT_ERROR, '', {hist: true}),
       text: '[calc]!!Error típic!!: esborra amb [[ac]] i escriu-ho en una línia, sense la plantilla, amb parèntesis al numerador però no al denominador.[/calc]'},
     {error: true, tecles: ['shift', 'exe'], pantalla: marca(calc(D, MERCAT_ERROR, '78.4'), 'resultat'),
-      text: '[calc]Prem [[shift]] [[exe]]: obtens 78.4.[/calc] [mat]No pot ser: una setmana només té 7 dies.[/mat] [calc]Només s\'ha dividit entre el primer 25: en una línia, el denominador també va entre parèntesis.[/calc]'},
+      text: '[calc]Prem [[shift]] [[exe]]: obtens 78.4. Només s\'ha dividit entre el primer 25.[/calc] [mat]No pot ser: una setmana només té 7 dies.[/mat]'},
   ],
 },
 

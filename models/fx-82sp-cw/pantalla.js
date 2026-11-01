@@ -74,7 +74,9 @@ function calc(estat) {
   const cursor = estat.cursor ? '<span class="lcd-cursor" aria-hidden="true"></span>' : '';
   const escriu = t => (estat.linia ? `<span class="lcd-linia">${escapa(t)}</span>` : texLcd(t));
   const entrada = estat.entrada ? escriu(estat.entrada) : '';
-  const resultat = estat.resultat ? escriu(trTex(estat.resultat)) : '';
+  // Notació científica (v46, foto de David): la mantissa a mida normal i «×10» i l'exponent petits, com a la calculadora
+  const sci = t => String(t).replace(/^(-?\d+(?:\.\d+)?)\\times 10\^\{(-?\d+)\}$/, '$1{\\scriptstyle\\times 10^{$2}}');
+  const resultat = estat.resultat ? escriu(sci(trTex(estat.resultat))) : '';
   // Una entrada més llarga que la pantalla (v37): mentre s'escriu, es veu el final, on és el cursor; amb el resultat,
   // el començament (VERIFICAR.md, fila 25). Si l'entrada hi cap, no canvia res. Les fletxes ◀ ▶ les posa ajusta (v38).
   return barra(estat)

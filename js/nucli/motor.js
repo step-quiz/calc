@@ -130,6 +130,24 @@ const ICONES = Object.freeze({
 /** La icona de la font d'un exercici (v38): un full amb la punta doblegada, del cos de la lletra. */
 const ICONA_FONT = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 2.5h8.5L19 7v14.5H6z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>'
   + '<path d="M14 2.5V7.5h5M9 12h7M9 16h7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>';
+/**
+ * La figura de l'enunciat (v46, David): fitxa.figura = {src, alt}, una imatge de l'exercici real (gràfic, dibuix…). Surt en
+ * miniatura a la dreta de l'enunciat; en clicar-la, s'obre gran en un <dialog>, que es tanca amb la creu, amb Esc o
+ * clicant fora de la imatge. Les dades importants també són al text de l'enunciat.
+ */
+function botoFigura(fitxa) {
+  if (!fitxa.figura) return null;
+  const {src, alt} = fitxa.figura;
+  const tanca = element('button', {class: 'figura-tanca', type: 'button', 'aria-label': 'Tanca', title: 'Tanca', text: '×'});
+  const gran = element('dialog', {class: 'figura-gran', 'aria-label': alt}, [tanca, element('img', {src, alt})]);
+  const mini = element('button', {class: 'figura-mini', type: 'button', title: 'Amplia la figura', 'aria-label': 'Amplia la figura: ' + alt},
+    [element('img', {src, alt: ''})]);
+  mini.addEventListener('click', () => { if (!gran.open) gran.showModal(); });
+  tanca.addEventListener('click', () => gran.close());
+  gran.addEventListener('click', e => { if (e.target === gran) gran.close(); });
+  return element('span', {class: 'figura'}, [mini, gran]);
+}
+
 /** Quant de temps es veu la bombolla de la font si no es tanca abans (David, 1/11/2026: 8 s). */
 const FONT_MS = 8000;
 
@@ -176,6 +194,8 @@ function construeixPagina(fitxa, bloc, germanes, contenidor) {
   };
   const font = botoFont(fitxa);
   if (font) r.enunciat.prepend(font, ' ');
+  const figura = botoFigura(fitxa);
+  if (figura) r.enunciat.prepend(figura);
   for (const [nom, factor] of VELOCITATS) r.velocitat.append(element('option', {value: String(factor), text: nom}));
   r.velocitat.value = String(PER_DEFECTE);
   r.reproductor.append(

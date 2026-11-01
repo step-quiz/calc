@@ -167,6 +167,15 @@ a{color:inherit}
 .font-tanca{width:1.6em; height:1.6em; padding:0; border:0; border-radius:50%; background:none; color:var(--muted); font:inherit; font-size:1rem; line-height:1; cursor:pointer}
 .font-tanca:hover, .font-tanca:focus-visible{background:#dde2e9; color:var(--txt)}
 
+/* La figura de l'enunciat (v46): miniatura a la dreta; en clicar-la, gran en un <dialog> (motor.js, botoFigura) */
+.figura-mini{float:right; margin:2px 0 6px 12px; padding:3px; border:1px solid var(--border); border-radius:6px; background:#fff; cursor:zoom-in}
+.figura-mini img{display:block; height:54px; width:auto}
+.figura-mini:hover, .figura-mini:focus-visible{border-color:var(--cat)}
+.figura-gran{max-width:min(92vw, 1100px); padding:14px; border:2px solid var(--cat); border-radius:12px; background:#fff}
+.figura-gran::backdrop{background:rgba(15,23,42,.55)}
+.figura-gran img{display:block; max-width:100%; max-height:82vh; width:auto; height:auto}
+.figura-tanca{position:absolute; top:6px; right:6px; width:2em; height:2em; border:0; border-radius:50%; background:#eceff3; font-size:1.1rem; line-height:1; cursor:pointer}
+
 /* Les frases dels passos (v38, David): [mat]…[/mat] = matemàtiques (la lletra de sempre, fons de paper) i [calc]…[/calc] =
    indicacions de calculadora (lletra sense gràcia, fons del color de la pantalla). Cada una, un bloc. */
 .frase-mat, .frase-calc{display:block; margin:3px 0; padding:3px 9px; border-radius:6px}

@@ -248,7 +248,10 @@ Done in v39: grey bubble, new speeds, the source of the 13 CW + 11 MS real PAU f
 
 **v41:** block «Ús dels parèntesis» done (3 fitxes, `ARCHITECTURE.md` §7 item 23). Next blocks: «La pantalla», «Percentatges i proporcions», «Pitàgores, àrees i volums», «Trigonometria» (David will send exam items for trigonometry). Note: when writing statements with line breaks from a shell heredoc, `\\n` ends up literal; write data files with the Write tool or Python so the JS literal holds `\n`.
 
-## 12. PENDING — IMPORTANT (David, 1/11/2026)
+## 12. PENDING — IMPORTANT (David, 1/11/2026) — items 1–3 DONE in v46
+
+v46: (1) the CW ×10■ key (`exp`) is a template in `simulador.js` (`x10`: «×10» + exponent, → leaves it) and `eso-notacio-cientifica` uses it on the CW (the MS still types 10⁸ with [[pot]]: how the MS draws its EXP entry is not known — still to check); (2) David's photo confirmed the result; the CW now draws `a×10^{n}` results with «×10» and the exponent small (`\scriptstyle`); (3) statement figures: `fitxa.figura = {src: 'img/…', alt}` (`motor.js` `botoFigura`: thumbnail floated right, 54 px high, opens a `<dialog>`; test: the file exists and `alt` is set); first uses `cb4-25-q17` (bar chart, `img/eso/cb4eso2025e5.png`) and `cb4-22-q8` (cylinders, `img/eso/cb4eso2022e2.png`). Use only statement images (`e<N>.png`), never question images that show the a–d options. (4) Trigonometry: still waiting for David's exams.
+
 
 1. **The ×10ˣ key on the CW.** `eso-notacio-cientifica` types 10⁸ with the power key ([[pot]]) because the CW simulator does not model the `exp` key (×10■) yet (`models/fx-82sp-cw/simulador.js`: `exp` only writes z with SHIFT). To teach the proper key: add the ×10ˣ template/token to the CW simulator and to `calcul.js`, add a `VERIFICAR.md` row for how it is drawn, then rewrite the fitxa (both calculators; the MS has its own ×10ˣ key, `exp`).
 2. **How the CW draws a result too big for 10 digits** (`2.592×10¹³` in `eso-notacio-cientifica`, step 3) is inferred, not seen in the manual: `VERIFICAR.md` row 26. Ask David to try 3×10⁸×86400 on his calculator and report (or send a photo); then fix `pantalla.js`/`calcul.js` if needed.

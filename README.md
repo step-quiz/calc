@@ -74,7 +74,7 @@ Com és una fitxa d'ESO (David, 1/11/2026; les tres de mitjanes són el model):
 
 **Pas final després d'un error (versió 42):** si l'últim pas d'una fitxa és un error típic, el motor hi afegeix un pas més, sense tecles: el fons torna a ser el normal (surt de la zona d'error), la pantalla queda esborrada i el pas diu «Activitat finalitzada». No s'escriu a les dades; ho fa el motor a totes les fitxes (ESO i Batxillerat).
 
-**Pendent (important):** (1) ensenyar la tecla ×10ˣ de la CW a la fitxa de notació científica (ara es fa amb la tecla de potència, perquè el simulador encara no sap fer la ×10ˣ); (2) comprovar amb la calculadora com surt a la CW un resultat massa gran per a 10 xifres, $2.592\times 10^{13}$ (`VERIFICAR.md`, fila 26); (3) imatges a l'enunciat, si el David hi està d'acord; (4) el bloc de trigonometria, amb els exàmens del David. Detalls: `HANDOFF-ESO.md` §12.
+**Versió 46:** la tecla ×10■ de la CW (la fitxa de notació científica ja la fa servir); els resultats en notació científica es dibuixen com a la calculadora («×10» i l'exponent petits, foto del David); i **figures a l'enunciat**: `figura: {src: 'img/eso/….png', alt: '…'}` posa una miniatura a la dreta de l'enunciat que, en clicar-la, s'obre gran (es tanca amb la creu, Esc o clicant fora). Les imatges són a `img/eso/`, copiades de `cb` (només les dels enunciats, mai les de les preguntes amb les opcions). **Pendent:** com es veu l'EXP a la fx-82MS, i el bloc de trigonometria (amb els exàmens del David).
 
 **A tot el web (versions 39 i 40):** totes les frases dels passos, també les de Batxillerat i dels «Ara tu», són `[mat]` o `[calc]`; les
 fitxes PAU reals porten la font a la icona («PAU juny 2024, qüestió 2 a)»), no a l'enunciat. Els enunciats d'ESO s'escriuen perquè els

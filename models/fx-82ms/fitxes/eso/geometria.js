@@ -34,6 +34,7 @@ M.fitxes.push(
 },
 {
   id: 'cb4-22-q8', bloc: 'eso-geometria', titol: 'El volum d\'un got cilíndric', font: 'CB 4ESO (2022), pregunta 8',
+  figura: {src: 'img/eso/cb4eso2022e2.png', alt: 'Dibuix del got de vidre (radi 3 cm, alçada 15 cm) i de l\'envàs de iogurt'},
   enunciat: 'Un got de vidre té forma de cilindre:\n• radi de la base: 3 cm;\n• alçada: 15 cm.\nQuin és el volum del got, aproximadament? (Volum d\'un cilindre $=\\pi\\cdot r^2\\cdot h$, amb $\\pi=3{,}14$.)',
   inici: calc(D),
   passos: [
