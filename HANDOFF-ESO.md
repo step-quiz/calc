@@ -260,3 +260,10 @@ v46: (1) the CW ×10■ key (`exp`) is a template in `simulador.js` (`x10`: «×
 4. **Trigonometry block**: waiting for David's exams.
 
 **v47:** all six ESO blocks have fitxes. Trigonometry comes from David's 4t book (`step-quiz/llibre`, unit 7), not from exams. Open checks: MS EXP display; CW «cos⁻¹(» vs «Arccos(» (`VERIFICAR.md` row 27).
+
+## 13. FUTURE — more fitxes per ESO block (David, 1/11/2026, v49)
+
+For now each ESO block has 3 fitxes, and David says that is enough. **In the future more fitxes can be added to any of the six ESO blocks.** Sources, in this order: the competència bàsica tests in `step-quiz/cb` (`preguntes.json`: `nivell`, `any`, `pregunta` → `data/cb<nivell><any>p<N>.png`; `enunciat` → the statement image; the official key `indexCorrecte` is ground truth), then the department's book `step-quiz/llibre` (`contingut/4eso/pdfs/`, answers in the teacher's sheet), then David's own examples. Process as always: propose the candidates to David first (human in the loop), copy the style of §10 (few-shot: `eso/mitjanes.js`), the same id and statement on both calculators, then `comprova.js` (with KaTeX) and `encaix.js`.
+
+**Statement figures (investigated in v49).** Only statement images (`data/cb…e<N>.png`) are allowed without asking. Added in v49: `cb4eso2025e9.png` (para-sol) to `cb4-25-q27`. Proposed to David, waiting for his answer: (B) crops of the figure only (no text, no options) from question images: `cb4-26-q7` (stairs, from `cb4eso2026p7.png`), `cb4-23-q26` (photos 62×34 → 42×?, from `cb4eso2023p26.png`), `cb4-25-q27` (top view with 0,75 m, from `cb4eso2025p27.png`, cut at the bottom in the source); (C) own SVG drawings for the three trigonometry fitxes (`ll4-7-37` tree and shadow, `ll4-7-38` ladder at 60°, `ll4-7-39` ladder with base 1,5 m and angle ?), since the book has no figures there. No useful image: `cb4-23-q23`/`q24` (statement image is only a price table), `cb2-26-q4`, the own fitxes of «pantalla» and «parèntesis»; `cb4-24-q7` could reuse `cb4eso2024e2.png`.
+

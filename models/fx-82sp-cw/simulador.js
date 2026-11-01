@@ -55,7 +55,7 @@ const ESCRIU = Object.freeze({
 });
 const ESCRIU_SHIFT = Object.freeze({7: '\\pi ', 8: 'e', 0: 'x', punt: 'y', exp: 'z', menys: '-',   // SHIFT − = signe negatiu (−)
   logab: '\\ln(', x2: '\\log(',
-  sen: '\\mathrm{sen}^{-1}(', cos: '\\cos^{-1}(', tan: '\\tan^{-1}('});   // v47: Arcsen, Arccos, Arctan (VERIFICAR.md, fila 27)
+  sen: '\\mathrm{Arcsen}(', cos: '\\mathrm{Arccos}(', tan: '\\mathrm{Arctan}('});   // v49: com a la calculadora, «Arccos(» (David; VERIFICAR.md, fila 27)
 /**
  * Les plantilles, en una sola taula: tipus de node → {camps (en ordre; el cursor entra al primer),
  * tex (el TeX a partir del de cada camp), vertical (↓ ↑ passen d'un camp a l'altre, com a la

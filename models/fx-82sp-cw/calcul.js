@@ -26,7 +26,7 @@
 /* ── Lectura del TeX ──────────────────────────────────────────────── */
 
 const ORDRES = [   // ordre → testimoni (les més llargues primer)
-  ['\\mathrm{sen}^{-1}', 'asen'], ['\\cos^{-1}', 'acos'], ['\\tan^{-1}', 'atan'],   // v47: SHIFT sen/cos/tan (abans que sen, cos, tan)
+  ['\\mathrm{Arcsen}', 'asen'], ['\\mathrm{Arccos}', 'acos'], ['\\mathrm{Arctan}', 'atan'],   // v49: SHIFT sen/cos/tan (VERIFICAR.md, fila 27)
   ['\\mathrm{sen}', 'sen'], ['\\mathrm{Ans}', 'Ans'], ['\\mathrm{C}', 'C'], ['\\mathrm{r}', 'r'],
   ['\\displaystyle', null], ['\\frac', 'frac'], ['\\dfrac', 'frac'], ['\\sqrt', 'sqrt'], ['\\log_', 'logb'],
   ['\\left', null], ['\\right', null], ['\\times', '*'], ['\\div', '/'], ['\\cdot', '*'],

@@ -14,7 +14,7 @@ const {D} = M.comu;
 
 const ARBRE = '12\\tan(35)';
 const ESCALA = '5\\mathrm{sen}(60)';
-const ANGLE = '\\cos^{-1}(1.5\\div 5)', ANGLE_ERROR = '\\cos(1.5\\div 5)';
+const ANGLE = '\\mathrm{Arccos}(1.5\\div 5)', ANGLE_ERROR = '\\cos(1.5\\div 5)';
 
 M.fitxes.push(
 

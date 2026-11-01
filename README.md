@@ -76,6 +76,8 @@ Com és una fitxa d'ESO (David, 1/11/2026; les tres de mitjanes són el model):
 
 **Versió 46:** la tecla ×10■ de la CW (la fitxa de notació científica ja la fa servir); els resultats en notació científica es dibuixen com a la calculadora («×10» i l'exponent petits, foto del David); i **figures a l'enunciat**: `figura: {src: 'img/eso/….png', alt: '…'}` posa una miniatura a la dreta de l'enunciat que, en clicar-la, s'obre gran (es tanca amb la creu, Esc o clicant fora). Les imatges són a `img/eso/`, copiades de `cb` (només les dels enunciats, mai les de les preguntes amb les opcions). **Pendent:** com es veu l'EXP a la fx-82MS, i si la CW escriu «cos⁻¹(» o «Arccos(» (`VERIFICAR.md`, fila 27).
 
+**Versió 49:** a la fx-82SP CW, SHIFT sen/cos/tan escriuen «Arcsen(», «Arccos(», «Arctan(», com a la calculadora; la fitxa del para-sol té la figura de l'enunciat; `proves/encaix.js` també comprova el recordatori del botó ▶. Més endavant es poden afegir més fitxes a cada bloc d'ESO (`HANDOFF-ESO.md` §13).
+
 **Versió 48:** la icona de la font i la miniatura de la figura reaccionen al ratolí (vora negra fina i un 5 % més grans); si en 8 segons no es passa al pas següent, el botó ▶ fa un petit parpelleig amb sacseig (0,8 s) per recordar que es pot avançar; una fórmula donada a l'enunciat va entre `[nota]…[/nota]`: en una línia a part i en cursiva.
 
 **A tot el web (versions 39 i 40):** totes les frases dels passos, també les de Batxillerat i dels «Ara tu», són `[mat]` o `[calc]`; les

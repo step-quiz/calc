@@ -46,6 +46,7 @@ M.fitxes.push(
 },
 {
   id: 'cb4-25-q27', bloc: 'eso-geometria', titol: 'La tela d\'un para-sol: l\'àrea d\'un cercle', font: 'CB 4ESO (2025), pregunta 27',
+  figura: {src: 'img/eso/cb4eso2025e9.png', alt: 'El para-sol obert i, vist des de dalt, la tela en forma d\'octògon regular'},
   enunciat: 'Per saber quanta tela té un para-sol, se n\'aproxima la superfície per la d\'un cercle:\n• radi del cercle: 0,75 m.\nQuina superfície de tela té el para-sol?[nota](Àrea del cercle $=\\pi\\cdot r^2$, amb $\\pi=3{,}14$.)[/nota]',
   inici: calc(D),
   passos: [

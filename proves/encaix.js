@@ -8,6 +8,10 @@
      · que la calculadora sencera és dins de la finestra (dues columnes);
      · que el pas actual es veu sencer dins de la llista de passos;
      · que no hi ha errors de JavaScript.
+   I, una sola vegada (v49), el recordatori del botó ▶ (v48): amb el
+   rellotge de Playwright, comprova que no surt abans de 8 s, que surt
+   als 8 s, que es torna a comptar quan es passa de pas amb → i que a
+   l'últim pas (▶ desactivat) no surt mai.
    No forma part de comprova.js perquè necessita un navegador. Els
    fitxers de proves/ no els carrega cap pàgina: no cal augmentar VERSIO.
 
@@ -16,6 +20,7 @@
      MODEL=fx-82ms node proves/encaix.js        només una calculadora
      FITXES=ans,fix node proves/encaix.js       només aquestes fitxes
      VP='[[1366,657]]' node proves/encaix.js    només aquestes finestres
+     (amb FITXES, VP o MODEL no es prova el recordatori del botó ▶; RECORDA=1 el prova igualment amb FITXES)
    Acaba amb codi 1 si algun pas no hi cap.
    ═══════════════════════════════════════════════════════════════════ */
 'use strict';
@@ -58,6 +63,31 @@ const MESURA = () => {
     actualAmagat: actual ? !(actual.top >= dalt && actual.bottom <= baix) : false,
   };
 };
+
+/** El recordatori del botó ▶ (v48): torna una llista de problemes (buida si tot va bé). */
+async function provaRecorda(browser, BASE) {
+  const mal = [];
+  const page = await browser.newPage({viewport: {width: 1366, height: 657}});
+  await page.clock.install();
+  await page.goto(BASE + 'fitxa.html?id=cb4-26-q15', {waitUntil: 'load'});
+  await page.waitForFunction(() => globalThis.fitxa && fitxa.total !== undefined);
+  const te = () => page.evaluate(() => document.querySelector('.boto.principal').classList.contains('recorda'));
+  const avanca = async ms => { await page.clock.runFor(ms); await page.evaluate(() => new Promise(ok => requestAnimationFrame(ok))); };
+  await page.keyboard.press('ArrowRight');
+  await avanca(7800);
+  if (await te()) mal.push('recordatori del botó ▶: surt abans dels 8 s');
+  await avanca(400);
+  if (!(await te())) mal.push('recordatori del botó ▶: no surt als 8 s');
+  await page.keyboard.press('ArrowRight');
+  if (await te()) mal.push('recordatori del botó ▶: no s\'apaga en passar de pas');
+  await avanca(7800);
+  if (await te()) mal.push('recordatori del botó ▶: no es torna a comptar en passar de pas');
+  await page.evaluate(() => fitxa.salta(fitxa.total - 1));
+  await avanca(10000);
+  if (await te()) mal.push('recordatori del botó ▶: surt a l\'últim pas');
+  await page.close();
+  return mal;
+}
 
 (async () => {
   const servidor = await serveix();
@@ -110,6 +140,8 @@ const MESURA = () => {
     }
     await context.close();
   }
+  const ambRecorda = !process.env.VP && !process.env.MODEL && (!nomesFitxes || process.env.RECORDA);
+  if (ambRecorda) problemes.push(...await provaRecorda(browser, BASE));
   await browser.close();
   servidor.close();
 
@@ -118,5 +150,5 @@ const MESURA = () => {
     console.log(`\n${problemes.length} problemes en ${total} passos.`);
     process.exit(1);
   }
-  console.log(`Tot hi cap: ${total} passos (${models.join(', ')}; finestres ${FINESTRES.map(f => f[0] + '×' + f[1]).join(', ')}).`);
+  console.log(`Tot hi cap: ${total} passos${ambRecorda ? ', i el recordatori del botó ▶ funciona' : ''} (${models.join(', ')}; finestres ${FINESTRES.map(f => f[0] + '×' + f[1]).join(', ')}).`);
 })().catch(e => { console.error(e); process.exit(1); });
