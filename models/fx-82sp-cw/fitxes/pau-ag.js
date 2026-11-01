@@ -14,7 +14,8 @@ M.fitxes.push(
 
 {
   id: 'pau-alg-24j-q2', bloc: 'pau-ag', titol: 'Àlgebra · PAU 2024: comprova la solució d\'un sistema',
-  enunciat: 'PAU juny 2024, qüestió 2 a). Per a $k=0$, el sistema és $$\\begin{cases}4x+2y-z=4\\\\ x-y=3\\\\ 3x+3y=1\\end{cases}$$ i has obtingut la solució $$x=\\frac{5}{3},\\qquad y=-\\frac{4}{3},\\qquad z=0.$$ Comprova-la amb la calculadora: substitueix-la a cada equació.',
+  font: 'PAU juny 2024, qüestió 2 a)',
+  enunciat: 'Per a $k=0$, el sistema és $$\\begin{cases}4x+2y-z=4\\\\ x-y=3\\\\ 3x+3y=1\\end{cases}$$ i has obtingut la solució $$x=\\frac{5}{3},\\qquad y=-\\frac{4}{3},\\qquad z=0.$$ Comprova-la amb la calculadora: substitueix-la a cada equació.',
   inici: calc(D),
   passos: [
     {tecles: ['4', 'per', 'frac', '5', 'down', '3', 'right', 'mes', '2', 'per', 'lpar', 'menys', 'frac', '4', 'down', '3', 'right', 'rpar', 'menys', '0'],
@@ -57,7 +58,8 @@ M.fitxes.push(
 },
 {
   id: 'pau-alg-24s-q2', bloc: 'pau-ag', titol: 'Àlgebra · PAU 2024: un menor orlat amb la regla de Sarrus',
-  enunciat: 'PAU setembre 2024, qüestió 2 a). Per a $m=1$, el rang de la matriu $A$ és 2. Per saber el rang de la matriu ampliada $A\'$, calcula amb la regla de Sarrus el menor d\'ordre 3 de les columnes de $x$, de $y$ i dels termes independents: $$A\'=\\left(\\begin{array}{rrr|r}1&-3&1&-2\\\\1&1&2&3\\\\1&1&2&1\\end{array}\\right)\\qquad\\begin{vmatrix}1&-3&-2\\\\1&1&3\\\\1&1&1\\end{vmatrix}$$',
+  font: 'PAU setembre 2024, qüestió 2 a)',
+  enunciat: 'Per a $m=1$, el rang de la matriu $A$ és 2. Per saber el rang de la matriu ampliada $A\'$, calcula amb la regla de Sarrus el menor d\'ordre 3 de les columnes de $x$, de $y$ i dels termes independents: $$A\'=\\left(\\begin{array}{rrr|r}1&-3&1&-2\\\\1&1&2&3\\\\1&1&2&1\\end{array}\\right)\\qquad\\begin{vmatrix}1&-3&-2\\\\1&1&3\\\\1&1&1\\end{vmatrix}$$',
   inici: calc(D),
   passos: [
     {tecles: ['1', 'per', '1', 'per', '1', 'mes', 'lpar', 'menys', '3', 'rpar', 'per', '3', 'per', '1', 'mes', 'lpar', 'menys', '2', 'rpar', 'per', '1', 'per', '1'],
@@ -94,7 +96,8 @@ M.fitxes.push(
 },
 {
   id: 'pau-geo-25s-q4b', bloc: 'pau-ag', titol: 'Geometria · PAU 2025: distància d\'un punt a un pla',
-  enunciat: 'PAU setembre 2025, exercici 4 B a). Considereu el pla $\\pi: 2x-y+z=5$ i el punt $P=(0,1,3)$. Comproveu que la distància de $P$ a $\\pi$ és $\\frac{\\sqrt{6}}{2}$. $$d(P,\\pi)=\\frac{|2\\cdot 0-1+3-5|}{\\sqrt{2^2+(-1)^2+1^2}}$$',
+  font: 'PAU setembre 2025, exercici 4 B a)',
+  enunciat: 'Considereu el pla $\\pi: 2x-y+z=5$ i el punt $P=(0,1,3)$. Comproveu que la distància de $P$ a $\\pi$ és $\\frac{\\sqrt{6}}{2}$. $$d(P,\\pi)=\\frac{|2\\cdot 0-1+3-5|}{\\sqrt{2^2+(-1)^2+1^2}}$$',
   inici: calc(D),
   passos: [
     {tecles: ['2', 'per', '0', 'menys', '1', 'mes', '3', 'menys', '5'], pantalla: calc(D, '2\\times 0-1+3-5'),
@@ -130,7 +133,8 @@ M.fitxes.push(
 },
 {
   id: 'pau-geo-25s-q4b-c', bloc: 'pau-ag', titol: 'Geometria · PAU 2025: el punt simètric respecte d\'un pla',
-  enunciat: 'PAU setembre 2025, exercici 4 B c). Considereu el pla $\\pi: 2x-y+z=5$ i el punt $P=(0,1,3)$. Trobeu un pla $\\pi_2$ paral·lel a $\\pi$, que no passi per $P$, a una distància $\\frac{\\sqrt{6}}{2}$ de $\\pi$. Passa pel simètric $P\'$ de $P$: la recta perpendicular a $\\pi$ per $P$, $(2\\lambda,\\,1-\\lambda,\\,3+\\lambda)$, talla el pla per a $\\lambda=\\frac{1}{2}$, al punt $M=\\left(1,\\frac{1}{2},\\frac{7}{2}\\right)$.',
+  font: 'PAU setembre 2025, exercici 4 B c)',
+  enunciat: 'Considereu el pla $\\pi: 2x-y+z=5$ i el punt $P=(0,1,3)$. Trobeu un pla $\\pi_2$ paral·lel a $\\pi$, que no passi per $P$, a una distància $\\frac{\\sqrt{6}}{2}$ de $\\pi$. Passa pel simètric $P\'$ de $P$: la recta perpendicular a $\\pi$ per $P$, $(2\\lambda,\\,1-\\lambda,\\,3+\\lambda)$, talla el pla per a $\\lambda=\\frac{1}{2}$, al punt $M=\\left(1,\\frac{1}{2},\\frac{7}{2}\\right)$.',
   inici: calc(D),
   passos: [
     {tecles: ['2', 'per', '1', 'menys', 'frac', '1', 'down', '2', 'right', 'mes', 'frac', '7', 'down', '2'],
@@ -173,7 +177,8 @@ M.fitxes.push(
 },
 {
   id: 'pau-geo-26j2-q4b', bloc: 'pau-ag', titol: 'Geometria · PAU 2026: distàncies en centímetres',
-  enunciat: 'PAU juny 2026 (sèrie 5), exercici 4 B. Un braç robòtic desplaça un sensor en línia recta des del punt $A=(1,2,3)$ fins al punt $B=(5,3,7)$, per damunt del pla $\\pi$, d\'equació general $x-y-5=0$ (l\'enunciat original dona el pla en forma paramètrica; l\'equació general l\'has obtinguda a mà; les unitats són centímetres). [a]4.1. Quina distància ha recorregut el sensor?[/a] [b]4.2. En acabar el moviment, a quina distància del pla es troba el sensor?[/b]',
+  font: 'PAU juny 2026 (sèrie 5), exercici 4 B',
+  enunciat: 'Un braç robòtic desplaça un sensor en línia recta des del punt $A=(1,2,3)$ fins al punt $B=(5,3,7)$, per damunt del pla $\\pi$, d\'equació general $x-y-5=0$ (l\'enunciat original dona el pla en forma paramètrica; l\'equació general l\'has obtinguda a mà; les unitats són centímetres). [a]4.1. Quina distància ha recorregut el sensor?[/a] [b]4.2. En acabar el moviment, a quina distància del pla es troba el sensor?[/b]',
   inici: calc(D),
   passos: [
     {apartat: 'a', tecles: ['arrel', '4', 'x2', 'mes', '1', 'x2', 'mes', '4', 'x2'], pantalla: calc(D, '\\sqrt{4^{2}+1^{2}+4^{2}}'),

@@ -55,7 +55,8 @@ M.fitxes.push(
 },
 {
   id: 'barrow', bloc: 'pau', titol: 'Regla de Barrow amb f(x)',
-  enunciat: 'PAU juny 2024, qüestió 3 b). La superfície del terreny és $\\int_1^6 f(x)\\,dx-\\frac{25}{2}$, amb $f(x)=-x^3+7x^2-6x+5$ (el $\\frac{25}{2}$ és el triangle que no hi entra). A mà has trobat la primitiva $F(x)=-\\frac{x^4}{4}+\\frac{7x^3}{3}-3x^2+5x$. Calcula $F(6)-F(1)$ amb la calculadora.',
+  font: 'PAU juny 2024, qüestió 3 b)',
+  enunciat: 'La superfície del terreny és $\\int_1^6 f(x)\\,dx-\\frac{25}{2}$, amb $f(x)=-x^3+7x^2-6x+5$ (el $\\frac{25}{2}$ és el triangle que no hi entra). A mà has trobat la primitiva $F(x)=-\\frac{x^4}{4}+\\frac{7x^3}{3}-3x^2+5x$. Calcula $F(6)-F(1)$ amb la calculadora.',
   inici: calc(D),
   passos: [
     {tecles: ['funcio', 'down', 'down', 'ok'], pantalla: definicio('f'),

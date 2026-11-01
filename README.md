@@ -16,7 +16,7 @@ Cada fitxa és una demostració pas a pas, com els DEMO de `step-quiz/pau`, en d
 
 Es fa anar pas a pas, amb els botons ◀ ▶ o amb el teclat de l'ordinador: ↓ o → (pas següent) i
 ↑ o ← (pas anterior). No hi ha reproducció automàtica. Hi ha tres velocitats per a les tecles:
-«lenta», «normal» (per defecte) i «ràpida»; «normal» triga 1,65 vegades més que «ràpida», i «lenta» un 15 % més que «normal».
+«lenta», «normal» (per defecte) i «ràpida». Des de la versió 39, «ràpida» va un 20 % més de pressa que abans i «lenta» triga un 10 % més que abans: les durades de les tecles es multipliquen per 2,09 («lenta»), 1,65 («normal») i 0,83 («ràpida»).
 Els passos que ensenyen un ús erroni de la calculadora (per exemple, $-2^4$ sense parèntesis o una fracció
 de sumes escrita en una línia) són una **zona d'error**: mentre són el pas actual, totes les vores de la pàgina
 (enunciat, botons, pas actual, tecles dels passos, marcs de la calculadora…) es tornen de color vellut vermell

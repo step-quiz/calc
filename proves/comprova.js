@@ -283,6 +283,9 @@ for (const id of Models.ids) {
       ok(f.font === `CB ${cb[1]}ESO (20${cb[2]}), pregunta ${cb[3]}`, onF, `la font ha de ser «CB ${cb[1]}ESO (20${cb[2]}), pregunta ${cb[3]}»`);
       ok(!/Competències bàsiques/i.test(f.enunciat), onF, 'la font no va a l\'enunciat (va a «font»)');
     }
+    // Els exercicis PAU reals (v39, David): «PAU juny 2024, qüestió 2 a)» va a «font», no al començament de l'enunciat
+    ok(!/^PAU /.test(f.enunciat), onF, 'la font («PAU …») no va a l\'enunciat (va a «font»)');
+    if (['pau-ag', 'pau-ap'].includes(f.bloc)) ok(typeof f.font === 'string' && /^PAU /.test(f.font), onF, 'un exercici PAU real porta «font: \'PAU …\'»');
     if (!(etapesBloc.get(f.bloc) || []).includes('eso')) continue;
     f.passos.forEach((p, i) => {
       const fora = String(p.text).replace(/\[(mat|calc)\][\s\S]*?\[\/\1\]/g, '');

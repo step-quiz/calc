@@ -32,9 +32,9 @@ const TEMPS = Object.freeze({
   entreTecles: 170,    // pausa entre dues tecles del mateix pas (la pantalla ja ha canviat)
   pantalla: 220,       // la pantalla del final del pas apareix
 });
-/** Velocitats de les tecles (factor de les durades): «normal» és un 65 % més lenta que «ràpida» (David, 31/10/2026: 1,5 i després un 10 % més)
-    i «lenta» un 15 % més lenta que «normal» (1,65 × 1,15 ≈ 1,9). Per defecte, «normal». */
-const VELOCITATS = Object.freeze([['lenta', 1.9], ['normal', 1.65], ['ràpida', 1]]);
+/** Velocitats de les tecles (factor de les durades de TEMPS). «normal», 1,65 (per defecte). v39 (David, 1/11/2026): «ràpida» va un 20 %
+    més de pressa que abans (1 / 1,2 ≈ 0,83) i «lenta» triga un 10 % més que abans (1,9 × 1,1 ≈ 2,09). */
+const VELOCITATS = Object.freeze([['lenta', 2.09], ['normal', 1.65], ['ràpida', 0.83]]);
 const PER_DEFECTE = 1.65;
 const CORBA = 'cubic-bezier(.45,.05,.25,1)';
 

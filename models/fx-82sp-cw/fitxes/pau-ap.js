@@ -14,7 +14,8 @@ M.fitxes.push(
 
 {
   id: 'pau-ana-24i-q1', bloc: 'pau-ap', titol: 'Anàlisi · PAU 2024: Bolzano amb la calculadora',
-  enunciat: 'PAU juny 2024 (incidències), qüestió 1 a). Considereu $f(x)=-2+10(x-1)\\ln x$, per a $x>0$. Comproveu que $f$ té una arrel a l\'interval $[1;\\,1{,}5]$ i busqueu un interval d\'una dècima de longitud que també la contingui.',
+  font: 'PAU juny 2024 (incidències), qüestió 1 a)',
+  enunciat: 'Considereu $f(x)=-2+10(x-1)\\ln x$, per a $x>0$. Comproveu que $f$ té una arrel a l\'interval $[1;\\,1{,}5]$ i busqueu un interval d\'una dècima de longitud que també la contingui.',
   inici: calc(D),
   passos: [
     {tecles: ['funcio'], pantalla: menuFuncio(0),
@@ -56,7 +57,8 @@ M.fitxes.push(
 },
 {
   id: 'pau-ana-25i-q4a', bloc: 'pau-ap', titol: 'Anàlisi · PAU 2025: una arrel cúbica en una optimització',
-  enunciat: 'PAU juny 2025 (incidències), exercici 4 A b). Una ampolla de perfum té una part cilíndrica de $100\\,\\text{cm}^3$, de radi $r$ i altura $h=\\frac{100}{\\pi r^2}$; la seva superfície total és $S(r)=3\\pi r^2+\\frac{200}{r}$. Amb $S\'(r)=0$ has obtingut $r^3=\\frac{100}{3\\pi}$. Calcula les dimensions de l\'ampolla i la superfície mínima.',
+  font: 'PAU juny 2025 (incidències), exercici 4 A b)',
+  enunciat: 'Una ampolla de perfum té una part cilíndrica de $100\\,\\text{cm}^3$, de radi $r$ i altura $h=\\frac{100}{\\pi r^2}$; la seva superfície total és $S(r)=3\\pi r^2+\\frac{200}{r}$. Amb $S\'(r)=0$ has obtingut $r^3=\\frac{100}{3\\pi}$. Calcula les dimensions de l\'ampolla i la superfície mínima.',
   inici: calc(D),
   passos: [
     {tecles: ['shift', 'arrel', '3', 'right', 'frac', '1', '0', '0', 'down', '3', 'shift', '7'], pantalla: calc(D, '\\sqrt[3]{\\frac{100}{3\\pi}}'),
@@ -92,7 +94,8 @@ M.fitxes.push(
 },
 {
   id: 'pau-ana-25j-q1', bloc: 'pau-ap', titol: 'Anàlisi · PAU 2025: intueix els límits amb f(x)',
-  enunciat: 'PAU juny 2025, exercici 1 a). Considereu la funció $f(x)=\\dfrac{x^2-2x}{x-1}$. Abans de calcular-ne les asímptotes, fes-te una idea dels límits amb la calculadora: valors de $x$ molt propers a 1, per la dreta i per l\'esquerra, i valors de $x$ molt grans, positius i negatius.',
+  font: 'PAU juny 2025, exercici 1 a)',
+  enunciat: 'Considereu la funció $f(x)=\\dfrac{x^2-2x}{x-1}$. Abans de calcular-ne les asímptotes, fes-te una idea dels límits amb la calculadora: valors de $x$ molt propers a 1, per la dreta i per l\'esquerra, i valors de $x$ molt grans, positius i negatius.',
   inici: calc(D),
   passos: [
     {tecles: ['funcio', 'down', 'down', 'ok', 'frac', 'x', 'x2', 'menys', '2', 'x', 'down', 'x', 'menys', '1'], pantalla: definicio('f', '\\frac{x^{2}-2x}{x-1}'),
@@ -139,7 +142,8 @@ M.fitxes.push(
 },
 {
   id: 'pau-ana-25s-q4a', bloc: 'pau-ap', titol: 'Anàlisi · PAU 2025: un vitrall en radians',
-  enunciat: 'PAU setembre 2025, exercici 4 A. Un vitrall de la Sagrada Família està limitat per les gràfiques de $y=3\\sin\\frac{x}{4}$ i $y=3\\cos\\frac{x}{4}$ ($x$ i $y$ en metres), des de l\'eix $OY$ fins al primer punt de tall $C$, que té $x=\\pi$ (l\'has obtingut a mà, de $3\\sin\\frac{x}{4}=3\\cos\\frac{x}{4}$). [a]a) Calculeu les coordenades del punt $C$.[/a] [b]b) Calculeu el preu del vitrall, a 750 € el m²; l\'àrea és $\\left[12\\sin\\frac{x}{4}+12\\cos\\frac{x}{4}\\right]_0^{\\pi}$.[/b]',
+  font: 'PAU setembre 2025, exercici 4 A',
+  enunciat: 'Un vitrall de la Sagrada Família està limitat per les gràfiques de $y=3\\sin\\frac{x}{4}$ i $y=3\\cos\\frac{x}{4}$ ($x$ i $y$ en metres), des de l\'eix $OY$ fins al primer punt de tall $C$, que té $x=\\pi$ (l\'has obtingut a mà, de $3\\sin\\frac{x}{4}=3\\cos\\frac{x}{4}$). [a]a) Calculeu les coordenades del punt $C$.[/a] [b]b) Calculeu el preu del vitrall, a 750 € el m²; l\'àrea és $\\left[12\\sin\\frac{x}{4}+12\\cos\\frac{x}{4}\\right]_0^{\\pi}$.[/b]',
   inici: calc(D),
   passos: [
     {apartat: 'a', tecles: ['settings', 'ok', 'down', 'ok', 'down', 'ok', 'ac'], pantalla: marca(calc(R), 'ang'),
@@ -178,7 +182,8 @@ M.fitxes.push(
 },
 {
   id: 'pau-pro-24i-q4', bloc: 'pau-ap', titol: 'Probabilitat · PAU 2024: probabilitat total, Bayes i binomial',
-  enunciat: 'PAU juny 2024 (incidències), qüestió 4. La Rut tira un dau: si surt 1, 2, 3 o 4, resol el problema ella mateixa i l\'encerta el 75 % de les vegades; si surt 5 o 6, el copia d\'Internet i l\'encerta el 40 %. [a]a) Probabilitat que la solució sigui correcta.[/a] [b]b) Probabilitat que l\'hagi resolt ella si és correcta.[/b] [c]c) Probabilitat que, de 5 problemes, almenys 4 siguin correctes.[/c]',
+  font: 'PAU juny 2024 (incidències), qüestió 4',
+  enunciat: 'La Rut tira un dau: si surt 1, 2, 3 o 4, resol el problema ella mateixa i l\'encerta el 75 % de les vegades; si surt 5 o 6, el copia d\'Internet i l\'encerta el 40 %. [a]a) Probabilitat que la solució sigui correcta.[/a] [b]b) Probabilitat que l\'hagi resolt ella si és correcta.[/b] [c]c) Probabilitat que, de 5 problemes, almenys 4 siguin correctes.[/c]',
   inici: calc(D),
   passos: [
     {apartat: 'a', tecles: ['frac', '4', 'down', '6', 'right', 'per', '0', 'punt', '7', '5', 'mes', 'frac', '2', 'down', '6', 'right', 'per', '0', 'punt', '4'],
@@ -222,7 +227,8 @@ M.fitxes.push(
 },
 {
   id: 'pau-pro-24s-q4', bloc: 'pau-ap', titol: 'Probabilitat · PAU 2024: binomial, probabilitat total i Bayes',
-  enunciat: 'PAU setembre 2024, qüestió 4. El 20 % dels habitants d\'una regió pateix arrítmia. Un monitor Holter la detecta en el 95 % dels qui la pateixen, i dona falsos positius en el 0,5 % dels qui no en pateixen. [a]a) De 4 persones a l\'atzar, probabilitat que almenys una pateixi arrítmia.[/a] [b]b) Probabilitat d\'un diagnòstic positiu.[/b] [c]c) Si el diagnòstic és negatiu, probabilitat que la persona pateixi arrítmia.[/c]',
+  font: 'PAU setembre 2024, qüestió 4',
+  enunciat: 'El 20 % dels habitants d\'una regió pateix arrítmia. Un monitor Holter la detecta en el 95 % dels qui la pateixen, i dona falsos positius en el 0,5 % dels qui no en pateixen. [a]a) De 4 persones a l\'atzar, probabilitat que almenys una pateixi arrítmia.[/a] [b]b) Probabilitat d\'un diagnòstic positiu.[/b] [c]c) Si el diagnòstic és negatiu, probabilitat que la persona pateixi arrítmia.[/c]',
   inici: calc(D),
   passos: [
     {apartat: 'a', tecles: ['1', 'menys', '0', 'punt', '8', 'pot', '4'], pantalla: calc(D, '1-0.8^{4}'),
@@ -259,7 +265,8 @@ M.fitxes.push(
 },
 {
   id: 'pau-pro-25j-q3', bloc: 'pau-ap', titol: 'Probabilitat · PAU 2025: probabilitat total i un màxim',
-  enunciat: 'PAU juny 2025, exercici 3. El 60 % de les peces d\'una empresa són de ferro i la resta, d\'acer. El 95 % de les peces de ferro no tenen cap defecte, i el 3 % de les d\'acer són defectuoses. [a]a) Probabilitat que una peça a l\'atzar sigui defectuosa.[/a] [c]c) Valor màxim de la funció $f(p)=5(p^4-p^5)$ per a $p\\ge 0$. Amb la derivada has trobat que el màxim és a $p=\\frac{4}{5}$.[/c]',
+  font: 'PAU juny 2025, exercici 3',
+  enunciat: 'El 60 % de les peces d\'una empresa són de ferro i la resta, d\'acer. El 95 % de les peces de ferro no tenen cap defecte, i el 3 % de les d\'acer són defectuoses. [a]a) Probabilitat que una peça a l\'atzar sigui defectuosa.[/a] [c]c) Valor màxim de la funció $f(p)=5(p^4-p^5)$ per a $p\\ge 0$. Amb la derivada has trobat que el màxim és a $p=\\frac{4}{5}$.[/c]',
   inici: calc(D),
   passos: [
     {apartat: 'a', tecles: ['0', 'punt', '0', '5', 'per', '0', 'punt', '6', 'mes', '0', 'punt', '0', '3', 'per', '0', 'punt', '4'],

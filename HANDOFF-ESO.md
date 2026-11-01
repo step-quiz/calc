@@ -235,3 +235,11 @@ Copy the shape of `models/fx-82sp-cw/fitxes/eso/mitjanes.js` (and its MS twin). 
 - **Error zone:** the first error step starts with [[ac]] («!!Error típic!!: esborra amb [[ac]] i escriu-ho …»), then a step that shows the wrong result and a `[mat]` sentence saying why it cannot be right («No pot ser: …»).
 - **CW exact results:** the first fraction/root/π result says it comes from {{E Mat/S Mat}} and what {{E Mat/S Decimal}} would show; [[shift]] [[exe]] right after a result recomputes it in decimal (confirmed by David).
 - **Both calculators**, same id, statement and source; the MS has no fraction template (sums in parentheses) and gives decimals directly.
+
+## 11. State at v39 (1/11/2026, session ended by token limit) — PENDING WORK
+
+David's answers after v38: (1) all OK, the source bubble gets a light-grey background (done: `#eceff3`); (2) error zones only where pedagogically relevant, not in every fitxa; (3) apply the source icon and the M/C sentences to Batxillerat too, everywhere; (4) speeds: «ràpida» 20 % faster, «lenta» 10 % slower (done: factors 0.83 / 1.65 / 2.09 in `motor.js`).
+
+Done in v39: grey bubble, new speeds, the source of the 13 CW + 11 MS real PAU fitxes (and `barrow`) moved from the statement to `font` (test: no statement starts with «PAU », blocks `pau-ag`/`pau-ap` need `font: 'PAU …'`).
+
+**PENDING:** tag every Batxillerat step sentence (408 step texts, 391 distinct, in `models/*/fitxes/*.js`, both calculators, active «Ara tu» included) as `[mat]…[/mat]` or `[calc]…[/calc]`, then extend the test in `proves/comprova.js` (the «a l'ESO, cada frase és [mat]…» check) from ESO blocks to all fitxes. Method used: extract the `text: '…'` raw literals (skip `/* … */` comments), split into sentences outside `$…$`, `[[…]]`, `{{…}}`, `!!…!!`, pre-tag C when a sentence has keys, menus or words like prem/escriu/surt/pantalla/calculadora/mode, review every text by hand, merge consecutive same-tag sentences, write back by replacing the raw literal. Keep wording; only split. Then screenshots, `encaix.js`, docs (README, ARCHITECTURE item 22), version 40.
