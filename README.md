@@ -72,6 +72,8 @@ Com és una fitxa d'ESO (David, 1/11/2026; les tres de mitjanes són el model):
   s'escriu l'error (a la fx-82MS, la línia de baix el continua mostrant).
 - Les mitjanes es teclegen a Calcular (sense l'app Estadística ni el mode SD). Sense «Ara tu».
 
+**Pas final després d'un error (versió 42):** si l'últim pas d'una fitxa és un error típic, el motor hi afegeix un pas més, sense tecles: el fons torna a ser el normal (surt de la zona d'error), la pantalla queda esborrada i el pas diu «Activitat finalitzada». No s'escriu a les dades; ho fa el motor a totes les fitxes (ESO i Batxillerat).
+
 **A tot el web (versions 39 i 40):** totes les frases dels passos, també les de Batxillerat i dels «Ara tu», són `[mat]` o `[calc]`; les
 fitxes PAU reals porten la font a la icona («PAU juny 2024, qüestió 2 a)»), no a l'enunciat. Els enunciats d'ESO s'escriuen perquè els
 entengui un alumne de 13 anys: primer la situació, després les dades, una per línia (`\n• …`), i la pregunta al final.

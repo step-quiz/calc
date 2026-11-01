@@ -113,6 +113,12 @@ function html(estat) {
   return `<div class="ms-dins">${f ? f(estat) : ''}</div>`;
 }
 
-M.pantalla = Object.freeze({html, INDICADORS, COLUMNES, TIPUS: Object.keys(DIBUIXA), partsResultat});
+/** v42: la pantalla esborrada (com després d'AC) a partir d'una altra; per al pas «Activitat finalitzada» que afegeix el motor. */
+function buida(p) {
+  if (!p || p.tipus !== 'calc') return p;
+  return Object.freeze(Object.assign({}, p, {entrada: '', resultat: '', cursor: true, previ: '', marca: null}));
+}
+
+M.pantalla = Object.freeze({html, buida, INDICADORS, COLUMNES, TIPUS: Object.keys(DIBUIXA), partsResultat});
 
 })(Models.obre('fx-82ms'));

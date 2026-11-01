@@ -176,6 +176,12 @@ function ajusta(el) {
   if (typeof document !== 'undefined' && document.fonts && document.fonts.status !== 'loaded') document.fonts.ready.then(mira);
 }
 
-M.pantalla = Object.freeze({html, ajusta, finestra, INDICADORS, OPCIONS_KATEX, TIPUS: Object.keys(DIBUIXA)});
+/** v42: la pantalla esborrada (com després d'AC) a partir d'una altra; per al pas «Activitat finalitzada» que afegeix el motor. */
+function buida(p) {
+  if (!p || p.tipus !== 'calc') return p;
+  return Object.freeze(Object.assign({}, p, {entrada: '', resultat: '', cursor: true, linia: false, marca: null}));
+}
+
+M.pantalla = Object.freeze({html, buida, ajusta, finestra, INDICADORS, OPCIONS_KATEX, TIPUS: Object.keys(DIBUIXA)});
 
 })(Models.obre('fx-82sp-cw'));

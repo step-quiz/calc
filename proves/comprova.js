@@ -278,6 +278,10 @@ for (const id of Models.ids) {
   for (const f of FITXES) {
     const onF = `${on} · fitxa ${f.id}`;
     if (f.font !== undefined) ok(typeof f.font === 'string' && f.font.trim() && !/[$[\]{}!]/.test(f.font), onF, 'font ha de ser un text pla');
+    // v42: si l'últim pas és un error, el motor hi afegeix «Activitat finalitzada» amb la pantalla esborrada (M.pantalla.buida)
+    const darrer = f.passos[f.passos.length - 1];
+    if (darrer.error && ok(typeof M.pantalla.buida === 'function', onF, 'cal pantalla.buida per al pas final després d\'un error'))
+      comprovaPantalla(M.pantalla.buida(darrer.pantalla), onF + ' · pas «Activitat finalitzada»');
     const cb = /^cb(\d)-(\d\d)-q(\d+)$/.exec(f.id);
     if (cb) {
       ok(f.font === `CB ${cb[1]}ESO (20${cb[2]}), pregunta ${cb[3]}`, onF, `la font ha de ser «CB ${cb[1]}ESO (20${cb[2]}), pregunta ${cb[3]}»`);

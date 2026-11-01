@@ -268,9 +268,10 @@ function omplPassos(r, passos, enClicar) {
   const zero = element('li', {class: 'pas zero'}, [element('div', {class: 'frase', html:
     'Prem ' + icona(ICONES.seguent).replace('<svg', '<svg class="icona-inline"') + ' o la fletxa ↓ del teclat per començar.'})]);
   const files = passos.map((pas, i) => {
-    const tecles = pas.tecles.length
-      ? pas.tecles.map((id, j) => M.tecles.html(id, {prefix: prefix(pas.tecles[j - 1])})).join('')
-      : '<span class="nomes-mira">mira la pantalla</span>';
+    const tecles = pas.final ? ''
+      : pas.tecles.length
+        ? pas.tecles.map((id, j) => M.tecles.html(id, {prefix: prefix(pas.tecles[j - 1])})).join('')
+        : '<span class="nomes-mira">mira la pantalla</span>';
     const boto = element('button', {class: 'cap', type: 'button', title: `Ves al pas ${i + 1}`},
       [element('span', {class: 'num', text: String(i + 1)}), element('span', {class: 'tecles', html: tecles})]);
     boto.addEventListener('click', () => enClicar(i));
@@ -581,6 +582,20 @@ async function arrenca(contenidor = document.getElementById('fitxa')) {
   return arrel.fitxa;
 }
 
+/**
+ * v42 (David, 1/11/2026): si l'últim pas d'una fitxa és un error, s'hi afegeix un pas més, sense tecles, que surt de la
+ * zona d'error (el fons torna a ser el normal), deixa la pantalla esborrada (M.pantalla.buida, del model) i diu
+ * «Activitat finalitzada». No és a les dades: el posa el motor, a l'ESO i a Batxillerat.
+ */
+function ambTancament(fitxa) {
+  const darrer = fitxa.passos[fitxa.passos.length - 1];
+  if (!darrer || !darrer.error || !M.pantalla.buida) return fitxa;
+  if (!ambTancament.cache) ambTancament.cache = new Map();
+  if (!ambTancament.cache.has(fitxa)) ambTancament.cache.set(fitxa, Object.assign({}, fitxa, {passos: fitxa.passos.concat([
+    {tecles: [], pantalla: M.pantalla.buida(darrer.pantalla), text: 'Activitat finalitzada.', final: true}])}));
+  return ambTancament.cache.get(fitxa);
+}
+
 function inicia(model, id, contenidor) {
   M = model;
   IDIOMA = Preferencies.idioma(M);
@@ -642,8 +657,8 @@ function inicia(model, id, contenidor) {
   }
   const actiu = () => (modeAraTu && sub ? sub : reproductor);
 
-  const reproductor = creaReproductor(r, fitxa, temps, {abans: surtAraTu});
-  if (pasInicial >= 1 && pasInicial <= fitxa.passos.length) reproductor.salta(pasInicial - 1);
+  const reproductor = creaReproductor(r, ambTancament(fitxa), temps, {abans: surtAraTu});
+  if (pasInicial >= 1 && pasInicial <= ambTancament(fitxa).passos.length) reproductor.salta(pasInicial - 1);
   const avis = creaAvis(r);
   for (const b of [r.anterior, r.seguent]) {
     b.addEventListener('pointerdown', e => avis.pulsacio(e));
