@@ -93,8 +93,10 @@ L'alumne tria la seva a dalt de la portada o de qualsevol fitxa («La teva calcu
 recorda. Les fitxes del mateix tema porten el mateix id a les dues calculadores, i en canviar de calculadora
 l'alumne es queda a la mateixa fitxa; si l'altra calculadora no la té, la pàgina ho diu i enllaça la portada.
 L'adreça d'una fitxa de la fx-82MS porta `&model=fx-82ms` (`fitxa.html?model=fx-82ms&id=pot-negativa`): es
-pot copiar i enviar. De la fx-82MS hi ha, de moment, els blocs de fraccions (5 fitxes) i d'angles (3 fitxes);
-la resta de blocs diuen «Properament». Les pantalles que no surten al manual i s'han deduït són a `VERIFICAR.md`.
+pot copiar i enviar. La fx-82MS té 27 fitxes (versió 35), les mateixes que la CW menys les que necessiten f(x) o
+Verificar, que no té: *Defineix f(x) i g(x)*, *Regla de Barrow amb f(x)*, *Comprova una igualtat* i *Intueix els
+límits amb f(x)*. Sense f(x), una funció es calcula en un altre punt amb la repetició: [◀] torna a l'expressió i
+només es canvia el nombre (fitxa de Bolzano). Les pantalles que no surten al manual i s'han deduït són a `VERIFICAR.md`.
 
 ## Fitxers
 

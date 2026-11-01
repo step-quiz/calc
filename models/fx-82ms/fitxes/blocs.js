@@ -5,7 +5,9 @@
    fx-82SP CW, quan el tema hi és (David, 1/11/2026: «keep it simple»).
    El format d'una fitxa és el de models/fx-82sp-cw/fitxes/blocs.js; les
    pantalles es fan amb guions.js d'aquest model. Fase 4 (v34): blocs de
-   fraccions i d'angles; la resta, «Properament».
+   fraccions i d'angles. Fase 5 (v35): la resta. No hi ha les fitxes que
+   necessiten f(x) o Verificar, que la fx-82MS no té (definir-fx, barrow,
+   verificar, pau-ana-25j-q1).
    ═══════════════════════════════════════════════════════════════════ */
 (function (M) {
 'use strict';
@@ -13,7 +15,7 @@
 const {IND, ind} = M.guions;
 
 /** Per a les fitxes de cada bloc (fitxes/<bloc>.js). */
-M.comu = Object.freeze({D: IND.D, R: IND.R, ind});
+M.comu = Object.freeze({D: IND.D, R: IND.R, FIX: ind(IND.D, {fix: 2}), ind});
 
 M.blocs = Object.freeze([
   // La fx-82MS no té mode exacte: aquest bloc parlarà de llegir la pantalla, de fraccions i decimals i d'arrodonir

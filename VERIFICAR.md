@@ -105,3 +105,7 @@ la CW, es retalla la franja del logotip de dalt. La creu del cursor és un oval 
 | 7 | Les conversions amb a b/c | fitxes `frac-prioritat` i `pot-fraccio` | Després de 1.666666667, a b/c dona 1┘2┘3; després de 2.25, 2┘1┘4. |
 | 8 | Quants caràcters té la línia de dalt | `pantalla.js` (`COLUMNES`) | 12 (la foto: «sin 60+cos 9»); si n'hi ha més, es desplaça i surt una fletxa. |
 | 9 | Les 10 xifres de baix | `calcul.js` | Compten el 0 de davant dels decimals (el manual: tan(−35) = −0,612800788): cos (π÷3) en graus dona 0.999832979. |
+| 10 | La repetició (versió 35) | fitxa `pau-ana-24i-q1`, passos 3 i 4 | Amb un resultat a la pantalla, ◀ torna a l'expressió amb el cursor al final, i escriure **sobreescriu** el caràcter del cursor (el manual: SHIFT DEL, INS, canvia al cursor d'inserció). |
+| 11 | La potència de 10 a la línia de baix | fitxa `fix`, pas 6 | Amb Norm 1, $1\div 200$ surt «5.» i, a la dreta, en petit, «×10» i «−03». |
+| 12 | Com es veu nCr | fitxa `combinatoria` | «6C4». |
+| 13 | El producte sense signe davant d'un parèntesi i d'una funció | fitxa `pau-ana-24i-q1` | `-2+10(1.5-1)ln 1.5` es calcula sense escriure ×. |
