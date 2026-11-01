@@ -86,6 +86,16 @@ l'«Ara tu» no hi surt (decisió de David, versió 31). Els 12 «Ara tu» ja fe
 dins d'un comentari `/* «Ara tu» DESACTIVAT … */` just abans de `relacionades` de cada fitxa. Per tornar a activar-ne un,
 treu les dues línies d'encapçalament del comentari i el `*/` final, puja la versió i passa les proves.
 
+## Dues calculadores (versió 34)
+
+El web té fitxes per a dues calculadores: la **fx-82SP CW** (la de per defecte) i la **fx-82MS (2a edició)**.
+L'alumne tria la seva a dalt de la portada o de qualsevol fitxa («La teva calculadora»), i el navegador la
+recorda. Les fitxes del mateix tema porten el mateix id a les dues calculadores, i en canviar de calculadora
+l'alumne es queda a la mateixa fitxa; si l'altra calculadora no la té, la pàgina ho diu i enllaça la portada.
+L'adreça d'una fitxa de la fx-82MS porta `&model=fx-82ms` (`fitxa.html?model=fx-82ms&id=pot-negativa`): es
+pot copiar i enviar. De la fx-82MS hi ha, de moment, els blocs de fraccions (5 fitxes) i d'angles (3 fitxes);
+la resta de blocs diuen «Properament». Les pantalles que no surten al manual i s'han deduït són a `VERIFICAR.md`.
+
 ## Fitxers
 
 El web té un **nucli** comú i una carpeta per a cada **calculadora** («model»). El nucli no coneix cap
@@ -98,11 +108,11 @@ fx-82SP CW; la fx-82MS 2a edició hi anirà com una carpeta més.
 | `fitxa.html` | La pàgina de qualsevol fitxa (la construeix `js/nucli/motor.js`). Adreça: `fitxa.html?id=<fitxa>`; amb `&model=<calculadora>`, una altra calculadora. |
 | `css/estil.css` | L'estil del nucli: paleta de `pau`, disposició, reproductor, passos, portada, i com es col·loca qualsevol calculadora (versió 33). |
 | `js/nucli/models.js` | El registre i el carregador de les calculadores, i la **versió** del web (`VERSIO`). |
-| `js/nucli/preferencies.js` | El que el navegador recorda (l'idioma de la calculadora). |
+| `js/nucli/preferencies.js` | El que el navegador recorda: la calculadora de l'alumne i l'idioma dels seus menús. |
 | `js/nucli/text.js` | Els textos de les fitxes en HTML: fórmules, tecles, opcions de menú, «Error típic», apartats. |
 | `js/nucli/motor.js` | La pàgina de la fitxa i el reproductor pas a pas (també l'«Ara tu»). |
 | `js/nucli/portada.js` | La portada. |
-| `models/cataleg.js` | Quines calculadores hi ha (la primera és la de per defecte). |
+| `models/cataleg.js` | Quines calculadores hi ha: fx-82SP CW (la de per defecte) i fx-82MS. |
 | `models/fx-82sp-cw/model.js` | La fx-82SP CW: nom, idiomes i quins fitxers i fulls d'estil té, en ordre. |
 | `models/fx-82sp-cw/estil.css` | Com es veu la fx-82SP CW: el cos, les tecles rodones i els rètols, la pantalla per dins i les tecles petites dels textos. |
 | `models/fx-82sp-cw/tecles.js` | Les tecles (etiqueta, funció amb SHIFT, nom) i **la geometria de la calculadora** (on és cada tecla i quin diàmetre fa). |
@@ -111,13 +121,14 @@ fx-82SP CW; la fx-82MS 2a edició hi anirà com una carpeta més.
 | `models/fx-82sp-cw/simulador.js` | Calcula la pantalla després de cada tecla (escriure, fraccions, arrels quadrades i d'índex n, logaritmes en base a, potències, menús, FUNCTION, CATALOG > Probabilidad, TOOLS > Verificar, SHIFT, AC). |
 | `models/fx-82sp-cw/fitxes/` | **Només dades**: `blocs.js` (els blocs i el format d'una fitxa) i un fitxer per bloc amb les seves fitxes. Aquí és on s'afegeix o es canvia una fitxa. |
 | `models/fx-82sp-cw/proves.js`, `calcul.js` | Les proves pròpies de la CW (pantalles, català, teclat, regla «E Mat/S Mat») i el càlcul dels resultats. |
+| `models/fx-82ms/` | La fx-82MS, amb els mateixos fitxers: teclat mesurat sobre una foto, pantalla de dues línies (7 segments a baix), menús MODE i DRG▸, simulador d'escriptura en una línia, fitxes, estil i proves (també la del signe negatiu: [[neg]], no [[menys]]). |
 | `proves/comprova.js` | Les proves: el nucli, el web i cada calculadora del catàleg. |
 | `VERIFICAR.md` | Detalls de pantalla que el manual no mostra i que cal comprovar amb la calculadora. |
 | `ARCHITECTURE.md` | Referència tècnica per a una IA (en anglès), amb el contracte d'una calculadora. |
 
 ## Com s'afegeix una fitxa
 
-Al fitxer del seu bloc, `models/fx-82sp-cw/fitxes/<bloc>.js`, dins de `M.fitxes.push(…)`, s'hi afegeix un objecte com els altres:
+Al fitxer del seu bloc, `models/<calculadora>/fitxes/<bloc>.js` (per exemple, `models/fx-82sp-cw/fitxes/pau.js`), dins de `M.fitxes.push(…)`, s'hi afegeix un objecte com els altres:
 `id`, `bloc`, `titol`, `enunciat`, `inici` (la pantalla de partida) i `passos` (el format complet és a `fitxes/blocs.js`).
 Cada pas té `tecles` (ids de `tecles.js`), `pantalla` (feta amb les funcions de `guions.js`)
 i `text`. Als textos: `$…$` és una fórmula (`$$…$$`, en una línia pròpia), `[[format]]` dibuixa una tecla i `{{Decimal}}` és una opció

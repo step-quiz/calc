@@ -27,7 +27,8 @@
    es carreguen després de css/estil.css (el del nucli).
 
    Exporta «Models»: VERSIO, cataleg, descriu, obre, tanca, carrega,
-   idActual, model, carpeta, dibuix (eines per dibuixar el teclat), CONTRACTE.
+   idActual, adreca, descriptorsTots, model, carpeta, dibuix (eines per dibuixar
+   el teclat), CONTRACTE.
    ═══════════════════════════════════════════════════════════════════ */
 (function (arrel) {
 'use strict';
@@ -37,7 +38,7 @@
  * index.html i fitxa.html (la prova ho comprova): així cap navegador no fa servir fitxers vells.
  * Els fitxers dels models es carreguen amb aquest mateix «?v=».
  */
-const VERSIO = '33';
+const VERSIO = '34';
 
 /** Les parts que ha de donar cada model, amb les funcions o els camps que el nucli hi fa servir. */
 const CONTRACTE = Object.freeze({
@@ -89,10 +90,30 @@ function parametre(nom) {
   try { return new URLSearchParams(location.search).get(nom); } catch (e) { return null; }
 }
 
-/** El model d'aquesta pàgina: ?model=<id> si existeix; si no, el primer del catàleg. */
+/**
+ * El model d'aquesta pàgina: ?model=<id> si existeix; si no, el que l'alumne va triar (Preferencies, si s'ha
+ * carregat); si no, el primer del catàleg (el de per defecte).
+ */
 function idActual() {
   const p = parametre('model');
-  return ids.includes(p) ? p : ids[0];
+  if (ids.includes(p)) return p;
+  const desat = typeof Preferencies !== 'undefined' ? Preferencies.model() : null;
+  return ids.includes(desat) ? desat : ids[0];
+}
+
+/** L'adreça d'una fitxa d'un model: el paràmetre model només hi va si no és el de per defecte (els enllaços d'abans no canvien). */
+function adreca(id, fitxa) {
+  const q = new URLSearchParams();
+  if (id !== ids[0]) q.set('model', id);
+  if (fitxa) q.set('id', fitxa);
+  const s = q.toString();
+  return (fitxa ? 'fitxa.html' : 'index.html') + (s ? '?' + s : '');
+}
+
+/** Els descriptors de tots els models del catàleg (per al selector de calculadora): carrega els model.js que faltin. */
+async function descriptorsTots() {
+  await Promise.all(ids.filter(id => !descriptors[id]).map(id => script(carpeta(id) + 'model.js')));
+  return ids.map(id => descriptors[id]);
 }
 
 /** Carrega un script (en ordre, gràcies a async = false) amb el «?v=» de la versió. */
@@ -145,7 +166,7 @@ const dibuix = Object.freeze({
 /** Un model ja carregat (o null). */
 const model = id => tancats[id] || null;
 
-arrel.Models = Object.freeze({VERSIO, CONTRACTE, cataleg, descriu, obre, tanca, carrega, idActual, model, carpeta, dibuix,
+arrel.Models = Object.freeze({VERSIO, CONTRACTE, cataleg, descriu, obre, tanca, carrega, idActual, model, carpeta, dibuix, adreca, descriptorsTots,
   get ids() { return ids.slice(); }, descriptor: id => descriptors[id] || null});
 
 })(globalThis);

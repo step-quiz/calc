@@ -1,0 +1,20 @@
+/* ═══════════════════════════════════════════════════════════════════
+   models/fx-82ms/model.js — La CASIO fx-82MS (2a edició, S-V.P.A.M.)
+   ───────────────────────────────────────────────────────────────────
+   El descriptor del model (vegeu js/nucli/models.js). La calculadora
+   no té idiomes: els menús (MODE) són abreviatures en anglès.
+   Font: «fx-82MS … (2.ª edición / S-V.P.A.M.) Guía del usuario» (CASIO,
+   2018) i les fotos de producte; el que és deduït és a VERIFICAR.md.
+   ═══════════════════════════════════════════════════════════════════ */
+Models.descriu({
+  id: 'fx-82ms',
+  nom: 'CASIO fx-82MS (2a edició)',
+  curt: 'fx-82MS',
+  idiomes: null,
+  fitxers: [
+    'tecles.js', 'pantalla.js', 'guions.js', 'simulador.js',
+    'fitxes/blocs.js', 'fitxes/fraccions.js', 'fitxes/angles.js',
+  ],
+  estils: ['estil.css'],
+  proves: ['proves.js'],
+});

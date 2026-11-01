@@ -61,8 +61,9 @@ function element(etiqueta, atributs = {}, fills = []) {
 const espera = ms => new Promise(resol => setTimeout(resol, ms));
 const {escapa, formula} = Text;
 
-/** La calculadora d'aquesta pàgina (el model), l'idioma dels seus menús i el creador de textos: els posa inicia(). */
+/** La calculadora d'aquesta pàgina (el model), les del catàleg, l'idioma dels menús i el creador de textos: els posa inicia(). */
 let M = null;
+let MODELS = [];
 let IDIOMA = null;
 let text = t => escapa(t);
 /** La capa d'una tecla de prefix (SHIFT, ALPHA…: la tecla següent fa la funció d'aquella capa), o null. */
@@ -71,6 +72,19 @@ const prefix = id => (id && M.tecles.TECLES[id] && M.tecles.TECLES[id].prefix) |
 function capaActiva(teclat, capa) {
   for (const c of [...teclat.classList]) if (c.startsWith('prefix-')) teclat.classList.remove(c);
   if (capa) teclat.classList.add('prefix-' + capa);
+}
+
+/**
+ * El selector «La teva calculadora» (v34). En triar-ne una altra, es desa i s'obre la mateixa fitxa en aquella
+ * calculadora (les fitxes del mateix tema porten el mateix id; si no la té, motor.js ho diu i enllaça la portada).
+ */
+function selectorModel(fitxa) {
+  if (MODELS.length < 2) return null;
+  const sel = element('select', {id: 'model', 'aria-label': 'La teva calculadora'});
+  for (const d of MODELS) sel.append(element('option', {value: d.id, text: d.curt}));
+  sel.value = M.id;
+  sel.addEventListener('change', () => { Preferencies.desaModel(sel.value); location.href = Models.adreca(sel.value, fitxa.id); });
+  return element('label', {class: 'tria-model', for: 'model', text: 'La teva calculadora '}, [sel]);
 }
 
 /** El selector «Calculadora en: Castellano / Català» (només si el model té idiomes). En canviar-lo, es desa i es torna a obrir la pàgina (al mateix pas). */
@@ -174,7 +188,7 @@ function construeixPagina(fitxa, bloc, germanes, contenidor) {
 
   r.escenari = element('div', {class: 'escenari'}, [r.calculadora, r.efectes, r.cursor]);
 
-  const enllac = f => element('a', {class: 'pastilla' + (f.id === fitxa.id ? ' actual' : ''), href: 'fitxa.html?id=' + encodeURIComponent(f.id),
+  const enllac = f => element('a', {class: 'pastilla' + (f.id === fitxa.id ? ' actual' : ''), href: Models.adreca(M.id, f.id),
     'aria-current': f.id === fitxa.id ? 'page' : null, text: f.titol});
   // Les relacionades d'un altre bloc (les del mateix bloc ja hi són)
   const relacionades = (fitxa.relacionades || []).map(id => M.dades.FITXES.find(f => f.id === id)).filter(f => f && f.bloc !== fitxa.bloc);
@@ -187,8 +201,8 @@ function construeixPagina(fitxa, bloc, germanes, contenidor) {
 
   contenidor.replaceChildren(
     element('header', {class: 'capcalera'}, [
-      element('a', {class: 'torna', href: 'index.html#' + bloc.id, text: '← Calculadora'}),
-      selectorIdioma(),
+      element('a', {class: 'torna', href: Models.adreca(M.id) + '#' + bloc.id, text: '← Calculadora'}),
+      element('div', {class: 'tries'}, [selectorModel(fitxa), selectorIdioma()]),
       // Avisos que només mostra el CSS quan cal (estil.css): navegador sense unitats cqw, tauleta en vertical
       element('p', {class: 'avis-capcalera avis-navegador', text: 'Aquest navegador és massa antic per dibuixar la calculadora. Actualitza\'l (Chrome 105 o posterior).'}),
       element('p', {class: 'avis-capcalera avis-gira', text: 'Gira la tauleta: en horitzontal veuràs alhora la calculadora i les explicacions.'}),
@@ -526,7 +540,7 @@ async function arrenca(contenidor = document.getElementById('fitxa')) {
     return errorCarrega(contenidor, 'No s\'ha pogut carregar KaTeX, la biblioteca que dibuixa les fórmules. Comprova la connexió i torna a carregar la pàgina.');
   }
   let model;
-  try { model = await Models.carrega(); } catch (e) {
+  try { [model, MODELS] = await Promise.all([Models.carrega(), Models.descriptorsTots()]); } catch (e) {
     return errorCarrega(contenidor, 'No s\'ha pogut carregar la calculadora. Comprova la connexió i torna a carregar la pàgina.');
   }
   arrel.fitxa = inicia(model, parametre('id'), contenidor);
@@ -539,7 +553,9 @@ function inicia(model, id, contenidor) {
   text = Text.creador({model: M, idioma: IDIOMA});
   const fitxa = M.dades.FITXES.find(f => f.id === id) || null;
   if (!fitxa) {
-    return errorCarrega(contenidor, `No hi ha cap fitxa «${escapa(id || '')}». <a href="index.html">Torna a la portada</a>.`);
+    document.title = 'Calculadora ' + M.curt;
+    return errorCarrega(contenidor, `No hi ha cap fitxa «${escapa(id || '')}» per a la ${escapa(M.curt)}. `
+      + `<a href="${escapa(Models.adreca(M.id))}">Torna a la portada</a> per veure les fitxes d'aquesta calculadora.`);
   }
   const bloc = M.dades.BLOCS.find(b => b.id === fitxa.bloc);
   const germanes = M.dades.FITXES.filter(f => f.bloc === fitxa.bloc);

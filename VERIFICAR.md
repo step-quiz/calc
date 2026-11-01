@@ -79,3 +79,29 @@ El menú d'una variable (OK a la llista de variables) només porta «Desar» qua
 3. Els símbols de CATALOG > Verificar surten en aquest ordre: =, ≠, >, <, ≥, ≤.
 4. CATALOG > Probabilidad: %, Factorial(!), Permutación(P), Combinación(C), Número aleatorio, Entero aleatorio (per arribar a Combinación(C), tres cops ↓).
 5. $8\div 0{,}57$ en E Mat/S Mat dona la fracció $\frac{800}{57}$.
+
+---
+
+# fx-82MS (2a edició): què cal comprovar amb la calculadora (versió 34)
+
+Les fitxes de la fx-82MS surten del manual en castellà (*fx-82MS … 2.ª edición / S-V.P.A.M. Guía del
+usuario*, CASIO 2018) i de les fotos de producte. El que el manual **no dibuixa** s'ha deduït; si a la
+calculadora es veu diferent, el que s'ha de corregir és la fitxa o `models/fx-82ms/` (la pantalla, a
+`pantalla.js`; el que escriu cada tecla, a `simulador.js`; les pantalles d'opcions, a `guions.js`).
+
+**La calculadora dibuixada.** Mesurada (1/11/2026) sobre la foto frontal de producte de 478 × 1000 px
+(el cos fa 472 × 995 px: proporció 2,108, la mateixa que la foto de 1200 px). Tecles de funció de
+11,4 × 7,0 % de l'amplada; tecles de baix de 14,0 × 9,7 %; les quatre rodones de dalt, de 8 %. Com a
+la CW, es retalla la franja del logotip de dalt. La creu del cursor és un oval amb quatre tecles.
+
+| # | Què | On és | Què s'ha posat |
+|---|---|---|---|
+| 1 | La fila d'indicadors | `pantalla.js` (`POSICIO`) | S a l'esquerra, A al costat; D/R/G en negatiu al 65 % de l'amplada (com a la foto), FIX al 72 %, SCI al 79 % (com a la foto). ▲ (historial) encara no es dibuixa a cap fitxa. |
+| 2 | La línia de dalt mentre s'escriu un càlcul nou després d'un resultat | `simulador.js` (`previ`) | A baix es continua veient el resultat d'abans fins que es prem =. Després d'AC o de canviar un mode, «0.». |
+| 3 | Les pantalles de MODE | `guions.js` (`OPCIONS`) | COMP SD REG → Deg Rad Gra → Fix Sci Norm → Disp, amb els números 1, 2, 3 a la línia de baix, sota de cada nom; un altre MODE passa a la pantalla següent i, després de Disp, torna a la primera. En triar una opció, la calculadora torna a la pantalla de càlcul buida («0.»). |
+| 4 | El menú de DRG▸ (SHIFT Ans) | `guions.js` (`drg`) | «D R G» a dalt i 1, 2, 3 a baix; el 2 escriu una r darrere del valor: `sin (π÷6)r`. |
+| 5 | Com es veu el que s'escriu | `simulador.js` (`ESCRIU`) | «sin », «cos », «tan », «log » i «ln » porten un espai darrere (la foto: «sin 60+cos 9»); el signe negatiu (−) i la resta es veuen igual, «-»; SHIFT x³ escriu «³√»; SHIFT ^ escriu «ˣ√» (`4ˣ√16`); a b/c escriu «┘». |
+| 6 | La fracció a la línia de baix | `pantalla.js` | 7 segments amb ┘ (els segments c i d): «1┘7┘12». |
+| 7 | Les conversions amb a b/c | fitxes `frac-prioritat` i `pot-fraccio` | Després de 1.666666667, a b/c dona 1┘2┘3; després de 2.25, 2┘1┘4. |
+| 8 | Quants caràcters té la línia de dalt | `pantalla.js` (`COLUMNES`) | 12 (la foto: «sin 60+cos 9»); si n'hi ha més, es desplaça i surt una fletxa. |
+| 9 | Les 10 xifres de baix | `calcul.js` | Compten el 0 de davant dels decimals (el manual: tan(−35) = −0,612800788): cos (π÷3) en graus dona 0.999832979. |

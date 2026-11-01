@@ -71,9 +71,11 @@ a{color:inherit}
 }
 .versio{white-space:nowrap; opacity:.7}
 /* «Calculadora en: Castellano / Català» (fase 3): a la dreta de la capçalera */
-.tria-idioma{margin-left:auto; flex-shrink:0; display:flex; align-items:center; gap:6px; font-family:var(--mono); font-size:.72rem; color:rgba(255,255,255,.8)}
-.tria-idioma select{font:inherit; color:var(--txt); background:#fff; border:1px solid #fff; border-radius:5px; padding:3px 4px}
-@media (any-pointer:coarse){ .tria-idioma select{padding:7px 6px} }
+/* «La teva calculadora» (v34) i «Calculadora en» (fase 3): a la dreta de la capçalera */
+.tries{margin-left:auto; flex-shrink:0; display:flex; flex-wrap:wrap; align-items:center; gap:6px 16px}
+.tria-model, .tria-idioma{flex-shrink:0; display:flex; align-items:center; gap:6px; font-family:var(--mono); font-size:.72rem; color:rgba(255,255,255,.8)}
+.tria-model select, .tria-idioma select{font:inherit; color:var(--txt); background:#fff; border:1px solid #fff; border-radius:5px; padding:3px 4px}
+@media (any-pointer:coarse){ .tria-model select, .tria-idioma select{padding:7px 6px} }
 .capcalera{flex-wrap:wrap}
 /* Avisos a la capçalera de la fitxa: només surten quan cal */
 .avis-capcalera{display:none; margin:0; font-family:var(--mono); font-size:.74rem; line-height:1.35; color:#fde68a}

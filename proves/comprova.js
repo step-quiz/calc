@@ -213,6 +213,18 @@ for (const id of Models.ids) {
   for (const P of propies) if (P.comprova) P.comprova({AMB_ARA_TU});
 }
 
+/* ── Entre calculadores ─────────────────────────────────────────────
+   El mateix tema, el mateix id (David, 1/11/2026): si dues calculadores tenen una fitxa amb el mateix id, és del
+   mateix bloc (en canviar de calculadora, l'alumne es queda a la mateixa fitxa). */
+for (let a = 0; a < models.length; a++) {
+  for (let b = a + 1; b < models.length; b++) {
+    const blocs = new Map(models[a].dades.FITXES.map(f => [f.id, f.bloc]));
+    for (const f of models[b].dades.FITXES) {
+      if (blocs.has(f.id)) ok(blocs.get(f.id) === f.bloc, `fitxa ${f.id}`, `és al bloc «${blocs.get(f.id)}» a la ${models[a].curt} i al «${f.bloc}» a la ${models[b].curt}`);
+    }
+  }
+}
+
 /* ── El web ────────────────────────────────────────────────────────── */
 
 /* Versió: tots els .js i .css d'index.html i fitxa.html porten «?v=» igual a Models.VERSIO (els fitxers dels models
@@ -234,6 +246,6 @@ if (errors) {
 const fitxes = models.reduce((s, M) => s + M.dades.FITXES.length, 0);
 const passos = models.reduce((s, M) => s + M.dades.FITXES.reduce((t, f) => t + f.passos.length, 0), 0);
 const zona = models.reduce((s, M) => s + M.dades.FITXES.reduce((t, f) => t + f.passos.filter(p => p.error).length, 0), 0);
-console.log(`Tot correcte: ${comprovacions} comprovacions, ${models.length} calculadora${models.length === 1 ? '' : 'es'} (${models.map(M => M.curt).join(', ')}), `
+console.log(`Tot correcte: ${comprovacions} comprovacions, ${models.length} calculador${models.length === 1 ? 'a' : 'es'} (${models.map(M => M.curt).join(', ')}), `
   + `${fitxes} fitxes, ${passos} passos (${zona} en zona d'error)`
   + (katex ? ' (amb KaTeX).' : ' (sense KaTeX: per comprovar les fórmules, KATEX=<katex>/dist).'));

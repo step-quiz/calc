@@ -5,6 +5,8 @@
    sola a la portada. Un bloc sense fitxes diu «Properament». Sense
    descripcions ni nombre de passos (David, 31/10/2026: la portada ha de
    ser simple). El peu porta la versió de la web (Models.VERSIO).
+   A dalt, «La teva calculadora» (v34): en triar-ne una altra, es desa i
+   es torna a dibuixar la portada amb les fitxes d'aquella calculadora.
 
    Depèn de Models i Preferencies. Exporta «Portada»: arrenca().
    ═══════════════════════════════════════════════════════════════════ */
@@ -13,8 +15,19 @@
 
 const escapa = s => String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
 
-function dibuixa(M) {
+function dibuixa(M, models) {
   const contenidor = document.getElementById('blocs');
+  document.title = `Calculadora ${M.curt} — Matemàtiques de Batxillerat`;
+  const h1 = document.querySelector('.capcalera h1');
+  if (h1) h1.textContent = `La calculadora ${M.curt}, pas a pas`;
+
+  /* La calculadora (v34): l'alumne tria la seva; el navegador la recorda */
+  const model = document.getElementById('model');
+  if (model) {
+    model.replaceChildren(...models.map(d => Object.assign(document.createElement('option'), {value: d.id, textContent: d.curt})));
+    model.value = M.id;
+    model.addEventListener('change', () => { Preferencies.desaModel(model.value); location.href = Models.adreca(model.value); });
+  }
 
   /* L'idioma de la calculadora (fase 3): l'alumne el tria aquí o a qualsevol fitxa, i el navegador el recorda.
      Si la calculadora no té idiomes, el selector no surt. */
@@ -34,7 +47,7 @@ function dibuixa(M) {
     const fitxes = FITXES.filter(f => f.bloc === b.id);
     const llista = fitxes.length
       ? '<ol class="llista">' + fitxes.map((f, j) =>
-        `<li><a href="fitxa.html?id=${encodeURIComponent(f.id)}"><span class="n">${String(j + 1).padStart(2, '0')}</span>`
+        `<li><a href="${escapa(Models.adreca(M.id, f.id))}"><span class="n">${String(j + 1).padStart(2, '0')}</span>`
         + `<span>${escapa(f.titol)}</span></a></li>`).join('') + '</ol>'
       : '<span class="properament">Properament</span>';
     return `<section class="bloc" id="${b.id}" style="--cat:${b.color}">`
@@ -44,7 +57,7 @@ function dibuixa(M) {
   const bombolles = document.createElement('div');
   bombolles.className = 'bombolles';
   bombolles.innerHTML = petits.map(b => FITXES.filter(f => f.bloc === b.id).map(f =>
-    `<a class="bombolla" id="${b.id}" style="--cat:${b.color}" href="fitxa.html?id=${encodeURIComponent(f.id)}">`
+    `<a class="bombolla" id="${b.id}" style="--cat:${b.color}" href="${escapa(Models.adreca(M.id, f.id))}">`
     + `<span class="bombolla-bloc">${escapa(b.titol)}</span><span>${escapa(f.titol)}</span></a>`).join('')).join('');
   contenidor.after(bombolles);
 
@@ -52,10 +65,11 @@ function dibuixa(M) {
   if (versio) versio.textContent = 'Versió ' + Models.VERSIO;
 }
 
-/** Carrega la calculadora de per defecte (o la de ?model=) i dibuixa la portada. */
+/** Carrega la calculadora de l'alumne (?model=, la desada o la de per defecte) i dibuixa la portada. */
 async function arrenca() {
   try {
-    dibuixa(await Models.carrega());
+    const [M, models] = await Promise.all([Models.carrega(), Models.descriptorsTots()]);
+    dibuixa(M, models);
   } catch (e) {
     document.getElementById('blocs').innerHTML = '<p class="error-carrega">No s\'ha pogut carregar la calculadora. Comprova la connexió i torna a carregar la pàgina.</p>';
   }
