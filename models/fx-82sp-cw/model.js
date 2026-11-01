@@ -18,7 +18,7 @@ Models.descriu({
     'tecles.js', 'pantalla.js', 'guions.js', 'simulador.js',
     'fitxes/blocs.js', 'fitxes/exacte.js', 'fitxes/fraccions.js', 'fitxes/angles.js', 'fitxes/pau.js',
     'fitxes/pau-ag.js', 'fitxes/pau-ap.js', 'fitxes/examen.js',
-    'fitxes/eso/parentesis.js', 'fitxes/eso/mitjanes.js',
+    'fitxes/eso/parentesis.js', 'fitxes/eso/percentatges.js', 'fitxes/eso/mitjanes.js',
   ],
   estils: ['estil.css'],
   proves: ['proves.js'],
