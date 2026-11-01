@@ -267,8 +267,10 @@ function tecla(estat, id) {
 
   // Menús i llistes
   if (p.tipus === 'menu') {
-    if (id === 'down' || id === 'up') {
-      const sel = Math.max(0, Math.min(p.files.length - 1, p.sel + (id === 'down' ? 1 : -1)));
+    if (['down', 'up'].includes(id) || (p.columnes && ['left', 'right'].includes(id))) {
+      // Llista: ↓ ↑ d'una en una. Graella (p.columnes, els símbols de Verificar): ↓ ↑ canvien de fila, → ← de columna
+      const pas = {down: p.columnes || 1, up: -(p.columnes || 1), right: 1, left: -1}[id];
+      const sel = Math.max(0, Math.min(p.files.length - 1, p.sel + pas));
       return Object.freeze(Object.assign({}, p, {sel, marca: null}));
     }
     if (id === 'ok') return okAlMenu(p, estat);

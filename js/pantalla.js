@@ -90,7 +90,8 @@ function finestra(n, sel, visibles = 4) {
 function menu(estat) {
   const files = estat.files || [];
   const sel = estat.sel || 0;
-  const [de, fins] = finestra(files.length, sel);
+  const visibles = 4 * (estat.columnes || 1);   // una graella de dues columnes en mostra 8
+  const [de, fins] = finestra(files.length, sel, visibles);
   const html = files.slice(de, fins).map((f, j) => {
     const i = de + j;
     const radio = f.radio ? `<span class="radio">${f.radio === 'on' ? '◉' : '○'}</span>` : '';
@@ -98,11 +99,11 @@ function menu(estat) {
     return `<div class="lcd-fila${i === sel ? ' sel' : ''}${marca(estat, 'fila-' + i)}" data-marca="fila-${i}">${radio}<span class="t">${escapa(tr(f.t))}</span>${sub}</div>`;
   }).join('');
   let barraLateral = '';
-  if (files.length > 4) {
+  if (files.length > visibles) {
     const alt = 100 * 4 / files.length, top = 100 * de / files.length;
     barraLateral = `<div class="lcd-scroll"><span style="top:${top.toFixed(1)}%;height:${alt.toFixed(1)}%"></span></div>`;
   }
-  return `<div class="lcd-menu">${html}</div>${barraLateral}`;
+  return `<div class="lcd-menu${estat.columnes ? ' lcd-graella' : ''}">${html}</div>${barraLateral}`;
 }
 
 /** Les aplicacions de la pantalla HOME (el dibuix de la icona és només orientatiu). */

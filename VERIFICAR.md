@@ -45,18 +45,36 @@ i arrodonit a 10 xifres significatives, com fa la calculadora en el format Norma
 
 **Contrastat amb el manual (31/10/2026) i ja no deduït:** el menú TOOLS de Calcular (Deshacer, Simplificar ►, Verificar ON; p. 25-26); «Verificar ON»/«Verificar OFF», l'indicador ✔, que s'hi torna a la pantalla anterior i que l'historial s'esborra (p. 63-64); «Verdadero»/«Falso» alineats a la dreta de la línia del resultat (p. 65); la plantilla del logaritme (tecla `log■□`, la base, `→`, el nombre; es dibuixa $\log_{2}(16)$ i el parèntesi de tancament ja hi és; p. 51); `nCr` i `nPr` es dibuixen «10C4» i «10P4» (p. 53); el menú FUNCTION (f(x), g(x), Definir f(x), Definir g(x)), «f(x)=» / «g(x)=» i que EXE torna a la pantalla anterior (p. 60-61); les quatre primeres files del CATALOG (p. 25).
 
-**La calculadora en català (versió 25).** Les etiquetes en català de `G.CATALA` (`js/guions.js`) són una traducció
-provisional, feta amb el manual català de la fx-570/991SP X II on hi coincideix (Entrada/Sortida, E Línia/S Línia, Unitat
-angular, Graus sexag (D), Radian, Format nombre, Fixar decim, Result fracció, Símbol decimal, Separar dígits, Taula). La resta
-s'han de comprovar a la calculadora posada en català: Config càlcul, Recursos en línia, Grau cent (G), Not cient, Config i dades,
-Iniciar tot, Estàndard, Notació ENG, Anàlisi func, Probabilitat, Càlcul numèric, Altres, Graus, Radians, Gradians, Graus Min Seg,
-Permutació(P), Combinació(C), Nombre aleatori, Enter aleatori, Desfer, Desar, Vertader i Fals. Tampoc no se sap si, en català, la
-pantalla escriu «sen(» o «sin(» (la tecla és «sen»): ara es deixa «sen(».
+**La calculadora en català (versió 27): comprovada amb 43 fotos de la calculadora (David, 1/11/2026).** Les etiquetes de
+`G.CATALA` (`js/guions.js`) ja són les de la pantalla: CONFIG (Config Càlcul, Config Sistema, Reiniciar, Recursos online),
+Config Càlcul (Entrada/Sortida, Unitat angular, Format nombre, Result fracció, Símbol decimal, Separar dígits) i les seves
+opcions (Grau sexag (D), Radian, Grau centesimal; Fixar dec, Notac Cientí, Normal; Fracció mixta, Fracció impròpia; Punt, Coma),
+Reiniciar (Config i Dades, Mem. variables, Iniciar tot), CATALOG (Anàlisi func, Probabilitat, Càlcul numèric, Ang/Coord/Sexag,
+Hiperbòlica/Trig, Altres opcions), Probabilitat (%, Factorial(!), Permutació(P), Combinació(C), Número aleatori, Núm enter
+aleator), Ang/Coord/Sexag (Graus, Radians, Gradians, Rectang a polar, Polar a rectang, Graus Min Seg), TOOLS (Desfer,
+Simplificar ►, Verificar ON), FUNCTION i HOME (Calcular, Estadística, Taula, Math Box).
+
+Les fotos també confirmen, sigui quin sigui l'idioma: l'ordre de les 6 files del CATALOG (fila 3 de la taula) i de les 6 de
+Ang/Coord/Sexag (fila 4); que a **Format nombre** les tres files porten ► i que «Normal» mostra el tipus triat a la dreta («:2»;
+el web encara no el dibuixa); que en català la pantalla també escriu **sen** (al CATALOG hi ha «Arcsen»); que **PreAns** és a
+CATALOG > Altres opcions; i que la confirmació de Reiniciar és «Reiniciar OK?», el nom de l'opció i les files **Sí** i
+**Cancelar** (fila 1 de la taula: no és «Sí / No»).
+
+**Segona i tercera tanda de fotos (1/11/2026, versió 28).** Confirmades en català: el menú FORMAT amb √2/2 (Estàndard, Decimal,
+Notació ENG, Sexagesimal), el CATALOG amb Verificar activat (Verificar a dalt de tot), «Fals» i, literalment, «**Vardader**» (amb
+la errata de la calculadora). I tres canvis d'estructura, que no depenen de l'idioma i ja són al web:
+1. Amb Verificar activat, el menú TOOLS té **dues files**, «Deshacer» (triada) i «Verificar OFF»: per desactivar-lo, [TOOLS] [↓] [OK].
+   Corregeix el que es creia el 31/10/2026 (una sola fila).
+2. En triar «Normal» a Format nombre surten «Norm1:1.23×10⁻³» i «Norm2:0.00123» (no «Normal 1 / Normal 2»), i el menú s'obre
+   amb Norm1 triada encara que hi hagi Norm2: per triar Norm2, [↓] [OK] (fitxa *Tot em surt arrodonit*). Substitueix la fila 2.
+3. Els símbols de CATALOG > Verificar surten en una graella de dues columnes (= ≠ / > < / ≥ ≤): ↓ ↑ canvien de fila i → ← de columna.
+El menú d'una variable (OK a la llista de variables) només porta «Desar» quan hi ha un resultat per desar; si no, «Recuperar» i
+«Editar». Cap fitxa no el fa servir. En castellà, les dues últimes files del CATALOG són «Hiperb/Trigon» i «Otros» (comprovat a la calculadora, David, 1/11/2026).
 
 **Des de la versió 24,** l'indicador ✔ de Verificar es dibuixa a la dreta, al costat de ▲, com a la imatge del manual (p. 63).
 
 **Contrastat a la calculadora real (David, 31/10/2026) i ja no deduït:**
-1. Amb Verificar activat, el menú TOOLS només té **una fila**: «Verificar OFF» (que desactiva Verificar). No hi ha «Deshacer» ni «Simplificar».
+1. ~~Amb Verificar activat, el menú TOOLS només té una fila~~ — **corregit l'1/11/2026**: té dues files, «Deshacer» i «Verificar OFF» (vegeu més amunt).
 2. Amb Verificar activat, el CATALOG porta «Verificar» com a primera fila i, darrere, les files de sempre.
 3. Els símbols de CATALOG > Verificar surten en aquest ordre: =, ≠, >, <, ≥, ≤.
 4. CATALOG > Probabilidad: %, Factorial(!), Permutación(P), Combinación(C), Número aleatorio, Entero aleatorio (per arribar a Combinación(C), tres cops ↓).

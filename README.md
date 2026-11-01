@@ -40,7 +40,7 @@ veu en una columna.
 | Treballar en mode 'exacte' o 'decimal' | Llegeix la barra de dalt · Valor exacte i valor decimal · Em surt 0.5 en lloc d'1/2 · Tot em surt arrodonit (FIX) |
 | Operar amb fraccions i potències | Escriu una fracció amb la plantilla · Fracció de sumes: on van els parèntesis · Potències de negatius · Potència d'una fracció · Arrels d'índex n |
 | Treballar en mode 'graus' o 'radiants' | Posa la calculadora en radians · Troba l'error: el mode equivocat · Un sol angle en radians, sense canviar el mode |
-| Funcions útils per a la PAU | Defineix f(x) i g(x) i calcula'n valors · Reutilitza l'últim resultat (Ans) · Logaritme en qualsevol base · Nombres combinatoris · Comprova una igualtat |
+| Funcions útils per a la PAU | Defineix f(x) i g(x) i calcula'n valors (també la recta tangent) · Regla de Barrow amb f(x) · Reutilitza l'últim resultat (Ans) · Logaritme en qualsevol base · Nombres combinatoris · Comprova una igualtat |
 | Exercicis PAU. Àlgebra i Geometria | Àlgebra: comprova la solució d'un sistema (alg-24j-q2) · un menor orlat amb la regla de Sarrus (alg-24s-q2) · Geometria: distància d'un punt a un pla (geo-25s-q4b a) · el punt simètric respecte d'un pla (geo-25s-q4b c) · distàncies en centímetres (geo-26j2-q4b) |
 | Abans de l'examen (bombolla petita, a part dels blocs) | Comprova la calculadora en 30 segons |
 | Exercicis PAU. Anàlisi i Probabilitat | Anàlisi: Bolzano amb f(x) definida (ana-24i-q1) · una arrel cúbica en una optimització (ana-25i-q4a) · intueix els límits amb f(x) (ana-25j-q1) · un vitrall en radians (ana-25s-q4a) · Probabilitat: probabilitat total, Bayes i binomial (pro-24i-q4) · binomial, probabilitat total i Bayes (pro-24s-q4) · probabilitat total i un màxim (pro-25j-q3) |
@@ -68,13 +68,16 @@ primer resultat exacte (una fracció, una arrel o π) diu que surt així per aqu
 
 A dalt de la portada i de cada fitxa, «Calculadora en: Castellano / Català»: l'alumne tria l'idioma de la seva calculadora un
 cop i el navegador el recorda. Els menús de la pantalla, les opcions `{{…}}` dels textos i «Vertader/Fals» de Verificar surten
-en aquell idioma. La traducció al català és a `js/guions.js` (`CATALA`) i **encara és provisional**: s'ha de confirmar amb la
-calculadora (`VERIFICAR.md`). La prova comprova que tots els textos de menú i tots els `{{…}}` hi tenen traducció.
+en aquell idioma. La traducció al català és a `js/guions.js` (`CATALA`), comprovada amb fotos de la calculadora (versió 27);
+les poques pantalles que encara no s'han fotografiat són a `VERIFICAR.md`. La prova comprova que tots els textos de menú i tots els `{{…}}` hi tenen traducció.
 
 ## «Ara tu» (prova pilot, versió 25)
 
-Una fitxa pot portar `araTu: {enunciat, solucio}`: en acabar l'últim pas surt un exercici semblant i un botó «Mostra la
-solució». De moment, a tres fitxes ben diferents: *Fracció de sumes*, *Troba l'error: el mode equivocat* i *Probabilitat ·
+Una fitxa pot portar `araTu: {enunciat, resultat, error, inici, passos}`: en acabar l'últim pas surt un exercici semblant.
+«Mostra la solució» ensenya el **resultat correcte** i, en vermell, l'**error típic** (el que no s'ha de fer). «Comprova-ho pas a
+pas» posa la pàgina en mode «Ara tu»: fons verd oliva clar, i la calculadora fa els passos de l'«Ara tu» amb uns botons ◀ ▶
+propis (i les fletxes del teclat). «Torna a l'exercici», o tocar el reproductor principal, en surt. Els passos de l'«Ara tu»
+s'escriuen i es comproven igual que els d'una fitxa (també poden portar `error: true`). De moment, a tres fitxes ben diferents: *Fracció de sumes*, *Troba l'error: el mode equivocat* i *Probabilitat ·
 PAU 2024: binomial, probabilitat total i Bayes*.
 
 ## Fitxers

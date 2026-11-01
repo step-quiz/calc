@@ -57,14 +57,16 @@ const MENUS = Object.freeze({
   /** Config cálculo > Unidad angular. Manual, p. 22. */
   'unitat-angular': [['D', 'Grado sexag (D)'], ['R', 'Radián'], ['G', 'Grado cent (G)']],
   /** Config cálculo > Formato número. Manual, p. 22-23. */
-  'format-numero': [['fix', 'Fijar decim'], ['sci', 'Not cient'], ['normal', 'Normal']],
+  'format-numero': [['fix', 'Fijar decim', {sub: true}], ['sci', 'Not cient', {sub: true}], ['normal', 'Normal', {sub: true}]],   // ► a les tres files (foto de la calculadora, 1/11/2026)
   /** La pantalla que surt en triar «Normal» (el manual no la dibuixa: VERIFICAR.md). */
-  normal: [['normal1', 'Normal 1'], ['normal2', 'Normal 2']],
+  /** En triar Normal: un exemple de cada tipus, i s'obre amb Norm1 triada encara que hi hagi Norm2 (foto, 1/11/2026). */
+  normal: [['normal1', 'Norm1:1.23×10⁻³'], ['normal2', 'Norm2:0.00123']],
   /** Reiniciar. Manual, p. 24-25. */
   reiniciar: [['config-dades', 'Config y datos', {sub: true}], ['variables', 'Mem. variables', {sub: true}], ['tot', 'Iniciar todo', {sub: true}]],
   /** Menú FORMAT amb un resultat irracional (manual, p. 41-43). */
   format: [['estandard', 'Estándar'], ['decimal', 'Decimal'], ['enginyeria', 'Notación ING'], ['sexagesimal', 'Sexagesimal']],
-  /** CATALOG de l'aplicació Calcular (manual, p. 25; les dues últimes files: VERIFICAR.md). */
+  /** CATALOG de l'aplicació Calcular (manual, p. 25; l'ordre de les 6 files, comprovat a la calculadora en català, 1/11/2026;
+      el text castellà de les dues últimes, «Hiperb/Trigon» i «Otros», comprovat a la calculadora pel David). */
   catalog: [['analisi', 'Análisis func', {sub: true}], ['probabilidad', 'Probabilidad', {sub: true}], ['numeric', 'Cálculo numérico', {sub: true}],
     ['ang-coord-sexag', 'Ang/Coord/Sexag', {sub: true}], ['hiperb-trigon', 'Hiperb/Trigon', {sub: true}], ['altres', 'Otros', {sub: true}]],
   /** Amb Verificar activat, el CATALOG porta «Verificar» a dalt de tot (comprovat a la calculadora). */
@@ -74,9 +76,10 @@ const MENUS = Object.freeze({
   'ang-coord-sexag': [['graus', 'Grados'], ['radians', 'Radianes'], ['gradians', 'Gradianes'], ['rect-polar', 'Rectang a polar'], ['polar-rect', 'Polar a rectang'], ['gms', 'Grados Min Seg']],
   /** CATALOG > Probabilidad (manual, p. 52-53; ordre comprovat a la calculadora). */
   probabilidad: [['percent', '%'], ['factorial', 'Factorial(!)'], ['permutacio', 'Permutación(P)'], ['combinacio', 'Combinación(C)'], ['aleatori', 'Número aleatorio'], ['enter-aleatori', 'Entero aleatorio']],
-  /** Menú TOOLS de l'aplicació Calcular (manual, p. 25-26). Amb Verificar activat, una sola fila (comprovat a la calculadora). */
+  /** Menú TOOLS de l'aplicació Calcular (manual, p. 25-26). Amb Verificar activat, dues files: Deshacer i Verificar OFF,
+      amb Deshacer triada (foto de la calculadora, 1/11/2026; abans es creia que només n'hi havia una). */
   tools: [['desfer', 'Deshacer'], ['simplificar', 'Simplificar', {sub: true}], ['verificar-on', 'Verificar ON']],
-  'tools-verificar': [['verificar-off', 'Verificar OFF']],
+  'tools-verificar': [['desfer', 'Deshacer'], ['verificar-off', 'Verificar OFF']],
   /** CATALOG > Verificar: els símbols de relació (ordre comprovat a la calculadora). */
   verificar: [['igual', '='], ['diferent', '≠'], ['major', '>'], ['menor', '<'], ['major-igual', '≥'], ['menor-igual', '≤']],
   /** El menú que surt en prémer OK sobre una variable (l'ordre: VERIFICAR.md). */
@@ -86,30 +89,31 @@ const MENUS = Object.freeze({
 });
 
 /**
- * Fase 3 (v25): la calculadora en català. Text en castellà (el de MENUS i el de les fitxes, {{…}}) →
- * text en català. NO VERIFICAT: traducció provisional (David, 1/11/2026), feta amb el manual català
- * de la fx-570/991SP X II on hi coincideix (Entrada/Sortida, Unitat angular, Format nombre…); s'ha
- * de confirmar amb la calculadora (VERIFICAR.md). Els textos que no hi són es queden igual.
+ * Fase 3 (v25; v27): la calculadora en català. Text en castellà (el de MENUS i el de les fitxes, {{…}}) → text en català.
+ * Comprovat amb 43 fotos de la calculadora en català (David, 1/11/2026): CONFIG i els seus submenús, CATALOG i els seus
+ * submenús, TOOLS, FUNCTION i HOME. Encara sense foto: el menú FORMAT, el TOOLS i el CATALOG amb Verificar activat,
+ * els símbols de Verificar, «Verdadero/Falso», el menú d'una variable i la pantalla «Normal 1 / Normal 2» (VERIFICAR.md).
  */
 const CATALA = Object.freeze({
-  'Config cálculo': 'Config càlcul', 'Config sistema': 'Config sistema', 'Reiniciar': 'Reiniciar', 'Recursos online': 'Recursos en línia',
+  'Config cálculo': 'Config Càlcul', 'Config sistema': 'Config Sistema', 'Reiniciar': 'Reiniciar', 'Recursos online': 'Recursos online',
   'Entrada/Salida': 'Entrada/Sortida', 'Unidad angular': 'Unitat angular', 'Formato número': 'Format nombre',
   'Result fracción': 'Result fracció', 'Símbolo decimal': 'Símbol decimal', 'Separar dígitos': 'Separar dígits',
   'E Mat/S Mat': 'E Mat/S Mat', 'E Mat/S Decimal': 'E Mat/S Decimal', 'E Línea/S Línea': 'E Línia/S Línia', 'E Línea/S Decim': 'E Línia/S Decim',
-  'Grado sexag (D)': 'Graus sexag (D)', 'Radián': 'Radian', 'Grado cent (G)': 'Grau cent (G)',
-  'Fijar decim': 'Fixar decim', 'Not cient': 'Not cient', 'Normal': 'Normal', 'Normal 1': 'Normal 1', 'Normal 2': 'Normal 2',
-  'Config y datos': 'Config i dades', 'Mem. variables': 'Mem. variables', 'Iniciar todo': 'Iniciar tot',
+  'Grado sexag (D)': 'Grau sexag (D)', 'Radián': 'Radian', 'Grado cent (G)': 'Grau centesimal',
+  'Fijar decim': 'Fixar dec', 'Not cient': 'Notac Cientí', 'Normal': 'Normal', 'Normal 1': 'Normal 1', 'Normal 2': 'Normal 2',
+  'Config y datos': 'Config i Dades', 'Mem. variables': 'Mem. variables', 'Iniciar todo': 'Iniciar tot',
   'Estándar': 'Estàndard', 'Decimal': 'Decimal', 'Notación ING': 'Notació ENG', 'Sexagesimal': 'Sexagesimal',
   'Análisis func': 'Anàlisi func', 'Probabilidad': 'Probabilitat', 'Cálculo numérico': 'Càlcul numèric',
-  'Ang/Coord/Sexag': 'Ang/Coord/Sexag', 'Hiperb/Trigon': 'Hiperb/Trigon', 'Otros': 'Altres', 'Verificar': 'Verificar',
+  'Ang/Coord/Sexag': 'Ang/Coord/Sexag', 'Hiperb/Trigon': 'Hiperbòlica/Trig', 'Otros': 'Altres opcions', 'Verificar': 'Verificar',
   'Grados': 'Graus', 'Radianes': 'Radians', 'Gradianes': 'Gradians', 'Rectang a polar': 'Rectang a polar', 'Polar a rectang': 'Polar a rectang', 'Grados Min Seg': 'Graus Min Seg',
   '%': '%', 'Factorial(!)': 'Factorial(!)', 'Permutación(P)': 'Permutació(P)', 'Combinación(C)': 'Combinació(C)',
-  'Número aleatorio': 'Nombre aleatori', 'Entero aleatorio': 'Enter aleatori',
+  'Número aleatorio': 'Número aleatori', 'Entero aleatorio': 'Núm enter aleator',
   'Deshacer': 'Desfer', 'Simplificar': 'Simplificar', 'Verificar ON': 'Verificar ON', 'Verificar OFF': 'Verificar OFF',
   '=': '=', '≠': '≠', '>': '>', '<': '<', '≥': '≥', '≤': '≤',
   'Guardar': 'Desar', 'Recuperar': 'Recuperar', 'Editar': 'Editar',
   'f(x)': 'f(x)', 'g(x)': 'g(x)', 'Definir f(x)': 'Definir f(x)', 'Definir g(x)': 'Definir g(x)',
-  'Verdadero': 'Vertader', 'Falso': 'Fals', 'Idioma': 'Idioma',
+  'Verdadero': 'Vardader', 'Falso': 'Fals',   // «Vardader», amb la errata de la calculadora (foto, 1/11/2026)
+  'Norm1:1.23×10⁻³': 'Norm1:1.23×10⁻³', 'Norm2:0.00123': 'Norm2:0.00123', 'Idioma': 'Idioma',
   'Calcular': 'Calcular', 'Estadística': 'Estadística', 'Tabla': 'Taula', 'Math Box': 'Math Box',
 });
 const IDIOMES = Object.freeze({es: 'Castellano', ca: 'Català'});
@@ -154,7 +158,8 @@ const angCoordSexag = sel => deMenus('ang-coord-sexag', sel);
 const probabilidad = sel => deMenus('probabilidad', sel);
 const tools = sel => deMenus('tools', sel);
 const toolsVerificar = sel => deMenus('tools-verificar', sel);
-const verificar = sel => deMenus('verificar', sel);
+/** Els símbols de Verificar: una graella de dues columnes (= ≠ / > < / ≥ ≤; foto de la calculadora, 1/11/2026). */
+const verificar = sel => Object.freeze(Object.assign({}, deMenus('verificar', sel), {columnes: 2}));
 const menuVariable = (sel = 0) => deMenus('menu-variable', sel);
 const menuFuncio = (sel = 0) => deMenus('funcio', sel);
 

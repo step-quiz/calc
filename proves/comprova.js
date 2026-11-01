@@ -115,13 +115,18 @@ for (const [id, files] of Object.entries(G.MENUS)) {
   for (const f of files) ok(Object.prototype.hasOwnProperty.call(G.CATALA, f[1]), `menú ${id}`, `«${f[1]}» no té traducció al català (G.CATALA)`);
 }
 for (const f of Dades.FITXES) {
-  const textos = [f.enunciat, ...f.passos.map(p => p.text)].concat(f.araTu ? [f.araTu.enunciat, f.araTu.solucio] : []);
+  const textos = [f.enunciat, ...f.passos.map(p => p.text)].concat(f.araTu ? [f.araTu.enunciat, f.araTu.error || '', ...(f.araTu.passos || []).map(p => p.text)] : []);
   for (const t of textos) {
     for (const m of String(t).replace(/\$[^$]*\$/g, '').matchAll(/\{\{([^}]+)\}\}/g)) {
       ok(Object.prototype.hasOwnProperty.call(G.CATALA, m[1]), `fitxa ${f.id}`, `{{${m[1]}}} no té traducció al català (G.CATALA)`);
     }
   }
 }
+
+/* Els «Ara tu» amb passos es comproven com una fitxa més (pantalles, simulador, resultats) */
+const PSEUDO = new Map(Dades.FITXES.filter(f => f.araTu && f.araTu.passos).map(f =>
+  [f.id, {id: f.id + '-ara-tu', enunciat: f.araTu.enunciat, inici: f.araTu.inici, passos: f.araTu.passos}]));
+const AMB_ARA_TU = Dades.FITXES.concat([...PSEUDO.values()]);
 
 /* Fitxes */
 const idsFitxes = new Set();
@@ -134,8 +139,17 @@ for (const f of Dades.FITXES) {
   ok(f.titol, on, 'falta el títol');
   comprovaText(f.enunciat, on + ' · enunciat');
   comprovaPantalla(f.inici, on + ' · inici');
-  if (f.araTu) { comprovaText(f.araTu.enunciat, on + ' · ara tu'); comprovaText(f.araTu.solucio, on + ' · ara tu (solució)'); }
+  if (f.araTu) {   // «Ara tu» (v26): enunciat, resultat correcte (TeX), error típic (opcional) i els passos per comprovar-ho
+    comprovaText(f.araTu.enunciat, on + ' · ara tu');
+    ok(typeof f.araTu.resultat === 'string' && f.araTu.resultat, on, 'l\'«Ara tu» ha de portar el resultat correcte');
+    comprovaTeX(f.araTu.resultat, on + ' · ara tu (resultat)');
+    if (f.araTu.error) { comprovaText(f.araTu.error, on + ' · ara tu (error)'); ok(!/!!/.test(f.araTu.error), on, 'l\'error de l\'«Ara tu» ja porta «Error típic»: sense !!…!!'); }
+    if (f.araTu.passos) { comprovaPantalla(f.araTu.inici, on + ' · ara tu · inici'); comprovaPassos(PSEUDO.get(f.id), on + ' · ara tu', f.araTu.enunciat); }
+  }
   ok(Array.isArray(f.passos) && f.passos.length >= 2, on, 'calen almenys dos passos');
+  comprovaPassos(f, on, f.enunciat);
+}
+function comprovaPassos(f, on, enunciat) {
   f.passos.forEach((p, i) => {
     const onPas = `${on} · pas ${i + 1}`;
     ok(Array.isArray(p.tecles), onPas, 'tecles ha de ser una llista');
@@ -149,7 +163,7 @@ for (const f of Dades.FITXES) {
     ok(p.error === undefined || p.error === true, onPas, 'error ha de ser true (o no posar-lo)');
     ok((p.text.match(/!!/g) || []).length % 2 === 0, onPas, '!! sense tancar');
     ok(!/!!/.test(p.text) || p.error, onPas, 'l\'avís !!…!! només va en un pas amb error: true');
-    if (p.apartat) ok(new RegExp('\\[' + p.apartat + '\\][\\s\\S]*?\\[\\/' + p.apartat + '\\]').test(f.enunciat), onPas,
+    if (p.apartat) ok(new RegExp('\\[' + p.apartat + '\\][\\s\\S]*?\\[\\/' + p.apartat + '\\]').test(enunciat), onPas,
       `l'apartat «${p.apartat}» no està marcat a l'enunciat amb [${p.apartat}]…[/${p.apartat}]`);
   });
 }
@@ -169,7 +183,7 @@ for (const f of Dades.FITXES) {
 
 /* El simulador: totes les pantalles intermèdies es poden deduir (o la fitxa les dona) i el que
    s'escriu tecla a tecla coincideix amb la pantalla final de cada pas. */
-for (const f of Dades.FITXES) {
+for (const f of AMB_ARA_TU) {
   const {pantalles, errors: errorsSim} = Simulador.pantalles(f);
   comprovacions++;
   for (const e of errorsSim) error(`fitxa ${f.id} · simulador`, e);
@@ -213,7 +227,7 @@ for (const [id, [x, y, d]] of posicions) {
 
 /* Els resultats de les pantalles: es tornen a calcular i han de coincidir amb el que hi ha escrit (proves/resultats.js) */
 {
-  const {comprovats, errors: errorsRes} = require('./resultats.js').comprova(Dades);
+  const {comprovats, errors: errorsRes} = require('./resultats.js').comprova({FITXES: AMB_ARA_TU});
   comprovacions += comprovats;
   ok(comprovats > 0, 'resultats', 'no s\'ha comprovat cap resultat');
   for (const e of errorsRes) error('resultat', e);

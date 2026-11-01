@@ -40,7 +40,7 @@ const CORBA = 'cubic-bezier(.45,.05,.25,1)';
  * Versió de la web. Quan es canvia qualsevol .js o .css, s'ha d'augmentar aquí I als «?v=» de
  * index.html i fitxa.html (la prova ho comprova): així cap navegador no fa servir fitxers vells.
  */
-const VERSIO = '25';
+const VERSIO = '29';
 
 const PEU = '© 2026 <strong>David Arso Civil</strong>. Ús educatiu lliure. Prohibida la comercialització '
   + 'i la modificació (<a rel="license" href="https://creativecommons.org/licenses/by-nc-nd/4.0/">CC BY-NC-ND 4.0</a>). '
@@ -173,20 +173,39 @@ function construeixPagina(fitxa, bloc, germanes, contenidor) {
   r.calculadora = element('div', {class: 'calculadora', style: `aspect-ratio:100/${T.alcada}`, html: htmlCalculadora()});
   r.calculadora.append(element('div', {class: 'lcd', style: `left:${T.vidre.x}cqw;top:${T.vidre.y}cqw;width:${T.vidre.w}cqw;height:${T.vidre.h}cqw`}, [r.lcd]));
   r.teclat = r.calculadora;
-  // «Ara tu» (fase 4, prova pilot): un exercici semblant que surt en acabar l'últim pas; la solució, amb un botó
+  // «Ara tu» (fase 4, prova pilot; v26, David): surt en acabar l'últim pas. «Mostra la solució» ensenya el resultat
+  // correcte i l'error típic; «Comprova-ho pas a pas» fa servir la calculadora per a l'«Ara tu», amb uns botons ◀ ▶
+  // propis i el fons verd oliva (mode «Ara tu»: inicia() el governa).
   if (fitxa.araTu) {
-    const solucio = element('div', {class: 'ara-tu-solucio', html: text(fitxa.araTu.solucio), hidden: true});
-    const boto = element('button', {class: 'ara-tu-boto', type: 'button', 'aria-expanded': 'false', text: 'Mostra la solució'});
-    boto.addEventListener('click', () => {
+    const A = fitxa.araTu;
+    const boto = (classe, nom, d) => element('button', {class: 'boto ' + classe, type: 'button', title: nom, 'aria-label': nom, html: icona(d)});
+    const veure = element('button', {class: 'ara-tu-boto', type: 'button', 'aria-expanded': 'false', text: 'Mostra la solució'});
+    const pasAPas = element('button', {class: 'ara-tu-boto ara-tu-comprova', type: 'button', text: 'Comprova-ho pas a pas'});
+    const surt = element('button', {class: 'ara-tu-boto', type: 'button', text: 'Torna a l\'exercici'});
+    const solucio = element('div', {class: 'ara-tu-solucio', hidden: true}, [
+      element('p', {class: 'ara-tu-resultat', html: 'Resultat correcte: ' + formula(A.resultat)}),
+      A.error ? element('p', {class: 'ara-tu-error', html: '<span class="avis-error">Error típic</span>: ' + text(A.error)}) : null,
+      A.passos ? pasAPas : null,
+    ]);
+    const modePas = element('div', {class: 'ara-tu-mode', hidden: true}, [
+      element('div', {class: 'ara-tu-controls'}, [
+        element('div', {class: 'botons'}, [boto('', 'Pas anterior de l\'«Ara tu»', ICONES.anterior), boto('principal', 'Pas següent de l\'«Ara tu»', ICONES.seguent)]),
+        surt]),
+      element('ol', {class: 'passos passos-ara-tu', 'aria-label': 'Passos de l\'«Ara tu»'}),
+    ]);
+    veure.addEventListener('click', () => {
       solucio.hidden = !solucio.hidden;
-      boto.textContent = solucio.hidden ? 'Mostra la solució' : 'Amaga la solució';
-      boto.setAttribute('aria-expanded', String(!solucio.hidden));
+      veure.textContent = solucio.hidden ? 'Mostra la solució' : 'Amaga la solució';
+      veure.setAttribute('aria-expanded', String(!solucio.hidden));
     });
     r.araTu = element('section', {class: 'ara-tu', 'aria-label': 'Ara tu', hidden: true}, [
       element('p', {class: 'ara-tu-titol', text: 'Ara tu'}),
-      element('p', {class: 'ara-tu-enunciat', html: text(fitxa.araTu.enunciat)}), boto, solucio]);
-    r.araTu.amagaSolucio = () => { solucio.hidden = true; boto.textContent = 'Mostra la solució'; boto.setAttribute('aria-expanded', 'false'); };
+      element('p', {class: 'ara-tu-enunciat', html: text(A.enunciat)}), veure, solucio, modePas]);
+    r.araTu.amagaSolucio = () => { solucio.hidden = true; veure.textContent = 'Mostra la solució'; veure.setAttribute('aria-expanded', 'false'); };
+    r.araTuUI = {veure, pasAPas, surt, solucio, modePas, passos: modePas.querySelector('ol'),
+      anterior: modePas.querySelectorAll('.boto')[0], seguent: modePas.querySelectorAll('.boto')[1]};
   }
+
   r.escenari = element('div', {class: 'escenari'}, [r.calculadora, r.efectes, r.cursor]);
 
   const enllac = f => element('a', {class: 'pastilla' + (f.id === fitxa.id ? ' actual' : ''), href: 'fitxa.html?id=' + encodeURIComponent(f.id),
@@ -338,7 +357,11 @@ function creaCursor(r, temps) {
 
 /* ── 7. REPRODUCTOR ────────────────────────────────────────────────── */
 
-function creaReproductor(r, fitxa, temps) {
+/**
+ * opcions.adreca = false: no posa el pas a l'adreça (el reproductor de l'«Ara tu»);
+ * opcions.abans(): es crida abans de saltar o avançar (el principal hi surt del mode «Ara tu»).
+ */
+function creaReproductor(r, fitxa, temps, opcions = {}) {
   const passos = fitxa.passos;
   const darrer = passos.length - 1;
   const cursor = creaCursor(r, temps);
@@ -384,7 +407,7 @@ function creaReproductor(r, fitxa, temps) {
     r.anunci.innerHTML = idx < 0 ? text(fitxa.enunciat)
       : `Pas ${idx + 1} de ${passos.length}.${error ? ' Atenció: aquest pas ensenya un ús erroni.' : ''} ${text(passos[idx].text)}`;
     // L'adreça porta el pas actual (fitxa.html?id=…&pas=N): es pot copiar per enllaçar-lo o projectar-lo
-    try {
+    if (opcions.adreca !== false) try {
       const u = new URL(location.href);
       if (idx < 0) u.searchParams.delete('pas'); else u.searchParams.set('pas', String(idx + 1));
       history.replaceState(null, '', u);
@@ -395,6 +418,7 @@ function creaReproductor(r, fitxa, temps) {
 
   /** Va al pas i (-1 = pas 0), sense animació. Si hi ha un pas animant-se, l'interromp. */
   function salta(i) {
+    if (opcions.abans) opcions.abans();
     torn++;
     ocupat = false;
     idx = Math.max(-1, Math.min(darrer, i));
@@ -412,6 +436,7 @@ function creaReproductor(r, fitxa, temps) {
    * l'acaba a l'instant (la pulsació següent passarà al pas que ve).
    */
   async function seguent() {
+    if (opcions.abans) opcions.abans();
     if (ocupat) { salta(idx); return; }
     if (idx >= darrer) return;
     ocupat = true;
@@ -550,7 +575,38 @@ function inicia(id = parametre('id'), contenidor = document.getElementById('fitx
   // fitxa.html?id=…&pas=N obre directament el pas N (1 = el primer; sense número o fora de rang, el pas 0).
   // Es llegeix abans de crear el reproductor, que reescriu l'adreça amb el pas actual.
   const pasInicial = parseInt(parametre('pas'), 10);
-  const reproductor = creaReproductor(r, fitxa, temps);
+  /* Mode «Ara tu» (v26): la calculadora passa a l'«Ara tu», amb un reproductor propi i el fons verd oliva.
+     En surt amb «Torna a l'exercici» o en tocar el reproductor principal. */
+  let modeAraTu = false, sub = null;
+  const ui = r.araTuUI;
+  function surtAraTu() {
+    if (!modeAraTu) return;
+    modeAraTu = false;
+    document.body.classList.remove('mode-ara-tu');
+    ui.modePas.hidden = true;
+    ui.pasAPas.hidden = false;
+    if (sub) sub.salta(sub.pas);              // atura'n l'animació, si n'hi ha
+    reproductor.salta(reproductor.pas);       // la calculadora torna a l'exercici
+  }
+  function entraAraTu() {
+    modeAraTu = true;
+    document.body.classList.add('mode-ara-tu');
+    ui.modePas.hidden = false;
+    ui.pasAPas.hidden = true;
+    const dades = {inici: fitxa.araTu.inici, passos: fitxa.araTu.passos};
+    if (!sub) {
+      const r2 = Object.assign({}, r, {passos: ui.passos, enunciat: element('p'), anterior: ui.anterior, seguent: ui.seguent, araTu: null});
+      sub = creaReproductor(r2, dades, temps, {adreca: false});
+    } else sub.salta(-1);
+    requestAnimationFrame(() => ui.modePas.scrollIntoView({block: 'nearest'}));
+  }
+  if (ui) {
+    ui.pasAPas.addEventListener('click', entraAraTu);
+    ui.surt.addEventListener('click', surtAraTu);
+  }
+  const actiu = () => (modeAraTu && sub ? sub : reproductor);
+
+  const reproductor = creaReproductor(r, fitxa, temps, {abans: surtAraTu});
   if (pasInicial >= 1 && pasInicial <= fitxa.passos.length) reproductor.salta(pasInicial - 1);
   const avis = creaAvis(r);
   for (const b of [r.anterior, r.seguent]) {
@@ -566,11 +622,11 @@ function inicia(id = parametre('id'), contenidor = document.getElementById('fitx
     if (e.key === 'ArrowRight' || e.key === 'ArrowDown') {
       e.preventDefault();
       avis.teclat();
-      reproductor.seguent();
+      actiu().seguent();
     } else if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') {
       e.preventDefault();
       avis.teclat();
-      reproductor.anterior();
+      actiu().anterior();
     }
   });
   return reproductor;
