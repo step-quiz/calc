@@ -154,6 +154,26 @@ a{color:inherit}
 .enunciat .katex-display{margin:.35em 0}
 /* L'apartat que es resol al pas actual, subratllat amb fluorescent verd */
 .apartat{border-radius:3px; transition:background-color .25s, box-shadow .25s}
+/* La font d'un exercici real (v38, David): una icona del cos de la lletra davant de l'enunciat; en clicar-la, una bombolla
+   amb la font i una creu (motor.js, botoFont; es tanca sola als 8 s). La bombolla és absoluta: no mou res. */
+.enunciat{position:relative}
+.font{position:relative; display:inline-block; vertical-align:-.12em}
+.font-boto{display:inline-flex; width:1em; height:1em; padding:0; border:0; background:none; color:var(--muted); cursor:pointer; border-radius:3px}
+.font-boto svg{width:100%; height:100%}
+.font-boto:hover, .font-boto:focus-visible, .font-boto[aria-expanded="true"]{color:var(--cat)}
+.font-bombolla{position:absolute; z-index:5; left:-6px; top:calc(100% + 6px); display:flex; align-items:center; gap:10px; white-space:nowrap;
+  padding:5px 6px 5px 11px; border:1.5px solid var(--cat); border-radius:8px; background:var(--surface); box-shadow:0 4px 14px rgba(15,23,42,.18);
+  font:600 .8rem/1.2 var(--mono); color:var(--txt)}
+.font-tanca{width:1.6em; height:1.6em; padding:0; border:0; border-radius:50%; background:none; color:var(--muted); font:inherit; font-size:1rem; line-height:1; cursor:pointer}
+.font-tanca:hover, .font-tanca:focus-visible{background:var(--cat-fons); color:var(--txt)}
+
+/* Les frases dels passos (v38, David): [mat]…[/mat] = matemàtiques (la lletra de sempre, fons de paper) i [calc]…[/calc] =
+   indicacions de calculadora (lletra sense gràcia, fons del color de la pantalla). Cada una, un bloc. */
+.frase-mat, .frase-calc{display:block; margin:3px 0; padding:3px 9px; border-radius:6px}
+.frase-mat{background:#faf5e8}
+.frase-calc{background:color-mix(in srgb, var(--lcd-fons) 55%, #fff); font-family:system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif; font-size:.94em}
+.frase-mat:first-child, .frase-calc:first-child{margin-top:0}
+.frase-mat:last-child, .frase-calc:last-child{margin-bottom:0}
 .apartat.actiu{background:rgba(134,239,172,.6); box-shadow:0 0 0 2px rgba(134,239,172,.6)}
 .enunciat{margin:0; padding:12px 16px; border:1.5px solid var(--border); border-radius:12px; background:var(--surface); font-size:16.5px; line-height:1.55}
 .reproductor{position:relative; display:flex; flex-wrap:wrap; align-items:center; gap:8px 14px}

@@ -127,6 +127,34 @@ const ICONES = Object.freeze({
   anterior: 'M15.5 5 8.5 12l7 7z',
   seguent: 'M8.5 5l7 7-7 7z',
 });
+/** La icona de la font d'un exercici (v38): un full amb la punta doblegada, del cos de la lletra. */
+const ICONA_FONT = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 2.5h8.5L19 7v14.5H6z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>'
+  + '<path d="M14 2.5V7.5h5M9 12h7M9 16h7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>';
+/** Quant de temps es veu la bombolla de la font si no es tanca abans (David, 1/11/2026: 8 s). */
+const FONT_MS = 8000;
+
+/**
+ * La font d'un exercici real (v38, David): fitxa.font («CB 4ESO (2026), pregunta 15») no surt a l'enunciat. Davant de
+ * l'enunciat hi ha una icona discreta; en clicar-la, surt una bombolla amb la font i una creu per tancar-la. Es tanca
+ * sola al cap de FONT_MS. Torna el botó (o null si la fitxa no té font); la bombolla va dins del botó, en absolut.
+ */
+function botoFont(fitxa) {
+  if (!fitxa.font) return null;
+  const tanca = element('button', {class: 'font-tanca', type: 'button', 'aria-label': 'Tanca', title: 'Tanca', text: '×'});
+  const bombolla = element('span', {class: 'font-bombolla', role: 'status', hidden: true}, [element('span', {text: fitxa.font}), tanca]);
+  const boto = element('button', {class: 'font-boto', type: 'button', 'aria-label': 'D\'on surt aquest exercici', title: 'D\'on surt aquest exercici',
+    'aria-expanded': 'false', html: ICONA_FONT});
+  let rellotge = null;
+  const mostra = obert => {
+    bombolla.hidden = !obert;
+    boto.setAttribute('aria-expanded', String(obert));
+    clearTimeout(rellotge);
+    if (obert) rellotge = setTimeout(() => mostra(false), FONT_MS);
+  };
+  boto.addEventListener('click', () => mostra(bombolla.hidden));
+  tanca.addEventListener('click', e => { e.stopPropagation(); mostra(false); });
+  return element('span', {class: 'font'}, [boto, bombolla]);
+}
 const icona = d => `<svg viewBox="0 0 24 24" aria-hidden="true"><path d="${d}"/></svg>`;
 const CURSOR = '<svg viewBox="0 0 22 30" aria-hidden="true"><path d="M2 2 L2 24 L7.6 18.8 L11.4 27.4 L15 25.8 L11.3 17.4 L18.6 17.4 Z" '
   + 'fill="#fff" stroke="#111" stroke-width="1.6" stroke-linejoin="round"/></svg>';
@@ -146,6 +174,8 @@ function construeixPagina(fitxa, bloc, germanes, contenidor) {
     velocitat: element('select', {id: 'velocitat'}),
     enunciat: element('p', {class: 'enunciat', html: text(fitxa.enunciat)}),
   };
+  const font = botoFont(fitxa);
+  if (font) r.enunciat.prepend(font, ' ');
   for (const [nom, factor] of VELOCITATS) r.velocitat.append(element('option', {value: String(factor), text: nom}));
   r.velocitat.value = String(PER_DEFECTE);
   r.reproductor.append(
@@ -357,6 +387,7 @@ function creaReproductor(r, fitxa, temps, opcions = {}) {
 
   function mostraPantalla(estat, canvi = false) {
     r.lcd.innerHTML = M.pantalla.html(estat, IDIOMA);
+    if (M.pantalla.ajusta) M.pantalla.ajusta(r.lcd);   // v38: el model pot retocar la pantalla dibuixada (p. ex., fletxes ◀ ▶)
     if (canvi) r.lcd.animate([{opacity: 0.35}, {opacity: 1}], {duration: temps(TEMPS.pantalla), easing: 'ease-out'});
   }
 

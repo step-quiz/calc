@@ -223,3 +223,15 @@ Treat this as a proposal: send David a short Catalan summary and wait for his OK
 6. Texts as proposed: lema «Matemàtiques · ESO · Competència matemàtica», `<title>` «Calculadora <curt> — Matemàtiques d'ESO».
 
 **Second round (1/11/2026, after the block proposal):** six ESO blocks (David added «Ús dels parèntesis»); trigonometry examples will come from David's own exams; the a–d options are not copied into the statement (the last step names the right option); first block built: «Mitjanes» (v37, `ARCHITECTURE.md` §7 item 20). Next: the other five blocks, one per delivery, proposing the fitxes first. Proposal already shown to David for them: «La pantalla» (7÷4 → 7/4 → ≈ 1.75; reading and rounding 2÷3; the parentheses fitxa moves to «Ús dels parèntesis»), «Percentatges i proporcions» (`cb4-23-q23` ×0.75 → 9; `cb4-23-q24` ÷0.75 → 20; `cb4-24-q7` → 7,5 %; `cb4-23-q26` 34·42/62 ≈ 23), «Pitàgores, àrees i volums» (`cb4-26-q7` √34 ≈ 5,83; `cb4-22-q8` 135π ≈ 424; `cb4-22-q9` with Ans → 4; `cb4-25-q27` 9π/16 ≈ 1,77), «Trigonometria» (degree mode, sin/cos/tan, SHIFT tan = Arctan — new CW simulator work and a `VERIFICAR.md` row —, the radians error).
+
+## 10. How to write an ESO fitxa (David, 1/11/2026; the three Mitjanes fitxes are the few-shot examples)
+
+Copy the shape of `models/fx-82sp-cw/fitxes/eso/mitjanes.js` (and its MS twin). Propose each block's fitxes to David first (title, one-line goal, key sequence, the step sentences), then build.
+
+- **Id and source:** `cb<course>-<yy>-q<question>`; `font: 'CB 4ESO (2026), pregunta 15'`; the statement is only the problem (no source, no a–d options), ≤ 3 lines, data as in the test (a small KaTeX `array` for a table).
+- **Sentences:** every step text is a sequence of `[mat]…[/mat]` (the mathematics: what a mean is, why we divide by 80, the answer) and `[calc]…[/calc]` (what to press and what the screen shows). Usually one or two sentences of each kind per step.
+- **Fixed wordings:** «Primer escriu …», «Ara fes l'operació [[entre]] 4.», «Prem [[exe]]: obtens el resultat, que és 198.» then `[mat]`«La resposta correcta és que la mitjana és de 198 places ocupades.» With ≈: «Prem [[shift]] [[exe]] (≈): obtens …». Rounded answers: «Arrodonint a les centèsimes, la resposta correcta és que …». Written maths uses a decimal comma (3,8), the calculator a point (3.8).
+- **Never** the option letter, and never mention the distractors outside the error zone.
+- **Error zone:** the first error step starts with [[ac]] («!!Error típic!!: esborra amb [[ac]] i escriu-ho …»), then a step that shows the wrong result and a `[mat]` sentence saying why it cannot be right («No pot ser: …»).
+- **CW exact results:** the first fraction/root/π result says it comes from {{E Mat/S Mat}} and what {{E Mat/S Decimal}} would show; [[shift]] [[exe]] right after a result recomputes it in decimal (confirmed by David).
+- **Both calculators**, same id, statement and source; the MS has no fraction template (sums in parentheses) and gives decimals directly.

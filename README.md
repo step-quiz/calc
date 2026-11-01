@@ -56,9 +56,28 @@ veu en una columna.
 | Pitàgores, àrees i volums | (properament) |
 | Trigonometria | (properament) |
 
-Les fitxes d'ESO fetes amb preguntes de competències bàsiques porten l'id `cb<curs>-<any>-q<pregunta>` (`cb4-26-q15` = 4t d'ESO,
-2026, pregunta 15) i fan servir la resposta de la clau oficial. L'enunciat no porta les opcions a, b, c, d: l'últim pas diu
-quina és la bona (David, 1/11/2026). Les mitjanes es teclegen a Calcular (sense l'app Estadística ni el mode SD).
+Com és una fitxa d'ESO (David, 1/11/2026; les tres de mitjanes són el model):
+
+- **L'id** és `cb<curs>-<any>-q<pregunta>` (`cb4-26-q15` = 4t d'ESO, 2026, pregunta 15), i la resposta és la de la clau oficial.
+- **La font** («CB 4ESO (2026), pregunta 15») no surt a l'enunciat: davant de l'enunciat hi ha una icona petita (un full);
+  en clicar-la, surt una bombolla amb la font i una creu per tancar-la, i es tanca sola al cap de 8 segons (camp `font`).
+- **Dues menes de frase** a cada pas, cadascuna en un bloc: les de **matemàtiques** (`[mat]…[/mat]`, la lletra de sempre
+  sobre fons de paper) i les **indicacions de calculadora** (`[calc]…[/calc]`, lletra sense gràcia sobre el color de la
+  pantalla). Per exemple: «La mitjana és la suma dividida entre el nombre de setmanes.» / «Primer escriu la suma entre
+  parèntesis: ( 168 + 154 + 210 + 260 ).»
+- **Com es diu:** «Ara fes l'operació ÷ 4.»; «Prem EXE: obtens el resultat, que és 198.» i, en una frase de matemàtiques,
+  «La resposta correcta és que la mitjana és de 198 places ocupades.». L'enunciat no porta les opcions a, b, c, d, i cap
+  pas no parla de l'opció bona ni dels distractors: els errors es treballen a la zona d'error.
+- **Un error comença amb AC** (a tot el web, també a Batxillerat): si no, el resultat bo es quedaria a la pantalla mentre
+  s'escriu l'error (a la fx-82MS, la línia de baix el continua mostrant).
+- Les mitjanes es teclegen a Calcular (sense l'app Estadística ni el mode SD). Sense «Ara tu».
+
+La prova (`proves/comprova.js`) exigeix totes aquestes normes: la font a part, només frases `[mat]` i `[calc]` a l'ESO, cap «opció»,
+i l'AC al començament de cada error.
+
+**La pantalla de la fx-82SP CW (versions 37 i 38).** Una expressió més llarga que la pantalla es desplaça: mentre s'escriu, es veu el
+final, on és el cursor, i amb el resultat, el començament; una fletxa ◀ o ▶ a la vora diu que hi ha més expressió per aquell costat
+(com a la calculadora: foto de David). Una entrada amb una fracció baixa una mica perquè el numerador no toqui els indicadors.
 
 Exercicis PAU (31/10/2026): 12 fitxes, 3 per categoria (2 d'àlgebra i 4 d'anàlisi, per decisió del David: la
 fitxa de límits ocupa el lloc de la tercera d'àlgebra).

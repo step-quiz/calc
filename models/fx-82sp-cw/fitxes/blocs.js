@@ -9,6 +9,8 @@
      id         nom a l'adreça: fitxa.html?id=<id>. Si una altra calculadora té una fitxa del mateix tema, el mateix id
      bloc       clau de BLOCS
      titol      títol curt (portada i capçalera)
+     font       (opcional, v38) d'on surt un exercici real: «CB 4ESO (2026), pregunta 15». No va a l'enunciat: surt en
+                una bombolla en clicar la icona que hi ha davant de l'enunciat (es tanca sola als 8 s)
      enunciat   què farem (es veu al pas 0)
      inici      la pantalla del pas 0 (com està la calculadora abans de començar)
      passos     [{tecles, pantalla, text}]
@@ -16,9 +18,13 @@
                            [] si el pas només explica la pantalla
                 pantalla = com queda la pantalla després de prémer-les (guions.js)
                 text     = la frase del pas
+                           A l'ESO (v38), cada frase és [mat]…[/mat] (matemàtiques) o [calc]…[/calc] (indicació de
+                           calculadora); surten en dos blocs amb lletra i fons diferents
                 error    = (opcional) true si el pas ensenya un ús erroni de la calculadora
                            («zona d'error»: mentre és el pas actual, les vores de la pàgina es
-                           tornen de color vellut vermell, --vellut a estil.css)
+                           tornen de color vellut vermell, --vellut a estil.css). Si abans hi havia un resultat,
+                           el primer pas de l'error comença amb [[ac]] (v38, David: si no, el resultat bo es queda a
+                           la pantalla mentre s'escriu l'error; la prova ho exigeix)
                 apartat  = (opcional) la lletra de l'apartat de l'enunciat que es resol: es
                            ressalta a l'enunciat, marcat amb [a]…[/a]
                 parcials = (opcional) {índex de tecla: pantalla}, per a les pantalles
@@ -29,7 +35,8 @@
                 Als exercicis PAU (blocs pau-ag i pau-ap) està desactivat, dins d'un comentari (v31, ARCHITECTURE.md, punt 14).
 
    Als textos: $$TeX$$ = fórmula en una línia pròpia; $TeX$ = fórmula; [[id]] = tecla; {{Text}} = opció d'un menú
-   de la calculadora, escrita tal com hi surt; !!Error típic!! = avís d'error, amb fons groc durant 1 s (només en passos amb error: true).
+   de la calculadora, escrita tal com hi surt; !!Error típic!! = avís d'error, amb fons groc durant 1 s (només en passos amb error: true);
+   [mat]…[/mat] i [calc]…[/calc] = frase de matemàtiques i indicació de calculadora (v38).
    ═══════════════════════════════════════════════════════════════════ */
 (function (M) {
 'use strict';

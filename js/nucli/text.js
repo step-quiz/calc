@@ -6,6 +6,9 @@
    calculadora (el tradueix el model a l'idioma de l'alumne);
    !!Error típic!! = l'avís d'un pas d'error; [a]…[/a] = apartat de
    l'enunciat (es ressalta quan el pas el resol).
+   [mat]…[/mat] i [calc]…[/calc] (v38, David): una frase de matemàtiques
+   o una indicació de calculadora; cadascuna surt en un bloc amb la seva
+   lletra i el seu fons (a l'ESO, totes les frases dels passos ho són).
 
    Text.creador({model, idioma}) → text(t): l'HTML d'un text.
    Depèn de KaTeX. Exporta «Text».
@@ -28,10 +31,20 @@ function creador({model, idioma}) {
     }).join('');
   }
   /** [a]…[/a] → <span class="apartat" data-apartat="a">. No confon les tecles [[x]]. */
-  return function text(t) {
+  function ambApartats(t) {
     return String(t || '').split(/((?<!\[)\[[a-z]\](?!\])[\s\S]*?\[\/[a-z]\])/).map(tros => {
       const m = /^\[([a-z])\]([\s\S]*)\[\/\1\]$/.exec(tros);
       return m ? `<span class="apartat" data-apartat="${m[1]}">${textSimple(m[2])}</span>` : textSimple(tros);
+    }).join('');
+  }
+  /** [mat]…[/mat] → <span class="frase-mat">, [calc]…[/calc] → <span class="frase-calc"> (blocs; els espais entre blocs no compten). */
+  return function text(t) {
+    const trossos = String(t || '').split(/(\[(?:mat|calc)\][\s\S]*?\[\/(?:mat|calc)\])/);
+    const ambFrases = trossos.length > 1;
+    return trossos.map(tros => {
+      const m = /^\[(mat|calc)\]([\s\S]*)\[\/\1\]$/.exec(tros);
+      if (m) return `<span class="frase-${m[1]}">${ambApartats(m[2])}</span>`;
+      return ambFrases && !tros.trim() ? '' : ambApartats(tros);
     }).join('');
   };
 }

@@ -69,8 +69,8 @@ M.fitxes.push(
       text: 'Prem [[ac]]. Ara hi ha R.'},
     {tecles: ['cos', 'shift', '7', 'entre', '3', 'rpar', 'exe'], pantalla: marca(calc(R, '\\cos(\\pi\\div 3)', '\\frac{1}{2}'), 'resultat'),
       text: 'El mateix càlcul dona $\\frac{1}{2}$. Surt exacte perquè la calculadora és en mode {{E Mat/S Mat}}; en mode {{E Mat/S Decimal}} sortiria 0.5.'},
-    {error: true, tecles: ['sen', '3', '0', 'rpar', 'exe'], pantalla: marca(calc(R, '\\mathrm{sen}(30)', '-0.9880316241'), 'resultat'),
-      text: '!!Error típic!!, el contrari: en radians, $\\mathrm{sen}(30)$ és el sinus de 30 radians, −0.9880316241. Si el 30 són graus, la calculadora ha de ser en D.'},
+    {error: true, tecles: ['ac', 'sen', '3', '0', 'rpar', 'exe'], pantalla: marca(calc(R, '\\mathrm{sen}(30)', '-0.9880316241'), 'resultat'),
+      text: '!!Error típic!!, el contrari: esborra amb [[ac]] i calcula $\\mathrm{sen}(30)$ en radians: és el sinus de 30 radians, −0.9880316241. Si el 30 són graus, la calculadora ha de ser en D.'},
   ],
   araTu: {
     enunciat: 'Amb la calculadora en radians (R a la barra), calcula $\\cos\\frac{2\\pi}{3}$.',

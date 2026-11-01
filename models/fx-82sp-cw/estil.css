@@ -78,6 +78,15 @@
 /* v37: el numerador d'una fracció (KaTeX, \displaystyle) sobresortia 1,8 cqw per dalt de la línia i tocava els
    indicadors (√▫, D…). A la calculadora, la barra d'indicadors és una franja a part: l'entrada amb una fracció baixa 2,2 cqw. */
 .lcd-linia-entrada:has(.mfrac){padding-top:2.2cqw}
+/* v38: les fletxes de la línia d'entrada quan no hi cap (ajusta, a pantalla.js; foto de la calculadora de David): ◀ a la vora
+   esquerra si hi ha més expressió per l'esquerra, ▶ a la dreta si n'hi ha per la dreta. Tapen el tros de text que tenen a sota. */
+.lcd-linia-entrada{position:relative}
+.lcd-linia-entrada.mes-dreta{overflow:hidden}
+.lcd-linia-entrada.mes-esquerra::before, .lcd-linia-entrada.mes-dreta::after{
+  content:''; position:absolute; top:0; bottom:0; width:4.4cqw; z-index:1;
+  background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 10 12'%3E%3Cpath d='M9 1 1 6l8 5z' fill='%231b2016'/%3E%3C/svg%3E") center/auto 4.6cqw no-repeat, var(--lcd-fons)}
+.lcd-linia-entrada.mes-esquerra::before{left:-.7cqw}
+.lcd-linia-entrada.mes-dreta::after{right:-.7cqw; transform:scaleX(-1)}   /* -.7cqw: que el retall de la vora no deixi veure un bocí de xifra */
 .lcd-resultat:empty, .lcd-entrada:empty{padding:0}
 .lcd-linia{font:600 6.4cqw/1.2 var(--mono)}
 .lcd-cursor{display:inline-block; width:.7cqw; height:1.05em; margin-left:.5cqw; vertical-align:-.15em; background:var(--lcd-tinta); animation:parpelleja 1s steps(1) infinite}

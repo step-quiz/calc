@@ -17,7 +17,9 @@
        relacionada és de la mateixa etapa;
      · cada pas: tecles del model, text, error (zona d'error) true o absent,
        apartats marcats a l'enunciat;
-     · els textos: les [[tecles]] existeixen, els $ i {{ }} estan tancats;
+     · els textos: les [[tecles]] existeixen, els $, {{ }}, [mat] i [calc]
+       estan tancats; un error comença amb AC si hi havia un resultat; a
+       l'ESO, frases [mat]/[calc], font a part i sense parlar de l'opció;
      · les relacionades apunten a fitxes que existeixen;
      · el simulador: una pantalla per tecla, i el que s'escriu coincideix
        amb la pantalla final de cada pas (també als «Ara tu»);
@@ -113,6 +115,9 @@ for (const id of Models.ids) {
   try { M = Models.tanca(id); comprovacions++; } catch (e) { error(on, e.message); continue; }
   models.push(M);
 
+  // Opcional (v38): pantalla.ajusta(element), si hi és, és una funció (el nucli la crida després de dibuixar la pantalla)
+  ok(M.pantalla.ajusta === undefined || typeof M.pantalla.ajusta === 'function', on, 'pantalla.ajusta ha de ser una funció');
+
   // Les tecles de prefix: la capa és un nom curt (fa la classe «prefix-<capa>» del teclat)
   for (const [t, def] of Object.entries(M.tecles.TECLES)) {
     if (def.prefix !== undefined) ok(/^[a-z]+$/.test(def.prefix), on, `la tecla ${t}: prefix ha de ser un nom en minúscules`);
@@ -150,6 +155,13 @@ for (const id of Models.ids) {
     for (const m of t.matchAll(/\[\[([^\]]+)\]\]/g)) ok(M.tecles.existeix(m[1]), on2, `tecla desconeguda [[${m[1]}]]`);
     for (const m of t.matchAll(/\$\$([^$]+)\$\$|\$([^$]+)\$/g)) comprovaTeX(m[1] || m[2], on2);   // $$…$$ abans que $…$
     ok(!/\[\[[^\]]*$/.test(t), on2, '[[ sense tancar');
+    // [mat]…[/mat] i [calc]…[/calc] (v38): tancats, sense niar-se ni barrejar-se
+    const marques = [...t.matchAll(/\[(\/?)(mat|calc)\]/g)].map(m => m[1] + m[2]);
+    let obert = null, bones = true;
+    for (const m of marques) {
+      if (!m.startsWith('/')) { if (obert) bones = false; obert = m; } else { if (obert !== m.slice(1)) bones = false; obert = null; }
+    }
+    ok(bones && !obert, on2, '[mat]…[/mat] o [calc]…[/calc] sense tancar o niats');
   }
 
   function comprovaPassos(f, on2, enunciat) {
@@ -243,6 +255,40 @@ for (const id of Models.ids) {
       ok(llista.length === f.passos[i].tecles.length, `${on} · fitxa ${f.id} · pas ${i + 1}`, 'el simulador no dona una pantalla per tecla');
       llista.forEach((p, j) => { if (j < llista.length - 1) comprovaPantalla(p, `${on} · fitxa ${f.id} · pas ${i + 1} · tecla ${j + 1}`); });
     });
+  }
+
+  /* v38 (David, 1/11/2026): un error comença sempre esborrant la pantalla. Si la pantalla d'abans mostra un resultat, la
+     primera tecla del primer pas d'un error no pot començar a escriure un càlcul nou (amb el resultat bo encara a la vista). */
+  for (const f of AMB_ARA_TU) {
+    const {pantalles} = M.simulador.pantalles(f);
+    f.passos.forEach((p, i) => {
+      if (!p.error || (i > 0 && f.passos[i - 1].error) || !pantalles[i] || !pantalles[i].length) return;
+      const abans = i ? f.passos[i - 1].pantalla : f.inici;
+      const primera = pantalles[i][0];
+      // el cursor de text de la CW (\htmlClass{cursor-tex}{…}) no és res escrit
+      const escrit = e => String(e || '').replace(/\\htmlClass\{cursor-tex\}\{(?:[^{}]|\{[^{}]*\})*\}/g, '').trim();
+      if (abans && abans.tipus === 'calc' && abans.resultat && primera && primera.tipus === 'calc')
+        ok(!(escrit(primera.entrada) && !primera.resultat && primera.entrada !== abans.entrada), `${on} · fitxa ${f.id} · pas ${i + 1}`,
+          'un error comença amb AC: si no, el resultat bo es queda a la pantalla mentre s\'escriu l\'error');
+    });
+  }
+
+  /* Les fitxes d'ESO i les d'exercicis reals (v38, David, 1/11/2026): la font va a «font» (una icona davant de l'enunciat),
+     no a l'enunciat; a l'ESO, cada frase d'un pas és [mat]…[/mat] o [calc]…[/calc], i cap text no parla de l'opció bona. */
+  for (const f of FITXES) {
+    const onF = `${on} · fitxa ${f.id}`;
+    if (f.font !== undefined) ok(typeof f.font === 'string' && f.font.trim() && !/[$[\]{}!]/.test(f.font), onF, 'font ha de ser un text pla');
+    const cb = /^cb(\d)-(\d\d)-q(\d+)$/.exec(f.id);
+    if (cb) {
+      ok(f.font === `CB ${cb[1]}ESO (20${cb[2]}), pregunta ${cb[3]}`, onF, `la font ha de ser «CB ${cb[1]}ESO (20${cb[2]}), pregunta ${cb[3]}»`);
+      ok(!/Competències bàsiques/i.test(f.enunciat), onF, 'la font no va a l\'enunciat (va a «font»)');
+    }
+    if (!(etapesBloc.get(f.bloc) || []).includes('eso')) continue;
+    f.passos.forEach((p, i) => {
+      const fora = String(p.text).replace(/\[(mat|calc)\][\s\S]*?\[\/\1\]/g, '');
+      ok(/\[(mat|calc)\]/.test(p.text) && !fora.trim(), `${onF} · pas ${i + 1}`, 'a l\'ESO, cada frase és [mat]…[/mat] o [calc]…[/calc]');
+    });
+    for (const t of [f.enunciat, ...f.passos.map(p => p.text)]) ok(!/(^|[^\p{L}])opci[óo](?!\p{L})/iu.test(t), onF, 'no es parla de l\'opció bona ni dels distractors');
   }
 
   /* Les proves pròpies del model que miren el conjunt (traduccions, teclat, resultats…) */

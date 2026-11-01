@@ -197,9 +197,9 @@ M.fitxes.push(
       text: 'c) Binomial, amb $n=5$ i $p=\\frac{19}{30}$: $P(X\\ge 4)=5\\,p^4(1-p)+p^5$, perquè $\\binom{5}{4}=5$ i $1-p=\\frac{11}{30}$. La potència és [[pot]]; amb [[right]] surts de l\'exponent.'},
     {apartat: 'c', tecles: ['exe'], pantalla: marca(calc(D, '5\\times(\\frac{19}{30})^{4}\\times\\frac{11}{30}+(\\frac{19}{30})^{5}', '0.3968623045'), 'resultat'),
       text: 'Prem [[exe]]: $P(X\\ge 4)\\approx 0{,}3969$. La fracció exacta tindria massa xifres, i la calculadora la dona en decimal.'},
-    {error: true, apartat: 'c', tecles: ['5', 'per', '0', 'punt', '6', '3', 'pot', '4', 'right', 'per', '0', 'punt', '3', '7', 'mes', '0', 'punt', '6', '3', 'pot', '5', 'exe'],
+    {error: true, apartat: 'c', tecles: ['ac', '5', 'per', '0', 'punt', '6', '3', 'pot', '4', 'right', 'per', '0', 'punt', '3', '7', 'mes', '0', 'punt', '6', '3', 'pot', '5', 'exe'],
       pantalla: marca(calc(D, '5\\times 0.63^{4}\\times 0.37+0.63^{5}', '0.3906734328'), 'resultat'),
-      text: '!!Error típic!!: si arrodoneixes $p\\approx 0{,}63$, surt 0.3906734328 i no 0.3968623045: ja falla la segona xifra decimal. Treballa amb $\\frac{19}{30}$.'},
+      text: '!!Error típic!!: esborra amb [[ac]] i, si arrodoneixes $p\\approx 0{,}63$, surt 0.3906734328 i no 0.3968623045: ja falla la segona xifra decimal. Treballa amb $\\frac{19}{30}$.'},
   ],
   /* «Ara tu» DESACTIVAT (v31, David): de moment no surt als exercicis PAU reals. Per tornar-lo a activar,
      treu aquest comentari (vegeu ARCHITECTURE.md, punt 14).

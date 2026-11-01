@@ -76,7 +76,7 @@ function calc(estat) {
   const entrada = estat.entrada ? escriu(estat.entrada) : '';
   const resultat = estat.resultat ? escriu(trTex(estat.resultat)) : '';
   // Una entrada més llarga que la pantalla (v37): mentre s'escriu, es veu el final, on és el cursor; amb el resultat,
-  // el començament (VERIFICAR.md, fila 25). Si l'entrada hi cap, no canvia res.
+  // el començament (VERIFICAR.md, fila 25). Si l'entrada hi cap, no canvia res. Les fletxes ◀ ▶ les posa ajusta (v38).
   return barra(estat)
     + `<div class="lcd-linia-entrada${estat.resultat ? '' : ' al-final'}">`
     + `<div class="lcd-entrada${marca(estat, 'entrada')}" data-marca="entrada">${entrada}${cursor}</div></div>`
@@ -155,6 +155,27 @@ function html(estat, llengua = 'es') {
   return `<div class="lcd-dins lcd-${estat.tipus}">${f(estat)}</div>`;
 }
 
-M.pantalla = Object.freeze({html, finestra, INDICADORS, OPCIONS_KATEX, TIPUS: Object.keys(DIBUIXA)});
+/**
+ * Després de dibuixar (v38; el nucli la crida si existeix): si l'entrada no hi cap, una fletxa ◀ a l'esquerra (hi ha més
+ * expressió per l'esquerra) o ▶ a la dreta, com a la calculadora (foto de David, 1/11/2026; VERIFICAR.md, fila 25).
+ * Mira on ha quedat l'entrada: només ho pot saber el navegador. Torna a mirar quan les lletres de KaTeX ja són a punt.
+ */
+function ajusta(el) {
+  const linia = el.querySelector('.lcd-linia-entrada');
+  const entrada = linia && linia.querySelector('.lcd-entrada');
+  if (!entrada || !entrada.textContent) return;
+  const mira = () => {
+    // El que hi ha escrit (KaTeX o text, i el cursor), no la caixa de l'entrada, que té un marge negatiu i un farciment
+    const c = linia.getBoundingClientRect(), trossos = [...entrada.children].map(f => f.getBoundingClientRect()).filter(r => r.width);
+    if (!c.width || !trossos.length) return;
+    const esquerra = Math.min(...trossos.map(r => r.left)), dreta = Math.max(...trossos.map(r => r.right));
+    linia.classList.toggle('mes-esquerra', esquerra < c.left - 1);
+    linia.classList.toggle('mes-dreta', dreta > c.right + 1);
+  };
+  mira();
+  if (typeof document !== 'undefined' && document.fonts && document.fonts.status !== 'loaded') document.fonts.ready.then(mira);
+}
+
+M.pantalla = Object.freeze({html, ajusta, finestra, INDICADORS, OPCIONS_KATEX, TIPUS: Object.keys(DIBUIXA)});
 
 })(Models.obre('fx-82sp-cw'));
