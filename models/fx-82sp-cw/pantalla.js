@@ -75,8 +75,11 @@ function calc(estat) {
   const escriu = t => (estat.linia ? `<span class="lcd-linia">${escapa(t)}</span>` : texLcd(t));
   const entrada = estat.entrada ? escriu(estat.entrada) : '';
   const resultat = estat.resultat ? escriu(trTex(estat.resultat)) : '';
+  // Una entrada més llarga que la pantalla (v37): mentre s'escriu, es veu el final, on és el cursor; amb el resultat,
+  // el començament (VERIFICAR.md, fila 25). Si l'entrada hi cap, no canvia res.
   return barra(estat)
-    + `<div class="lcd-entrada${marca(estat, 'entrada')}" data-marca="entrada">${entrada}${cursor}</div>`
+    + `<div class="lcd-linia-entrada${estat.resultat ? '' : ' al-final'}">`
+    + `<div class="lcd-entrada${marca(estat, 'entrada')}" data-marca="entrada">${entrada}${cursor}</div></div>`
     + `<div class="lcd-resultat${marca(estat, 'resultat')}" data-marca="resultat">${resultat}</div>`;
 }
 

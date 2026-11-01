@@ -1,6 +1,6 @@
 # La calculadora fx-82SP CW, pas a pas
 
-Web estàtica per a l'alumnat de Matemàtiques de Batxillerat i, aviat, d'ESO: fitxes curtes que ensenyen a fer servir
+Web estàtica per a l'alumnat de Matemàtiques de Batxillerat i d'ESO: fitxes curtes que ensenyen a fer servir
 la calculadora **CASIO fx-82SP CW** (la que porten els alumnes) i a evitar-ne els errors típics.
 
 Cada fitxa és una demostració pas a pas, com els DEMO de `step-quiz/pau`, en dues columnes:
@@ -44,6 +44,21 @@ veu en una columna.
 | Exercicis PAU. Àlgebra i Geometria | Àlgebra: comprova la solució d'un sistema (alg-24j-q2) · un menor orlat amb la regla de Sarrus (alg-24s-q2) · Geometria: distància d'un punt a un pla (geo-25s-q4b a) · el punt simètric respecte d'un pla (geo-25s-q4b c) · distàncies en centímetres (geo-26j2-q4b) |
 | Abans de l'examen (bombolla petita, a part dels blocs) | Comprova la calculadora en 30 segons |
 | Exercicis PAU. Anàlisi i Probabilitat | Anàlisi: Bolzano amb f(x) definida (ana-24i-q1) · una arrel cúbica en una optimització (ana-25i-q4a) · intueix els límits amb f(x) (ana-25j-q1) · un vitrall en radians (ana-25s-q4a) · Probabilitat: probabilitat total, Bayes i binomial (pro-24i-q4) · binomial, probabilitat total i Bayes (pro-24s-q4) · probabilitat total i un màxim (pro-25j-q3) |
+
+**ESO** (versió 37; blocs propis, sense «Ara tu»; exemples de les proves de competències bàsiques, repositori `cb`):
+
+| Bloc | Fitxes |
+|---|---|
+| La pantalla: fracció o decimal, i arrodonir | (properament) |
+| Ús dels parèntesis | (properament) |
+| Percentatges i proporcions | (properament) |
+| Mitjanes | L'hotel: la mitjana de quatre setmanes (cb4-26-q15) · Les estrelles: la mitjana d'una taula (cb4-24-q8) · El mercat: la mitjana d'un gràfic de barres (cb4-25-q17) |
+| Pitàgores, àrees i volums | (properament) |
+| Trigonometria | (properament) |
+
+Les fitxes d'ESO fetes amb preguntes de competències bàsiques porten l'id `cb<curs>-<any>-q<pregunta>` (`cb4-26-q15` = 4t d'ESO,
+2026, pregunta 15) i fan servir la resposta de la clau oficial. L'enunciat no porta les opcions a, b, c, d: l'últim pas diu
+quina és la bona (David, 1/11/2026). Les mitjanes es teclegen a Calcular (sense l'app Estadística ni el mode SD).
 
 Exercicis PAU (31/10/2026): 12 fitxes, 3 per categoria (2 d'àlgebra i 4 d'anàlisi, per decisió del David: la
 fitxa de límits ocupa el lloc de la tercera d'àlgebra).
@@ -101,15 +116,15 @@ només es canvia el nombre (fitxa de Bolzano). Les pantalles que no surten al ma
 ## Dues etapes: Batxillerat i ESO (versió 36)
 
 El web té dues etapes: **Batxillerat** (la de per defecte: tot el que hi havia fins ara, amb exercicis de la PAU) i
-**ESO** (3r i 4t, amb preguntes de les proves de competències bàsiques; en preparació). És un sol web, amb les mateixes
+**ESO** (3r i 4t, amb preguntes de les proves de competències bàsiques; sis blocs, el primer fet és el de mitjanes, versió 37). És un sol web, amb les mateixes
 calculadores: només canvien els blocs i les fitxes.
 
 - Cada bloc diu a quines etapes surt (`etapes: ['batx']`, `['eso']` o `['eso', 'batx']`, a `fitxes/blocs.js`). Una
   fitxa és de l'etapa del seu bloc. Les fitxes d'ESO van a `models/<calculadora>/fitxes/eso/<bloc>.js`.
 - A la portada, «Etapa» tria Batxillerat o ESO, i el navegador recorda l'última etapa que l'alumne ha vist. La línia de
   sobre el títol, el títol de la pestanya i la descripció canvien amb l'etapa (`models/cataleg.js`).
-- El selector «Etapa» només surt quan hi ha més d'una etapa amb fitxes: mentre l'ESO no en tingui cap, l'alumnat no la
-  veu. Es pot mirar igualment amb `index.html?etapa=eso` (diu «Properament»).
+- El selector «Etapa» només surt quan hi ha més d'una etapa amb fitxes (des de la versió 37, a les dues calculadores). Si
+  una etapa no en té cap, l'alumnat no la veu; es pot mirar igualment amb `index.html?etapa=<id>`.
 - L'adreça porta `etapa=eso` a l'ESO; a Batxillerat, no (`fitxa.html?id=ans` continua sent la mateixa adreça). Dins una
   fitxa no hi ha selector d'etapa: «← Calculadora» torna a la portada de la seva etapa, i en canviar de calculadora
   l'etapa es manté.
