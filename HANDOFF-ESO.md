@@ -247,3 +247,10 @@ Done in v39: grey bubble, new speeds, the source of the 13 CW + 11 MS real PAU f
 **Statements (David, 1/11/2026, after v39):** the statement is written by us from the official images (the data and the answer are official; the wording is ours), so it must stay understandable for a 13-year-old: never compress the data into one dense sentence. Say what the situation is, then list the data one per line («\n• …» in the text), then the question. Example: `cb4-25-q17` («Es fa una enquesta que pregunta quantes vegades es va al mercat. Entre les persones de més de 50 anys: • 25 persones van al mercat 1 vegada per setmana • 35 persones, 2 vegades …»). Review the other ESO statements with this rule.
 
 **v41:** block «Ús dels parèntesis» done (3 fitxes, `ARCHITECTURE.md` §7 item 23). Next blocks: «La pantalla», «Percentatges i proporcions», «Pitàgores, àrees i volums», «Trigonometria» (David will send exam items for trigonometry). Note: when writing statements with line breaks from a shell heredoc, `\\n` ends up literal; write data files with the Write tool or Python so the JS literal holds `\n`.
+
+## 12. PENDING — IMPORTANT (David, 1/11/2026)
+
+1. **The ×10ˣ key on the CW.** `eso-notacio-cientifica` types 10⁸ with the power key ([[pot]]) because the CW simulator does not model the `exp` key (×10■) yet (`models/fx-82sp-cw/simulador.js`: `exp` only writes z with SHIFT). To teach the proper key: add the ×10ˣ template/token to the CW simulator and to `calcul.js`, add a `VERIFICAR.md` row for how it is drawn, then rewrite the fitxa (both calculators; the MS has its own ×10ˣ key, `exp`).
+2. **How the CW draws a result too big for 10 digits** (`2.592×10¹³` in `eso-notacio-cientifica`, step 3) is inferred, not seen in the manual: `VERIFICAR.md` row 26. Ask David to try 3×10⁸×86400 on his calculator and report (or send a photo); then fix `pantalla.js`/`calcul.js` if needed.
+3. **Figures in statements** (PNG from `cb`): proposed to David (optional `figura` field, small thumbnail that opens large, data still in text), waiting for his OK.
+4. **Trigonometry block**: waiting for David's exams.

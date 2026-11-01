@@ -53,7 +53,7 @@ veu en una columna.
 | Ús dels parèntesis | Les patates rebaixades: el percentatge de descompte (cb2-26-q4) · El quadrat d'un nombre negatiu (exemple propi) · Les valoracions d'1 o 2 estrelles (cb4-24-q7) |
 | Percentatges i proporcions | Un descompte del 25 % (cb4-23-q23) · Quantes fotos amb descompte? (cb4-23-q24) · Una foto més petita, sense deformar-la (cb4-23-q26) |
 | Mitjanes | L'hotel: la mitjana de quatre setmanes (cb4-26-q15) · Les estrelles: la mitjana d'una taula (cb4-24-q8) · El mercat: la mitjana d'un gràfic de barres (cb4-25-q17) |
-| Pitàgores, àrees i volums | (properament) |
+| Pitàgores, àrees i volums | El tram d'escala: Pitàgores (cb4-26-q7) · El volum d'un got cilíndric (cb4-22-q8) · La tela d'un para-sol: l'àrea d'un cercle (cb4-25-q27) |
 | Trigonometria | (properament) |
 
 Com és una fitxa d'ESO (David, 1/11/2026; les tres de mitjanes són el model):
@@ -73,6 +73,8 @@ Com és una fitxa d'ESO (David, 1/11/2026; les tres de mitjanes són el model):
 - Les mitjanes es teclegen a Calcular (sense l'app Estadística ni el mode SD). Sense «Ara tu».
 
 **Pas final després d'un error (versió 42):** si l'últim pas d'una fitxa és un error típic, el motor hi afegeix un pas més, sense tecles: el fons torna a ser el normal (surt de la zona d'error), la pantalla queda esborrada i el pas diu «Activitat finalitzada». No s'escriu a les dades; ho fa el motor a totes les fitxes (ESO i Batxillerat).
+
+**Pendent (important):** (1) ensenyar la tecla ×10ˣ de la CW a la fitxa de notació científica (ara es fa amb la tecla de potència, perquè el simulador encara no sap fer la ×10ˣ); (2) comprovar amb la calculadora com surt a la CW un resultat massa gran per a 10 xifres, $2.592\times 10^{13}$ (`VERIFICAR.md`, fila 26); (3) imatges a l'enunciat, si el David hi està d'acord; (4) el bloc de trigonometria, amb els exàmens del David. Detalls: `HANDOFF-ESO.md` §12.
 
 **A tot el web (versions 39 i 40):** totes les frases dels passos, també les de Batxillerat i dels «Ara tu», són `[mat]` o `[calc]`; les
 fitxes PAU reals porten la font a la icona («PAU juny 2024, qüestió 2 a)»), no a l'enunciat. Els enunciats d'ESO s'escriuen perquè els
