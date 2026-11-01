@@ -23,6 +23,7 @@
      relacionades  ids d'altres fitxes (opcional)
      araTu      exercici semblant, al final: {enunciat, resultat (TeX), error (text, sense !!), inici, passos}.
                 Els passos són com els de la fitxa; la calculadora conserva les f(x) i g(x) definides a la fitxa.
+                Als exercicis PAU (blocs pau-ag i pau-ap) està desactivat, dins d'un comentari (v31, ARCHITECTURE.md, punt 14).
 
    Als textos: $$TeX$$ = fórmula en una línia pròpia; $TeX$ = fórmula; [[id]] = tecla; {{Text}} = opció d'un menú
    de la calculadora, escrita tal com hi surt; !!Error típic!! = avís d'error, amb fons groc durant 1 s (només en passos amb error: true).
@@ -771,6 +772,8 @@ const FITXES = Object.freeze([
     {tecles: ['exe'], pantalla: marca(calc(D, '3\\times\\frac{5}{3}+3\\times(-\\frac{4}{3})', '1'), 'resultat'),
       text: 'Prem [[exe]]: surt 1, el membre de la dreta. ✓ Es compleixen les tres equacions: la solució és correcta.'},
   ],
+  /* «Ara tu» DESACTIVAT (v31, David): de moment no surt als exercicis PAU reals. Per tornar-lo a activar,
+     treu aquest comentari (vegeu ARCHITECTURE.md, punt 14).
   araTu: {
     enunciat: 'Comprova si $x=\\frac{1}{2}$, $y=-\\frac{3}{2}$ és la solució del sistema $\\begin{cases}3x-y=3\\\\ x+y=-1\\end{cases}$',
     resultat: '\\text{Sí: surten }3\\text{ i }-1',
@@ -788,6 +791,7 @@ const FITXES = Object.freeze([
         text: '!!Error típic!!: sense el parèntesi, $3\\times\\frac{1}{2}-\\frac{3}{2}$ dona 0, i no 3.'},
     ],
   },
+  */
   relacionades: ['exacte-decimal', 'frac-plantilla', 'pau-alg-24s-q2'],
 },
 {
@@ -806,6 +810,8 @@ const FITXES = Object.freeze([
     {tecles: ['exe'], pantalla: marca(calc(D, '\\mathrm{Ans}-((-2)\\times 1\\times 1+1\\times 3\\times 1+(-3)\\times 1\\times 1)', '-8'), 'resultat'),
       text: 'Prem [[exe]]: el menor val $-8\\neq 0$. Per tant, el rang de la matriu $A\'$ és 3 i, com que el de la matriu $A$ és 2, per a $m=1$ el sistema és incompatible.'},
   ],
+  /* «Ara tu» DESACTIVAT (v31, David): de moment no surt als exercicis PAU reals. Per tornar-lo a activar,
+     treu aquest comentari (vegeu ARCHITECTURE.md, punt 14).
   araTu: {
     enunciat: 'Calcula amb la regla de Sarrus $\\begin{vmatrix}1&2&0\\\\-1&3&1\\\\2&0&1\\end{vmatrix}$.',
     resultat: '9',
@@ -822,6 +828,7 @@ const FITXES = Object.freeze([
         text: '[[ans]], [[menys]] i, entre parèntesis, els tres productes amb signe −. Prem [[exe]]: el determinant val 9.'},
     ],
   },
+  */
   relacionades: ['ans', 'pau-alg-24j-q2', 'pot-negativa'],
 },
 
@@ -840,6 +847,8 @@ const FITXES = Object.freeze([
     {tecles: ['exe'], pantalla: marca(calc(D, '\\frac{3}{\\sqrt{2^{2}+(-1)^{2}+1^{2}}}', '\\frac{\\sqrt{6}}{2}'), 'resultat'),
       text: 'Prem [[exe]]: surt $\\frac{\\sqrt{6}}{2}$, el valor de l\'enunciat. ✓ En mode {{E Mat/S Mat}} la calculadora racionalitza sola; en mode decimal sortiria 1.224744871 i no ho podries comparar.'},
   ],
+  /* «Ara tu» DESACTIVAT (v31, David): de moment no surt als exercicis PAU reals. Per tornar-lo a activar,
+     treu aquest comentari (vegeu ARCHITECTURE.md, punt 14).
   araTu: {
     enunciat: 'Calcula la distància del punt $Q=(1,0,2)$ al pla $\\pi: 2x-y+z=5$.',
     resultat: '\\frac{\\sqrt{6}}{6}',
@@ -856,6 +865,7 @@ const FITXES = Object.freeze([
         text: '!!Error típic!!: sense el parèntesi, $-1^2$ resta 1 en lloc de sumar-lo, i surt $\\frac{1}{2}$.'},
     ],
   },
+  */
   relacionades: ['exacte-decimal', 'mode-decimal', 'pot-negativa', 'pau-geo-25s-q4b-c'],
 },
 {
@@ -878,6 +888,8 @@ const FITXES = Object.freeze([
     {tecles: ['exe'], pantalla: marca(calc(D, '\\frac{3}{\\sqrt{2^{2}+(-1)^{2}+1^{2}}}', '\\frac{\\sqrt{6}}{2}'), 'resultat'),
       text: 'Prem [[exe]]: $\\frac{\\sqrt{6}}{2}$. ✓ El punt $P\'$ és a la mateixa distància del pla que $P$, a l\'altra banda. El pla $\\pi_2$ és $2x-y+z=E$ amb $E=2\\cdot 2-0+4=8$: $\\pi_2: 2x-y+z=8$. (Surt exacte perquè la calculadora és en mode {{E Mat/S Mat}}; en mode {{E Mat/S Decimal}} sortiria 1.224744871.)'},
   ],
+  /* «Ara tu» DESACTIVAT (v31, David): de moment no surt als exercicis PAU reals. Per tornar-lo a activar,
+     treu aquest comentari (vegeu ARCHITECTURE.md, punt 14).
   araTu: {
     enunciat: 'Troba el simètric $Q\'$ de $Q=(1,0,2)$ respecte del pla $\\pi: 2x-y+z=5$. La perpendicular per $Q$, $(1+2\\lambda,\\,-\\lambda,\\,2+\\lambda)$, talla el pla per a $\\lambda=\\frac{1}{6}$, al punt $M=\\left(\\frac{4}{3},-\\frac{1}{6},\\frac{13}{6}\\right)$.',
     resultat: 'Q\'=\\left(\\frac{5}{3},-\\frac{1}{3},\\frac{7}{3}\\right)',
@@ -896,6 +908,7 @@ const FITXES = Object.freeze([
         text: 'Comprova-ho: substitueix $Q\'$ a $2x-y+z-5$. Surt 1, i amb $Q$ sortia −1: la mateixa distància, a l\'altra banda del pla. ✓'},
     ],
   },
+  */
   relacionades: ['pau-geo-25s-q4b', 'frac-plantilla', 'pot-negativa', 'mode-decimal'],
 },
 {
@@ -919,6 +932,8 @@ const FITXES = Object.freeze([
     {apartat: 'b', tecles: ['format', 'down', 'ok'], pantalla: marca(calc(D, '\\frac{3}{\\sqrt{1^{2}+(-1)^{2}+0^{2}}}', '2.121320344'), 'resultat'),
       text: 'En decimal, amb [[format]] i {{Decimal}}: el sensor és a $\\frac{3\\sqrt{2}}{2}\\approx 2{,}12$ cm del pla.'},
   ],
+  /* «Ara tu» DESACTIVAT (v31, David): de moment no surt als exercicis PAU reals. Per tornar-lo a activar,
+     treu aquest comentari (vegeu ARCHITECTURE.md, punt 14).
   araTu: {
     enunciat: 'Després, el sensor va de $B=(5,3,7)$ a $C=(2,1,1)$. Quina distància recorre? A quina distància del pla $x-y-5=0$ queda?',
     resultat: '7\\text{ cm i }2\\sqrt{2}\\approx 2{,}83\\text{ cm}',
@@ -936,6 +951,7 @@ const FITXES = Object.freeze([
         text: 'En decimal, amb [[format]] i {{Decimal}}: $\\approx 2{,}83$ cm.'},
     ],
   },
+  */
   relacionades: ['exacte-decimal', 'pau-geo-25s-q4b', 'mode-decimal'],
 },
 {
@@ -965,6 +981,8 @@ const FITXES = Object.freeze([
     {tecles: ['exe'], pantalla: marca(calc(D, 'f(1.4)', '-0.6541110535'), 'resultat'),
       text: '$f(1{,}4)\\approx -0{,}654<0$: hi ha canvi de signe a $[1{,}4;\\,1{,}5]$, un interval d\'una dècima. ✓'},
   ],
+  /* «Ara tu» DESACTIVAT (v31, David): de moment no surt als exercicis PAU reals. Per tornar-lo a activar,
+     treu aquest comentari (vegeu ARCHITECTURE.md, punt 14).
   araTu: {
     enunciat: 'Amb la mateixa $f$, encara desada, troba un interval d\'una centèsima de longitud que contingui l\'arrel.',
     resultat: '[1{,}49;\\,1{,}5]',
@@ -975,6 +993,7 @@ const FITXES = Object.freeze([
         text: 'Ja saps que $f(1{,}5)>0$. Prova $f(1{,}49)$: [[funcio]], [[ok]], 1.49, [[rpar]] i [[exe]]. Surt negatiu: l\'arrel és a $[1{,}49;\\,1{,}5]$. ✓'},
     ],
   },
+  */
   relacionades: ['exacte-decimal', 'definir-fx', 'pau-ana-25j-q1'],
 },
 {
@@ -994,6 +1013,8 @@ const FITXES = Object.freeze([
       pantalla: marca(calc(D, '3\\pi\\times 2.1974^{2}+\\frac{200}{2.1974}', '136.5248256'), 'resultat'),
       text: 'Ara [[ans]] ja és l\'altura: per a $S(r)$, escriu el radi amb quatre decimals, 2.1974. Amb [[shift]] [[exe]], la superfície mínima és $S\\approx 136{,}52\\,\\text{cm}^2$.'},
   ],
+  /* «Ara tu» DESACTIVAT (v31, David): de moment no surt als exercicis PAU reals. Per tornar-lo a activar,
+     treu aquest comentari (vegeu ARCHITECTURE.md, punt 14).
   araTu: {
     enunciat: 'Una llauna cilíndrica de $500\\,\\text{cm}^3$ té l\'altura $h=\\frac{500}{\\pi r^2}$. Amb la derivada has obtingut $r^3=\\frac{250}{\\pi}$. Calcula el radi i l\'altura.',
     resultat: 'r\\approx 4{,}30\\text{ cm},\\ h\\approx 8{,}60\\text{ cm}',
@@ -1008,6 +1029,7 @@ const FITXES = Object.freeze([
         text: '$\\frac{500}{\\pi\\,\\mathrm{Ans}^2}$ i [[shift]] [[exe]]: $h\\approx 8{,}60$ cm.'},
     ],
   },
+  */
   relacionades: ['arrel-n', 'ans', 'exacte-decimal'],
 },
 {
@@ -1036,6 +1058,8 @@ const FITXES = Object.freeze([
     {tecles: ['funcio', 'ok', 'menys', '2', '0', '1', 'rpar', 'shift', 'exe'], pantalla: marca(calc(D, 'f(-201)', '-201.9950495'), 'resultat'),
       text: '$f(-201)\\approx -201{,}995$: $\\lim\\limits_{x\\to-\\infty}f(x)=-\\infty$. Ara ja pots calcular el pendent $m$ i l\'ordenada a l\'origen $n$ de l\'asímptota obliqua: surt $y=x-1$. Fixa\'t que $f(200)\\approx 200-1$.'},
   ],
+  /* «Ara tu» DESACTIVAT (v31, David): de moment no surt als exercicis PAU reals. Per tornar-lo a activar,
+     treu aquest comentari (vegeu ARCHITECTURE.md, punt 14).
   araTu: {
     enunciat: 'Defineix $g(x)=\\dfrac{x+1}{x-2}$ i intueix $\\lim\\limits_{x\\to 2^+}g(x)$ i $\\lim\\limits_{x\\to+\\infty}g(x)$.',
     resultat: '+\\infty\\text{ i }1',
@@ -1052,6 +1076,7 @@ const FITXES = Object.freeze([
         text: '$g(1000)\\approx 1{,}003$: el límit a $+\\infty$ és 1, i $y=1$ és una asímptota horitzontal.'},
     ],
   },
+  */
   relacionades: ['definir-fx', 'pau-ana-24i-q1', 'exacte-decimal'],
 },
 {
@@ -1073,6 +1098,8 @@ const FITXES = Object.freeze([
     {apartat: 'b', tecles: ['per', '7', '5', '0', 'shift', 'exe'], pantalla: marca(calc(R, '\\mathrm{Ans}\\times 750', '3727.922061'), 'resultat'),
       text: 'Ara [[per]] 750: després d\'un resultat, el càlcul comença amb Ans, sense arrodonir. Amb [[shift]] [[exe]], el preu del vitrall és de $3\\,727{,}92$ €.'},
   ],
+  /* «Ara tu» DESACTIVAT (v31, David): de moment no surt als exercicis PAU reals. Per tornar-lo a activar,
+     treu aquest comentari (vegeu ARCHITECTURE.md, punt 14).
   araTu: {
     enunciat: 'Si el vitrall fos entre $y=2\\sin\\frac{x}{4}$ i $y=2\\cos\\frac{x}{4}$, l\'àrea seria $\\left[8\\sin\\frac{x}{4}+8\\cos\\frac{x}{4}\\right]_0^{\\pi}$. Calcula-la i el preu, a 750 € el m².',
     resultat: '8(\\sqrt{2}-1)\\approx 3{,}31\\text{ m}^2;\\ 2\\,485{,}28\\text{ euros}',
@@ -1088,6 +1115,7 @@ const FITXES = Object.freeze([
         text: '[[per]] 750 i [[shift]] [[exe]]: el preu és de $2\\,485{,}28$ €.'},
     ],
   },
+  */
   relacionades: ['canvia-radians', 'exacte-decimal', 'ans', 'barrow', 'mode-decimal'],
 },
 {
@@ -1115,6 +1143,8 @@ const FITXES = Object.freeze([
       pantalla: marca(calc(D, '5\\times 0.63^{4}\\times 0.37+0.63^{5}', '0.3906734328'), 'resultat'),
       text: '!!Error típic!!: si arrodoneixes $p\\approx 0{,}63$, surt 0.3906734328 i no 0.3968623045: ja falla la segona xifra decimal. Treballa amb $\\frac{19}{30}$.'},
   ],
+  /* «Ara tu» DESACTIVAT (v31, David): de moment no surt als exercicis PAU reals. Per tornar-lo a activar,
+     treu aquest comentari (vegeu ARCHITECTURE.md, punt 14).
   araTu: {
     enunciat: 'Si la Rut encertés el 60 % dels problemes que copia (i no el 40 %), quina seria la probabilitat que la solució sigui correcta? I la que l\'hagi resolt ella, si és correcta?',
     resultat: '\\frac{7}{10}\\text{ i }\\frac{5}{7}',
@@ -1129,6 +1159,7 @@ const FITXES = Object.freeze([
         text: 'Bayes: $\\left(\\frac{4}{6}\\times 0.75\\right)\\div$ [[ans]] i [[exe]]: $\\frac{5}{7}$.'},
     ],
   },
+  */
   relacionades: ['exacte-decimal', 'frac-plantilla', 'pot-fraccio', 'combinatoria', 'pau-pro-24s-q4', 'mode-decimal'],
 },
 {
@@ -1151,6 +1182,8 @@ const FITXES = Object.freeze([
     {apartat: 'c', tecles: ['shift', 'exe'], pantalla: marca(calc(D, '0.2\\times(1-0.95)\\div(1-\\mathrm{Ans})', '0.01240694789'), 'resultat'),
       text: 'Prem [[shift]] [[exe]]: $\\approx 0{,}0124$. Només l\'1,24 % de les persones que donen negatiu pateixen arrítmia.'},
   ],
+  /* «Ara tu» DESACTIVAT (v31, David): de moment no surt als exercicis PAU reals. Per tornar-lo a activar,
+     treu aquest comentari (vegeu ARCHITECTURE.md, punt 14).
   araTu: {
     enunciat: 'Amb les dades de l\'apartat b), calcula la probabilitat que una persona amb un diagnòstic positiu pateixi arrítmia.',
     resultat: '\\frac{95}{97}\\approx 0{,}979',
@@ -1163,6 +1196,7 @@ const FITXES = Object.freeze([
         text: 'Amb [[shift]] [[exe]]: 0.9793814433 (amb [[exe]] sortiria $\\frac{95}{97}$). La probabilitat és $\\approx 0{,}979$.'},
     ],
   },
+  */
   relacionades: ['pau-pro-24i-q4', 'ans', 'exacte-decimal', 'mode-decimal'],
 },
 {
@@ -1181,6 +1215,8 @@ const FITXES = Object.freeze([
     {apartat: 'c', tecles: ['exe'], pantalla: marca(calc(D, '5\\times(0.8^{4}-0.8^{5})', '\\frac{256}{625}'), 'resultat'),
       text: 'Prem [[exe]]: $\\frac{256}{625}$, el valor exacte del màxim, perquè la calculadora és en mode {{E Mat/S Mat}}. En mode {{E Mat/S Decimal}} sortiria 0.4096, és a dir, $\\approx 0{,}41$.'},
   ],
+  /* «Ara tu» DESACTIVAT (v31, David): de moment no surt als exercicis PAU reals. Per tornar-lo a activar,
+     treu aquest comentari (vegeu ARCHITECTURE.md, punt 14).
   araTu: {
     enunciat: 'Si el 90 % de les peces de ferro no tinguessin cap defecte (i el 3 % de les d\'acer fossin defectuoses), quina seria la probabilitat que una peça sigui defectuosa?',
     resultat: '0{,}072',
@@ -1196,6 +1232,7 @@ const FITXES = Object.freeze([
         text: '!!Error típic!!: amb el 0.9 de les peces sense defecte, surt 0.552.'},
     ],
   },
+  */
   relacionades: ['pau-pro-24i-q4', 'exacte-decimal', 'pot-negativa', 'mode-decimal'],
 },
 ]);

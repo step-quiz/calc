@@ -71,7 +71,7 @@ cop i el navegador el recorda. Els menús de la pantalla, les opcions `{{…}}` 
 en aquell idioma. La traducció al català és a `js/guions.js` (`CATALA`), comprovada amb fotos de la calculadora (versió 27);
 les poques pantalles que encara no s'han fotografiat són a `VERIFICAR.md`. La prova comprova que tots els textos de menú i tots els `{{…}}` hi tenen traducció.
 
-## «Ara tu» (versió 25; a totes les fitxes des de la versió 30)
+## «Ara tu» (versió 25; a totes les fitxes des de la versió 30; als exercicis PAU, desactivat des de la versió 31)
 
 Cada fitxa porta `araTu: {enunciat, resultat, error, inici, passos}`: en acabar l'últim pas surt un exercici semblant, amb
 altres nombres. «Mostra la solució» ensenya el **resultat correcte** i, en vermell, l'**error típic** (el que no s'ha de fer).
@@ -80,6 +80,11 @@ amb uns botons ◀ ▶ propis (i les fletxes del teclat). «Torna a l'exercici»
 passos de l'«Ara tu» s'escriuen i es comproven igual que els d'una fitxa (també poden portar `error: true`). L'«Ara tu» comença
 amb la calculadora tal com l'ha deixada la fitxa: les f(x) i g(x) que s'hi han definit encara hi són (per exemple, a *Regla de
 Barrow amb f(x)* es calcula una altra integral amb la mateixa primitiva).
+
+**Exercicis PAU (blocs «Exercicis PAU. Àlgebra i Geometria» i «Exercicis PAU. Anàlisi i Probabilitat»):** de moment
+l'«Ara tu» no hi surt (decisió de David, versió 31). Els 12 «Ara tu» ja fets no s'han esborrat: són a `js/fitxes.js`,
+dins d'un comentari `/* «Ara tu» DESACTIVAT … */` just abans de `relacionades` de cada fitxa. Per tornar a activar-ne un,
+treu les dues línies d'encapçalament del comentari i el `*/` final, puja la versió i passa les proves.
 
 ## Fitxers
 
