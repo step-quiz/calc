@@ -61,10 +61,12 @@ function element(etiqueta, atributs = {}, fills = []) {
 const espera = ms => new Promise(resol => setTimeout(resol, ms));
 const {escapa, formula} = Text;
 
-/** La calculadora d'aquesta pàgina (el model), les del catàleg, l'idioma dels menús i el creador de textos: els posa inicia(). */
+/** La calculadora d'aquesta pàgina (el model), les del catàleg, l'idioma dels menús, l'etapa (v36: la del bloc de la
+    fitxa) i el creador de textos: els posa inicia(). */
 let M = null;
 let MODELS = [];
 let IDIOMA = null;
+let ETAPA = null;
 let text = t => escapa(t);
 /** La capa d'una tecla de prefix (SHIFT, ALPHA…: la tecla següent fa la funció d'aquella capa), o null. */
 const prefix = id => (id && M.tecles.TECLES[id] && M.tecles.TECLES[id].prefix) || null;
@@ -77,13 +79,14 @@ function capaActiva(teclat, capa) {
 /**
  * El selector «La teva calculadora» (v34). En triar-ne una altra, es desa i s'obre la mateixa fitxa en aquella
  * calculadora (les fitxes del mateix tema porten el mateix id; si no la té, motor.js ho diu i enllaça la portada).
+ * L'etapa es manté (v36). Dins una fitxa no hi ha selector d'etapa: l'etapa és la del bloc.
  */
 function selectorModel(fitxa) {
   if (MODELS.length < 2) return null;
   const sel = element('select', {id: 'model', 'aria-label': 'La teva calculadora'});
   for (const d of MODELS) sel.append(element('option', {value: d.id, text: d.curt}));
   sel.value = M.id;
-  sel.addEventListener('change', () => { Preferencies.desaModel(sel.value); location.href = Models.adreca(sel.value, fitxa.id); });
+  sel.addEventListener('change', () => { Preferencies.desaModel(sel.value); location.href = Models.adreca({model: sel.value, etapa: ETAPA, fitxa: fitxa.id}); });
   return element('label', {class: 'tria-model', for: 'model', text: 'La teva calculadora '}, [sel]);
 }
 
@@ -188,7 +191,7 @@ function construeixPagina(fitxa, bloc, germanes, contenidor) {
 
   r.escenari = element('div', {class: 'escenari'}, [r.calculadora, r.efectes, r.cursor]);
 
-  const enllac = f => element('a', {class: 'pastilla' + (f.id === fitxa.id ? ' actual' : ''), href: Models.adreca(M.id, f.id),
+  const enllac = f => element('a', {class: 'pastilla' + (f.id === fitxa.id ? ' actual' : ''), href: Models.adreca({model: M.id, etapa: ETAPA, fitxa: f.id}),
     'aria-current': f.id === fitxa.id ? 'page' : null, text: f.titol});
   // Les relacionades d'un altre bloc (les del mateix bloc ja hi són)
   const relacionades = (fitxa.relacionades || []).map(id => M.dades.FITXES.find(f => f.id === id)).filter(f => f && f.bloc !== fitxa.bloc);
@@ -201,7 +204,7 @@ function construeixPagina(fitxa, bloc, germanes, contenidor) {
 
   contenidor.replaceChildren(
     element('header', {class: 'capcalera'}, [
-      element('a', {class: 'torna', href: Models.adreca(M.id) + '#' + bloc.id, text: '← Calculadora'}),
+      element('a', {class: 'torna', href: Models.adreca({model: M.id, etapa: ETAPA}) + '#' + bloc.id, text: '← Calculadora'}),
       element('div', {class: 'tries'}, [selectorModel(fitxa), selectorIdioma()]),
       // Avisos que només mostra el CSS quan cal (estil.css): navegador sense unitats cqw, tauleta en vertical
       element('p', {class: 'avis-capcalera avis-navegador', text: 'Aquest navegador és massa antic per dibuixar la calculadora. Actualitza\'l (Chrome 105 o posterior).'}),
@@ -555,9 +558,12 @@ function inicia(model, id, contenidor) {
   if (!fitxa) {
     document.title = 'Calculadora ' + M.curt;
     return errorCarrega(contenidor, `No hi ha cap fitxa «${escapa(id || '')}» per a la ${escapa(M.curt)}. `
-      + `<a href="${escapa(Models.adreca(M.id))}">Torna a la portada</a> per veure les fitxes d'aquesta calculadora.`);
+      + `<a href="${escapa(Models.adreca({model: M.id, etapa: Models.etapaActual()}))}">Torna a la portada</a> per veure les fitxes d'aquesta calculadora.`);
   }
   const bloc = M.dades.BLOCS.find(b => b.id === fitxa.bloc);
+  // L'etapa (v36) és la del bloc (si el bloc és de dues etapes, la de l'adreça o l'última vista); es desa com a última vista
+  ETAPA = Models.etapaDe(bloc.etapes);
+  Preferencies.desaEtapa(ETAPA);
   const germanes = M.dades.FITXES.filter(f => f.bloc === fitxa.bloc);
   document.title = fitxa.titol + ' — Calculadora ' + M.curt;
   document.body.style.setProperty('--cat', bloc.color);

@@ -1,7 +1,9 @@
 /* ═══════════════════════════════════════════════════════════════════
    models/fx-82sp-cw/fitxes/blocs.js — Els blocs i el format de les fitxes
    ───────────────────────────────────────────────────────────────────
-   M.blocs (aquí): els apartats de la portada, en ordre (només id, títol i color: la portada no porta descripcions).
+   M.blocs (aquí): els apartats de la portada, en ordre (només id, títol i color: la portada no porta descripcions),
+     i etapes: a quines etapes del web surt el bloc (v36; ids de models/cataleg.js): ['batx'], ['eso'] o
+     ['eso', 'batx']. Les fitxes són de l'etapa del seu bloc; les d'ESO van a fitxes/eso/<bloc>.js.
    M.comu (aquí): fórmules i indicadors que fan servir les fitxes de diversos blocs.
    Les fitxes, a fitxes/<bloc>.js (M.fitxes.push(…), en l'ordre de la portada). Cada fitxa és un guió pas a pas:
      id         nom a l'adreça: fitxa.html?id=<id>. Si una altra calculadora té una fitxa del mateix tema, el mateix id
@@ -44,14 +46,14 @@ const FIX = ind(D, {fix: true});
 M.comu = Object.freeze({SEN45, ARREL2_2, D, R, FIX});
 
 M.blocs = Object.freeze([
-  {id: 'exacte', titol: 'Treballar en mode \'exacte\' o \'decimal\'', color: '#0c1736'},
-  {id: 'fraccions', titol: 'Operar amb fraccions i potències', color: '#0d235e'},
-  {id: 'angles', titol: 'Treballar en mode \'graus\' o \'radiants\'', color: '#033d63'},
-  {id: 'pau', titol: 'Funcions útils per a la PAU', color: '#876d0d'},
-  {id: 'pau-ag', titol: 'Exercicis PAU. Àlgebra i Geometria', color: '#853300'},
-  {id: 'pau-ap', titol: 'Exercicis PAU. Anàlisi i Probabilitat', color: '#945600'},
+  {id: 'exacte', titol: 'Treballar en mode \'exacte\' o \'decimal\'', color: '#0c1736', etapes: ['batx']},
+  {id: 'fraccions', titol: 'Operar amb fraccions i potències', color: '#0d235e', etapes: ['batx']},
+  {id: 'angles', titol: 'Treballar en mode \'graus\' o \'radiants\'', color: '#033d63', etapes: ['batx']},
+  {id: 'pau', titol: 'Funcions útils per a la PAU', color: '#876d0d', etapes: ['batx']},
+  {id: 'pau-ag', titol: 'Exercicis PAU. Àlgebra i Geometria', color: '#853300', etapes: ['batx']},
+  {id: 'pau-ap', titol: 'Exercicis PAU. Anàlisi i Probabilitat', color: '#945600', etapes: ['batx']},
   // Fase 4 (David, 1/11/2026): una bombolla petita a la portada, a part dels 6 blocs (petit: true)
-  {id: 'examen', titol: 'Abans de l\'examen', color: '#3d4f1f', petit: true},
+  {id: 'examen', titol: 'Abans de l\'examen', color: '#3d4f1f', etapes: ['batx'], petit: true},
 ]);
 
 })(Models.obre('fx-82sp-cw'));

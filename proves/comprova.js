@@ -13,6 +13,8 @@
    navegador (model.js i els seus fitxers, en ordre):
      · el contracte (Models.tanca) i el descriptor;
      · els blocs i les fitxes: ids únics, bloc existent, camps obligatoris;
+       cada bloc diu a quines etapes surt (etapes del catàleg), i una fitxa
+       relacionada és de la mateixa etapa;
      · cada pas: tecles del model, text, error (zona d'error) true o absent,
        apartats marcats a l'enunciat;
      · els textos: les [[tecles]] existeixen, els $ i {{ }} estan tancats;
@@ -23,7 +25,9 @@
        les traduccions, el teclat, els resultats…;
      · (amb KATEX) cada fórmula dels textos.
    I del web: el nucli (js/nucli/ i css/estil.css) no coneix cap
-   calculadora, i els «?v=» de les pàgines coincideixen amb Models.VERSIO.
+   calculadora, els «?v=» de les pàgines coincideixen amb Models.VERSIO,
+   les etapes del catàleg són correctes, i les adreces (Models.adreca)
+   van i tornen i no porten els valors per defecte (v36).
    ═══════════════════════════════════════════════════════════════════ */
 'use strict';
 const fs = require('fs');
@@ -31,7 +35,7 @@ const path = require('path');
 const vm = require('vm');
 
 const arrel = path.join(__dirname, '..');
-const context = {console};
+const context = {console, URLSearchParams};   // URLSearchParams: Models.adreca (v36)
 context.globalThis = context;
 vm.createContext(context);
 const executa = f => vm.runInContext(fs.readFileSync(path.join(arrel, f), 'utf8'), context, {filename: f});
@@ -64,6 +68,20 @@ executa('js/nucli/models.js');
 executa('models/cataleg.js');
 const {Models} = context;
 ok(Models.ids.length > 0, 'models/cataleg.js', 'el catàleg és buit');
+
+/* Les etapes (v36): id curt i únic, i els textos de la portada (nom del selector, lema, <title>, descripció) */
+const ETAPES = Models.llistaEtapes;
+ok(ETAPES.length > 0, 'models/cataleg.js', 'no hi ha cap etapa (Models.etapes)');
+{
+  const vistes = new Set();
+  for (const e of ETAPES) {
+    const on = `models/cataleg.js · etapa ${e.id}`;
+    ok(/^[a-z]+$/.test(e.id) && !vistes.has(e.id), on, 'l\'id d\'una etapa ha de ser únic i en minúscules');
+    vistes.add(e.id);
+    for (const camp of ['nom', 'lema', 'titol', 'descripcio']) ok(typeof e[camp] === 'string' && e[camp].trim(), on, `falta «${camp}»`);
+  }
+}
+const ID_ETAPES = new Set(ETAPES.map(e => e.id));
 
 /* El nucli no coneix cap calculadora: no fa servir els noms globals d'abans (Tecles, Pantalla, G, Dades, Simulador)
    ni cap id de tecla entre cometes (els tipus de tecla, com 'shift', sí que hi poden ser). */
@@ -163,7 +181,11 @@ for (const id of Models.ids) {
     idsBlocs.add(b.id);
     ok(/^#[0-9a-f]{6}$/i.test(b.color), `${on} · bloc ${b.id}`, 'color incorrecte');
     ok(b.titol, `${on} · bloc ${b.id}`, 'falta el títol');
+    // L'etapa (v36): sempre escrita, sense valor per defecte; ids del catàleg, sense repetir
+    ok(Array.isArray(b.etapes) && b.etapes.length > 0 && b.etapes.every(e => ID_ETAPES.has(e)) && new Set(b.etapes).size === b.etapes.length,
+      `${on} · bloc ${b.id}`, `etapes ha de ser una llista d'etapes del catàleg (${[...ID_ETAPES].join(', ')}), sense repetir`);
   }
+  const etapesBloc = new Map(BLOCS.map(b => [b.id, Array.isArray(b.etapes) ? b.etapes : []]));
 
   /* Els «Ara tu» amb passos es comproven com una fitxa més (pantalles, simulador, resultats). Comencen amb la calculadora
      com l'ha deixada la fitxa: les f(x) i g(x) definides a la fitxa continuen desades (funcions). */
@@ -194,7 +216,21 @@ for (const id of Models.ids) {
     comprovaPassos(f, onF, f.enunciat);
   }
   for (const f of FITXES) {
-    for (const r of f.relacionades || []) ok(idsFitxes.has(r) && r !== f.id, `${on} · fitxa ${f.id}`, `relacionada desconeguda (${r})`);
+    for (const r of f.relacionades || []) {
+      if (!ok(idsFitxes.has(r) && r !== f.id, `${on} · fitxa ${f.id}`, `relacionada desconeguda (${r})`)) continue;
+      // Una relacionada és de la mateixa etapa (v36): l'alumne d'ESO no salta sense voler a una fitxa de Batxillerat
+      const altra = FITXES.find(g => g.id === r);
+      ok((etapesBloc.get(f.bloc) || []).some(e => (etapesBloc.get(altra.bloc) || []).includes(e)), `${on} · fitxa ${f.id}`,
+        `la relacionada ${r} és d'una altra etapa`);
+    }
+  }
+
+  // Les etapes del selector de la portada: les que tenen alguna fitxa (i l'actual)
+  {
+    const ambFitxes = new Set(FITXES.flatMap(f => etapesBloc.get(f.bloc) || []));
+    const visibles = Models.etapesVisibles(M).map(e => e.id);
+    ok(visibles.every(e => ambFitxes.has(e) || e === Models.etapaActual()) && [...ambFitxes].every(e => visibles.includes(e)),
+      `${on} · etapes`, `el selector d'etapa hauria d'oferir ${[...ambFitxes].join(', ')} (ofereix ${visibles.join(', ')})`);
   }
 
   /* El simulador: totes les pantalles intermèdies es poden deduir (o la fitxa les dona) i el que
@@ -222,7 +258,52 @@ for (let a = 0; a < models.length; a++) {
     for (const f of models[b].dades.FITXES) {
       if (blocs.has(f.id)) ok(blocs.get(f.id) === f.bloc, `fitxa ${f.id}`, `és al bloc «${blocs.get(f.id)}» a la ${models[a].curt} i al «${f.bloc}» a la ${models[b].curt}`);
     }
+    // El mateix bloc, les mateixes etapes (v36): en canviar de calculadora, l'alumne es queda a la mateixa etapa
+    const etapes = new Map(models[a].dades.BLOCS.map(bl => [bl.id, String(bl.etapes)]));
+    for (const bl of models[b].dades.BLOCS) {
+      if (etapes.has(bl.id)) ok(etapes.get(bl.id) === String(bl.etapes), `bloc ${bl.id}`, `té etapes diferents a la ${models[a].curt} i a la ${models[b].curt}`);
+    }
   }
+}
+
+/* ── Les etapes i les adreces (v36) ─────────────────────────────────
+   Models.adreca no posa els valors per defecte (els enllaços d'abans no canvien) i l'adreça torna el que s'hi ha
+   posat; Models.etapaActual llegeix ?etapa=, després l'etapa desada (Preferencies) i, si no, la de per defecte. */
+{
+  const on = 'Models.adreca';
+  const [M0, E0] = [Models.ids[0], ETAPES[0].id];
+  ok(Models.adreca({}) === 'index.html' && Models.adreca({model: M0, etapa: E0}) === 'index.html', on, 'la portada per defecte ha de ser index.html, sense paràmetres');
+  ok(Models.adreca({model: M0, etapa: E0, fitxa: 'ans'}) === 'fitxa.html?id=ans', on, 'una fitxa per defecte ha de ser fitxa.html?id=…');
+  if (Models.ids.includes('fx-82ms')) ok(Models.adreca({model: 'fx-82ms', fitxa: 'pot-negativa'}) === 'fitxa.html?model=fx-82ms&id=pot-negativa', on, 'els enllaços de la v35 han de continuar iguals');
+  for (const model of Models.ids) for (const e of ETAPES) for (const fitxa of [undefined, 'una-fitxa']) {
+    const a = Models.adreca({model, etapa: e.id, fitxa});
+    const [pagina, cerca = ''] = a.split('?');
+    const q = new URLSearchParams(cerca);
+    ok(pagina === (fitxa ? 'fitxa.html' : 'index.html') && (q.get('model') || M0) === model && (q.get('etapa') || E0) === e.id
+      && q.get('id') === (fitxa || null) && (model !== M0 || !q.has('model')) && (e.id !== E0 || !q.has('etapa')), on, `${a} no torna {${model}, ${e.id}, ${fitxa}}`);
+  }
+
+  // etapaActual i etapaDe, amb una adreça i una memòria de mentida
+  const memoria = new Map();
+  context.localStorage = {getItem: k => (memoria.has(k) ? memoria.get(k) : null), setItem: (k, v) => memoria.set(k, String(v))};
+  executa('js/nucli/preferencies.js');
+  const amb = (cerca, desada) => {
+    context.location = {search: cerca};
+    memoria.clear();
+    if (desada) context.Preferencies.desaEtapa(desada);
+    return Models.etapaActual();
+  };
+  const [EA, EB] = [E0, (ETAPES[1] || ETAPES[0]).id];
+  ok(amb('', null) === EA, 'Models.etapaActual', 'sense res, la de per defecte');
+  ok(amb('?etapa=' + EB, null) === EB, 'Models.etapaActual', '?etapa= mana');
+  ok(amb('?etapa=no-existeix', EB) === EB, 'Models.etapaActual', 'una ?etapa= desconeguda es descarta i mana la desada');
+  ok(amb('?etapa=' + EA, EB) === EA, 'Models.etapaActual', '?etapa= mana sobre la desada');
+  ok(amb('', 'no-existeix') === EA, 'Models.etapaActual', 'una etapa desada desconeguda es descarta');
+  amb('?etapa=' + EB, null);
+  ok(Models.etapaDe([EA]) === EA && Models.etapaDe([EB, EA]) === EB, 'Models.etapaDe', 'ha de triar l\'actual si el bloc la té i, si no, la primera del bloc');
+  delete context.location;
+  delete context.localStorage;
+  delete context.Preferencies;
 }
 
 /* ── El web ────────────────────────────────────────────────────────── */

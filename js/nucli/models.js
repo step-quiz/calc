@@ -8,7 +8,10 @@
                 M.tecles = …; M.pantalla = …; M.guions = …; M.simulador = …;
                 M.blocs = […]; M.fitxes.push(…)
    models/cataleg.js diu quins models hi ha: Models.cataleg(['<id>', …]);
-   el primer és el de per defecte.
+   el primer és el de per defecte. També diu quines etapes té el web
+   (v36): Models.etapes([{id, nom, lema, titol, descripcio}, …]); la
+   primera és la de per defecte. Cada bloc d'un model diu a quines
+   etapes surt (bloc.etapes = ['batx'], ['eso'] o ['eso', 'batx']).
 
    El contracte (Models.tanca el comprova i congela el model):
      id, nom, curt, idiomes ({codi: nom} o null)
@@ -28,7 +31,8 @@
 
    Exporta «Models»: VERSIO, cataleg, descriu, obre, tanca, carrega,
    idActual, adreca, descriptorsTots, model, carpeta, dibuix (eines per dibuixar
-   el teclat), CONTRACTE.
+   el teclat), CONTRACTE; i les etapes: etapes, etapa, etapaActual, etapaDe,
+   etapesVisibles.
    ═══════════════════════════════════════════════════════════════════ */
 (function (arrel) {
 'use strict';
@@ -38,7 +42,7 @@
  * index.html i fitxa.html (la prova ho comprova): així cap navegador no fa servir fitxers vells.
  * Els fitxers dels models es carreguen amb aquest mateix «?v=».
  */
-const VERSIO = '35';
+const VERSIO = '36';
 
 /** Les parts que ha de donar cada model, amb les funcions o els camps que el nucli hi fa servir. */
 const CONTRACTE = Object.freeze({
@@ -101,10 +105,51 @@ function idActual() {
   return ids.includes(desat) ? desat : ids[0];
 }
 
-/** L'adreça d'una fitxa d'un model: el paràmetre model només hi va si no és el de per defecte (els enllaços d'abans no canvien). */
-function adreca(id, fitxa) {
+/* ── Les etapes (v36): Batxillerat i ESO ───────────────────────────
+   Són configuració del web, no de cap calculadora: el nucli les pot llegir. Cada bloc diu a quines etapes surt
+   (bloc.etapes); una fitxa és de l'etapa del seu bloc. La portada només ensenya els blocs de l'etapa triada. */
+
+let etapesWeb = [];                 // [{id, nom, lema, titol, descripcio}], en ordre; la primera, la de per defecte
+
+function etapes(llista) { etapesWeb = Object.freeze(llista.map(e => Object.freeze(Object.assign({}, e)))); }
+
+/** Una etapa (el descriptor) o null. */
+const etapa = id => etapesWeb.find(e => e.id === id) || null;
+
+/**
+ * L'etapa d'aquesta pàgina: ?etapa=<id> si existeix; si no, l'última que l'alumne va veure (Preferencies, si
+ * s'ha carregat); si no, la primera (la de per defecte).
+ */
+function etapaActual() {
+  const p = parametre('etapa');
+  if (etapa(p)) return p;
+  const desada = typeof Preferencies !== 'undefined' ? Preferencies.etapa() : null;
+  return etapa(desada) ? desada : etapesWeb[0].id;
+}
+
+/** D'una llista d'etapes (les d'un bloc), la que toca ara: l'actual si hi és; si no, la primera de la llista. */
+const etapaDe = llista => (llista.includes(etapaActual()) ? etapaActual() : llista[0]);
+
+/**
+ * Les etapes que surten al selector de la portada per a un model: les que hi tenen alguna fitxa, en l'ordre del
+ * catàleg, i l'actual encara que no en tingui (així, amb ?etapa=eso, es pot veure i tornar enrere). Una etapa sense
+ * cap fitxa no surt: l'alumnat no veu una etapa buida.
+ */
+function etapesVisibles(M) {
+  const actual = etapaActual();
+  const blocsAmbFitxes = new Set(M.dades.FITXES.map(f => f.bloc));
+  const ambFitxes = new Set(M.dades.BLOCS.filter(b => blocsAmbFitxes.has(b.id)).flatMap(b => b.etapes));
+  return etapesWeb.filter(e => e.id === actual || ambFitxes.has(e.id));
+}
+
+/**
+ * L'adreça de la portada (sense fitxa) o d'una fitxa: {model, etapa, fitxa}. Els paràmetres model i etapa només hi
+ * van si no són els de per defecte: així els enllaços d'abans (Batxillerat, fx-82SP CW) no canvien.
+ */
+function adreca({model, etapa: e, fitxa} = {}) {
   const q = new URLSearchParams();
-  if (id !== ids[0]) q.set('model', id);
+  if (model && model !== ids[0]) q.set('model', model);
+  if (e && etapesWeb.length && e !== etapesWeb[0].id) q.set('etapa', e);
   if (fitxa) q.set('id', fitxa);
   const s = q.toString();
   return (fitxa ? 'fitxa.html' : 'index.html') + (s ? '?' + s : '');
@@ -167,6 +212,7 @@ const dibuix = Object.freeze({
 const model = id => tancats[id] || null;
 
 arrel.Models = Object.freeze({VERSIO, CONTRACTE, cataleg, descriu, obre, tanca, carrega, idActual, model, carpeta, dibuix, adreca, descriptorsTots,
-  get ids() { return ids.slice(); }, descriptor: id => descriptors[id] || null});
+  get ids() { return ids.slice(); }, descriptor: id => descriptors[id] || null,
+  etapes, etapa, etapaActual, etapaDe, etapesVisibles, get llistaEtapes() { return etapesWeb.slice(); }});
 
 })(globalThis);

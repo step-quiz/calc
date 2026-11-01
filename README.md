@@ -1,6 +1,6 @@
 # La calculadora fx-82SP CW, pas a pas
 
-Web estàtica per a l'alumnat de Matemàtiques de Batxillerat: fitxes curtes que ensenyen a fer servir
+Web estàtica per a l'alumnat de Matemàtiques de Batxillerat i, aviat, d'ESO: fitxes curtes que ensenyen a fer servir
 la calculadora **CASIO fx-82SP CW** (la que porten els alumnes) i a evitar-ne els errors típics.
 
 Cada fitxa és una demostració pas a pas, com els DEMO de `step-quiz/pau`, en dues columnes:
@@ -98,30 +98,48 @@ Verificar, que no té: *Defineix f(x) i g(x)*, *Regla de Barrow amb f(x)*, *Comp
 límits amb f(x)*. Sense f(x), una funció es calcula en un altre punt amb la repetició: [◀] torna a l'expressió i
 només es canvia el nombre (fitxa de Bolzano). Les pantalles que no surten al manual i s'han deduït són a `VERIFICAR.md`.
 
+## Dues etapes: Batxillerat i ESO (versió 36)
+
+El web té dues etapes: **Batxillerat** (la de per defecte: tot el que hi havia fins ara, amb exercicis de la PAU) i
+**ESO** (3r i 4t, amb preguntes de les proves de competències bàsiques; en preparació). És un sol web, amb les mateixes
+calculadores: només canvien els blocs i les fitxes.
+
+- Cada bloc diu a quines etapes surt (`etapes: ['batx']`, `['eso']` o `['eso', 'batx']`, a `fitxes/blocs.js`). Una
+  fitxa és de l'etapa del seu bloc. Les fitxes d'ESO van a `models/<calculadora>/fitxes/eso/<bloc>.js`.
+- A la portada, «Etapa» tria Batxillerat o ESO, i el navegador recorda l'última etapa que l'alumne ha vist. La línia de
+  sobre el títol, el títol de la pestanya i la descripció canvien amb l'etapa (`models/cataleg.js`).
+- El selector «Etapa» només surt quan hi ha més d'una etapa amb fitxes: mentre l'ESO no en tingui cap, l'alumnat no la
+  veu. Es pot mirar igualment amb `index.html?etapa=eso` (diu «Properament»).
+- L'adreça porta `etapa=eso` a l'ESO; a Batxillerat, no (`fitxa.html?id=ans` continua sent la mateixa adreça). Dins una
+  fitxa no hi ha selector d'etapa: «← Calculadora» torna a la portada de la seva etapa, i en canviar de calculadora
+  l'etapa es manté.
+- Una fitxa relacionada (`relacionades`) ha de ser de la mateixa etapa, i un bloc té les mateixes etapes a les dues
+  calculadores (la prova ho comprova).
+
 ## Fitxers
 
 El web té un **nucli** comú i una carpeta per a cada **calculadora** («model»). El nucli no coneix cap
-tecla ni cap menú: tot el que sap d'una calculadora ho demana al model (versió 32). Ara només hi ha la
-fx-82SP CW; la fx-82MS 2a edició hi anirà com una carpeta més.
+tecla ni cap menú: tot el que sap d'una calculadora ho demana al model (versió 32). Hi ha la
+fx-82SP CW i la fx-82MS 2a edició (versió 34), cadascuna en una carpeta.
 
 | Fitxer | Què hi ha |
 |---|---|
 | `index.html` | La portada: una targeta per bloc, amb el títol i les fitxes (la dibuixa `js/nucli/portada.js`). |
-| `fitxa.html` | La pàgina de qualsevol fitxa (la construeix `js/nucli/motor.js`). Adreça: `fitxa.html?id=<fitxa>`; amb `&model=<calculadora>`, una altra calculadora. |
+| `fitxa.html` | La pàgina de qualsevol fitxa (la construeix `js/nucli/motor.js`). Adreça: `fitxa.html?id=<fitxa>`; amb `&model=<calculadora>`, una altra calculadora; amb `&etapa=eso`, l'ESO. |
 | `css/estil.css` | L'estil del nucli: paleta de `pau`, disposició, reproductor, passos, portada, i com es col·loca qualsevol calculadora (versió 33). |
-| `js/nucli/models.js` | El registre i el carregador de les calculadores, i la **versió** del web (`VERSIO`). |
-| `js/nucli/preferencies.js` | El que el navegador recorda: la calculadora de l'alumne i l'idioma dels seus menús. |
+| `js/nucli/models.js` | El registre i el carregador de les calculadores, les etapes, les adreces (`Models.adreca`) i la **versió** del web (`VERSIO`). |
+| `js/nucli/preferencies.js` | El que el navegador recorda: la calculadora de l'alumne, l'idioma dels seus menús i l'última etapa que ha vist. |
 | `js/nucli/text.js` | Els textos de les fitxes en HTML: fórmules, tecles, opcions de menú, «Error típic», apartats. |
 | `js/nucli/motor.js` | La pàgina de la fitxa i el reproductor pas a pas (també l'«Ara tu»). |
 | `js/nucli/portada.js` | La portada. |
-| `models/cataleg.js` | Quines calculadores hi ha: fx-82SP CW (la de per defecte) i fx-82MS. |
+| `models/cataleg.js` | Quines calculadores hi ha (fx-82SP CW, la de per defecte, i fx-82MS) i quines etapes (Batxillerat, la de per defecte, i ESO), amb els textos de la portada de cada etapa. |
 | `models/fx-82sp-cw/model.js` | La fx-82SP CW: nom, idiomes i quins fitxers i fulls d'estil té, en ordre. |
 | `models/fx-82sp-cw/estil.css` | Com es veu la fx-82SP CW: el cos, les tecles rodones i els rètols, la pantalla per dins i les tecles petites dels textos. |
 | `models/fx-82sp-cw/tecles.js` | Les tecles (etiqueta, funció amb SHIFT, nom) i **la geometria de la calculadora** (on és cada tecla i quin diàmetre fa). |
 | `models/fx-82sp-cw/pantalla.js` | Dibuixa la pantalla: càlcul amb indicadors, menús, HOME, missatges. |
 | `models/fx-82sp-cw/guions.js` | Les pantalles que es repeteixen (menús CONFIG, FORMAT, CATALOG…), amb els textos del manual, i la traducció al català. |
 | `models/fx-82sp-cw/simulador.js` | Calcula la pantalla després de cada tecla (escriure, fraccions, arrels quadrades i d'índex n, logaritmes en base a, potències, menús, FUNCTION, CATALOG > Probabilidad, TOOLS > Verificar, SHIFT, AC). |
-| `models/fx-82sp-cw/fitxes/` | **Només dades**: `blocs.js` (els blocs i el format d'una fitxa) i un fitxer per bloc amb les seves fitxes. Aquí és on s'afegeix o es canvia una fitxa. |
+| `models/fx-82sp-cw/fitxes/` | **Només dades**: `blocs.js` (els blocs, amb les seves etapes, i el format d'una fitxa) i un fitxer per bloc amb les seves fitxes (els d'ESO, a `eso/`). Aquí és on s'afegeix o es canvia una fitxa. |
 | `models/fx-82sp-cw/proves.js`, `calcul.js` | Les proves pròpies de la CW (pantalles, català, teclat, regla «E Mat/S Mat») i el càlcul dels resultats. |
 | `models/fx-82ms/` | La fx-82MS, amb els mateixos fitxers: teclat mesurat sobre una foto, pantalla de dues línies (7 segments a baix), menús MODE i DRG▸, simulador d'escriptura en una línia, fitxes, estil i proves (també la del signe negatiu: [[neg]], no [[menys]]). |
 | `proves/comprova.js` | Les proves: el nucli, el web i cada calculadora del catàleg. |
@@ -137,7 +155,8 @@ Cada pas té `tecles` (ids de `tecles.js`), `pantalla` (feta amb les funcions de
 i `text`. Als textos: `$…$` és una fórmula (`$$…$$`, en una línia pròpia), `[[format]]` dibuixa una tecla i `{{Decimal}}` és una opció
 d'un menú de la calculadora. Si l'enunciat té apartats, es marquen amb `[a]…[/a]`, `[b]…[/b]`… i
 cada pas pot dir `apartat: 'a'`: mentre es fa aquest pas, l'apartat es ressalta en verd a l'enunciat.
-La fitxa surt sola a la portada. Un bloc nou va a `fitxes/blocs.js`, amb el seu fitxer a `model.js` (`fitxers`).
+La fitxa surt sola a la portada. Un bloc nou va a `fitxes/blocs.js`, amb les seves etapes (`etapes: ['eso']`…), i el seu fitxer a `model.js` (`fitxers`);
+els fitxers dels blocs d'ESO són a `fitxes/eso/`.
 
 Només cal escriure la pantalla del **final** de cada pas: les del mig (després de cada tecla) les calcula
 `simulador.js`. Si en algun cas no les sap deduir (per exemple, després d'un OK en un menú que no
@@ -159,7 +178,7 @@ Des de l'arrel del repositori:
 node proves/comprova.js
 ```
 
-Ha d'acabar amb «Tot correcte». Comprova el nucli, el web i cada calculadora del catàleg, i torna a calcular tots
+Ha d'acabar amb «Tot correcte». Comprova el nucli, el web (també les etapes i les adreces) i cada calculadora del catàleg, i torna a calcular tots
 els resultats de les pantalles (`models/fx-82sp-cw/calcul.js`). Per comprovar també que KaTeX dibuixa totes les fórmules, cal tenir
 KaTeX a mà (per exemple, `npm install katex@0.16.9` en una carpeta qualsevol) i indicar-ne la ruta:
 

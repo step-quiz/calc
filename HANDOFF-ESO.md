@@ -39,6 +39,8 @@ These sources are ground truth, the way the PAU pautes were for Batxillerat. Nev
     - Check whether they still exist in the repo; if they do, give him that command.
     - They are harmless, because no page loads them, but they confuse readers.
 
+> **Update (1/11/2026, v36):** David approved §3 and answered §8 (see §9). Phase E1 (the stage axis) is done in v36 and documented in `ARCHITECTURE.md` §3b, which is now the reference; §3 below is kept as the original proposal. Differences from it: one field `etapes` (always an array, never missing; no `etapa` string, no loader default), every page stores the stage it shows, and the «Etapa» selector only appears when two or more stages have fitxes (ESO is reachable with `?etapa=eso` until then).
+
 ## 3. Proposed design for the stage axis (validate with David before coding)
 
 Treat this as a proposal: send David a short Catalan summary and wait for his OK, as `BLOCS-PENDENTS.md` §0 requires. It mirrors the calculator axis built in v34.
@@ -210,3 +212,12 @@ Treat this as a proposal: send David a short Catalan summary and wait for his OK
 4. Do statistics (Estadística on the CW, SD on the MS) and basic trigonometry come in for ESO?
 5. «Ara tu» in ESO: everywhere, or not in the fitxes built on real test or exam items (as with PAU)?
 6. What do the home page's line, its title and the `<title>` say for ESO? For example «Matemàtiques · ESO · Competència matemàtica».
+
+## 9. David's answers (1/11/2026)
+
+1. The §3 design is OK (with the refinements in the note above §3).
+2. Courses: **3r and 4t ESO**. Source: the competència bàsica tests in the `step-quiz/cb` repo (`preguntes.json` + `data/*.png`: 4t ESO 2022–2026, 2n ESO 2024–2026; statement and question images, `indexCorrecte` from the Departament's key). **Calculators are allowed in those tests**, so the fitxes show real exam use. David asked for activity proposals from `cb`. (`step-quiz/recu`, 1r–3r ESO recovery exams, was also read: text statements with solutions; useful as a secondary source.)
+3. ESO gets **its own blocks**, simpler versions with new ids; no Batxillerat block is shared.
+4. **No Estadística app and no SD mode** for now: means are typed in Calcular. **Trigonometry (4t) is in.**
+5. **No «Ara tu» in ESO** for now.
+6. Texts as proposed: lema «Matemàtiques · ESO · Competència matemàtica», `<title>` «Calculadora <curt> — Matemàtiques d'ESO».

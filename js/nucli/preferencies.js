@@ -2,19 +2,22 @@
    nucli/preferencies.js — El que el navegador recorda de l'alumne
    ───────────────────────────────────────────────────────────────────
    La seva calculadora (v34): «calc-model», l'id d'un model del catàleg.
+   L'etapa (v36): «calc-etapa», l'última etapa que ha vist (Batxillerat o
+   ESO): la desa cada pàgina en dibuixar-se (Models.etapaActual la llegeix).
    L'idioma de la seva calculadora (fase 3, v25): «calc-idioma». Només
    té sentit si el model té idiomes (model.idiomes); el primer idioma
    del model és el de per defecte. Sense memòria al navegador (mode
    privat, galetes bloquejades), tot continua funcionant amb el de
    per defecte.
 
-   Exporta «Preferencies»: model(), desaModel(id), idioma(model), desaIdioma(valor).
+   Exporta «Preferencies»: model(), desaModel(id), idioma(model), desaIdioma(valor), etapa(), desaEtapa(id).
    ═══════════════════════════════════════════════════════════════════ */
 (function (arrel) {
 'use strict';
 
 const CLAU_MODEL = 'calc-model';
 const CLAU_IDIOMA = 'calc-idioma';
+const CLAU_ETAPA = 'calc-etapa';
 
 function llegeix(clau) {
   try { return typeof localStorage !== 'undefined' ? localStorage.getItem(clau) : null; } catch (e) { return null; }
@@ -37,6 +40,10 @@ const desaIdioma = valor => desa(CLAU_IDIOMA, String(valor));
 const model = () => llegeix(CLAU_MODEL);
 const desaModel = id => desa(CLAU_MODEL, String(id));
 
-arrel.Preferencies = Object.freeze({model, desaModel, idioma, desaIdioma, CLAU_MODEL, CLAU_IDIOMA});
+/** L'última etapa que l'alumne ha vist (l'id, o null). Models.etapaActual comprova que existeixi. */
+const etapa = () => llegeix(CLAU_ETAPA);
+const desaEtapa = id => desa(CLAU_ETAPA, String(id));
+
+arrel.Preferencies = Object.freeze({model, desaModel, idioma, desaIdioma, etapa, desaEtapa, CLAU_MODEL, CLAU_IDIOMA, CLAU_ETAPA});
 
 })(globalThis);
