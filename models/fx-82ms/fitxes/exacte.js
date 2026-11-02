@@ -12,7 +12,7 @@ const {D, FIX} = M.comu;
 M.fitxes.push(
 
 {
-  id: 'indicadors', bloc: 'exacte', titol: 'Llegeix la barra de dalt',
+  id: 'indicadors',
   enunciat: 'Abans de calcular, mira la fila d\'indicadors de dalt de la pantalla: diu com està configurada la calculadora.',
   inici: calc(D, 'sin 45', '0.707106781'),
   passos: [
@@ -30,7 +30,7 @@ M.fitxes.push(
   relacionades: ['fix', 'mode-decimal'],
 },
 {
-  id: 'exacte-decimal', bloc: 'exacte', titol: 'Valor exacte i valor decimal',
+  id: 'exacte-decimal',
   enunciat: 'Calcula $\\sin 45^\\circ$. La fx-82MS dona el valor decimal: el valor exacte, $\\frac{\\sqrt{2}}{2}$, l\'has de saber tu.',
   inici: calc(D),
   passos: [
@@ -50,7 +50,7 @@ M.fitxes.push(
   relacionades: ['mode-decimal', 'indicadors', 'frac-plantilla'],
 },
 {
-  id: 'mode-decimal', bloc: 'exacte', titol: 'Em surt 0.5 en lloc d\'1/2',
+  id: 'mode-decimal',
   enunciat: 'Calcules $1\\div 2$ i la calculadora dona 0.5. A la fx-82MS és normal: per veure la fracció, fes servir la tecla [[abc]].',
   inici: calc(D),
   passos: [
@@ -66,7 +66,7 @@ M.fitxes.push(
   relacionades: ['exacte-decimal', 'frac-plantilla'],
 },
 {
-  id: 'fix', bloc: 'exacte', titol: 'Tot em surt arrodonit (FIX)',
+  id: 'fix',
   enunciat: 'Vols el decimal d\'$\\frac{1}{6}$ i surt 0.17. A dalt hi ha FIX: algú hi va fixar 2 decimals.',
   inici: calc(FIX),
   passos: [

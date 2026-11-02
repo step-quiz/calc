@@ -44,8 +44,7 @@ const marca = (estat, nom) => Object.freeze(Object.assign({}, estat, {marca: nom
 /* ── Menús ────────────────────────────────────────────────────────
    Cada menú té un id i cada fila una clau, independents de l'idioma: el simulador hi navega per
    l'id i la clau, mai pels textos ni per la posició. Els textos són els de la calculadora en
-   castellà, tal com surten al manual (per a la calculadora en català, fase 3, n'hi haurà una
-   altra columna). MENUS: id → [[clau, text, opcions de la fila], …]. */
+   castellà, tal com surten al manual (la traducció al català és a CATALA, més avall). MENUS: id → [[clau, text, opcions de la fila], …]. */
 const MENUS = Object.freeze({
   /** Menú CONFIG (tecla ≡). Manual, p. 19-20. */
   config: [['calcul', 'Config cálculo', {sub: true}], ['sistema', 'Config sistema', {sub: true}], ['reiniciar', 'Reiniciar', {sub: true}], ['recursos', 'Recursos online', {sub: true}]],
@@ -57,16 +56,16 @@ const MENUS = Object.freeze({
   /** Config cálculo > Unidad angular. Manual, p. 22. */
   'unitat-angular': [['D', 'Grado sexag (D)'], ['R', 'Radián'], ['G', 'Grado cent (G)']],
   /** Config cálculo > Formato número. Manual, p. 22-23. */
-  'format-numero': [['fix', 'Fijar decim', {sub: true}], ['sci', 'Not cient', {sub: true}], ['normal', 'Normal', {sub: true}]],   // ► a les tres files (foto de la calculadora, 1/11/2026)
+  'format-numero': [['fix', 'Fijar decim', {sub: true}], ['sci', 'Not cient', {sub: true}], ['normal', 'Normal', {sub: true}]],   // ► a les tres files (foto de la calculadora)
   /** La pantalla que surt en triar «Normal» (el manual no la dibuixa: VERIFICAR.md). */
-  /** En triar Normal: un exemple de cada tipus, i s'obre amb Norm1 triada encara que hi hagi Norm2 (foto, 1/11/2026). */
+  /** En triar Normal: un exemple de cada tipus, i s'obre amb Norm1 triada encara que hi hagi Norm2 (foto de la calculadora). */
   normal: [['normal1', 'Norm1:1.23×10⁻³'], ['normal2', 'Norm2:0.00123']],
   /** Reiniciar. Manual, p. 24-25. */
   reiniciar: [['config-dades', 'Config y datos', {sub: true}], ['variables', 'Mem. variables', {sub: true}], ['tot', 'Iniciar todo', {sub: true}]],
   /** Menú FORMAT amb un resultat irracional (manual, p. 41-43). */
   format: [['estandard', 'Estándar'], ['decimal', 'Decimal'], ['enginyeria', 'Notación ING'], ['sexagesimal', 'Sexagesimal']],
-  /** CATALOG de l'aplicació Calcular (manual, p. 25; l'ordre de les 6 files, comprovat a la calculadora en català, 1/11/2026;
-      el text castellà de les dues últimes, «Hiperb/Trigon» i «Otros», comprovat a la calculadora pel David). */
+  /** CATALOG de l'aplicació Calcular (manual, p. 25; l'ordre de les 6 files, comprovat a la calculadora en català;
+      el text castellà de les dues últimes, «Hiperb/Trigon» i «Otros», comprovat a la calculadora). */
   catalog: [['analisi', 'Análisis func', {sub: true}], ['probabilidad', 'Probabilidad', {sub: true}], ['numeric', 'Cálculo numérico', {sub: true}],
     ['ang-coord-sexag', 'Ang/Coord/Sexag', {sub: true}], ['hiperb-trigon', 'Hiperb/Trigon', {sub: true}], ['altres', 'Otros', {sub: true}]],
   /** Amb Verificar activat, el CATALOG porta «Verificar» a dalt de tot (comprovat a la calculadora). */
@@ -77,7 +76,7 @@ const MENUS = Object.freeze({
   /** CATALOG > Probabilidad (manual, p. 52-53; ordre comprovat a la calculadora). */
   probabilidad: [['percent', '%'], ['factorial', 'Factorial(!)'], ['permutacio', 'Permutación(P)'], ['combinacio', 'Combinación(C)'], ['aleatori', 'Número aleatorio'], ['enter-aleatori', 'Entero aleatorio']],
   /** Menú TOOLS de l'aplicació Calcular (manual, p. 25-26). Amb Verificar activat, dues files: Deshacer i Verificar OFF,
-      amb Deshacer triada (foto de la calculadora, 1/11/2026; abans es creia que només n'hi havia una). */
+      amb Deshacer triada (foto de la calculadora). */
   tools: [['desfer', 'Deshacer'], ['simplificar', 'Simplificar', {sub: true}], ['verificar-on', 'Verificar ON']],
   'tools-verificar': [['desfer', 'Deshacer'], ['verificar-off', 'Verificar OFF']],
   /** CATALOG > Verificar: els símbols de relació (ordre comprovat a la calculadora). */
@@ -89,8 +88,8 @@ const MENUS = Object.freeze({
 });
 
 /**
- * Fase 3 (v25; v27): la calculadora en català. Text en castellà (el de MENUS i el de les fitxes, {{…}}) → text en català.
- * Comprovat amb 43 fotos de la calculadora en català (David, 1/11/2026): CONFIG i els seus submenús, CATALOG i els seus
+ * La calculadora en català. Text en castellà (el de MENUS i el de les fitxes, {{…}}) → text en català.
+ * Comprovat amb 43 fotos de la calculadora en català: CONFIG i els seus submenús, CATALOG i els seus
  * submenús, TOOLS, FUNCTION i HOME. Encara sense foto: el menú FORMAT, el TOOLS i el CATALOG amb Verificar activat,
  * els símbols de Verificar, «Verdadero/Falso», el menú d'una variable i la pantalla «Normal 1 / Normal 2» (VERIFICAR.md).
  */
@@ -112,7 +111,7 @@ const CATALA = Object.freeze({
   '=': '=', '≠': '≠', '>': '>', '<': '<', '≥': '≥', '≤': '≤',
   'Guardar': 'Desar', 'Recuperar': 'Recuperar', 'Editar': 'Editar',
   'f(x)': 'f(x)', 'g(x)': 'g(x)', 'Definir f(x)': 'Definir f(x)', 'Definir g(x)': 'Definir g(x)',
-  'Verdadero': 'Vardader', 'Falso': 'Fals',   // «Vardader», amb la errata de la calculadora (foto, 1/11/2026)
+  'Verdadero': 'Vardader', 'Falso': 'Fals',   // «Vardader», amb l'errada que té la calculadora
   'Norm1:1.23×10⁻³': 'Norm1:1.23×10⁻³', 'Norm2:0.00123': 'Norm2:0.00123', 'Idioma': 'Idioma',
   'Calcular': 'Calcular', 'Estadística': 'Estadística', 'Tabla': 'Taula', 'Math Box': 'Math Box',
 });
@@ -148,7 +147,7 @@ const angCoordSexag = sel => deMenus('ang-coord-sexag', sel);
 const probabilidad = sel => deMenus('probabilidad', sel);
 const tools = sel => deMenus('tools', sel);
 const toolsVerificar = sel => deMenus('tools-verificar', sel);
-/** Els símbols de Verificar: una graella de dues columnes (= ≠ / > < / ≥ ≤; foto de la calculadora, 1/11/2026). */
+/** Els símbols de Verificar: una graella de dues columnes (= ≠ / > < / ≥ ≤; foto de la calculadora). */
 const verificar = sel => Object.freeze(Object.assign({}, deMenus('verificar', sel), {columnes: 2}));
 const menuVariable = (sel = 0) => deMenus('menu-variable', sel);
 const menuFuncio = (sel = 0) => deMenus('funcio', sel);

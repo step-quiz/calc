@@ -12,7 +12,8 @@ const {D} = M.comu;
 M.fitxes.push(
 
 {
-  id: 'frac-plantilla', bloc: 'fraccions', titol: 'Escriu una fracció amb la tecla a b/c',
+  id: 'frac-plantilla',
+  titol: 'Escriu una fracció amb la tecla a b/c',
   enunciat: 'Calcula $\\frac{3}{4}+\\frac{5}{6}$ escrivint les fraccions amb la tecla [[abc]].',
   inici: calc(D),
   passos: [
@@ -30,7 +31,7 @@ M.fitxes.push(
   relacionades: ['frac-prioritat', 'pot-fraccio'],
 },
 {
-  id: 'frac-prioritat', bloc: 'fraccions', titol: 'Fracció de sumes: on van els parèntesis',
+  id: 'frac-prioritat',
   enunciat: 'Calcula $\\frac{2+3}{4-1}$. La tecla [[abc]] només fa fraccions de dos nombres: si hi ha sumes, calen parèntesis.',
   inici: calc(D),
   passos: [
@@ -48,7 +49,7 @@ M.fitxes.push(
   relacionades: ['frac-plantilla'],
 },
 {
-  id: 'pot-negativa', bloc: 'fraccions', titol: 'Potències de negatius',
+  id: 'pot-negativa',
   enunciat: 'Calcula $(-2)^4$. A la fx-82MS, el signe negatiu té una tecla pròpia, [[neg]]. Si t\'oblides dels parèntesis, el resultat és un altre.',
   inici: calc(D),
   passos: [
@@ -66,8 +67,7 @@ M.fitxes.push(
   relacionades: ['pot-fraccio'],
 },
 {
-  id: 'pot-fraccio', bloc: 'fraccions', titol: 'Potència d\'una fracció',
-  enunciat: 'Calcula $\\left(\\frac{2}{3}\\right)^{-2}$.',
+  id: 'pot-fraccio',
   inici: calc(D),
   passos: [
     {tecles: ['lpar', '2', 'entre', '3', 'rpar'], pantalla: calc(D, '(2÷3)'),
@@ -86,7 +86,7 @@ M.fitxes.push(
   relacionades: ['pot-negativa', 'frac-plantilla'],
 },
 {
-  id: 'arrel-n', bloc: 'fraccions', titol: 'Arrels d\'índex n',
+  id: 'arrel-n',
   enunciat: 'Calcula l\'arrel cúbica de $-27$, $\\sqrt[3]{-27}$, i l\'arrel quarta de 16, $\\sqrt[4]{16}$.',
   inici: calc(D),
   passos: [

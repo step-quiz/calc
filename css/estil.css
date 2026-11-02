@@ -1,7 +1,7 @@
 /* ═══════════════════════════════════════════════════════════════════
    estil.css — L'estil del nucli (portada, fitxes, reproductor)
    ───────────────────────────────────────────────────────────────────
-   Paleta i lletres de step-quiz/pau. Pensat per a portàtils
+   Pensat per a portàtils
    (Chromebook i Lenovo, de 1280×720 a 1920×1080, tàctils o no): a
    partir de 1000 px d'amplada, dues columnes que caben a l'alçada de
    la finestra. Al mòbil funciona en una columna, sense més esforç.
@@ -38,7 +38,7 @@
   --marca-vora:rgba(202,138,4,.95);
   /* Les tecles (colors per defecte; el model els pot canviar) */
   --tecla-vora:#94a3b8;
-  /* Zona d'error: el color de totes les vores quan el pas ensenya un ús erroni (David, 31/10/2026: «red velvet») */
+  /* Zona d'error: el color de les vores quan el pas ensenya un ús erroni («red velvet») */
   --vellut:#9e1b32;
 }
 
@@ -70,17 +70,22 @@ a{color:inherit}
   font-family:var(--mono); font-size:.7rem; color:#334155; text-align:center;
 }
 .versio{white-space:nowrap; opacity:.7}
-/* «Calculadora en: Castellano / Català» (fase 3): a la dreta de la capçalera */
-/* «La teva calculadora» (v34) i «Calculadora en» (fase 3): a la dreta de la capçalera */
+/* «Etapa», «La teva calculadora» i «Calculadora en»: a la dreta de la capçalera */
 .tries{margin-left:auto; flex-shrink:0; display:flex; flex-wrap:wrap; align-items:center; gap:6px 16px}
 .tria-etapa, .tria-model, .tria-idioma{flex-shrink:0; display:flex; align-items:center; gap:6px; font-family:var(--mono); font-size:.72rem; color:rgba(255,255,255,.8)}
 .tria-etapa select, .tria-model select, .tria-idioma select{font:inherit; color:var(--txt); background:#fff; border:1px solid #fff; border-radius:5px; padding:3px 4px}
 @media (any-pointer:coarse){ .tria-etapa select, .tria-model select, .tria-idioma select{padding:7px 6px} }
 .capcalera{flex-wrap:wrap}
+/* Pantalles estretes (mòbil): els selectors de la capçalera s'encongeixen i passen a la línia següent */
+@media (max-width:700px){
+  .tries{flex-shrink:1; min-width:0; margin-left:0}
+  .tria-etapa, .tria-model, .tria-idioma{flex-shrink:1}
+  .enunciat .katex-display{overflow-x:auto; overflow-y:hidden}
+}
 /* Avisos a la capçalera de la fitxa: només surten quan cal */
 .avis-capcalera{display:none; margin:0; font-family:var(--mono); font-size:.74rem; line-height:1.35; color:#fde68a}
 @supports not (width:1cqw){ .avis-navegador{display:block} }
-/* Tauleta en vertical (tàctil, de 600 a 999 px): en horitzontal hi cap tot (al mòbil, cap esforç: David, 1/11/2026) */
+/* Tauleta en vertical (tàctil, de 600 a 999 px): en horitzontal hi cap tot */
 @media (any-pointer:coarse) and (orientation:portrait) and (min-width:600px) and (max-width:999px){ .avis-gira{display:block} }
 .error-carrega{max-width:640px; margin:48px auto; padding:0 16px}
 
@@ -107,7 +112,7 @@ a{color:inherit}
 /* Petita, dins d'un text */
 .tecla.petita{
   min-width:1.85em; height:1.5em; padding:0 .32em; border-radius:.38em;
-  font-size:.8em; vertical-align:middle; position:relative; top:-.08em;   /* centrada amb el text (David, 31/10/2026) */
+  font-size:.8em; vertical-align:middle; position:relative; top:-.08em;   /* centrada amb el text */
   box-shadow:0 1.5px 0 var(--tecla-vora);
 }
 
@@ -154,15 +159,15 @@ a{color:inherit}
 .enunciat .katex-display{margin:.35em 0}
 /* L'apartat que es resol al pas actual, subratllat amb fluorescent verd */
 .apartat{border-radius:3px; transition:background-color .25s, box-shadow .25s}
-/* La font d'un exercici real (v38, David): una icona del cos de la lletra davant de l'enunciat; en clicar-la, una bombolla
-   amb la font i una creu (motor.js, botoFont; es tanca sola als 8 s). La bombolla és absoluta: no mou res. */
+/* La font d'un exercici real: una icona del cos de la lletra davant de l'enunciat; en clicar-la, una bombolla
+   amb la font i una creu (motor.js, botoFont). La bombolla és absoluta: no mou res. */
 .enunciat{position:relative}
 .font{position:relative; display:inline-block; vertical-align:-.12em}
 .font-boto{display:inline-flex; width:1em; height:1em; padding:0; border:0; background:none; color:var(--muted); cursor:pointer; border-radius:3px}
 .font-boto svg{width:100%; height:100%}
 .font-boto{transition:transform .12s, color .12s}
 .font-boto:hover, .font-boto:focus-visible, .font-boto[aria-expanded="true"]{color:var(--cat)}
-/* v48 (David): en passar-hi el ratolí, una vora fina negra i un 5 % més gran (també la miniatura de la figura) */
+/* En passar-hi el ratolí: una vora fina negra i una mica més gran (també la miniatura de la figura) */
 .font-boto:hover, .font-boto:focus-visible{outline:1px solid #000; outline-offset:1px; transform:scale(1.05)}
 .font-bombolla{position:absolute; z-index:5; left:-6px; top:calc(100% + 6px); display:flex; align-items:center; gap:10px; white-space:nowrap;
   padding:5px 6px 5px 11px; border:1.5px solid var(--cat); border-radius:8px; background:#eceff3; box-shadow:0 4px 14px rgba(15,23,42,.18);
@@ -170,19 +175,19 @@ a{color:inherit}
 .font-tanca{width:1.6em; height:1.6em; padding:0; border:0; border-radius:50%; background:none; color:var(--muted); font:inherit; font-size:1rem; line-height:1; cursor:pointer}
 .font-tanca:hover, .font-tanca:focus-visible{background:#dde2e9; color:var(--txt)}
 
-/* La figura de l'enunciat (v46): miniatura a la dreta; en clicar-la, gran en un <dialog> (motor.js, botoFigura) */
+/* La figura de l'enunciat: miniatura a la dreta; en clicar-la, gran en un <dialog> (motor.js, botoFigura) */
 .figura-mini{float:right; margin:2px 0 6px 12px; padding:3px; border:1px solid var(--border); border-radius:6px; background:#fff; cursor:zoom-in}
 .figura-mini img{display:block; height:54px; width:auto}
 .figura-mini{transition:transform .12s, border-color .12s}
 .figura-mini:hover, .figura-mini:focus-visible{border-color:#000; transform:scale(1.05)}
-/* Una nota de l'enunciat ([nota]…[/nota], v48): línia pròpia, cursiva */
+/* Una nota de l'enunciat ([nota]…[/nota]): línia pròpia, cursiva */
 .frase-nota{display:block; font-style:italic; margin-top:.2em}
 .figura-gran{max-width:min(92vw, 1100px); padding:14px; border:2px solid var(--cat); border-radius:12px; background:#fff}
 .figura-gran::backdrop{background:rgba(15,23,42,.55)}
 .figura-gran img{display:block; max-width:100%; max-height:82vh; width:auto; height:auto}
 .figura-tanca{position:absolute; top:6px; right:6px; width:2em; height:2em; border:0; border-radius:50%; background:#eceff3; font-size:1.1rem; line-height:1; cursor:pointer}
 
-/* Les frases dels passos (v38, David): [mat]…[/mat] = matemàtiques (la lletra de sempre, fons de paper) i [calc]…[/calc] =
+/* Les frases dels passos: [mat]…[/mat] = matemàtiques (la lletra de sempre, fons de paper) i [calc]…[/calc] =
    indicacions de calculadora (lletra sense gràcia, fons del color de la pantalla). Cada una, un bloc. */
 .frase-mat, .frase-calc{display:block; margin:3px 0; padding:3px 9px; border-radius:6px}
 .frase-mat{background:#faf5e8}
@@ -206,7 +211,7 @@ a{color:inherit}
 .velocitat select{font:inherit; color:var(--txt); background:var(--surface); border:1px solid var(--border); border-radius:6px; padding:4px 6px}
 
 /* L'avís del teclat: bombolla sota els botons ◀ ▶ (es tanca amb la creueta o als 10 s).
-   Mides: les d'abans ×1,2 (+20 %). Vora taronja pura (#ff8000). En sortir parpelleja i es sacseja durant 0,8 s. */
+   Vora taronja pura (#ff8000). En sortir, parpelleja i es sacseja durant 0,8 s. */
 .avis-teclat{
   position:absolute; left:0; top:calc(100% + 12px); z-index:20; box-sizing:border-box; max-width:min(396px, 100%);
   display:flex; align-items:flex-start; gap:10px; padding:10px 10px 10px 14px; border:2px solid #ff8000; border-radius:12px;
@@ -224,7 +229,7 @@ a{color:inherit}
 }
 .avis-tanca:hover{background:rgba(255,255,255,.16); color:#fff}
 /* Parpelleig (l'opacitat puja i baixa) i sacseig (a esquerra i dreta, cada cop menys): 0,8 s en total */
-/* v48: el botó ▶ parpelleja i es sacseja si l'alumne no avança en 8 s (motor.js, recordaSeguent) */
+/* El botó ▶ parpelleja i es sacseja si l'alumne no avança (reproductor.js, recordaSeguent) */
 .boto.recorda{animation:avis-parpelleig-sacseig .8s ease-in-out 1}
 @media (prefers-reduced-motion: reduce){ .boto.recorda{animation:none} }
 @keyframes avis-parpelleig-sacseig{
@@ -240,26 +245,29 @@ a{color:inherit}
 }
 @media (prefers-reduced-motion: reduce){ .avis-teclat{transition:none; transform:none} .avis-teclat.visible{animation:none} }
 
-/* La llista de passos: el pas actual es desplega amb la seva frase */
+/* La llista de passos: el pas actual mostra la frase sencera; els altres, el número i el començament de la frase */
 .passos{list-style:none; margin:0; padding:2px; display:flex; flex-direction:column; gap:3px; min-height:0}
 .pas{border:1.5px solid transparent; border-radius:12px; transition:background-color .2s, border-color .2s, opacity .2s}
 .pas .cap{
-  display:flex; align-items:center; gap:12px; width:100%; text-align:left;
-  padding:5px 10px; min-height:40px; border:0; border-radius:10px; background:transparent; cursor:pointer;
+  display:flex; align-items:center; gap:12px; width:100%; min-width:0; text-align:left;
+  padding:5px 10px; min-height:36px; border:0; border-radius:10px; background:transparent; cursor:pointer;
 }
-.pas .num{min-width:1.3em; font:600 12.5px/1 var(--mono); color:var(--muted); text-align:right}
-.pas .tecles{display:flex; flex-wrap:wrap; gap:5px; align-items:center}
-.pas .tecles .tecla{min-width:32px; height:28px; padding:0 6px; font-size:12.5px; border-radius:7px; box-shadow:0 2px 0 var(--tecla-vora)}
-.pas .tecles .tecla.premuda{transform:translateY(2px); box-shadow:none; background:#fde68a}
-.nomes-mira{font-style:italic; font-size:13px; color:var(--muted)}
-.pas .frase{display:none; position:relative; margin:0; padding:2px 14px 12px 44px; font-size:16.5px; line-height:1.6}   /* relative: el MathML ocult de KaTeX (absolut) queda dins de la llista que es desplaça i no allarga la pàgina */
+.pas .num{min-width:1.3em; flex:none; font:600 12.5px/1 var(--mono); color:var(--muted); text-align:right}
+/* El resum: una sola línia, retallada amb «…»; les frases [mat]/[calc] i les fórmules hi van en línia, sense fons */
+.pas .resum{flex:1; min-width:0; overflow:hidden; white-space:nowrap; text-overflow:ellipsis; font-size:14px; color:var(--muted)}
+.pas .resum .frase-mat, .pas .resum .frase-calc{display:inline; margin:0 .4em 0 0; padding:0; background:none; font:inherit}
+.pas .resum .katex-display{display:inline; margin:0}
+.pas .resum .katex-display > .katex{display:inline}
+.pas .resum br{display:none}
+.pas .resum .tecla.petita{box-shadow:none}
+.pas .frase{display:none; position:relative; margin:0; padding:2px 14px 12px 44px; font-size:16.5px; line-height:1.6}   /* relative: el MathML ocult de KaTeX (absolut) queda dins de la llista que es desplaça */
 .pas.actual{background:var(--surface); border-color:var(--cat); box-shadow:0 2px 8px rgba(15,23,42,.07)}
 .pas.actual{display:flex; align-items:baseline}
 .pas.actual .cap{width:auto; flex:none; padding-right:12px; cursor:default}
-.pas.actual .tecles{display:none}                 /* no es repeteixen: ja surten a la frase i a la calculadora */
-.pas.actual .frase{display:block; flex:1; padding:6px 14px 10px 0}
+.pas.actual .resum{display:none}
+.pas.actual .frase{display:block; flex:1; min-width:0; padding:6px 14px 10px 0}
 .pas.actual .num{color:var(--cat)}
-.pas.fet{opacity:.45}
+.pas.fet{opacity:.55}
 .pas.zero{display:none}
 .pas.zero.actual{display:block}
 .pas.zero .frase{padding:10px 14px}
@@ -290,7 +298,7 @@ a{color:inherit}
 .passos{order:4}
 .altres{order:5}
 
-/* Portàtils: a l'esquerra, tot el que es llegeix; a la dreta, només la calculadora (David, 31/10/2026).
+/* Portàtils: a l'esquerra, tot el que es llegeix; a la dreta, només la calculadora.
    Amplada repartida 15 % (marge) · 40 % (explicacions) · 30 % (calculadora) · 15 % (marge): marges amb
    padding de 15 % i columnes 4fr / 3fr sense gap (la separació és el padding esquerre de l'escenari).
    Les dues columnes fan l'alçada que deixen la capçalera i el peu (graella del body): la llista de passos
@@ -298,8 +306,7 @@ a{color:inherit}
    (si no, l'amplada surt de l'alçada i queda centrada a la columna). */
 @media (min-width:1000px){
   /* La pàgina fa exactament l'alçada de la finestra: capçalera, contingut i peu en una graella. El contingut
-     ocupa el que sobra, sigui quina sigui l'alçada de la capçalera i del peu (abans es restaven 84 o 102 px,
-     i la pàgina desbordava quan el peu feia dues línies: zoom, portàtils i tauletes estrets). */
+     ocupa el que sobra, sigui quina sigui l'alçada de la capçalera i del peu (que pot fer dues línies). */
   body.pagina-fitxa{height:100vh; height:100dvh; min-height:0; display:grid; grid-template-rows:auto minmax(0, 1fr) auto}
   .pagina-fitxa .contingut{
     max-width:none; min-height:0; display:grid; grid-template-columns:minmax(0, 4fr) minmax(0, 3fr);
@@ -359,10 +366,10 @@ a{color:inherit}
 .llista .n{font-family:var(--mono); font-size:.68rem; opacity:.7; min-width:1.6em}
 .properament{margin-top:6px; align-self:flex-start; font-family:var(--mono); font-size:.68rem; letter-spacing:.06em; text-transform:uppercase; color:var(--muted); border:1px dashed var(--border); border-radius:4px; padding:4px 8px}
 @media (any-pointer:coarse){ .llista a{padding-block:12px} }
-/* Una etapa sense cap bloc (v36): només es veu amb ?etapa=…, perquè el selector no l'ofereix */
+/* Una etapa sense cap bloc: només es veu amb ?etapa=…, perquè el selector no l'ofereix */
 .properament.etapa-buida{grid-column:1/-1; justify-self:start; margin:0}
 
-/* «Ara tu» (fase 4; v26): surt en acabar l'últim pas. La solució: el resultat correcte, l'error típic (en vermell)
+/* «Ara tu» i «Prova-ho tu»: surten en acabar l'últim pas. La solució: el resultat correcte, l'error típic (en vermell)
    i «Comprova-ho pas a pas», que posa la pàgina en mode «Ara tu» (fons verd oliva clar, reproductor propi) */
 :root{--oliva:#55691f; --oliva-fons:#eef2dd}
 .ara-tu{order:4; display:grid; gap:8px; padding:12px 16px; border:1.5px dashed var(--cat); border-radius:12px; background:var(--cat-fons)}
@@ -408,7 +415,7 @@ body.zona-error .tecla, body.zona-error .torna, body.zona-error .ona{border-colo
 body.zona-error .altres, body.zona-error .peu{border-top-color:var(--vellut)}
 body.zona-error .pas.actual{box-shadow:0 0 0 1px var(--vellut), 0 2px 8px rgba(158,27,50,.18)}
 .enunciat, .velocitat select, .altres{transition:border-color .25s}
-/* El fons de tota la pàgina (cos, capçalera i peu): 80 % el color de sempre i 20 % vellut vermell (David, 31/10/2026) */
+/* El fons de tota la pàgina (cos, capçalera i peu): 80 % el color de sempre i 20 % vellut vermell */
 body.zona-error{background:color-mix(in srgb, var(--bg) 80%, var(--vellut))}
 body.zona-error .capcalera{background:color-mix(in srgb, var(--hd-bg) 80%, var(--vellut))}
 body.zona-error .peu{background:color-mix(in srgb, #f1f5f9 80%, var(--vellut))}

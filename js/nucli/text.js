@@ -6,10 +6,10 @@
    calculadora (el tradueix el model a l'idioma de l'alumne);
    !!Error típic!! = l'avís d'un pas d'error; [a]…[/a] = apartat de
    l'enunciat (es ressalta quan el pas el resol).
-   [mat]…[/mat] i [calc]…[/calc] (v38, David): una frase de matemàtiques
+   [mat]…[/mat] i [calc]…[/calc]: una frase de matemàtiques
    o una indicació de calculadora; cadascuna surt en un bloc amb la seva
    lletra i el seu fons (totes les frases dels passos ho són).
-   [nota]…[/nota] (v48): una nota de l'enunciat (una fórmula donada, per
+   [nota]…[/nota]: una nota de l'enunciat (una fórmula donada, per
    exemple), en una línia pròpia i en cursiva.
 
    Text.creador({model, idioma}) → text(t): l'HTML d'un text.

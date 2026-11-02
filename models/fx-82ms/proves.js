@@ -66,7 +66,7 @@ module.exports = function (M, {ok, error, compta}) {
     for (const id of Object.keys(Tecles.TECLES)) ok(Tecles.html(id).includes('class="tecla'), `${on0} · tecla ${id}`, 'no es dibuixa');
     ok((Tecles.htmlTeclat().match(/data-tecla="/g) || []).length === Object.keys(Tecles.TECLES).length, on0, 'el teclat no dibuixa totes les tecles');
 
-    /* El signe negatiu (David, v34): a la fx-82MS és la tecla (−), [[neg]]. La resta, [[menys]], no pot anar on comença un nombre
+    /* El signe negatiu: a la fx-82MS és la tecla (−), [[neg]]. La resta, [[menys]], no pot anar on comença un nombre
        (al principi de l'entrada, després d'un parèntesi, d'una operació o d'una funció). */
     const COMENCA = new Set(['lpar', 'mes', 'menys', 'per', 'entre', 'pot', 'abc', 'neg', 'sin', 'cos', 'tan', 'log', 'ln', 'arrel', 'ac']);
     for (const f of AMB_ARA_TU) {

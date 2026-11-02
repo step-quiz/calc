@@ -13,8 +13,7 @@ const {SEN45, ARREL2_2, D, R, FIX} = M.comu;
 M.fitxes.push(
 
 {
-  id: 'canvia-radians', bloc: 'angles', titol: 'Posa la calculadora en radians',
-  enunciat: 'En un exercici d\'anàlisi amb trigonometria cal treballar en radians. Calcula $\\sin\\frac{\\pi}{6}$.',
+  id: 'canvia-radians',
   inici: calc(D),
   passos: [
     {tecles: [], pantalla: marca(calc(D), 'ang'),
@@ -53,8 +52,7 @@ M.fitxes.push(
   relacionades: ['error-angles', 'grau-puntual', 'mode-decimal'],
 },
 {
-  id: 'error-angles', bloc: 'angles', titol: 'Troba l\'error: el mode equivocat',
-  enunciat: 'La Laia calcula $\\cos\\frac{\\pi}{3}$, que hauria de ser $\\frac{1}{2}$, i la calculadora li dona 0.9998329795. Què ha passat?',
+  id: 'error-angles',
   inici: calc(D),
   passos: [
     {error: true, tecles: ['cos', 'shift', '7', 'entre', '3', 'rpar', 'exe'], pantalla: marca(calc(D, '\\cos(\\pi\\div 3)', '0.9998329795'), 'resultat'),
@@ -87,8 +85,7 @@ M.fitxes.push(
   relacionades: ['canvia-radians', 'grau-puntual', 'mode-decimal'],
 },
 {
-  id: 'grau-puntual', bloc: 'angles', titol: 'Un sol angle en radians, sense canviar el mode',
-  enunciat: 'La calculadora és en graus (D) i només necessites un càlcul en radians: $\\sin\\frac{\\pi}{6}$.',
+  id: 'grau-puntual',
   inici: calc(D),
   passos: [
     {tecles: ['sen', 'frac', 'shift', '7', 'down', '6', 'right'], pantalla: calc(D, '\\mathrm{sen}(\\frac{\\pi}{6}'),

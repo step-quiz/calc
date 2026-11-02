@@ -1,7 +1,7 @@
 /* ═══════════════════════════════════════════════════════════════════
    models/fx-82ms/fitxes/eso/geometria.js — ESO · bloc «Pitàgores, àrees i volums»
    ───────────────────────────────────────────────────────────────────
-   NOMÉS DADES. Normes: HANDOFF-ESO.md §10. Preguntes reals de CB 4t
+   NOMÉS DADES. Normes d'ESO: ARCHITECTURE.md, «Writing fitxes». Preguntes reals de CB 4t
    d'ESO: 2026 q7 (Pitàgores), 2022 q8 (volum d'un cilindre) i 2025 q27
    (àrea d'un cercle). Els enunciats oficials diuen π = 3,14: les fitxes
    fan servir la tecla π i diuen que, arrodonit, surt el mateix.
@@ -18,8 +18,8 @@ const PARASOL = 'π×0.75²';
 M.fitxes.push(
 
 {
-  id: 'cb4-26-q7', bloc: 'eso-geometria', titol: 'El tram d\'escala: Pitàgores', font: 'CB 4ESO (2026), pregunta 7',
-  enunciat: 'Una escala uneix dues plantes d\'un edifici. Cada tram d\'escala:\n• puja una altura de 3 m;\n• avança una llargada de 5 m.\nQuant mesura cada tram d\'escala?',
+  id: 'cb4-26-q7',
+  tancament: '[calc]Recorda: a la fx-82MS, el que va dins de l\'arrel s\'escriu entre parèntesis.[/calc] [mat]$\\sqrt{3^2+5^2}\\approx 5{,}83$ m.[/mat]',
   inici: calc(D),
   passos: [
     {tecles: ['arrel', 'lpar', '3', 'x2', 'mes', '5', 'x2', 'rpar'], pantalla: calc(D, ESCALA),
@@ -33,9 +33,7 @@ M.fitxes.push(
   ],
 },
 {
-  id: 'cb4-22-q8', bloc: 'eso-geometria', titol: 'El volum d\'un got cilíndric', font: 'CB 4ESO (2022), pregunta 8',
-  figura: {src: 'img/eso/cb4eso2022e2.png', alt: 'Dibuix del got de vidre (radi 3 cm, alçada 15 cm) i de l\'envàs de iogurt'},
-  enunciat: 'Un got de vidre té forma de cilindre:\n• radi de la base: 3 cm;\n• alçada: 15 cm.\nQuin és el volum del got, aproximadament?[nota](Volum d\'un cilindre $=\\pi\\cdot r^2\\cdot h$, amb $\\pi=3{,}14$.)[/nota]',
+  id: 'cb4-22-q8',
   inici: calc(D),
   passos: [
     {tecles: ['shift', 'exp', 'per', '3', 'x2', 'per', '1', '5'], pantalla: calc(D, GOT),
@@ -45,9 +43,7 @@ M.fitxes.push(
   ],
 },
 {
-  id: 'cb4-25-q27', bloc: 'eso-geometria', titol: 'La tela d\'un para-sol: l\'àrea d\'un cercle', font: 'CB 4ESO (2025), pregunta 27',
-  figura: {src: 'img/eso/cb4eso2025e9.png', alt: 'El para-sol obert i, vist des de dalt, la tela en forma d\'octògon regular'},
-  enunciat: 'Per saber quanta tela té un para-sol, se n\'aproxima la superfície per la d\'un cercle:\n• radi del cercle: 0,75 m.\nQuina superfície de tela té el para-sol?[nota](Àrea del cercle $=\\pi\\cdot r^2$, amb $\\pi=3{,}14$.)[/nota]',
+  id: 'cb4-25-q27',
   inici: calc(D),
   passos: [
     {tecles: ['shift', 'exp', 'per', '0', 'punt', '7', '5', 'x2'], pantalla: calc(D, PARASOL),

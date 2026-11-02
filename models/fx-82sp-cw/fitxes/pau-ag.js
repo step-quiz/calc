@@ -13,9 +13,7 @@ const {SEN45, ARREL2_2, D, R, FIX} = M.comu;
 M.fitxes.push(
 
 {
-  id: 'pau-alg-24j-q2', bloc: 'pau-ag', titol: 'Àlgebra · PAU 2024: comprova la solució d\'un sistema',
-  font: 'PAU juny 2024, qüestió 2 a)',
-  enunciat: 'Per a $k=0$, el sistema és $$\\begin{cases}4x+2y-z=4\\\\ x-y=3\\\\ 3x+3y=1\\end{cases}$$ i has obtingut la solució $$x=\\frac{5}{3},\\qquad y=-\\frac{4}{3},\\qquad z=0.$$ Comprova-la amb la calculadora: substitueix-la a cada equació.',
+  id: 'pau-alg-24j-q2',
   inici: calc(D),
   passos: [
     {tecles: ['4', 'per', 'frac', '5', 'down', '3', 'right', 'mes', '2', 'per', 'lpar', 'menys', 'frac', '4', 'down', '3', 'right', 'rpar', 'menys', '0'],
@@ -34,8 +32,8 @@ M.fitxes.push(
     {tecles: ['exe'], pantalla: marca(calc(D, '3\\times\\frac{5}{3}+3\\times(-\\frac{4}{3})', '1'), 'resultat'),
       text: '[calc]Prem [[exe]]: surt 1, el membre de la dreta. ✓ Es compleixen les tres equacions: la solució és correcta.[/calc]'},
   ],
-  /* «Ara tu» DESACTIVAT (v31, David): de moment no surt als exercicis PAU reals. Per tornar-lo a activar,
-     treu aquest comentari (vegeu ARCHITECTURE.md, punt 14).
+  /* «Ara tu» DESACTIVAT: de moment no surt als exercicis PAU reals. Per tornar-lo a activar,
+     treu aquest comentari (ARCHITECTURE.md, «Disabled “Ara tu”»).
   araTu: {
     enunciat: 'Comprova si $x=\\frac{1}{2}$, $y=-\\frac{3}{2}$ és la solució del sistema $\\begin{cases}3x-y=3\\\\ x+y=-1\\end{cases}$',
     resultat: '\\text{Sí: surten }3\\text{ i }-1',
@@ -57,9 +55,7 @@ M.fitxes.push(
   relacionades: ['exacte-decimal', 'frac-plantilla', 'pau-alg-24s-q2'],
 },
 {
-  id: 'pau-alg-24s-q2', bloc: 'pau-ag', titol: 'Àlgebra · PAU 2024: un menor orlat amb la regla de Sarrus',
-  font: 'PAU setembre 2024, qüestió 2 a)',
-  enunciat: 'Per a $m=1$, el rang de la matriu $A$ és 2. Per saber el rang de la matriu ampliada $A\'$, calcula amb la regla de Sarrus el menor d\'ordre 3 de les columnes de $x$, de $y$ i dels termes independents: $$A\'=\\left(\\begin{array}{rrr|r}1&-3&1&-2\\\\1&1&2&3\\\\1&1&2&1\\end{array}\\right)\\qquad\\begin{vmatrix}1&-3&-2\\\\1&1&3\\\\1&1&1\\end{vmatrix}$$',
+  id: 'pau-alg-24s-q2',
   inici: calc(D),
   passos: [
     {tecles: ['1', 'per', '1', 'per', '1', 'mes', 'lpar', 'menys', '3', 'rpar', 'per', '3', 'per', '1', 'mes', 'lpar', 'menys', '2', 'rpar', 'per', '1', 'per', '1'],
@@ -73,8 +69,8 @@ M.fitxes.push(
     {tecles: ['exe'], pantalla: marca(calc(D, '\\mathrm{Ans}-((-2)\\times 1\\times 1+1\\times 3\\times 1+(-3)\\times 1\\times 1)', '-8'), 'resultat'),
       text: '[calc]Prem [[exe]]: el menor val $-8\\neq 0$.[/calc] [mat]Per tant, el rang de la matriu $A\'$ és 3 i, com que el de la matriu $A$ és 2, per a $m=1$ el sistema és incompatible.[/mat]'},
   ],
-  /* «Ara tu» DESACTIVAT (v31, David): de moment no surt als exercicis PAU reals. Per tornar-lo a activar,
-     treu aquest comentari (vegeu ARCHITECTURE.md, punt 14).
+  /* «Ara tu» DESACTIVAT: de moment no surt als exercicis PAU reals. Per tornar-lo a activar,
+     treu aquest comentari (ARCHITECTURE.md, «Disabled “Ara tu”»).
   araTu: {
     enunciat: 'Calcula amb la regla de Sarrus $\\begin{vmatrix}1&2&0\\\\-1&3&1\\\\2&0&1\\end{vmatrix}$.',
     resultat: '9',
@@ -95,9 +91,7 @@ M.fitxes.push(
   relacionades: ['ans', 'pau-alg-24j-q2', 'pot-negativa'],
 },
 {
-  id: 'pau-geo-25s-q4b', bloc: 'pau-ag', titol: 'Geometria · PAU 2025: distància d\'un punt a un pla',
-  font: 'PAU setembre 2025, exercici 4 B a)',
-  enunciat: 'Considereu el pla $\\pi: 2x-y+z=5$ i el punt $P=(0,1,3)$. Comproveu que la distància de $P$ a $\\pi$ és $\\frac{\\sqrt{6}}{2}$. $$d(P,\\pi)=\\frac{|2\\cdot 0-1+3-5|}{\\sqrt{2^2+(-1)^2+1^2}}$$',
+  id: 'pau-geo-25s-q4b',
   inici: calc(D),
   passos: [
     {tecles: ['2', 'per', '0', 'menys', '1', 'mes', '3', 'menys', '5'], pantalla: calc(D, '2\\times 0-1+3-5'),
@@ -110,8 +104,8 @@ M.fitxes.push(
     {tecles: ['exe'], pantalla: marca(calc(D, '\\frac{3}{\\sqrt{2^{2}+(-1)^{2}+1^{2}}}', '\\frac{\\sqrt{6}}{2}'), 'resultat'),
       text: '[calc]Prem [[exe]]: surt $\\frac{\\sqrt{6}}{2}$, el valor de l\'enunciat. ✓ En mode {{E Mat/S Mat}} la calculadora racionalitza sola; en mode decimal sortiria 1.224744871 i no ho podries comparar.[/calc]'},
   ],
-  /* «Ara tu» DESACTIVAT (v31, David): de moment no surt als exercicis PAU reals. Per tornar-lo a activar,
-     treu aquest comentari (vegeu ARCHITECTURE.md, punt 14).
+  /* «Ara tu» DESACTIVAT: de moment no surt als exercicis PAU reals. Per tornar-lo a activar,
+     treu aquest comentari (ARCHITECTURE.md, «Disabled “Ara tu”»).
   araTu: {
     enunciat: 'Calcula la distància del punt $Q=(1,0,2)$ al pla $\\pi: 2x-y+z=5$.',
     resultat: '\\frac{\\sqrt{6}}{6}',
@@ -132,9 +126,7 @@ M.fitxes.push(
   relacionades: ['exacte-decimal', 'mode-decimal', 'pot-negativa', 'pau-geo-25s-q4b-c'],
 },
 {
-  id: 'pau-geo-25s-q4b-c', bloc: 'pau-ag', titol: 'Geometria · PAU 2025: el punt simètric respecte d\'un pla',
-  font: 'PAU setembre 2025, exercici 4 B c)',
-  enunciat: 'Considereu el pla $\\pi: 2x-y+z=5$ i el punt $P=(0,1,3)$. Trobeu un pla $\\pi_2$ paral·lel a $\\pi$, que no passi per $P$, a una distància $\\frac{\\sqrt{6}}{2}$ de $\\pi$. Passa pel simètric $P\'$ de $P$: la recta perpendicular a $\\pi$ per $P$, $(2\\lambda,\\,1-\\lambda,\\,3+\\lambda)$, talla el pla per a $\\lambda=\\frac{1}{2}$, al punt $M=\\left(1,\\frac{1}{2},\\frac{7}{2}\\right)$.',
+  id: 'pau-geo-25s-q4b-c',
   inici: calc(D),
   passos: [
     {tecles: ['2', 'per', '1', 'menys', 'frac', '1', 'down', '2', 'right', 'mes', 'frac', '7', 'down', '2'],
@@ -152,8 +144,8 @@ M.fitxes.push(
     {tecles: ['exe'], pantalla: marca(calc(D, '\\frac{3}{\\sqrt{2^{2}+(-1)^{2}+1^{2}}}', '\\frac{\\sqrt{6}}{2}'), 'resultat'),
       text: '[calc]Prem [[exe]]: $\\frac{\\sqrt{6}}{2}$. ✓ El punt $P\'$ és a la mateixa distància del pla que $P$, a l\'altra banda.[/calc] [mat]El pla $\\pi_2$ és $2x-y+z=E$ amb $E=2\\cdot 2-0+4=8$: $\\pi_2: 2x-y+z=8$.[/mat] [calc](Surt exacte perquè la calculadora és en mode {{E Mat/S Mat}}; en mode {{E Mat/S Decimal}} sortiria 1.224744871.)[/calc]'},
   ],
-  /* «Ara tu» DESACTIVAT (v31, David): de moment no surt als exercicis PAU reals. Per tornar-lo a activar,
-     treu aquest comentari (vegeu ARCHITECTURE.md, punt 14).
+  /* «Ara tu» DESACTIVAT: de moment no surt als exercicis PAU reals. Per tornar-lo a activar,
+     treu aquest comentari (ARCHITECTURE.md, «Disabled “Ara tu”»).
   araTu: {
     enunciat: 'Troba el simètric $Q\'$ de $Q=(1,0,2)$ respecte del pla $\\pi: 2x-y+z=5$. La perpendicular per $Q$, $(1+2\\lambda,\\,-\\lambda,\\,2+\\lambda)$, talla el pla per a $\\lambda=\\frac{1}{6}$, al punt $M=\\left(\\frac{4}{3},-\\frac{1}{6},\\frac{13}{6}\\right)$.',
     resultat: 'Q\'=\\left(\\frac{5}{3},-\\frac{1}{3},\\frac{7}{3}\\right)',
@@ -176,9 +168,7 @@ M.fitxes.push(
   relacionades: ['pau-geo-25s-q4b', 'frac-plantilla', 'pot-negativa', 'mode-decimal'],
 },
 {
-  id: 'pau-geo-26j2-q4b', bloc: 'pau-ag', titol: 'Geometria · PAU 2026: distàncies en centímetres',
-  font: 'PAU juny 2026 (sèrie 5), exercici 4 B',
-  enunciat: 'Un braç robòtic desplaça un sensor en línia recta des del punt $A=(1,2,3)$ fins al punt $B=(5,3,7)$, per damunt del pla $\\pi$, d\'equació general $x-y-5=0$ (l\'enunciat original dona el pla en forma paramètrica; l\'equació general l\'has obtinguda a mà; les unitats són centímetres). [a]4.1. Quina distància ha recorregut el sensor?[/a] [b]4.2. En acabar el moviment, a quina distància del pla es troba el sensor?[/b]',
+  id: 'pau-geo-26j2-q4b',
   inici: calc(D),
   passos: [
     {apartat: 'a', tecles: ['arrel', '4', 'x2', 'mes', '1', 'x2', 'mes', '4', 'x2'], pantalla: calc(D, '\\sqrt{4^{2}+1^{2}+4^{2}}'),
@@ -197,8 +187,8 @@ M.fitxes.push(
     {apartat: 'b', tecles: ['format', 'down', 'ok'], pantalla: marca(calc(D, '\\frac{3}{\\sqrt{1^{2}+(-1)^{2}+0^{2}}}', '2.121320344'), 'resultat'),
       text: '[calc]En decimal, amb [[format]] i {{Decimal}}: el sensor és a $\\frac{3\\sqrt{2}}{2}\\approx 2{,}12$ cm del pla.[/calc]'},
   ],
-  /* «Ara tu» DESACTIVAT (v31, David): de moment no surt als exercicis PAU reals. Per tornar-lo a activar,
-     treu aquest comentari (vegeu ARCHITECTURE.md, punt 14).
+  /* «Ara tu» DESACTIVAT: de moment no surt als exercicis PAU reals. Per tornar-lo a activar,
+     treu aquest comentari (ARCHITECTURE.md, «Disabled “Ara tu”»).
   araTu: {
     enunciat: 'Després, el sensor va de $B=(5,3,7)$ a $C=(2,1,1)$. Quina distància recorre? A quina distància del pla $x-y-5=0$ queda?',
     resultat: '7\\text{ cm i }2\\sqrt{2}\\approx 2{,}83\\text{ cm}',

@@ -4,8 +4,8 @@
    NOMÉS DADES. El format d'una fitxa és a fitxes/blocs.js.
    Preguntes reals de les proves de competències bàsiques de 4t d'ESO
    (repositori step-quiz/cb; la resposta és la de la clau oficial).
-   Aquestes tres fitxes són el model de les fitxes d'ESO (David,
-   1/11/2026; HANDOFF-ESO.md, «Com s'escriu una fitxa d'ESO»):
+   Aquestes tres fitxes són el model de les fitxes d'ESO (ARCHITECTURE.md,
+   «Writing fitxes»):
      · id cb<curs>-<any>-q<pregunta>; la font va a «font», no a l'enunciat;
      · cada frase d'un pas és [mat]…[/mat] (matemàtiques) o
        [calc]…[/calc] (què es fa amb la calculadora);
@@ -14,7 +14,7 @@
        lletra de l'opció ni els distractors (els errors, a la zona d'error);
      · un error comença sempre amb [[ac]], perquè no quedi a la vista el
        resultat bo;
-     · sense «Ara tu» a l'ESO; la mitjana es tecleja a Calcular.
+     · a l'ESO, «Prova-ho tu» i no «Ara tu»; la mitjana es tecleja a Calcular.
    ═══════════════════════════════════════════════════════════════════ */
 (function (M) {
 'use strict';
@@ -31,9 +31,7 @@ const MERCAT_ERROR = `(${MERCAT_NUM})\\div 25+35+25+10`;
 M.fitxes.push(
 
 {
-  id: 'cb4-26-q15', bloc: 'eso-mitjanes', titol: 'L\'hotel: la mitjana de quatre setmanes', font: 'CB 4ESO (2026), pregunta 15',
-  figura: {src: 'img/eso/cb4eso2026e6.png', alt: 'Gràfics de barres de l\'hotel: places ocupades i diners ingressats cada setmana'},
-  enunciat: 'Un hotel apunta quantes places ha ocupat cada setmana:\n• 1a setmana: 168 places\n• 2a setmana: 154 places\n• 3a setmana: 210 places\n• 4a setmana: 260 places\nQuina ha estat la mitjana de places ocupades en aquestes 4 setmanes?',
+  id: 'cb4-26-q15',
   inici: calc(D),
   passos: [
     {tecles: ['lpar', '1', '6', '8', 'mes', '1', '5', '4', 'mes', '2', '1', '0', 'mes', '2', '6', '0', 'rpar'], pantalla: calc(D, '(168+154+210+260)'),
@@ -50,10 +48,7 @@ M.fitxes.push(
   ],
 },
 {
-  id: 'cb4-24-q8', bloc: 'eso-mitjanes', titol: 'Les estrelles: la mitjana d\'una taula', font: 'CB 4ESO (2024), pregunta 8',
-  figura: {src: 'img/eso/cb4eso2024e2.png', alt: 'Les 80 valoracions de la botiga, d\'1 a 5 estrelles'},
-  enunciat: 'Els 80 clients d\'una botiga han valorat la compra amb una puntuació d\'1 a 5 estrelles. La taula diu quants clients han donat cada puntuació. Quina és la mitjana d\'estrelles?'
-    + '$$\\begin{array}{l|ccccc}\\text{Estrelles} & 5 & 4 & 3 & 2 & 1\\\\ \\hline \\text{Clients} & 22 & 32 & 16 & 8 & 2\\end{array}$$',
+  id: 'cb4-24-q8',
   inici: calc(D),
   passos: [
     {tecles: ['frac', '5', 'per', '2', '2', 'mes', '4', 'per', '3', '2', 'mes', '3', 'per', '1', '6', 'mes', '2', 'per', '8', 'mes', '1', 'per', '2'],
@@ -62,15 +57,13 @@ M.fitxes.push(
     {tecles: ['down', '8', '0'], pantalla: calc(D, ESTRELLES),
       text: '[mat]Hi ha 80 clients: la suma es divideix entre 80.[/mat] [calc]Baixa al denominador amb [[down]] i escriu 80. La barra de la fracció fa de parèntesi: es divideix tota la suma.[/calc]'},
     {tecles: ['exe'], pantalla: marca(calc(D, ESTRELLES, '\\frac{19}{5}'), 'resultat'),
-      text: '[calc]Prem [[exe]]: obtens el resultat, que és $\\frac{19}{5}$. Surt en fracció perquè la calculadora és en mode {{E Mat/S Mat}}; en mode {{E Mat/S Decimal}} sortiria 3.8.[/calc]'},
+      text: '[calc]Prem [[exe]]: obtens el resultat, que és $\\frac{19}{5}$. Surt en fracció perquè la calculadora està configurada per donar resultats exactes; si estigués configurada per donar decimals, sortiria 3.8.[/calc]'},
     {tecles: ['shift', 'exe'], pantalla: marca(calc(D, ESTRELLES, '3.8'), 'resultat'),
       text: '[calc]Per tenir-lo en decimal, prem [[shift]] i [[exe]] (a sobre d\'EXE hi ha ≈): obtens 3.8.[/calc] [mat]La resposta correcta és que la mitjana és de 3,8 estrelles.[/mat]'},
   ],
 },
 {
-  id: 'cb4-25-q17', bloc: 'eso-mitjanes', titol: 'El mercat: la mitjana d\'un gràfic de barres', font: 'CB 4ESO (2025), pregunta 17',
-  figura: {src: 'img/eso/cb4eso2025e5.png', alt: 'Gràfic de barres de l\'enquesta: quantes vegades per setmana van al mercat les persones de cada edat'},
-  enunciat: 'Una enquesta pregunta quantes vegades per setmana es va al mercat. Respostes de les persones de més de 50 anys:\n• 25 persones: 1 vegada\n• 35 persones: 2 vegades\n• 25 persones: 3 vegades\n• 10 persones: 4 vegades.\nDe mitjana, quants dies hi van per setmana?',
+  id: 'cb4-25-q17',
   inici: calc(D),
   passos: [
     {tecles: ['frac', '1', 'per', '2', '5', 'mes', '2', 'per', '3', '5', 'mes', '3', 'per', '2', '5', 'mes', '4', 'per', '1', '0'],

@@ -8,7 +8,7 @@
      · que la calculadora sencera és dins de la finestra (dues columnes);
      · que el pas actual es veu sencer dins de la llista de passos;
      · que no hi ha errors de JavaScript.
-   I, una sola vegada (v49), el recordatori del botó ▶ (v48): amb el
+   I, una sola vegada, el recordatori del botó ▶: amb el
    rellotge de Playwright, comprova que no surt abans de 8 s, que surt
    als 8 s, que es torna a comptar quan es passa de pas amb → i que a
    l'últim pas (▶ desactivat) no surt mai.
@@ -64,7 +64,7 @@ const MESURA = () => {
   };
 };
 
-/** El recordatori del botó ▶ (v48): torna una llista de problemes (buida si tot va bé). */
+/** El recordatori del botó ▶: torna una llista de problemes (buida si tot va bé). */
 async function provaRecorda(browser, BASE) {
   const mal = [];
   const page = await browser.newPage({viewport: {width: 1366, height: 657}});

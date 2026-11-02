@@ -1,7 +1,7 @@
 /* ═══════════════════════════════════════════════════════════════════
    models/fx-82sp-cw/fitxes/eso/percentatges.js — ESO · bloc «Percentatges i proporcions»
    ───────────────────────────────────────────────────────────────────
-   NOMÉS DADES. Normes: HANDOFF-ESO.md §10 (model: eso/mitjanes.js).
+   NOMÉS DADES. Normes d'ESO: ARCHITECTURE.md, «Writing fitxes».
    Activitat «Impressió de fotografies» de CB 4t d'ESO 2023 (preguntes
    23, 24 i 26). Zona d'error només on és pedagògicament rellevant:
    a la 23 (calcular el que s'estalvia en lloc del que es paga) i a la
@@ -19,8 +19,7 @@ const Q26 = '34\\times 42\\div 62';
 M.fitxes.push(
 
 {
-  id: 'cb4-23-q23', bloc: 'eso-percentatges', titol: 'Un descompte del 25 %', font: 'CB 4ESO (2023), pregunta 23',
-  enunciat: 'Una botiga imprimeix fotografies en color a 0,30 euros cadascuna.\n• L\'Anna hi imprimeix 40 fotografies en color.\n• La botiga li fa un descompte del 25 %.\nQuant li costarà imprimir-les?',
+  id: 'cb4-23-q23',
   inici: calc(D),
   passos: [
     {tecles: ['4', '0', 'per', '0', 'punt', '3'], pantalla: calc(D, '40\\times 0.3'),
@@ -36,8 +35,7 @@ M.fitxes.push(
   ],
 },
 {
-  id: 'cb4-23-q24', bloc: 'eso-percentatges', titol: 'Quantes fotos amb descompte?', font: 'CB 4ESO (2023), pregunta 24',
-  enunciat: 'Un altre dia, l\'Anna torna a la mateixa botiga a imprimir fotografies en color.\n• Cada fotografia costa 0,30 euros.\n• Li fan el mateix descompte del 25 %.\n• Amb el descompte, ha pagat 4,50 euros.\nQuantes fotografies ha imprès?',
+  id: 'cb4-23-q24',
   inici: calc(D),
   passos: [
     {tecles: ['4', 'punt', '5', 'entre', '0', 'punt', '7', '5'], pantalla: calc(D, '4.5\\div 0.75'),
@@ -55,8 +53,7 @@ M.fitxes.push(
   ],
 },
 {
-  id: 'cb4-23-q26', bloc: 'eso-percentatges', titol: 'Una foto més petita, sense deformar-la', font: 'CB 4ESO (2023), pregunta 26',
-  enunciat: 'L\'Anna té una fotografia de 62 cm d\'amplada i 34 cm d\'alçada. La vol imprimir més petita, sense deformar-la:\n• la fotografia impresa ha de fer 42 cm d\'amplada;\n• s\'ha de mantenir la proporció entre els costats.\nQuina alçada tindrà, aproximadament?',
+  id: 'cb4-23-q26',
   inici: calc(D),
   passos: [
     {tecles: ['3', '4', 'per', '4', '2'], pantalla: calc(D, '34\\times 42'),
@@ -64,7 +61,7 @@ M.fitxes.push(
     {tecles: ['entre', '6', '2'], pantalla: calc(D, Q26),
       text: '[calc]Ara fes l\'operació [[entre]] 62.[/calc]'},
     {tecles: ['exe'], pantalla: marca(calc(D, Q26, '\\frac{714}{31}'), 'resultat'),
-      text: '[calc]Prem [[exe]]: obtens $\\frac{714}{31}$. Surt en fracció perquè la calculadora és en mode {{E Mat/S Mat}}; en mode {{E Mat/S Decimal}} sortiria 23.03225806.[/calc]'},
+      text: '[calc]Prem [[exe]]: obtens $\\frac{714}{31}$. Surt en fracció perquè la calculadora està configurada per donar resultats exactes; si estigués configurada per donar decimals, sortiria 23.03225806.[/calc]'},
     {tecles: ['shift', 'exe'], pantalla: marca(calc(D, Q26, '23.03225806'), 'resultat'),
       text: '[calc]Per tenir-lo en decimal, prem [[shift]] i [[exe]] (≈): obtens 23.03225806.[/calc] [mat]La resposta correcta és que l\'alçada serà d\'uns 23 cm.[/mat]'},
   ],

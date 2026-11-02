@@ -2,14 +2,11 @@
    nucli/portada.js — La portada: una targeta per bloc, amb les seves fitxes
    ───────────────────────────────────────────────────────────────────
    Tot surt de les dades del model (M.dades): una fitxa nova apareix
-   sola a la portada. Un bloc sense fitxes diu «Properament». Sense
-   descripcions ni nombre de passos (David, 31/10/2026: la portada ha de
-   ser simple). El peu porta la versió de la web (Models.VERSIO).
-   A dalt, «La teva calculadora» (v34): en triar-ne una altra, es desa i
-   es torna a dibuixar la portada amb les fitxes d'aquella calculadora.
-   I «Etapa» (v36): només els blocs de l'etapa (Batxillerat o ESO), amb
-   el lema, el <title> i la descripció de l'etapa. Només surt si hi ha
-   més d'una etapa amb fitxes (Models.etapesVisibles).
+   sola a la portada. Un bloc sense fitxes diu «Properament». Només els
+   blocs de l'etapa triada (Batxillerat o ESO); els blocs petits, com a
+   bombolles a sota. A dalt, els selectors «Etapa» (només si n'hi ha més
+   d'una amb fitxes), «La teva calculadora» i «Calculadora en» (si el
+   model té idiomes); el navegador els recorda. El peu porta la versió.
 
    Depèn de Models i Preferencies. Exporta «Portada»: arrenca().
    ═══════════════════════════════════════════════════════════════════ */
@@ -30,7 +27,7 @@ function dibuixa(M, models) {
   const descripcio = document.querySelector('meta[name="description"]');
   if (descripcio) descripcio.setAttribute('content', etapa.descripcio);
 
-  /* L'etapa (v36): Batxillerat o ESO. El selector només surt si n'hi ha més d'una per triar */
+  /* L'etapa: el selector només surt si n'hi ha més d'una per triar */
   const triaEtapa = document.getElementById('etapa');
   const visibles = Models.etapesVisibles(M);
   if (triaEtapa && visibles.length > 1) {
@@ -40,7 +37,7 @@ function dibuixa(M, models) {
     triaEtapa.closest('label').hidden = false;
   }
 
-  /* La calculadora (v34): l'alumne tria la seva; el navegador la recorda */
+  /* La calculadora: l'alumne tria la seva; el navegador la recorda */
   const model = document.getElementById('model');
   if (model) {
     model.replaceChildren(...models.map(d => Object.assign(document.createElement('option'), {value: d.id, textContent: d.curt})));
@@ -48,7 +45,7 @@ function dibuixa(M, models) {
     model.addEventListener('change', () => { Preferencies.desaModel(model.value); location.href = Models.adreca({model: model.value, etapa: etapa.id}); });
   }
 
-  /* L'idioma de la calculadora (fase 3): l'alumne el tria aquí o a qualsevol fitxa, i el navegador el recorda.
+  /* L'idioma dels menús de la calculadora: l'alumne el tria aquí o a qualsevol fitxa, i el navegador el recorda.
      Si la calculadora no té idiomes, el selector no surt. */
   const idioma = document.getElementById('idioma');
   if (idioma && M.idiomes) {
@@ -77,8 +74,8 @@ function dibuixa(M, models) {
   }).join('') : `<p class="properament etapa-buida">Properament: fitxes per a ${escapa(etapa.nom)}</p>`;
   const bombolles = document.createElement('div');
   bombolles.className = 'bombolles';
-  bombolles.innerHTML = petits.map(b => FITXES.filter(f => f.bloc === b.id).map(f =>
-    `<a class="bombolla" id="${b.id}" style="--cat:${b.color}" href="${enllac(f)}">`
+  bombolles.innerHTML = petits.map(b => FITXES.filter(f => f.bloc === b.id).map((f, k) =>
+    `<a class="bombolla"${k ? '' : ` id="${b.id}"`} style="--cat:${b.color}" href="${enllac(f)}">`
     + `<span class="bombolla-bloc">${escapa(b.titol)}</span><span>${escapa(f.titol)}</span></a>`).join('')).join('');
   contenidor.after(bombolles);
 

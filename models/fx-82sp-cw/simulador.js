@@ -2,8 +2,7 @@
    simulador.js — La pantalla després de CADA tecla
    ───────────────────────────────────────────────────────────────────
    A les fitxes, cada pas diu quines tecles es premen i com queda la
-   pantalla al final. La calculadora real, però, canvia a cada tecla
-   (David, 31/10/2026). Aquest mòdul calcula les pantalles intermèdies:
+   pantalla al final. La calculadora real, però, canvia a cada tecla. Aquest mòdul calcula les pantalles intermèdies:
 
      Simulador.pantalles(fitxa) → {pantalles, errors}
        pantalles[i][j] = la pantalla després de la tecla j del pas i
@@ -13,11 +12,11 @@
        errors = llista de textos (la prova proves/comprova.js hi falla).
 
    Què sap fer (prou per a les fitxes, no és un emulador):
-     · escriure: xifres, punt, + − × ÷, ( ), sen( cos( tan( ln( log(, x², x, y, z,
+     · escriure i corregir (DEL esborra el que hi ha abans del cursor): xifres, punt, + − × ÷, ( ), sen( cos( tan( ln( log(, x², x, y, z,
        π, e, Ans, el signe negatiu (−); les plantilles de fracció, d'arrel
        quadrada, d'arrel d'índex n (SHIFT arrel: primer l'índex, → i el radicand),
        de logaritme en base a (logab: primer la base, → i l'argument), d'exponent i de ×10■
-       (tecla exp, v46: escriu ×10 i obre l'exponent; com l'exponent, se'n surt amb →),
+       (tecla exp: escriu ×10 i obre l'exponent; com l'exponent, se'n surt amb →),
        amb ↓ ↑ → ← per moure-s'hi;
        després d'un resultat, el que s'escriu comença un càlcul nou;
      · SHIFT (la S de la barra) i AC;
@@ -55,7 +54,7 @@ const ESCRIU = Object.freeze({
 });
 const ESCRIU_SHIFT = Object.freeze({7: '\\pi ', 8: 'e', 0: 'x', punt: 'y', exp: 'z', menys: '-',   // SHIFT − = signe negatiu (−)
   logab: '\\ln(', x2: '\\log(',
-  sen: '\\mathrm{Arcsen}(', cos: '\\mathrm{Arccos}(', tan: '\\mathrm{Arctan}('});   // v49: com a la calculadora, «Arccos(» (David; VERIFICAR.md, fila 27)
+  sen: '\\mathrm{Arcsen}(', cos: '\\mathrm{Arccos}(', tan: '\\mathrm{Arctan}('});   // com a la calculadora, «Arccos(»
 /**
  * Les plantilles, en una sola taula: tipus de node → {camps (en ordre; el cursor entra al primer),
  * tex (el TeX a partir del de cada camp), vertical (↓ ↑ passen d'un camp a l'altre, com a la
@@ -68,7 +67,7 @@ const PLANTILLA = Object.freeze({
   arreln: {camps: ['idx', 'rad'], tex: c => `\\sqrt[${c.idx}]{${c.rad}}`},   // SHIFT arrel: primer l'índex, → i el radicand
   logab: {camps: ['base', 'arg'], tex: c => `\\log_{${c.base}}(${c.arg})`},   // primer la base, → i l'argument
   pot: {camps: ['exp'], tex: c => `^{${c.exp}}`},
-  x10: {camps: ['exp'], tex: c => `\\times 10^{${c.exp}}`},   // v46: la tecla ×10■ (exp) escriu «×10» i obre l'exponent
+  x10: {camps: ['exp'], tex: c => `\\times 10^{${c.exp}}`},   // la tecla ×10■ (exp) escriu «×10» i obre l'exponent
 });
 const TECLA_PLANTILLA = Object.freeze({frac: 'frac', arrel: 'arrel', pot: 'pot', logab: 'logab', exp: 'x10'});
 const TECLA_PLANTILLA_SHIFT = Object.freeze({arrel: 'arreln'});
@@ -138,6 +137,15 @@ function mou(ed, tecla) {
     return false;
   }
   return false;
+}
+
+/** DEL: esborra el que hi ha just abans del cursor (només un tros escrit, no una plantilla). Torna false si no pot. */
+function esborra(ed) {
+  const m = dalt(ed);
+  if (m.i === 0 || m.llista[m.i - 1].t !== 'tex') return false;
+  m.llista.splice(m.i - 1, 1);
+  m.i--;
+  return true;
 }
 
 /** El TeX de l'expressió; amb cursor, hi posa la barra on és. */
@@ -326,6 +334,10 @@ function tecla(estat, id) {
     if (!estat.ed || estat.resultat) return null;
     return mou(estat.ed, id) ? pantallaCalc(estat) : null;
   }
+  if (id === 'del' && !shift) {
+    if (!estat.ed || estat.resultat) return null;
+    return esborra(estat.ed) ? pantallaCalc(estat) : null;
+  }
   return null;                                          // EXE, ≈, etc.: el resultat el dona la fitxa
 }
 
@@ -362,7 +374,7 @@ function pantalles(fitxa) {
       const explicita = pas.parcials && pas.parcials[j];
       let nova = tecla(estat, id);
       if (!['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'punt', 'mes', 'menys', 'per', 'entre', 'lpar', 'rpar', 'x',
-        'sen', 'cos', 'tan', 'frac', 'arrel', 'pot', 'x2', 'logab', 'ans', 'shift', 'ac', 'down', 'up', 'left', 'right', 'exe', 'exp'].includes(id)) nomesEscriu = false;
+        'sen', 'cos', 'tan', 'frac', 'arrel', 'pot', 'x2', 'logab', 'ans', 'shift', 'ac', 'down', 'up', 'left', 'right', 'exe', 'exp', 'del'].includes(id)) nomesEscriu = false;
       if (darrera) nova = pas.pantalla;
       else if (explicita) { nova = explicita; nomesEscriu = false; }
       if (!nova) {

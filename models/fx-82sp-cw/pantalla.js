@@ -74,11 +74,11 @@ function calc(estat) {
   const cursor = estat.cursor ? '<span class="lcd-cursor" aria-hidden="true"></span>' : '';
   const escriu = t => (estat.linia ? `<span class="lcd-linia">${escapa(t)}</span>` : texLcd(t));
   const entrada = estat.entrada ? escriu(estat.entrada) : '';
-  // Notació científica (v46, foto de David): la mantissa a mida normal i «×10» i l'exponent petits, com a la calculadora
+  // Notació científica (foto de la calculadora): la mantissa a mida normal i «×10» i l'exponent petits, com a la calculadora
   const sci = t => String(t).replace(/^(-?\d+(?:\.\d+)?)\\times 10\^\{(-?\d+)\}$/, '$1{\\scriptstyle\\times 10^{$2}}');
   const resultat = estat.resultat ? escriu(sci(trTex(estat.resultat))) : '';
-  // Una entrada més llarga que la pantalla (v37): mentre s'escriu, es veu el final, on és el cursor; amb el resultat,
-  // el començament (VERIFICAR.md, fila 25). Si l'entrada hi cap, no canvia res. Les fletxes ◀ ▶ les posa ajusta (v38).
+  // Una entrada més llarga que la pantalla: mentre s'escriu, es veu el final, on és el cursor; amb el resultat,
+  // el començament (VERIFICAR.md, fila 25). Si l'entrada hi cap, no canvia res. Les fletxes ◀ ▶ les posa ajusta.
   return barra(estat)
     + `<div class="lcd-linia-entrada${estat.resultat ? '' : ' al-final'}">`
     + `<div class="lcd-entrada${marca(estat, 'entrada')}" data-marca="entrada">${entrada}${cursor}</div></div>`
@@ -158,8 +158,8 @@ function html(estat, llengua = 'es') {
 }
 
 /**
- * Després de dibuixar (v38; el nucli la crida si existeix): si l'entrada no hi cap, una fletxa ◀ a l'esquerra (hi ha més
- * expressió per l'esquerra) o ▶ a la dreta, com a la calculadora (foto de David, 1/11/2026; VERIFICAR.md, fila 25).
+ * Després de dibuixar (el nucli la crida si existeix): si l'entrada no hi cap, una fletxa ◀ a l'esquerra (hi ha més
+ * expressió per l'esquerra) o ▶ a la dreta, com a la calculadora (VERIFICAR.md, fila 25).
  * Mira on ha quedat l'entrada: només ho pot saber el navegador. Torna a mirar quan les lletres de KaTeX ja són a punt.
  */
 function ajusta(el) {
@@ -178,12 +178,6 @@ function ajusta(el) {
   if (typeof document !== 'undefined' && document.fonts && document.fonts.status !== 'loaded') document.fonts.ready.then(mira);
 }
 
-/** v42: la pantalla esborrada (com després d'AC) a partir d'una altra; per al pas «Activitat finalitzada» que afegeix el motor. */
-function buida(p) {
-  if (!p || p.tipus !== 'calc') return p;
-  return Object.freeze(Object.assign({}, p, {entrada: '', resultat: '', cursor: true, linia: false, marca: null}));
-}
-
-M.pantalla = Object.freeze({html, buida, ajusta, finestra, INDICADORS, OPCIONS_KATEX, TIPUS: Object.keys(DIBUIXA)});
+M.pantalla = Object.freeze({html, ajusta, finestra, INDICADORS, OPCIONS_KATEX, TIPUS: Object.keys(DIBUIXA)});
 
 })(Models.obre('fx-82sp-cw'));

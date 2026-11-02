@@ -1,8 +1,7 @@
 /* ═══════════════════════════════════════════════════════════════════
    models/fx-82ms/fitxes/eso/pantalla.js — ESO · bloc «Fracció o decimal. Arrodonir. Notació científica»
    ───────────────────────────────────────────────────────────────────
-   NOMÉS DADES. Normes: HANDOFF-ESO.md §10. Exemples propis (David,
-   1/11/2026: «poden ser tots exemples teus»), sense font.
+   NOMÉS DADES. Normes d'ESO: ARCHITECTURE.md, «Writing fitxes». Exemples propis, sense font.
    ═══════════════════════════════════════════════════════════════════ */
 (function (M) {
 'use strict';
@@ -14,8 +13,7 @@ const LLUM = '3×10^8×86400';
 M.fitxes.push(
 
 {
-  id: 'eso-fraccio-decimal', bloc: 'eso-pantalla', titol: 'Em surt una fracció: vull el decimal',
-  enunciat: 'Calcula $7\\div 4$ i dona el resultat en forma de fracció i en forma decimal.',
+  id: 'eso-fraccio-decimal',
   inici: calc(D),
   passos: [
     {tecles: ['7', 'entre', '4'], pantalla: calc(D, '7÷4'),
@@ -27,8 +25,7 @@ M.fitxes.push(
   ],
 },
 {
-  id: 'eso-arrodonir', bloc: 'eso-pantalla', titol: 'Arrodonir el que surt a la pantalla',
-  enunciat: 'Calcula $2\\div 3$ i arrodoneix el resultat a les centèsimes.',
+  id: 'eso-arrodonir',
   inici: calc(D),
   passos: [
     {tecles: ['2', 'entre', '3'], pantalla: calc(D, '2÷3'),
@@ -40,8 +37,7 @@ M.fitxes.push(
   ],
 },
 {
-  id: 'eso-notacio-cientifica', bloc: 'eso-pantalla', titol: 'Nombres molt grans: notació científica',
-  enunciat: 'La llum recorre $3\\cdot 10^8$ metres cada segon.\n• Un dia té 86 400 segons.\nQuants metres recorre la llum en un dia?',
+  id: 'eso-notacio-cientifica',
   inici: calc(D),
   passos: [
     {tecles: ['3', 'per', '1', '0', 'pot', '8'], pantalla: calc(D, '3×10^8'),

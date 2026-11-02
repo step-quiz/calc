@@ -6,8 +6,8 @@
    ═══════════════════════════════════════════════════════════════════ */
 (function (M) {
 'use strict';
-const {calc, marca} = M.guions;
-const {D} = M.comu;
+const {calc, marca, mode} = M.guions;
+const {D, R} = M.comu;
 
 const ARBRE = '12tan 35';
 const ESCALA = '5sin 60';
@@ -16,12 +16,31 @@ const ANGLE = 'cos⁻¹ (1.5÷5)', ANGLE_ERROR = 'cos (1.5÷5)';
 M.fitxes.push(
 
 {
-  id: 'll4-7-37', bloc: 'eso-trigonometria', titol: 'L\'altura d\'un arbre: la tangent', font: 'Llibre 4t ESO, unitat 7, exercici 37',
-  enunciat: 'Un arbre fa una ombra a terra quan els raigs del sol arriben inclinats:\n• l\'ombra fa 12 m;\n• els raigs del sol formen 35° amb el terra.\nQuant fa d\'alt l\'arbre?',
+  id: 'eso-posa-graus',
+  inici: calc(R),
+  passos: [
+    {error: true, tecles: ['1', '2', 'tan', '3', '5'], pantalla: calc(R, ARBRE),
+      text: '[calc]!!Error típic!!: amb la R a dalt de la pantalla, escriu 12, [[tan]] i 35, com a l\'exercici de l\'arbre.[/calc]'},
+    {error: true, tecles: ['igual'], pantalla: marca(calc(R, ARBRE, '5.685776645'), 'resultat'),
+      text: '[calc]Prem [[igual]]: obtens 5.685776645.[/calc] [mat]No és l\'altura de l\'arbre: la calculadora ha entès 35 radians, no 35°.[/mat]'},
+    {tecles: ['mode'], pantalla: mode(1, R),
+      text: '[calc]Ho arreglem. Prem [[mode]]: surten els modes de càlcul.[/calc]'},
+    {tecles: ['mode'], pantalla: mode(2, R),
+      text: '[calc]Torna a prémer [[mode]]: ara surt la unitat dels angles, {{Deg}} (graus), {{Rad}} (radians) i {{Gra}}.[/calc]'},
+    {tecles: ['1'], pantalla: marca(calc(D), 'ang'),
+      text: '[calc]Prem l\'[[1]], el número de {{Deg}}: tornes a la pantalla de càlcul, i ara a dalt hi ha una D.[/calc]'},
+    {tecles: ['1', '2', 'tan', '3', '5'], pantalla: calc(D, ARBRE),
+      text: '[calc]Torna a escriure 12, [[tan]] i 35.[/calc]'},
+    {tecles: ['igual'], pantalla: marca(calc(D, ARBRE, '8.402490459'), 'resultat'),
+      text: '[calc]Prem [[igual]]: obtens 8.402490459.[/calc] [mat]Ara sí: l\'arbre fa uns 8,4 m d\'alt.[/mat]'},
+  ],
+},
+{
+  id: 'll4-7-37',
   inici: calc(D),
   passos: [
     {tecles: [], pantalla: marca(calc(D), 'ang'),
-      text: '[calc]Abans de res, mira la pantalla: hi ha d\'haver una D (graus), perquè els angles d\'aquest problema són en graus.[/calc]'},
+      text: '[calc]Abans de res, mira la pantalla: hi ha d\'haver una D (graus), perquè els angles d\'aquest problema són en graus. Si hi ha una R, mira la fitxa anterior.[/calc]'},
     {tecles: ['1', '2', 'tan', '3', '5'], pantalla: calc(D, ARBRE),
       text: '[mat]L\'altura és el catet oposat a l\'angle de 35°, i l\'ombra, el contigu: oposat i contigu → tangent. Altura $=12\\cdot\\tan 35^\\circ$.[/mat] [calc]Escriu 12, [[tan]] i 35. No cal el [[per]].[/calc]'},
     {tecles: ['igual'], pantalla: marca(calc(D, ARBRE, '8.402490459'), 'resultat'),
@@ -29,8 +48,7 @@ M.fitxes.push(
   ],
 },
 {
-  id: 'll4-7-38', bloc: 'eso-trigonometria', titol: 'L\'escala recolzada: el sinus', font: 'Llibre 4t ESO, unitat 7, exercici 38',
-  enunciat: 'Una escala està recolzada a la paret:\n• l\'escala fa 5 m de llarg;\n• forma un angle de 60° amb el terra.\nA quina altura arriba a la paret?',
+  id: 'll4-7-38',
   inici: calc(D),
   passos: [
     {tecles: ['5', 'sin', '6', '0'], pantalla: calc(D, ESCALA),
@@ -40,8 +58,7 @@ M.fitxes.push(
   ],
 },
 {
-  id: 'll4-7-39', bloc: 'eso-trigonometria', titol: 'L\'angle d\'una escala: la tecla inversa', font: 'Llibre 4t ESO, unitat 7, exercici 39',
-  enunciat: 'Una escala està recolzada a la paret:\n• l\'escala fa 5 m de llarg;\n• la base és a 1,5 m de la paret.\nQuin angle forma l\'escala amb el terra?',
+  id: 'll4-7-39',
   inici: calc(D),
   passos: [
     {tecles: ['shift', 'cos', 'lpar', '1', 'punt', '5', 'entre', '5', 'rpar'], pantalla: calc(D, ANGLE),

@@ -1,48 +1,47 @@
 /* ═══════════════════════════════════════════════════════════════════
-   nucli/models.js — El registre i el carregador de les calculadores
+   nucli/models.js — Els exercicis, les calculadores i les etapes
    ───────────────────────────────────────────────────────────────────
-   Una calculadora («model») és una carpeta models/<id>/ amb:
-     model.js   el descriptor: Models.descriu({id, nom, curt, idiomes, fitxers, estils, proves})
-     …          els fitxers de «fitxers», en ordre; cadascun omple una
-                part del model en construcció: const M = Models.obre('<id>');
-                M.tecles = …; M.pantalla = …; M.guions = …; M.simulador = …;
-                M.blocs = […]; M.fitxes.push(…)
-   models/cataleg.js diu quins models hi ha: Models.cataleg(['<id>', …]);
-   el primer és el de per defecte. També diu quines etapes té el web
-   (v36): Models.etapes([{id, nom, lema, titol, descripcio}, …]); la
-   primera és la de per defecte. Cada bloc d'un model diu a quines
-   etapes surt (bloc.etapes = ['batx'], ['eso'] o ['eso', 'batx']).
+   Una fitxa = un exercici (comú a totes les calculadores) + les tecles
+   i les pantalles d'una calculadora.
+     exercicis/        els blocs i els exercicis (exercicis/blocs.js en
+                       diu el format): Models.defineixBlocs([…]) i
+                       Models.afegeixExercicis({…}, …)
+     models/<id>/      una calculadora («model»): model.js és el
+                       descriptor, Models.descriu({id, nom, curt, idiomes,
+                       fitxers, estils, proves}); els altres fitxers
+                       omplen el model en construcció:
+                       const M = Models.obre('<id>'); M.tecles = …;
+                       M.pantalla = …; M.guions = …; M.simulador = …;
+                       M.fitxes.push({id, inici, passos, …});
+                       M.blocs = {<id del bloc>: {titol}} (opcional)
+     models/cataleg.js quines calculadores i quines etapes hi ha, i els
+                       fitxers d'exercicis (Models.cataleg, Models.etapes,
+                       Models.exercicis). La primera calculadora i la
+                       primera etapa són les de per defecte.
 
-   El contracte (Models.tanca el comprova i congela el model):
-     id, nom, curt, idiomes ({codi: nom} o null)
+   El contracte d'una calculadora (Models.tanca el comprova):
      tecles    {TECLES, TECLAT: {alcada, vidre, …}, html(id, opcions), existeix(id), htmlTeclat()}
-               TECLES[id] = {etiqueta, nom, tipus, …}; una tecla de prefix (SHIFT, ALPHA…) porta
-               prefix: '<capa>': el nucli dibuixa la tecla següent amb html(id, {prefix}) i, mentre
-               s'anima, posa la classe «prefix-<capa>» al teclat (per ressaltar els rètols d'aquella capa)
-     pantalla  {html(estat, idioma), TIPUS}
-     guions    {textCalc(text, idioma)} i els constructors de pantalles que fan servir les fitxes
+               TECLES[id] = {etiqueta, nom, tipus, …}; tipus 'num' = xifra o punt
+               decimal (s'anima més de pressa); una tecla de prefix (SHIFT,
+               ALPHA…) porta prefix: '<capa>'
+     pantalla  {html(estat, idioma), TIPUS}; opcional ajusta(element), que el
+               nucli crida després de dibuixar la pantalla
+     guions    {textCalc(text, idioma)} i els constructors de pantalles de les fitxes
      simulador {pantalles(fitxa) → {pantalles, errors}}
-     dades     {BLOCS, FITXES}
-   El nucli (motor.js, portada.js, text.js) només fa servir el contracte:
-   no coneix cap tecla ni cap menú de cap calculadora.
+   El nucli (js/nucli/) només fa servir el contracte: no coneix cap tecla
+   ni cap menú. L'aspecte de cada calculadora és a models/<id>/estil.css.
 
-   L'aspecte de cada calculadora és als seus estils (models/<id>/estil.css), que
-   es carreguen després de css/estil.css (el del nucli).
-
-   Exporta «Models»: VERSIO, cataleg, descriu, obre, tanca, carrega,
-   idActual, adreca, descriptorsTots, model, carpeta, dibuix (eines per dibuixar
-   el teclat), CONTRACTE; i les etapes: etapes, etapa, etapaActual, etapaDe,
-   etapesVisibles.
+   Exporta «Models».
    ═══════════════════════════════════════════════════════════════════ */
 (function (arrel) {
 'use strict';
 
 /**
- * Versió de la web. Quan es canvia qualsevol .js o .css, s'ha d'augmentar aquí I als «?v=» de
- * index.html i fitxa.html (la prova ho comprova): així cap navegador no fa servir fitxers vells.
- * Els fitxers dels models es carreguen amb aquest mateix «?v=».
+ * Versió de la web. Quan es canvia qualsevol .js o .css, s'ha d'augmentar aquí, als «?v=» d'index.html i
+ * fitxa.html i al peu d'index.html (la prova ho comprova): així cap navegador no fa servir fitxers vells.
+ * Els fitxers dels exercicis i dels models es carreguen amb aquest mateix «?v=».
  */
-const VERSIO = '49';
+const VERSIO = '50';
 
 /** Les parts que ha de donar cada model, amb les funcions o els camps que el nucli hi fa servir. */
 const CONTRACTE = Object.freeze({
@@ -53,11 +52,27 @@ const CONTRACTE = Object.freeze({
 });
 
 let ids = [];                       // el catàleg, en ordre
+let fitxersExercicis = [];          // exercicis/…, en ordre
+let blocsComuns = [];               // Models.defineixBlocs
+const exercicis = new Map();        // id → exercici
 const descriptors = {};             // id → descriptor (model.js)
 const enObres = {};                 // id → model en construcció
 const tancats = {};                 // id → model acabat (congelat)
 
 function cataleg(llista) { ids = llista.slice(); }
+
+/** Els fitxers d'exercicis (relatius a exercicis/), en ordre: models/cataleg.js. */
+function exercicisFitxers(llista) { fitxersExercicis = llista.slice(); }
+
+function defineixBlocs(llista) { blocsComuns = llista.map(b => Object.freeze(Object.assign({}, b, {etapes: Object.freeze(b.etapes.slice())}))); }
+
+function afegeixExercicis(...llista) {
+  for (const e of llista) {
+    if (!e || !e.id) throw new Error('Models.afegeixExercicis: un exercici sense id');
+    if (exercicis.has(e.id)) throw new Error(`Models.afegeixExercicis: l'exercici «${e.id}» està repetit`);
+    exercicis.set(e.id, Object.freeze(Object.assign({}, e)));
+  }
+}
 
 function descriu(d) {
   if (!d || !d.id) throw new Error('Models.descriu: falta l\'id');
@@ -70,7 +85,10 @@ function obre(id) {
   return enObres[id];
 }
 
-/** Acaba el model: comprova el contracte i el congela. Torna el model. */
+/**
+ * Acaba el model: comprova el contracte, ajunta cada fitxa amb el seu exercici (la fitxa mana) i ho congela tot.
+ * Torna el model.
+ */
 function tanca(id) {
   if (tancats[id]) return tancats[id];
   const d = descriptors[id], m = enObres[id];
@@ -79,11 +97,17 @@ function tanca(id) {
     if (!m[part]) throw new Error(`El model «${id}» no té «${part}»`);
     for (const c of camps) if (m[part][c] === undefined) throw new Error(`El model «${id}»: a «${part}» li falta «${c}»`);
   }
-  if (!Array.isArray(m.blocs)) throw new Error(`El model «${id}» no té blocs`);
+  const canvis = m.blocs || {};
+  const BLOCS = blocsComuns.map(b => Object.freeze(Object.assign({}, b, canvis[b.id] || {})));
+  const FITXES = m.fitxes.map(f => {
+    const e = exercicis.get(f.id);
+    if (!e) throw new Error(`El model «${id}»: la fitxa «${f.id}» no té exercici (exercicis/)`);
+    return Object.freeze(Object.assign({}, e, f));
+  });
   tancats[id] = Object.freeze({
     id: d.id, nom: d.nom, curt: d.curt, idiomes: d.idiomes,
     tecles: m.tecles, pantalla: m.pantalla, guions: m.guions, simulador: m.simulador,
-    dades: Object.freeze({BLOCS: Object.freeze(m.blocs.slice()), FITXES: Object.freeze(m.fitxes.slice())}),
+    dades: Object.freeze({BLOCS: Object.freeze(BLOCS), FITXES: Object.freeze(FITXES)}),
   });
   return tancats[id];
 }
@@ -105,9 +129,9 @@ function idActual() {
   return ids.includes(desat) ? desat : ids[0];
 }
 
-/* ── Les etapes (v36): Batxillerat i ESO ───────────────────────────
-   Són configuració del web, no de cap calculadora: el nucli les pot llegir. Cada bloc diu a quines etapes surt
-   (bloc.etapes); una fitxa és de l'etapa del seu bloc. La portada només ensenya els blocs de l'etapa triada. */
+/* ── Les etapes: Batxillerat i ESO ─────────────────────────────────
+   Cada bloc diu a quines etapes surt (bloc.etapes); una fitxa és de l'etapa del seu bloc. La portada només
+   ensenya els blocs de l'etapa triada. */
 
 let etapesWeb = [];                 // [{id, nom, lema, titol, descripcio}], en ordre; la primera, la de per defecte
 
@@ -186,14 +210,15 @@ function estil(href) {
 }
 
 /**
- * Carrega el model (per defecte, el d'aquesta pàgina): el descriptor i, després, els seus fitxers i els seus
- * estils (es dibuixa quan tot és a punt, sense parpelleig). Torna una promesa del model.
+ * Carrega el model (per defecte, el d'aquesta pàgina): el descriptor i, després, els exercicis, els fitxers del
+ * model i els seus estils (es dibuixa quan tot és a punt, sense parpelleig). Torna una promesa del model.
  */
 async function carrega(id = idActual()) {
   if (tancats[id]) return tancats[id];
   if (!descriptors[id]) await script(carpeta(id) + 'model.js');
   const d = descriptors[id];
-  await Promise.all(d.fitxers.map(f => script(carpeta(id) + f)).concat(d.estils.map(f => estil(carpeta(id) + f))));
+  const comuns = exercicis.size ? [] : fitxersExercicis.map(f => script('exercicis/' + f));
+  await Promise.all(comuns.concat(d.fitxers.map(f => script(carpeta(id) + f)), d.estils.map(f => estil(carpeta(id) + f))));
   return tanca(id);
 }
 
@@ -212,6 +237,8 @@ const dibuix = Object.freeze({
 const model = id => tancats[id] || null;
 
 arrel.Models = Object.freeze({VERSIO, CONTRACTE, cataleg, descriu, obre, tanca, carrega, idActual, model, carpeta, dibuix, adreca, descriptorsTots,
+  exercicis: exercicisFitxers, defineixBlocs, afegeixExercicis,
+  get fitxersExercicis() { return fitxersExercicis.slice(); }, exercici: id => exercicis.get(id) || null,
   get ids() { return ids.slice(); }, descriptor: id => descriptors[id] || null,
   etapes, etapa, etapaActual, etapaDe, etapesVisibles, get llistaEtapes() { return etapesWeb.slice(); }});
 

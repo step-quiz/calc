@@ -13,9 +13,7 @@ const {SEN45, ARREL2_2, D, R, FIX} = M.comu;
 M.fitxes.push(
 
 {
-  id: 'pau-ana-24i-q1', bloc: 'pau-ap', titol: 'Anàlisi · PAU 2024: Bolzano amb la calculadora',
-  font: 'PAU juny 2024 (incidències), qüestió 1 a)',
-  enunciat: 'Considereu $f(x)=-2+10(x-1)\\ln x$, per a $x>0$. Comproveu que $f$ té una arrel a l\'interval $[1;\\,1{,}5]$ i busqueu un interval d\'una dècima de longitud que també la contingui.',
+  id: 'pau-ana-24i-q1',
   inici: calc(D),
   passos: [
     {tecles: ['funcio'], pantalla: menuFuncio(0),
@@ -40,8 +38,8 @@ M.fitxes.push(
     {tecles: ['exe'], pantalla: marca(calc(D, 'f(1.4)', '-0.6541110535'), 'resultat'),
       text: '[mat]$f(1{,}4)\\approx -0{,}654<0$: hi ha canvi de signe a $[1{,}4;\\,1{,}5]$, un interval d\'una dècima. ✓[/mat]'},
   ],
-  /* «Ara tu» DESACTIVAT (v31, David): de moment no surt als exercicis PAU reals. Per tornar-lo a activar,
-     treu aquest comentari (vegeu ARCHITECTURE.md, punt 14).
+  /* «Ara tu» DESACTIVAT: de moment no surt als exercicis PAU reals. Per tornar-lo a activar,
+     treu aquest comentari (ARCHITECTURE.md, «Disabled “Ara tu”»).
   araTu: {
     enunciat: 'Amb la mateixa $f$, encara desada, troba un interval d\'una centèsima de longitud que contingui l\'arrel.',
     resultat: '[1{,}49;\\,1{,}5]',
@@ -56,9 +54,7 @@ M.fitxes.push(
   relacionades: ['exacte-decimal', 'definir-fx', 'pau-ana-25j-q1'],
 },
 {
-  id: 'pau-ana-25i-q4a', bloc: 'pau-ap', titol: 'Anàlisi · PAU 2025: una arrel cúbica en una optimització',
-  font: 'PAU juny 2025 (incidències), exercici 4 A b)',
-  enunciat: 'Una ampolla de perfum té una part cilíndrica de $100\\,\\text{cm}^3$, de radi $r$ i altura $h=\\frac{100}{\\pi r^2}$; la seva superfície total és $S(r)=3\\pi r^2+\\frac{200}{r}$. Amb $S\'(r)=0$ has obtingut $r^3=\\frac{100}{3\\pi}$. Calcula les dimensions de l\'ampolla i la superfície mínima.',
+  id: 'pau-ana-25i-q4a',
   inici: calc(D),
   passos: [
     {tecles: ['shift', 'arrel', '3', 'right', 'frac', '1', '0', '0', 'down', '3', 'shift', '7'], pantalla: calc(D, '\\sqrt[3]{\\frac{100}{3\\pi}}'),
@@ -73,8 +69,8 @@ M.fitxes.push(
       pantalla: marca(calc(D, '3\\pi\\times 2.1974^{2}+\\frac{200}{2.1974}', '136.5248256'), 'resultat'),
       text: '[calc]Ara [[ans]] ja és l\'altura: per a $S(r)$, escriu el radi amb quatre decimals, 2.1974. Amb [[shift]] [[exe]], la superfície mínima és $S\\approx 136{,}52\\,\\text{cm}^2$.[/calc]'},
   ],
-  /* «Ara tu» DESACTIVAT (v31, David): de moment no surt als exercicis PAU reals. Per tornar-lo a activar,
-     treu aquest comentari (vegeu ARCHITECTURE.md, punt 14).
+  /* «Ara tu» DESACTIVAT: de moment no surt als exercicis PAU reals. Per tornar-lo a activar,
+     treu aquest comentari (ARCHITECTURE.md, «Disabled “Ara tu”»).
   araTu: {
     enunciat: 'Una llauna cilíndrica de $500\\,\\text{cm}^3$ té l\'altura $h=\\frac{500}{\\pi r^2}$. Amb la derivada has obtingut $r^3=\\frac{250}{\\pi}$. Calcula el radi i l\'altura.',
     resultat: 'r\\approx 4{,}30\\text{ cm},\\ h\\approx 8{,}60\\text{ cm}',
@@ -93,9 +89,7 @@ M.fitxes.push(
   relacionades: ['arrel-n', 'ans', 'exacte-decimal'],
 },
 {
-  id: 'pau-ana-25j-q1', bloc: 'pau-ap', titol: 'Anàlisi · PAU 2025: intueix els límits amb f(x)',
-  font: 'PAU juny 2025, exercici 1 a)',
-  enunciat: 'Considereu la funció $f(x)=\\dfrac{x^2-2x}{x-1}$. Abans de calcular-ne les asímptotes, fes-te una idea dels límits amb la calculadora: valors de $x$ molt propers a 1, per la dreta i per l\'esquerra, i valors de $x$ molt grans, positius i negatius.',
+  id: 'pau-ana-25j-q1',
   inici: calc(D),
   passos: [
     {tecles: ['funcio', 'down', 'down', 'ok', 'frac', 'x', 'x2', 'menys', '2', 'x', 'down', 'x', 'menys', '1'], pantalla: definicio('f', '\\frac{x^{2}-2x}{x-1}'),
@@ -119,8 +113,8 @@ M.fitxes.push(
     {tecles: ['funcio', 'ok', 'menys', '2', '0', '1', 'rpar', 'shift', 'exe'], pantalla: marca(calc(D, 'f(-201)', '-201.9950495'), 'resultat'),
       text: '[mat]$f(-201)\\approx -201{,}995$: $\\lim\\limits_{x\\to-\\infty}f(x)=-\\infty$. Ara ja pots calcular el pendent $m$ i l\'ordenada a l\'origen $n$ de l\'asímptota obliqua: surt $y=x-1$. Fixa\'t que $f(200)\\approx 200-1$.[/mat]'},
   ],
-  /* «Ara tu» DESACTIVAT (v31, David): de moment no surt als exercicis PAU reals. Per tornar-lo a activar,
-     treu aquest comentari (vegeu ARCHITECTURE.md, punt 14).
+  /* «Ara tu» DESACTIVAT: de moment no surt als exercicis PAU reals. Per tornar-lo a activar,
+     treu aquest comentari (ARCHITECTURE.md, «Disabled “Ara tu”»).
   araTu: {
     enunciat: 'Defineix $g(x)=\\dfrac{x+1}{x-2}$ i intueix $\\lim\\limits_{x\\to 2^+}g(x)$ i $\\lim\\limits_{x\\to+\\infty}g(x)$.',
     resultat: '+\\infty\\text{ i }1',
@@ -141,9 +135,7 @@ M.fitxes.push(
   relacionades: ['definir-fx', 'pau-ana-24i-q1', 'exacte-decimal'],
 },
 {
-  id: 'pau-ana-25s-q4a', bloc: 'pau-ap', titol: 'Anàlisi · PAU 2025: un vitrall en radians',
-  font: 'PAU setembre 2025, exercici 4 A',
-  enunciat: 'Un vitrall de la Sagrada Família està limitat per les gràfiques de $y=3\\sin\\frac{x}{4}$ i $y=3\\cos\\frac{x}{4}$ ($x$ i $y$ en metres), des de l\'eix $OY$ fins al primer punt de tall $C$, que té $x=\\pi$ (l\'has obtingut a mà, de $3\\sin\\frac{x}{4}=3\\cos\\frac{x}{4}$). [a]a) Calculeu les coordenades del punt $C$.[/a] [b]b) Calculeu el preu del vitrall, a 750 € el m²; l\'àrea és $\\left[12\\sin\\frac{x}{4}+12\\cos\\frac{x}{4}\\right]_0^{\\pi}$.[/b]',
+  id: 'pau-ana-25s-q4a',
   inici: calc(D),
   passos: [
     {apartat: 'a', tecles: ['settings', 'ok', 'down', 'ok', 'down', 'ok', 'ac'], pantalla: marca(calc(R), 'ang'),
@@ -160,8 +152,8 @@ M.fitxes.push(
     {apartat: 'b', tecles: ['per', '7', '5', '0', 'shift', 'exe'], pantalla: marca(calc(R, '\\mathrm{Ans}\\times 750', '3727.922061'), 'resultat'),
       text: '[calc]Ara [[per]] 750: després d\'un resultat, el càlcul comença amb Ans, sense arrodonir. Amb [[shift]] [[exe]], el preu del vitrall és de $3\\,727{,}92$ €.[/calc]'},
   ],
-  /* «Ara tu» DESACTIVAT (v31, David): de moment no surt als exercicis PAU reals. Per tornar-lo a activar,
-     treu aquest comentari (vegeu ARCHITECTURE.md, punt 14).
+  /* «Ara tu» DESACTIVAT: de moment no surt als exercicis PAU reals. Per tornar-lo a activar,
+     treu aquest comentari (ARCHITECTURE.md, «Disabled “Ara tu”»).
   araTu: {
     enunciat: 'Si el vitrall fos entre $y=2\\sin\\frac{x}{4}$ i $y=2\\cos\\frac{x}{4}$, l\'àrea seria $\\left[8\\sin\\frac{x}{4}+8\\cos\\frac{x}{4}\\right]_0^{\\pi}$. Calcula-la i el preu, a 750 € el m².',
     resultat: '8(\\sqrt{2}-1)\\approx 3{,}31\\text{ m}^2;\\ 2\\,485{,}28\\text{ euros}',
@@ -181,9 +173,7 @@ M.fitxes.push(
   relacionades: ['canvia-radians', 'exacte-decimal', 'ans', 'barrow', 'mode-decimal'],
 },
 {
-  id: 'pau-pro-24i-q4', bloc: 'pau-ap', titol: 'Probabilitat · PAU 2024: probabilitat total, Bayes i binomial',
-  font: 'PAU juny 2024 (incidències), qüestió 4',
-  enunciat: 'La Rut tira un dau: si surt 1, 2, 3 o 4, resol el problema ella mateixa i l\'encerta el 75 % de les vegades; si surt 5 o 6, el copia d\'Internet i l\'encerta el 40 %. [a]a) Probabilitat que la solució sigui correcta.[/a] [b]b) Probabilitat que l\'hagi resolt ella si és correcta.[/b] [c]c) Probabilitat que, de 5 problemes, almenys 4 siguin correctes.[/c]',
+  id: 'pau-pro-24i-q4',
   inici: calc(D),
   passos: [
     {apartat: 'a', tecles: ['frac', '4', 'down', '6', 'right', 'per', '0', 'punt', '7', '5', 'mes', 'frac', '2', 'down', '6', 'right', 'per', '0', 'punt', '4'],
@@ -206,8 +196,8 @@ M.fitxes.push(
       pantalla: marca(calc(D, '5\\times 0.63^{4}\\times 0.37+0.63^{5}', '0.3906734328'), 'resultat'),
       text: '[calc]!!Error típic!!: esborra amb [[ac]] i, si arrodoneixes $p\\approx 0{,}63$, surt 0.3906734328 i no 0.3968623045: ja falla la segona xifra decimal. Treballa amb $\\frac{19}{30}$.[/calc]'},
   ],
-  /* «Ara tu» DESACTIVAT (v31, David): de moment no surt als exercicis PAU reals. Per tornar-lo a activar,
-     treu aquest comentari (vegeu ARCHITECTURE.md, punt 14).
+  /* «Ara tu» DESACTIVAT: de moment no surt als exercicis PAU reals. Per tornar-lo a activar,
+     treu aquest comentari (ARCHITECTURE.md, «Disabled “Ara tu”»).
   araTu: {
     enunciat: 'Si la Rut encertés el 60 % dels problemes que copia (i no el 40 %), quina seria la probabilitat que la solució sigui correcta? I la que l\'hagi resolt ella, si és correcta?',
     resultat: '\\frac{7}{10}\\text{ i }\\frac{5}{7}',
@@ -226,9 +216,7 @@ M.fitxes.push(
   relacionades: ['exacte-decimal', 'frac-plantilla', 'pot-fraccio', 'combinatoria', 'pau-pro-24s-q4', 'mode-decimal'],
 },
 {
-  id: 'pau-pro-24s-q4', bloc: 'pau-ap', titol: 'Probabilitat · PAU 2024: binomial, probabilitat total i Bayes',
-  font: 'PAU setembre 2024, qüestió 4',
-  enunciat: 'El 20 % dels habitants d\'una regió pateix arrítmia. Un monitor Holter la detecta en el 95 % dels qui la pateixen, i dona falsos positius en el 0,5 % dels qui no en pateixen. [a]a) De 4 persones a l\'atzar, probabilitat que almenys una pateixi arrítmia.[/a] [b]b) Probabilitat d\'un diagnòstic positiu.[/b] [c]c) Si el diagnòstic és negatiu, probabilitat que la persona pateixi arrítmia.[/c]',
+  id: 'pau-pro-24s-q4',
   inici: calc(D),
   passos: [
     {apartat: 'a', tecles: ['1', 'menys', '0', 'punt', '8', 'pot', '4'], pantalla: calc(D, '1-0.8^{4}'),
@@ -246,8 +234,8 @@ M.fitxes.push(
     {apartat: 'c', tecles: ['shift', 'exe'], pantalla: marca(calc(D, '0.2\\times(1-0.95)\\div(1-\\mathrm{Ans})', '0.01240694789'), 'resultat'),
       text: '[calc]Prem [[shift]] [[exe]]: $\\approx 0{,}0124$.[/calc] [mat]Només l\'1,24 % de les persones que donen negatiu pateixen arrítmia.[/mat]'},
   ],
-  /* «Ara tu» DESACTIVAT (v31, David): de moment no surt als exercicis PAU reals. Per tornar-lo a activar,
-     treu aquest comentari (vegeu ARCHITECTURE.md, punt 14).
+  /* «Ara tu» DESACTIVAT: de moment no surt als exercicis PAU reals. Per tornar-lo a activar,
+     treu aquest comentari (ARCHITECTURE.md, «Disabled “Ara tu”»).
   araTu: {
     enunciat: 'Amb les dades de l\'apartat b), calcula la probabilitat que una persona amb un diagnòstic positiu pateixi arrítmia.',
     resultat: '\\frac{95}{97}\\approx 0{,}979',
@@ -264,9 +252,7 @@ M.fitxes.push(
   relacionades: ['pau-pro-24i-q4', 'ans', 'exacte-decimal', 'mode-decimal'],
 },
 {
-  id: 'pau-pro-25j-q3', bloc: 'pau-ap', titol: 'Probabilitat · PAU 2025: probabilitat total i un màxim',
-  font: 'PAU juny 2025, exercici 3',
-  enunciat: 'El 60 % de les peces d\'una empresa són de ferro i la resta, d\'acer. El 95 % de les peces de ferro no tenen cap defecte, i el 3 % de les d\'acer són defectuoses. [a]a) Probabilitat que una peça a l\'atzar sigui defectuosa.[/a] [c]c) Valor màxim de la funció $f(p)=5(p^4-p^5)$ per a $p\\ge 0$. Amb la derivada has trobat que el màxim és a $p=\\frac{4}{5}$.[/c]',
+  id: 'pau-pro-25j-q3',
   inici: calc(D),
   passos: [
     {apartat: 'a', tecles: ['0', 'punt', '0', '5', 'per', '0', 'punt', '6', 'mes', '0', 'punt', '0', '3', 'per', '0', 'punt', '4'],
@@ -280,8 +266,8 @@ M.fitxes.push(
     {apartat: 'c', tecles: ['exe'], pantalla: marca(calc(D, '5\\times(0.8^{4}-0.8^{5})', '\\frac{256}{625}'), 'resultat'),
       text: '[calc]Prem [[exe]]: $\\frac{256}{625}$, el valor exacte del màxim, perquè la calculadora és en mode {{E Mat/S Mat}}. En mode {{E Mat/S Decimal}} sortiria 0.4096, és a dir, $\\approx 0{,}41$.[/calc]'},
   ],
-  /* «Ara tu» DESACTIVAT (v31, David): de moment no surt als exercicis PAU reals. Per tornar-lo a activar,
-     treu aquest comentari (vegeu ARCHITECTURE.md, punt 14).
+  /* «Ara tu» DESACTIVAT: de moment no surt als exercicis PAU reals. Per tornar-lo a activar,
+     treu aquest comentari (ARCHITECTURE.md, «Disabled “Ara tu”»).
   araTu: {
     enunciat: 'Si el 90 % de les peces de ferro no tinguessin cap defecte (i el 3 % de les d\'acer fossin defectuoses), quina seria la probabilitat que una peça sigui defectuosa?',
     resultat: '0{,}072',

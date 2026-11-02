@@ -13,8 +13,7 @@ const {SEN45, ARREL2_2, D, R, FIX} = M.comu;
 M.fitxes.push(
 
 {
-  id: 'indicadors', bloc: 'exacte', titol: 'Llegeix la barra de dalt',
-  enunciat: 'Abans de calcular, mira la barra d\'indicadors de dalt de la pantalla: diu com està configurada la calculadora.',
+  id: 'indicadors',
   inici: calc(D, SEN45, ARREL2_2),
   passos: [
     {tecles: [], pantalla: marca(calc(D, SEN45, ARREL2_2), 'mat'),
@@ -45,8 +44,7 @@ M.fitxes.push(
   relacionades: ['fix', 'mode-decimal'],
 },
 {
-  id: 'exacte-decimal', bloc: 'exacte', titol: 'Valor exacte i valor decimal',
-  enunciat: 'Calcula $\\sin 45^\\circ$ en forma exacta i en forma decimal.',
+  id: 'exacte-decimal',
   inici: calc(D),
   passos: [
     {tecles: ['sen', '4', '5', 'rpar'], pantalla: calc(D, SEN45),
@@ -81,8 +79,7 @@ M.fitxes.push(
   relacionades: ['mode-decimal', 'indicadors'],
 },
 {
-  id: 'mode-decimal', bloc: 'exacte', titol: 'Em surt 0.5 en lloc d\'1/2',
-  enunciat: 'Calcules $1\\div 2$ i la calculadora dona 0.5, mai fraccions ni arrels. Arregla-ho.',
+  id: 'mode-decimal',
   inici: calc(D),
   passos: [
     {tecles: ['1', 'entre', '2', 'exe'], pantalla: marca(calc(D, '1\\div 2', '0.5'), 'resultat'),
@@ -121,8 +118,7 @@ M.fitxes.push(
   relacionades: ['exacte-decimal'],
 },
 {
-  id: 'fix', bloc: 'exacte', titol: 'Tot em surt arrodonit (FIX)',
-  enunciat: 'Vols el decimal d\'$\\frac{1}{6}$ i surt 0.17. A la barra hi ha FIX: algú hi va fixar 2 decimals.',
+  id: 'fix',
   inici: calc(FIX),
   passos: [
     {tecles: ['1', 'entre', '6', 'shift', 'exe'], pantalla: marca(calc(FIX, '1\\div 6', '0.17'), 'fix'),

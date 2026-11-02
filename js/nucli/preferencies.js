@@ -1,14 +1,12 @@
 /* ═══════════════════════════════════════════════════════════════════
    nucli/preferencies.js — El que el navegador recorda de l'alumne
    ───────────────────────────────────────────────────────────────────
-   La seva calculadora (v34): «calc-model», l'id d'un model del catàleg.
-   L'etapa (v36): «calc-etapa», l'última etapa que ha vist (Batxillerat o
-   ESO): la desa cada pàgina en dibuixar-se (Models.etapaActual la llegeix).
-   L'idioma de la seva calculadora (fase 3, v25): «calc-idioma». Només
-   té sentit si el model té idiomes (model.idiomes); el primer idioma
-   del model és el de per defecte. Sense memòria al navegador (mode
-   privat, galetes bloquejades), tot continua funcionant amb el de
-   per defecte.
+   «calc-model»   la seva calculadora (un id del catàleg)
+   «calc-etapa»   l'última etapa que ha vist (la desa cada pàgina)
+   «calc-idioma»  l'idioma dels menús de la seva calculadora (només si
+                  el model té idiomes; el primer és el de per defecte)
+   Sense memòria al navegador (mode privat, galetes bloquejades), tot
+   funciona amb els valors per defecte.
 
    Exporta «Preferencies»: model(), desaModel(id), idioma(model), desaIdioma(valor), etapa(), desaEtapa(id).
    ═══════════════════════════════════════════════════════════════════ */

@@ -1,0 +1,34 @@
+/* ═══════════════════════════════════════════════════════════════════
+   models/fx-82sp-cw/fitxes/eso/inici.js — ESO · «Abans de començar»
+   ───────────────────────────────────────────────────────────────────
+   NOMÉS DADES (format: fitxes/blocs.js; exercici: exercicis/eso/inici.js).
+   La fx-82SP CW escriu sempre inserint: DEL esborra el que hi ha just
+   abans del cursor.
+   ═══════════════════════════════════════════════════════════════════ */
+(function (M) {
+'use strict';
+const {calc, marca} = M.guions;
+const {D} = M.comu;
+
+M.fitxes.push(
+
+{
+  id: 'eso-corregeix',
+  inici: calc(D),
+  passos: [
+    {tecles: ['2', '5', 'per', '4', '4'], pantalla: calc(D, '25\\times 44'),
+      text: '[calc]Això és el que has escrit: 25 [[per]] 44. El cursor és al final.[/calc]'},
+    {tecles: ['del'], pantalla: calc(D, '25\\times 4'),
+      text: '[calc]Prem [[del]]: esborra el que hi ha just abans del cursor, el 4 de més. ([[ac]] ho esborraria tot.)[/calc]'},
+    {tecles: ['left', 'left'], pantalla: calc(D, '25\\times 4'),
+      text: '[calc]Ara el 5 ha de ser un 6. Prem [[left]] dues vegades: el cursor es mou fins just després del 5.[/calc]'},
+    {tecles: ['del', '6'], pantalla: calc(D, '26\\times 4'),
+      text: '[calc]Prem [[del]] per esborrar el 5 i escriu el 6: s\'afegeix on és el cursor.[/calc]'},
+    {tecles: ['exe'], pantalla: marca(calc(D, '26\\times 4', '104'), 'resultat'),
+      text: '[calc]Prem [[exe]]: obtens 104.[/calc] [mat]$26\\cdot 4=104$.[/mat]'},
+  ],
+},
+
+);
+
+})(Models.obre('fx-82sp-cw'));

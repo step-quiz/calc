@@ -13,8 +13,7 @@ const {SEN45, ARREL2_2, D, R, FIX} = M.comu;
 M.fitxes.push(
 
 {
-  id: 'definir-fx', bloc: 'pau', titol: 'Defineix f(x) i g(x) i calcula\'n valors',
-  enunciat: 'Siguin $f(x)=x^3-3x+2$ i $g(x)=f\'(x)=3x^2-3$. Resolent $g(x)=0$ a mà has obtingut $x=-1$ i $x=1$. Amb la calculadora, troba les coordenades del mínim relatiu R i del màxim relatiu S de $f$.',
+  id: 'definir-fx',
   inici: calc(D),
   passos: [
     {tecles: ['funcio', 'down', 'down', 'ok'], pantalla: definicio('f'),
@@ -54,9 +53,7 @@ M.fitxes.push(
   relacionades: ['pau-ana-24i-q1', 'ans', 'barrow'],
 },
 {
-  id: 'barrow', bloc: 'pau', titol: 'Regla de Barrow amb f(x)',
-  font: 'PAU juny 2024, qüestió 3 b)',
-  enunciat: 'La superfície del terreny és $\\int_1^6 f(x)\\,dx-\\frac{25}{2}$, amb $f(x)=-x^3+7x^2-6x+5$ (el $\\frac{25}{2}$ és el triangle que no hi entra). A mà has trobat la primitiva $F(x)=-\\frac{x^4}{4}+\\frac{7x^3}{3}-3x^2+5x$. Calcula $F(6)-F(1)$ amb la calculadora.',
+  id: 'barrow',
   inici: calc(D),
   passos: [
     {tecles: ['funcio', 'down', 'down', 'ok'], pantalla: definicio('f'),
@@ -93,8 +90,7 @@ M.fitxes.push(
   relacionades: ['definir-fx', 'ans', 'pau-ana-25s-q4a', 'mode-decimal'],
 },
 {
-  id: 'ans', bloc: 'pau', titol: 'Reutilitza l\'últim resultat (Ans)',
-  enunciat: 'Calcula $\\dfrac{8}{\\sin 35^\\circ}$ amb la calculadora en graus, sense copiar cap decimal intermedi.',
+  id: 'ans',
   inici: calc(D),
   passos: [
     {tecles: ['sen', '3', '5', 'rpar'], pantalla: calc(D, '\\mathrm{sen}(35)'),
@@ -127,8 +123,7 @@ M.fitxes.push(
   relacionades: ['logaritmes', 'exacte-decimal', 'mode-decimal'],
 },
 {
-  id: 'logaritmes', bloc: 'pau', titol: 'Logaritme en qualsevol base',
-  enunciat: 'Resol l\'equació $3^x=7$: calcula $x=\\log_3 7$ i comprova el resultat.',
+  id: 'logaritmes',
   inici: calc(D),
   passos: [
     {tecles: ['logab'], pantalla: calc(D, '\\log_{\\square}(\\square)', '', {cursor: false}),
@@ -165,8 +160,7 @@ M.fitxes.push(
   relacionades: ['ans', 'definir-fx'],
 },
 {
-  id: 'combinatoria', bloc: 'pau', titol: 'Nombres combinatoris',
-  enunciat: 'Una variable $X$ segueix una binomial amb $n=6$ i $p=\\frac{1}{2}$. Calcula $P(X=4)=\\binom{6}{4}\\left(\\frac{1}{2}\\right)^{6}$ sense calcular el nombre combinatori a mà.',
+  id: 'combinatoria',
   inici: calc(D),
   passos: [
     {tecles: ['6', 'catalog'], pantalla: catalog(0),
@@ -201,8 +195,7 @@ M.fitxes.push(
   relacionades: ['pau-pro-24i-q4', 'pot-fraccio', 'mode-decimal'],
 },
 {
-  id: 'verificar', bloc: 'pau', titol: 'Comprova una igualtat',
-  enunciat: 'Comprova amb la calculadora que $\\dfrac{1}{\\sqrt{2}}=\\dfrac{\\sqrt{2}}{2}$.',
+  id: 'verificar',
   inici: calc(D),
   passos: [
     {tecles: ['tools'], pantalla: tools(0),

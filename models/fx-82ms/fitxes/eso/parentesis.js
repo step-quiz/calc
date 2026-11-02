@@ -1,7 +1,7 @@
 /* ═══════════════════════════════════════════════════════════════════
    models/fx-82ms/fitxes/eso/parentesis.js — ESO · bloc «Ús dels parèntesis»
    ───────────────────────────────────────────────────────────────────
-   NOMÉS DADES. Normes: HANDOFF-ESO.md §10 (model: eso/mitjanes.js).
+   NOMÉS DADES. Normes d'ESO: ARCHITECTURE.md, «Writing fitxes».
    Dues preguntes reals de competències bàsiques (cb2-26-q4, cb4-24-q7)
    i un exemple propi (el quadrat d'un negatiu). Cada fitxa ensenya, a
    la zona d'error, què surt sense els parèntesis.
@@ -17,8 +17,7 @@ const VAL = '0.6×(8+2)÷80×100', VAL_ERROR = '0.6×8+2÷80×100';
 M.fitxes.push(
 
 {
-  id: 'cb2-26-q4', bloc: 'eso-parentesis', titol: 'Les patates rebaixades: el percentatge de descompte', font: 'CB 2ESO (2026), pregunta 4',
-  enunciat: 'La Mia ha comprat dues bosses de patates fregides que estaven rebaixades.\n• Abans de la rebaixa, les dues bosses costaven 5 euros en total.\n• Amb la rebaixa, només ha pagat 4 euros per les dues.\nQuin percentatge de descompte s\'ha aplicat?',
+  id: 'cb2-26-q4',
   inici: calc(D),
   passos: [
     {tecles: ['lpar', '5', 'menys', '4', 'rpar'], pantalla: calc(D, '(5-4)'),
@@ -34,8 +33,7 @@ M.fitxes.push(
   ],
 },
 {
-  id: 'eso-quadrat-negatiu', bloc: 'eso-parentesis', titol: 'El quadrat d\'un nombre negatiu',
-  enunciat: 'Calcula el quadrat de −3, és a dir, $(-3)^2$.',
+  id: 'eso-quadrat-negatiu',
   inici: calc(D),
   passos: [
     {tecles: ['lpar', 'neg', '3', 'rpar'], pantalla: calc(D, '(-3)'),
@@ -51,8 +49,7 @@ M.fitxes.push(
   ],
 },
 {
-  id: 'cb4-24-q7', bloc: 'eso-parentesis', titol: 'Les valoracions d\'1 o 2 estrelles', font: 'CB 4ESO (2024), pregunta 7',
-  enunciat: 'En Víctor ven roba per internet i ha rebut 80 valoracions de clients, d\'1 a 5 estrelles. Entre elles:\n• 8 clients li han donat 2 estrelles\n• 2 clients li han donat 1 estrella.\nEl 60 % de les valoracions d\'1 o 2 estrelles diuen que la talla era equivocada. Quin percentatge representen aquestes valoracions sobre les 80?',
+  id: 'cb4-24-q7',
   inici: calc(D),
   passos: [
     {tecles: ['0', 'punt', '6', 'per', 'lpar', '8', 'mes', '2', 'rpar'], pantalla: calc(D, '0.6×(8+2)'),

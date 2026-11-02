@@ -29,7 +29,7 @@
    I del web: el nucli (js/nucli/ i css/estil.css) no coneix cap
    calculadora, els «?v=» de les pàgines coincideixen amb Models.VERSIO,
    les etapes del catàleg són correctes, i les adreces (Models.adreca)
-   van i tornen i no porten els valors per defecte (v36).
+   van i tornen i no porten els valors per defecte.
    ═══════════════════════════════════════════════════════════════════ */
 'use strict';
 const fs = require('fs');
@@ -37,7 +37,7 @@ const path = require('path');
 const vm = require('vm');
 
 const arrel = path.join(__dirname, '..');
-const context = {console, URLSearchParams};   // URLSearchParams: Models.adreca (v36)
+const context = {console, URLSearchParams};   // URLSearchParams: Models.adreca
 context.globalThis = context;
 vm.createContext(context);
 const executa = f => vm.runInContext(fs.readFileSync(path.join(arrel, f), 'utf8'), context, {filename: f});
@@ -70,8 +70,18 @@ executa('js/nucli/models.js');
 executa('models/cataleg.js');
 const {Models} = context;
 ok(Models.ids.length > 0, 'models/cataleg.js', 'el catàleg és buit');
+ok(Models.fitxersExercicis[0] === 'blocs.js', 'models/cataleg.js', 'el primer fitxer d\'exercicis ha de ser blocs.js');
+for (const f of Models.fitxersExercicis) {
+  if (ok(fs.existsSync(path.join(arrel, 'exercicis', f)), 'models/cataleg.js', `falta exercicis/${f}`)) executa('exercicis/' + f);
+}
+{
+  const llistats = new Set(Models.fitxersExercicis);
+  const tots = (dir, pre = '') => fs.readdirSync(path.join(arrel, dir), {withFileTypes: true})
+    .flatMap(e => (e.isDirectory() ? tots(path.join(dir, e.name), pre + e.name + '/') : [pre + e.name]));
+  for (const f of tots('exercicis')) ok(llistats.has(f), 'models/cataleg.js', `exercicis/${f} no és a Models.exercicis`);
+}
 
-/* Les etapes (v36): id curt i únic, i els textos de la portada (nom del selector, lema, <title>, descripció) */
+/* Les etapes: id curt i únic, i els textos de la portada (nom del selector, lema, <title>, descripció) */
 const ETAPES = Models.llistaEtapes;
 ok(ETAPES.length > 0, 'models/cataleg.js', 'no hi ha cap etapa (Models.etapes)');
 {
@@ -115,7 +125,7 @@ for (const id of Models.ids) {
   try { M = Models.tanca(id); comprovacions++; } catch (e) { error(on, e.message); continue; }
   models.push(M);
 
-  // Opcional (v38): pantalla.ajusta(element), si hi és, és una funció (el nucli la crida després de dibuixar la pantalla)
+  // Opcional: pantalla.ajusta(element), si hi és, és una funció (el nucli la crida després de dibuixar la pantalla)
   ok(M.pantalla.ajusta === undefined || typeof M.pantalla.ajusta === 'function', on, 'pantalla.ajusta ha de ser una funció');
 
   // Les tecles de prefix: la capa és un nom curt (fa la classe «prefix-<capa>» del teclat)
@@ -155,7 +165,7 @@ for (const id of Models.ids) {
     for (const m of t.matchAll(/\[\[([^\]]+)\]\]/g)) ok(M.tecles.existeix(m[1]), on2, `tecla desconeguda [[${m[1]}]]`);
     for (const m of t.matchAll(/\$\$([^$]+)\$\$|\$([^$]+)\$/g)) comprovaTeX(m[1] || m[2], on2);   // $$…$$ abans que $…$
     ok(!/\[\[[^\]]*$/.test(t), on2, '[[ sense tancar');
-    // [mat]…[/mat] i [calc]…[/calc] (v38): tancats, sense niar-se ni barrejar-se
+    // [mat]…[/mat] i [calc]…[/calc]: tancats, sense niar-se ni barrejar-se
     const marques = [...t.matchAll(/\[(\/?)(mat|calc)\]/g)].map(m => m[1] + m[2]);
     let obert = null, bones = true;
     for (const m of marques) {
@@ -194,7 +204,7 @@ for (const id of Models.ids) {
     idsBlocs.add(b.id);
     ok(/^#[0-9a-f]{6}$/i.test(b.color), `${on} · bloc ${b.id}`, 'color incorrecte');
     ok(b.titol, `${on} · bloc ${b.id}`, 'falta el títol');
-    // L'etapa (v36): sempre escrita, sense valor per defecte; ids del catàleg, sense repetir
+    // L'etapa: sempre escrita, sense valor per defecte; ids del catàleg, sense repetir
     ok(Array.isArray(b.etapes) && b.etapes.length > 0 && b.etapes.every(e => ID_ETAPES.has(e)) && new Set(b.etapes).size === b.etapes.length,
       `${on} · bloc ${b.id}`, `etapes ha de ser una llista d'etapes del catàleg (${[...ID_ETAPES].join(', ')}), sense repetir`);
   }
@@ -218,7 +228,7 @@ for (const id of Models.ids) {
     ok(f.titol, onF, 'falta el títol');
     comprovaText(f.enunciat, onF + ' · enunciat');
     comprovaPantalla(f.inici, onF + ' · inici');
-    if (f.araTu) {   // «Ara tu» (v26): enunciat, resultat correcte (TeX), error típic (opcional) i els passos per comprovar-ho
+    if (f.araTu) {   // «Ara tu»: enunciat, resultat correcte (TeX), error típic (opcional) i els passos per comprovar-ho
       comprovaText(f.araTu.enunciat, onF + ' · ara tu');
       ok(typeof f.araTu.resultat === 'string' && f.araTu.resultat, onF, 'l\'«Ara tu» ha de portar el resultat correcte');
       comprovaTeX(f.araTu.resultat, onF + ' · ara tu (resultat)');
@@ -231,7 +241,7 @@ for (const id of Models.ids) {
   for (const f of FITXES) {
     for (const r of f.relacionades || []) {
       if (!ok(idsFitxes.has(r) && r !== f.id, `${on} · fitxa ${f.id}`, `relacionada desconeguda (${r})`)) continue;
-      // Una relacionada és de la mateixa etapa (v36): l'alumne d'ESO no salta sense voler a una fitxa de Batxillerat
+      // Una relacionada és de la mateixa etapa: l'alumne d'ESO no salta sense voler a una fitxa de Batxillerat
       const altra = FITXES.find(g => g.id === r);
       ok((etapesBloc.get(f.bloc) || []).some(e => (etapesBloc.get(altra.bloc) || []).includes(e)), `${on} · fitxa ${f.id}`,
         `la relacionada ${r} és d'una altra etapa`);
@@ -258,7 +268,7 @@ for (const id of Models.ids) {
     });
   }
 
-  /* v38 (David, 1/11/2026): un error comença sempre esborrant la pantalla. Si la pantalla d'abans mostra un resultat, la
+  /* un error comença sempre esborrant la pantalla. Si la pantalla d'abans mostra un resultat, la
      primera tecla del primer pas d'un error no pot començar a escriure un càlcul nou (amb el resultat bo encara a la vista). */
   for (const f of AMB_ARA_TU) {
     const {pantalles} = M.simulador.pantalles(f);
@@ -274,27 +284,41 @@ for (const id of Models.ids) {
     });
   }
 
-  /* Les fitxes d'ESO i les d'exercicis reals (v38, David, 1/11/2026): la font va a «font» (una icona davant de l'enunciat),
+  /* Les fitxes d'ESO i les d'exercicis reals: la font va a «font» (una icona davant de l'enunciat),
      no a l'enunciat; a l'ESO, cada frase d'un pas és [mat]…[/mat] o [calc]…[/calc], i cap text no parla de l'opció bona. */
   for (const f of FITXES) {
     const onF = `${on} · fitxa ${f.id}`;
-    // La figura de l'enunciat (v46): {src, alt}; la imatge és al repositori, a img/
+    // La figura de l'enunciat: {src, alt}; la imatge és al repositori, a img/
     if (f.figura !== undefined) ok(f.figura && typeof f.alt !== 'object' && /^img\/[a-z0-9/_.-]+\.(png|svg|jpg)$/.test(f.figura.src || '')
       && fs.existsSync(path.join(arrel, f.figura.src)) && typeof f.figura.alt === 'string' && f.figura.alt.trim(), onF, 'figura ha de ser {src: \'img/…\' (un fitxer que existeixi), alt: \'…\'}');
     if (f.font !== undefined) ok(typeof f.font === 'string' && f.font.trim() && !/[$[\]{}!]/.test(f.font), onF, 'font ha de ser un text pla');
-    // v42: si l'últim pas és un error, el motor hi afegeix «Activitat finalitzada» amb la pantalla esborrada (M.pantalla.buida)
+    // Si l'últim pas és un error, el motor hi afegeix un pas de tancament amb fitxa.tancament (la manera correcta)
     const darrer = f.passos[f.passos.length - 1];
-    if (darrer.error && ok(typeof M.pantalla.buida === 'function', onF, 'cal pantalla.buida per al pas final després d\'un error'))
-      comprovaPantalla(M.pantalla.buida(darrer.pantalla), onF + ' · pas «Activitat finalitzada»');
+    if (darrer.error) {
+      if (ok(typeof f.tancament === 'string', onF, 'l\'últim pas és un error: cal «tancament» (la manera correcta i la resposta)')) {
+        comprovaText(f.tancament, onF + ' · tancament');
+        const fora = f.tancament.replace(/\[(mat|calc)\][\s\S]*?\[\/\1\]/g, '');
+        ok(!fora.trim(), onF + ' · tancament', 'cada frase és [mat]…[/mat] o [calc]…[/calc]');
+        ok(f.passos.some(p => !p.error), onF, 'el tancament torna a la pantalla d\'un pas bo: cal almenys un pas que no sigui un error');
+      }
+    } else ok(f.tancament === undefined, onF, '«tancament» només va a les fitxes que acaben amb un error');
+    // «Prova-ho tu»: {enunciat, solucio}; totes les fitxes dels blocs grans d'ESO en porten
+    if (f.provaTu !== undefined && ok(f.provaTu && typeof f.provaTu === 'object', onF, 'provaTu ha de ser {enunciat, solucio}')) {
+      comprovaText(f.provaTu.enunciat, onF + ' · prova-ho tu');
+      comprovaText(f.provaTu.solucio, onF + ' · prova-ho tu (solució)');
+      ok(!f.araTu, onF, 'una fitxa porta «Ara tu» o «Prova-ho tu», no tots dos');
+    }
+    const blocF = BLOCS.find(b => b.id === f.bloc);
+    if (blocF && blocF.etapes.includes('eso') && !blocF.petit) ok(f.provaTu !== undefined, onF, 'les fitxes d\'ESO porten «Prova-ho tu» (provaTu)');
     const cb = /^cb(\d)-(\d\d)-q(\d+)$/.exec(f.id);
     if (cb) {
       ok(f.font === `CB ${cb[1]}ESO (20${cb[2]}), pregunta ${cb[3]}`, onF, `la font ha de ser «CB ${cb[1]}ESO (20${cb[2]}), pregunta ${cb[3]}»`);
       ok(!/Competències bàsiques/i.test(f.enunciat), onF, 'la font no va a l\'enunciat (va a «font»)');
     }
-    // Els exercicis PAU reals (v39, David): «PAU juny 2024, qüestió 2 a)» va a «font», no al començament de l'enunciat
+    // Els exercicis PAU reals: «PAU juny 2024, qüestió 2 a)» va a «font», no al començament de l'enunciat
     ok(!/^PAU /.test(f.enunciat), onF, 'la font («PAU …») no va a l\'enunciat (va a «font»)');
     if (['pau-ag', 'pau-ap'].includes(f.bloc)) ok(typeof f.font === 'string' && /^PAU /.test(f.font), onF, 'un exercici PAU real porta «font: \'PAU …\'»');
-    // A tot el web (v40, David): cada frase d'un pas, també de l'«Ara tu», és [mat]…[/mat] o [calc]…[/calc]
+    // A tot el web: cada frase d'un pas, també de l'«Ara tu», és [mat]…[/mat] o [calc]…[/calc]
     for (const [nom, passos] of [['', f.passos], [' · ara tu', (f.araTu && f.araTu.passos) || []]]) passos.forEach((p, i) => {
       const fora = String(p.text).replace(/\[(mat|calc)\][\s\S]*?\[\/\1\]/g, '');
       ok(/\[(mat|calc)\]/.test(p.text) && !fora.trim(), `${onF}${nom} · pas ${i + 1}`, 'cada frase és [mat]…[/mat] o [calc]…[/calc]');
@@ -308,7 +332,7 @@ for (const id of Models.ids) {
 }
 
 /* ── Entre calculadores ─────────────────────────────────────────────
-   El mateix tema, el mateix id (David, 1/11/2026): si dues calculadores tenen una fitxa amb el mateix id, és del
+   El mateix tema, el mateix id: si dues calculadores tenen una fitxa amb el mateix id, és del
    mateix bloc (en canviar de calculadora, l'alumne es queda a la mateixa fitxa). */
 for (let a = 0; a < models.length; a++) {
   for (let b = a + 1; b < models.length; b++) {
@@ -316,7 +340,7 @@ for (let a = 0; a < models.length; a++) {
     for (const f of models[b].dades.FITXES) {
       if (blocs.has(f.id)) ok(blocs.get(f.id) === f.bloc, `fitxa ${f.id}`, `és al bloc «${blocs.get(f.id)}» a la ${models[a].curt} i al «${f.bloc}» a la ${models[b].curt}`);
     }
-    // El mateix bloc, les mateixes etapes (v36): en canviar de calculadora, l'alumne es queda a la mateixa etapa
+    // El mateix bloc, les mateixes etapes: en canviar de calculadora, l'alumne es queda a la mateixa etapa
     const etapes = new Map(models[a].dades.BLOCS.map(bl => [bl.id, String(bl.etapes)]));
     for (const bl of models[b].dades.BLOCS) {
       if (etapes.has(bl.id)) ok(etapes.get(bl.id) === String(bl.etapes), `bloc ${bl.id}`, `té etapes diferents a la ${models[a].curt} i a la ${models[b].curt}`);
@@ -324,7 +348,7 @@ for (let a = 0; a < models.length; a++) {
   }
 }
 
-/* ── Les etapes i les adreces (v36) ─────────────────────────────────
+/* ── Les etapes i les adreces ─────────────────────────────────
    Models.adreca no posa els valors per defecte (els enllaços d'abans no canvien) i l'adreça torna el que s'hi ha
    posat; Models.etapaActual llegeix ?etapa=, després l'etapa desada (Preferencies) i, si no, la de per defecte. */
 {
@@ -332,7 +356,7 @@ for (let a = 0; a < models.length; a++) {
   const [M0, E0] = [Models.ids[0], ETAPES[0].id];
   ok(Models.adreca({}) === 'index.html' && Models.adreca({model: M0, etapa: E0}) === 'index.html', on, 'la portada per defecte ha de ser index.html, sense paràmetres');
   ok(Models.adreca({model: M0, etapa: E0, fitxa: 'ans'}) === 'fitxa.html?id=ans', on, 'una fitxa per defecte ha de ser fitxa.html?id=…');
-  if (Models.ids.includes('fx-82ms')) ok(Models.adreca({model: 'fx-82ms', fitxa: 'pot-negativa'}) === 'fitxa.html?model=fx-82ms&id=pot-negativa', on, 'els enllaços de la v35 han de continuar iguals');
+  if (Models.ids.includes('fx-82ms')) ok(Models.adreca({model: 'fx-82ms', fitxa: 'pot-negativa'}) === 'fitxa.html?model=fx-82ms&id=pot-negativa', on, 'els enllaços antics han de continuar iguals');
   for (const model of Models.ids) for (const e of ETAPES) for (const fitxa of [undefined, 'una-fitxa']) {
     const a = Models.adreca({model, etapa: e.id, fitxa});
     const [pagina, cerca = ''] = a.split('?');
@@ -368,6 +392,16 @@ for (let a = 0; a < models.length; a++) {
 
 /* Versió: tots els .js i .css d'index.html i fitxa.html porten «?v=» igual a Models.VERSIO (els fitxers dels models
    ja el porten, perquè els carrega Models.carrega amb aquest mateix «?v=») */
+ok(fs.readFileSync(path.join(arrel, 'index.html'), 'utf8').includes(`<span class="versio">Versió ${Models.VERSIO}</span>`), 'index.html',
+  `el peu ha de dir «Versió ${Models.VERSIO}»`);
+// Cada exercici el fa servir alguna calculadora
+{
+  const usats = new Set(models.flatMap(M => M.dades.FITXES.map(f => f.id)));
+  for (const f of Models.fitxersExercicis) {
+    const codi = fs.readFileSync(path.join(arrel, 'exercicis', f), 'utf8');
+    for (const m of codi.matchAll(/^\s*id: '([a-z0-9-]+)'/gm)) ok(usats.has(m[1]), `exercicis/${f}`, `l'exercici ${m[1]} no el fa servir cap calculadora`);
+  }
+}
 for (const pag of ['index.html', 'fitxa.html']) {
   const html = fs.readFileSync(path.join(arrel, pag), 'utf8');
   const refs = [...html.matchAll(/(?:src|href)="((?:js|css|models)\/[^"]+)"/g)].map(m => m[1]);

@@ -13,8 +13,7 @@ const {D} = M.comu;
 M.fitxes.push(
 
 {
-  id: 'ans', bloc: 'pau', titol: 'Reutilitza l\'últim resultat (Ans)',
-  enunciat: 'Calcula $\\dfrac{8}{\\sin 35^\\circ}$ amb la calculadora en graus, sense copiar cap decimal intermedi.',
+  id: 'ans',
   inici: calc(D),
   passos: [
     {tecles: ['sin', '3', '5'], pantalla: calc(D, 'sin 35'),
@@ -33,7 +32,8 @@ M.fitxes.push(
   relacionades: ['logaritmes', 'exacte-decimal'],
 },
 {
-  id: 'logaritmes', bloc: 'pau', titol: 'Logaritme en qualsevol base',
+  id: 'logaritmes',
+  tancament: '[mat]Recorda: $\\log_3 7=\\log 7\\div\\log 3\\approx 1{,}7712$; al denominador hi va $\\log 3$, no el 3.[/mat]',
   enunciat: 'Resol l\'equació $3^x=7$: calcula $x=\\log_3 7$ i comprova el resultat. La fx-82MS no té logaritme en base qualsevol: es fa amb $\\log_3 7=\\dfrac{\\log 7}{\\log 3}$.',
   inici: calc(D),
   passos: [
@@ -51,8 +51,7 @@ M.fitxes.push(
   relacionades: ['ans'],
 },
 {
-  id: 'combinatoria', bloc: 'pau', titol: 'Nombres combinatoris',
-  enunciat: 'Una variable $X$ segueix una binomial amb $n=6$ i $p=\\frac{1}{2}$. Calcula $P(X=4)=\\binom{6}{4}\\left(\\frac{1}{2}\\right)^{6}$ sense calcular el nombre combinatori a mà.',
+  id: 'combinatoria',
   inici: calc(D),
   passos: [
     {tecles: ['6', 'ncr', '4'], pantalla: calc(D, '6C4'),

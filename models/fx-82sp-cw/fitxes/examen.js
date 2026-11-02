@@ -13,8 +13,7 @@ const {SEN45, ARREL2_2, D, R, FIX} = M.comu;
 M.fitxes.push(
 
 {
-  id: 'abans-examen', bloc: 'examen', titol: 'Comprova la calculadora en 30 segons',
-  enunciat: 'Abans de començar l\'examen, comprova que la calculadora està ben configurada. Són quatre coses i triges mig minut.',
+  id: 'abans-examen',
   inici: calc(D),
   passos: [
     {tecles: ['1', 'entre', '2', 'exe'], pantalla: marca(calc(D, '1\\div 2', '\\frac{1}{2}'), 'resultat'),

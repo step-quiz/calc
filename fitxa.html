@@ -4,26 +4,28 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="author" content="David Arso Civil">
-<meta name="description" content="Fitxa pas a pas: com fer servir la calculadora (fx-82SP CW o fx-82MS) a Matemàtiques de Batxillerat.">
+<meta name="description" content="Fitxa pas a pas: com fer servir la calculadora (fx-82SP CW o fx-82MS) a Matemàtiques d'ESO i de Batxillerat.">
 <title>Fitxa — Calculadora fx-82SP CW</title>
 <link rel="icon" href="icon.png">
 <link rel="stylesheet" href="vendor/lletres/lletres.css">
 <link rel="stylesheet" href="vendor/katex/katex.min.css">
-<link rel="stylesheet" href="css/estil.css?v=49">
+<link rel="stylesheet" href="css/estil.css?v=50">
 </head>
 <body>
 
-<!-- La pàgina la construeix js/nucli/motor.js amb la calculadora de models/<id>/. Adreça: fitxa.html?id=<id de la fitxa>[&model=<id del model>] -->
+<!-- La pàgina la construeix js/nucli/motor.js. Adreça: fitxa.html?id=<fitxa>[&model=<calculadora>][&etapa=eso][&pas=N] -->
 <div id="fitxa" style="display:contents">
   <noscript><p class="error-carrega">Aquesta pàgina necessita JavaScript per mostrar la fitxa.</p></noscript>
 </div>
 
 <script src="vendor/katex/katex.min.js"></script>
-<script src="js/nucli/models.js?v=49"></script>
-<script src="models/cataleg.js?v=49"></script>
-<script src="js/nucli/preferencies.js?v=49"></script>
-<script src="js/nucli/text.js?v=49"></script>
-<script src="js/nucli/motor.js?v=49"></script>
+<script src="js/nucli/models.js?v=50"></script>
+<script src="models/cataleg.js?v=50"></script>
+<script src="js/nucli/preferencies.js?v=50"></script>
+<script src="js/nucli/text.js?v=50"></script>
+<script src="js/nucli/dom.js?v=50"></script>
+<script src="js/nucli/reproductor.js?v=50"></script>
+<script src="js/nucli/motor.js?v=50"></script>
 <script>Motor.arrenca();   // carrega la calculadora (models/<id>/) i obre la fitxa; el controlador queda a «fitxa»</script>
 </body>
 </html>

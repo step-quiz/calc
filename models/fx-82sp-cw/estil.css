@@ -67,7 +67,7 @@
 /* Càlcul: l'entrada a dalt a l'esquerra, el resultat a baix a la dreta */
 .lcd-entrada{font-size:7.4cqw; line-height:1.25; min-height:1.2em; display:inline-block; max-width:100%; padding:0 .7cqw; margin-left:-.7cqw}
 .lcd-resultat{position:absolute; right:3.4cqw; bottom:2cqw; font-size:8.2cqw; line-height:1.2; padding:0 .9cqw}
-/* v37: una entrada més ampla que la pantalla, mentre s'escriu, mostra el final (on és el cursor), com la calculadora quan
+/* Una entrada més ampla que la pantalla, mentre s'escriu, mostra el final (on és el cursor), com la calculadora quan
    desplaça la línia. El contenidor rtl posa la caixa a la dreta i la fa sobresortir per l'esquerra (retallat); si hi cap,
    text-align:left la deixa on era. Amb el resultat (sense .al-final), es veu el començament. La caixa pot ser més ampla que
    la pantalla (max-width:none): si no, el contingut sobresortiria per la dreta. */
@@ -75,10 +75,10 @@
 .lcd-linia-entrada.al-final > .lcd-entrada{direction:ltr; max-width:none}
 /* La línia d'entrada no es parteix mai en dues (la calculadora la desplaça): KaTeX permetria saltar després d'un + */
 .lcd-entrada{white-space:nowrap}
-/* v37: el numerador d'una fracció (KaTeX, \displaystyle) sobresortia 1,8 cqw per dalt de la línia i tocava els
-   indicadors (√▫, D…). A la calculadora, la barra d'indicadors és una franja a part: l'entrada amb una fracció baixa 2,2 cqw. */
+/* El numerador d'una fracció (KaTeX, \displaystyle) sobresurt per dalt de la línia i tocaria els indicadors (√▫, D…).
+   A la calculadora, la barra d'indicadors és una franja a part: l'entrada amb una fracció baixa 2,2 cqw. */
 .lcd-linia-entrada:has(.mfrac){padding-top:2.2cqw}
-/* v38: les fletxes de la línia d'entrada quan no hi cap (ajusta, a pantalla.js; foto de la calculadora de David): ◀ a la vora
+/* Les fletxes de la línia d'entrada quan no hi cap (ajusta, a pantalla.js; foto de la calculadora): ◀ a la vora
    esquerra si hi ha més expressió per l'esquerra, ▶ a la dreta si n'hi ha per la dreta. Tapen el tros de text que tenen a sota. */
 .lcd-linia-entrada{position:relative}
 .lcd-linia-entrada.mes-dreta{overflow:hidden}

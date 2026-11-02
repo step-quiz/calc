@@ -30,16 +30,21 @@ repositori, si n'hi ha més avall, manen sobre aquestes quan diuen una altra cos
 
 ## This repository
 
-Static site with step-by-step demos ("fitxes") for CASIO calculators, for Batxillerat students and, since v36, ESO students (3r–4t; a stage axis, `ARCHITECTURE.md` §3b: `bloc.etapes`, `?etapa=eso`, the «Etapa» selector on the home page, Batxillerat by default): the **fx-82SP CW** (default) and, since v34, the **fx-82MS 2nd edition** (27 fitxes, the CW ones minus those that need f(x) or Verificar; plan in `ARCHITECTURE.md` §3a). The student picks the calculator («La teva calculadora»); `?model=` in the address. The site is a core (`js/nucli/`) plus one folder per calculator (`models/<id>/`); the core never names a key or a menu. Read `ARCHITECTURE.md` (technical reference) and `VERIFICAR.md` (screens inferred, not drawn in the manual) and `BLOCS-PENDENTS.md` (work order for empty blocks)
+Static site with step-by-step worked examples («fitxes») for two CASIO calculators, the **fx-82SP CW** (default) and the
+**fx-82MS 2nd edition**, for ESO (3r–4t) and Batxillerat students. A fitxa = a shared exercise (`exercicis/`) + the keys
+and screens of one calculator (`models/<id>/fitxes/`). The core (`js/nucli/`) never names a key or a menu.
 
-- Model scope: fx-82SP CW (Calcular, Estadística, Tabla, Math Box; no solver, matrices, derivatives, integrals or distributions) and, from phase 4, fx-82MS 2nd edition only. Content scope on both: only what is useful for PAU questions and basic ESO/Batxillerat work (David, 1/11/2026), with the same topics and the same fitxa ids on both calculators.
-- Student-facing text in Catalan; fx-82SP CW menu labels in Spanish, exactly as in the manual (Catalan translation in `models/fx-82sp-cw/guions.js`); fx-82MS labels as on the device (COMP, Deg, Fix…; no languages). On the fx-82MS the negative sign is the (−) key (`neg`), never `menys`.
-- Fitxes are data in `models/<id>/fitxes/<bloc>.js`; recurring screens live in `models/<id>/guions.js`; the calculator geometry lives in `models/<id>/tecles.js` (measured; CW keys are circles; never stretch it).
-- Layout: two columns only (left = statement, player, step list with the current step expanded, collapsed list of other fitxes; right = calculator only; width split 15 % / 40 % / 30 % / 15 %). David rejected a 3-column layout, a «Per recordar» box and a title in the header as too noisy.
-- PAU exercise fitxes: show the calculator the way a student would really use it in an exam, quickly and directly (e.g. check a solution by typing each left-hand side with the numbers and comparing with the right-hand side). No detours such as storing values in variables.
-- Target devices: laptops (Chromebook / Lenovo, 1280×640 to 1920×1080 viewports, touch and mouse). Every step of every fitxa must fit the viewport without scrolling at 1366×657.
-- Cache busting: every change to a served `.js`/`.css` file (not the Node-only files in `proves/`) must bump `VERSIO` in `js/nucli/models.js` AND every `?v=` in `index.html` and `fitxa.html` (the test enforces they match; the footer shows the version). `_headers` sets `Cache-Control: no-cache` on Cloudflare Pages. David once saw an old `motor.js` on his phone.
-- Tests: `node proves/comprova.js` must end with «Tot correcte» (with `KATEX=<katex 0.16.9>/dist` to also check every formula); for layout changes or new fitxes, `node proves/encaix.js` (Playwright) must end with «Tot hi cap».
-- Current project: the ESO stage, same site and same two calculators; read `HANDOFF-ESO.md` first (phase E1, the stage axis, done in v36). ESO fitxes: own blocks (`etapes: ['eso']`, files in `models/<id>/fitxes/eso/`), no «Ara tu», no Estadística app / SD mode; examples from the competència bàsica tests of `step-quiz/cb` (official key = ground truth; fitxa id `cb<course>-<yy>-q<question>`; source in `font`, not in the statement; step sentences `[mat]…[/mat]` / `[calc]…[/calc]`; no option letters or distractors outside the error zone; read `HANDOFF-ESO.md` §10 and copy the Mitjanes fitxes); six ESO blocks, «Mitjanes» done in v37–v38.
-- Every error zone that follows a result starts with AC (David, v38; the test enforces it), in Batxillerat too.
-- Everywhere (v40): every step sentence is `[mat]…[/mat]` or `[calc]…[/calc]`; real PAU/CB sources go in `font`; ESO statements list the data one per line for 13-year-olds; error zones only where pedagogically relevant.
+**Read first:** `ARCHITECTURE.md` (the technical reference: structure, data format, authoring rules in §9, tests, open
+items). `VERIFICAR.md` when you touch a screen. `CHANGELOG.md` only for history.
+
+- **Process:** propose before implementing (title, goal, key sequence, sentences), wait for David's OK, deliver block by
+  block. When David leaves many open points, put them in a review artifact (see his preferences).
+- **Content:** Catalan for students; CW menu labels in Spanish as in the manual (`{{…}}`); sources are ground truth;
+  realistic, short key sequences; no detours through variables; every step sentence `[mat]` or `[calc]`.
+- **Code comments:** say what the code does and why, for a cold-start reader. No version numbers, dates or names; the
+  history goes to `CHANGELOG.md`.
+- **Versioning:** any change to a served `.js`/`.css` bumps `VERSIO` (`js/nucli/models.js`), every `?v=` in
+  `index.html`/`fitxa.html` and the static footer of `index.html`. The test checks it.
+- **Tests before delivering:** `KATEX=<katex 0.16.9>/dist node proves/comprova.js` → «Tot correcte»; for new fitxes or
+  layout changes, `node proves/encaix.js` → «Tot hi cap». Report both results.
+- **Docs:** update `CHANGELOG.md` in every delivery, and `README.md` / `ARCHITECTURE.md` when behaviour changes.

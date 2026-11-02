@@ -1,8 +1,7 @@
 /* ═══════════════════════════════════════════════════════════════════
    models/fx-82sp-cw/fitxes/eso/pantalla.js — ESO · bloc «Fracció o decimal. Arrodonir. Notació científica»
    ───────────────────────────────────────────────────────────────────
-   NOMÉS DADES. Normes: HANDOFF-ESO.md §10. Exemples propis (David,
-   1/11/2026: «poden ser tots exemples teus»), sense font.
+   NOMÉS DADES. Normes d'ESO: ARCHITECTURE.md, «Writing fitxes». Exemples propis, sense font.
    ═══════════════════════════════════════════════════════════════════ */
 (function (M) {
 'use strict';
@@ -14,21 +13,19 @@ const LLUM = '3\\times 10^{8}\\times 86400';
 M.fitxes.push(
 
 {
-  id: 'eso-fraccio-decimal', bloc: 'eso-pantalla', titol: 'Em surt una fracció: vull el decimal',
-  enunciat: 'Calcula $7\\div 4$ i dona el resultat en forma de fracció i en forma decimal.',
+  id: 'eso-fraccio-decimal',
   inici: calc(D),
   passos: [
     {tecles: ['7', 'entre', '4'], pantalla: calc(D, '7\\div 4'),
       text: '[calc]Escriu 7 [[entre]] 4.[/calc]'},
     {tecles: ['exe'], pantalla: marca(calc(D, '7\\div 4', '\\frac{7}{4}'), 'resultat'),
-      text: '[calc]Prem [[exe]]: obtens el resultat, que és $\\frac{7}{4}$. Surt en fracció perquè la calculadora és en mode {{E Mat/S Mat}}; en mode {{E Mat/S Decimal}} sortiria 1.75.[/calc] [mat]Una divisió és una fracció: $7\\div 4=\\frac{7}{4}$.[/mat]'},
+      text: '[calc]Prem [[exe]]: obtens el resultat, que és $\\frac{7}{4}$. Surt en fracció perquè la calculadora està configurada per donar resultats exactes; si estigués configurada per donar decimals, sortiria 1.75.[/calc] [mat]Una divisió és una fracció: $7\\div 4=\\frac{7}{4}$.[/mat]'},
     {tecles: ['shift', 'exe'], pantalla: marca(calc(D, '7\\div 4', '1.75'), 'resultat'),
       text: '[calc]Per tenir-lo en decimal, prem [[shift]] i [[exe]] (a sobre d\'EXE hi ha ≈): obtens 1.75.[/calc] [mat]La resposta correcta és $\\frac{7}{4}=1{,}75$.[/mat]'},
   ],
 },
 {
-  id: 'eso-arrodonir', bloc: 'eso-pantalla', titol: 'Arrodonir el que surt a la pantalla',
-  enunciat: 'Calcula $2\\div 3$ i arrodoneix el resultat a les centèsimes.',
+  id: 'eso-arrodonir',
   inici: calc(D),
   passos: [
     {tecles: ['2', 'entre', '3'], pantalla: calc(D, '2\\div 3'),
@@ -40,8 +37,7 @@ M.fitxes.push(
   ],
 },
 {
-  id: 'eso-notacio-cientifica', bloc: 'eso-pantalla', titol: 'Nombres molt grans: notació científica',
-  enunciat: 'La llum recorre $3\\cdot 10^8$ metres cada segon.\n• Un dia té 86 400 segons.\nQuants metres recorre la llum en un dia?',
+  id: 'eso-notacio-cientifica',
   inici: calc(D),
   passos: [
     {tecles: ['3', 'exp', '8', 'right'], pantalla: calc(D, '3\\times 10^{8}'),

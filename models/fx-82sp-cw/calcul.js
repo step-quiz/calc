@@ -26,7 +26,7 @@
 /* ── Lectura del TeX ──────────────────────────────────────────────── */
 
 const ORDRES = [   // ordre → testimoni (les més llargues primer)
-  ['\\mathrm{Arcsen}', 'asen'], ['\\mathrm{Arccos}', 'acos'], ['\\mathrm{Arctan}', 'atan'],   // v49: SHIFT sen/cos/tan (VERIFICAR.md, fila 27)
+  ['\\mathrm{Arcsen}', 'asen'], ['\\mathrm{Arccos}', 'acos'], ['\\mathrm{Arctan}', 'atan'],   // SHIFT sen/cos/tan (VERIFICAR.md, fila 27)
   ['\\mathrm{sen}', 'sen'], ['\\mathrm{Ans}', 'Ans'], ['\\mathrm{C}', 'C'], ['\\mathrm{r}', 'r'],
   ['\\displaystyle', null], ['\\frac', 'frac'], ['\\dfrac', 'frac'], ['\\sqrt', 'sqrt'], ['\\log_', 'logb'],
   ['\\left', null], ['\\right', null], ['\\times', '*'], ['\\div', '/'], ['\\cdot', '*'],
@@ -95,7 +95,7 @@ function avalua(tex, ctx) {
         const arg = r.radians ? a : angle(a);
         return v === 'sen' ? Math.sin(arg) : v === 'cos' ? Math.cos(arg) : Math.tan(arg);
       }
-      case 'asen': case 'acos': case 'atan': {   // v47: el resultat, en la unitat de la barra (D: graus)
+      case 'asen': case 'acos': case 'atan': {   // el resultat, en la unitat de la barra (D: graus)
         pren('(');
         const a = expressio();
         if (mira() === ')') pren(')');

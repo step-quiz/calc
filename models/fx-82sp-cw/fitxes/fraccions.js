@@ -13,8 +13,8 @@ const {SEN45, ARREL2_2, D, R, FIX} = M.comu;
 M.fitxes.push(
 
 {
-  id: 'frac-plantilla', bloc: 'fraccions', titol: 'Escriu una fracció amb la plantilla',
-  enunciat: 'Calcula $\\frac{3}{4}+\\frac{5}{6}$ escrivint les fraccions amb la tecla de fracció.',
+  id: 'frac-plantilla',
+  tancament: '[calc]Recorda: després d\'escriure el denominador, prem [[right]] per sortir de la fracció.[/calc] [mat]$\\frac{3}{4}+\\frac{5}{6}=\\frac{19}{12}$.[/mat]',
   inici: calc(D),
   passos: [
     {tecles: ['frac', '3', 'down', '4'], pantalla: calc(D, '\\frac{3}{4}'),
@@ -47,8 +47,7 @@ M.fitxes.push(
   relacionades: ['frac-prioritat', 'pot-fraccio', 'mode-decimal'],
 },
 {
-  id: 'frac-prioritat', bloc: 'fraccions', titol: 'Fracció de sumes: on van els parèntesis',
-  enunciat: 'Calcula $\\frac{2+3}{4-1}$. Una manera d\'escriure-ho dona un resultat equivocat.',
+  id: 'frac-prioritat',
   inici: calc(D),
   passos: [
     {error: true, tecles: ['2', 'mes', '3', 'entre', '4', 'menys', '1'], pantalla: calc(D, '2+3\\div 4-1'),
@@ -81,8 +80,7 @@ M.fitxes.push(
   relacionades: ['frac-plantilla', 'mode-decimal'],
 },
 {
-  id: 'pot-negativa', bloc: 'fraccions', titol: 'Potències de negatius',
-  enunciat: 'Calcula $(-2)^4$. Si t\'oblides dels parèntesis, el resultat és un altre.',
+  id: 'pot-negativa',
   inici: calc(D),
   passos: [
     {tecles: ['lpar', 'menys', '2', 'rpar'], pantalla: calc(D, '(-2)'),
@@ -113,8 +111,7 @@ M.fitxes.push(
   relacionades: ['pot-fraccio', 'pau-geo-25s-q4b'],
 },
 {
-  id: 'pot-fraccio', bloc: 'fraccions', titol: 'Potència d\'una fracció',
-  enunciat: 'Calcula $\\left(\\frac{2}{3}\\right)^{-2}$.',
+  id: 'pot-fraccio',
   inici: calc(D),
   passos: [
     {tecles: ['lpar', 'frac', '2', 'down', '3'], pantalla: calc(D, '(\\frac{2}{3}'),
@@ -149,8 +146,7 @@ M.fitxes.push(
   relacionades: ['pot-negativa', 'frac-plantilla', 'mode-decimal'],
 },
 {
-  id: 'arrel-n', bloc: 'fraccions', titol: 'Arrels d\'índex n',
-  enunciat: 'Calcula l\'arrel cúbica de $-27$, és a dir, $\\sqrt[3]{-27}$.',
+  id: 'arrel-n',
   inici: calc(D),
   passos: [
     {tecles: ['shift', 'arrel'], pantalla: calc(D, '\\sqrt[\\square]{\\square}', '', {cursor: false}),
