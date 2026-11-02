@@ -90,10 +90,21 @@ a{color:inherit}
   .tria-etapa, .tria-model, .tria-idioma{flex-shrink:1}
   .enunciat .katex-display{overflow-x:auto; overflow-y:hidden}
 }
-/* El títol de la capçalera de la fitxa (la calculadora triada), com el de la portada */
-.capcalera-titol{margin:0; font-weight:400; font-size:.92rem; line-height:1.3; padding:3px 10px; border-radius:5px; background:var(--surface); color:var(--txt)}
-/* A la fitxa, després del bloc: el número i el títol de la fitxa */
-.capcalera-fitxa{margin:0; font-size:.92rem; line-height:1.3; padding:3px 10px; border-radius:5px; background:var(--surface); color:var(--txt)}
+/* Capçalera de la fitxa: «← Fitxes» (botó) a l'esquerra, on som (text) al centre, el ⚙ a la dreta. Tres columnes
+   perquè el text quedi centrat a la pàgina encara que el botó i el ⚙ facin amplades diferents; els avisos, a sota. */
+.capcalera-de-fitxa{display:grid; grid-template-columns:1fr minmax(0, auto) 1fr; column-gap:16px}
+.capcalera-de-fitxa > .torna{justify-self:start}
+.capcalera-de-fitxa > .ux-ajustos, .capcalera-de-fitxa > .tries{justify-self:end; margin-left:0}
+.capcalera-de-fitxa > .avis-capcalera{grid-column:1 / -1}
+/* On som: dos textos, mateixa lletra i mida, sense caixa (no són botons); el bloc, més apagat; un › entre tots dos */
+.on-som{display:flex; flex-wrap:wrap; justify-content:center; align-items:baseline; column-gap:.6em; min-width:0; text-align:center}
+.on-som-bloc, .on-som-fitxa{margin:0; font-size:.95rem; font-weight:400; line-height:1.3; color:var(--hd-txt)}
+.on-som-bloc{color:color-mix(in srgb, var(--hd-txt) 70%, transparent)}
+.on-som-bloc::after{content:'›'; margin-left:.6em}
+/* «← Fitxes»: un botó de debò (relleu, ombra, canvi en passar-hi el ratolí i en prémer-lo) */
+.capcalera-de-fitxa > .torna{white-space:nowrap; font-size:.8rem; font-weight:600; padding:6px 13px 6px 10px; border:1px solid #cbd5e1; border-radius:7px;
+  box-shadow:0 2px 0 #94a3b8, 0 3px 6px rgba(0,0,0,.25); transition:background-color .15s, color .15s, transform .08s, box-shadow .08s}
+.capcalera-de-fitxa > .torna:active{transform:translateY(2px); box-shadow:0 0 0 #94a3b8, 0 1px 2px rgba(0,0,0,.25)}
 /* El nom de la calculadora al títol: en passar-hi el ratolí, una foto petita de la calculadora (nucli/tria.js, titol) */
 .nom-calc{position:relative; cursor:default; text-decoration:underline dotted color-mix(in srgb, var(--hd-txt) 55%, transparent); text-underline-offset:3px}
 .nom-calc-foto{
@@ -249,6 +260,8 @@ a{color:inherit}
 .figura-gran{max-width:min(92vw, 1100px); padding:14px; border:2px solid var(--cat); border-radius:12px; background:var(--surface)}
 .figura-gran::backdrop{background:rgba(15,23,42,.55)}
 .figura-gran img{display:block; max-width:100%; max-height:82vh; width:auto; height:auto}
+/* Un SVG no té mida pròpia fixa: dins del <dialog>, que s'ajusta al contingut, quedaria a amplada 0. Mida explícita. */
+.figura-gran img[src$=".svg"]{width:min(840px, 86vw); max-height:82vh; object-fit:contain}
 .figura-tanca{position:absolute; top:6px; right:6px; width:2em; height:2em; border:0; border-radius:50%; background:#eceff3; font-size:1.1rem; line-height:1; cursor:pointer}
 
 /* Les frases dels passos: [mat]…[/mat] = matemàtiques (la lletra de sempre, fons de paper) i [calc]…[/calc] =

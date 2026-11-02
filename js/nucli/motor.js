@@ -71,10 +71,10 @@ function titolFitxa(fitxa, bloc, germanes) {
   const grans = M.dades.BLOCS.filter(b => b.etapes.includes(ETAPA) && !b.petit);
   const t = grans.findIndex(b => b.id === bloc.id);
   const n = germanes.findIndex(f => f.id === fitxa.id) + 1;
-  return [
-    element('p', {class: 'capcalera-titol', text: (t >= 0 ? `T${t + 1} · ` : '') + bloc.titol}),
-    element('p', {class: 'capcalera-fitxa', text: `${n}. ${fitxa.titol}`}),
-  ];
+  return element('div', {class: 'on-som'}, [
+    element('p', {class: 'on-som-bloc', text: (t >= 0 ? `T${t + 1} · ` : '') + bloc.titol}),
+    element('p', {class: 'on-som-fitxa', text: `${n}. ${fitxa.titol}`}),
+  ]);
 }
 
 /** «Escollir calculadora» (nucli/tria.js): en triar-ne una altra, es desa i s'obre la mateixa fitxa (el mateix id) en aquella calculadora. */
@@ -257,9 +257,9 @@ function construeixPagina(fitxa, bloc, germanes, contenidor) {
   const ajustos = ux('a3') ? element('details', {class: 'ux-ajustos'}, [element('summary', {title: 'Ajustos', 'aria-label': 'Ajustos', text: '⚙'}), tries]) : tries;
 
   contenidor.replaceChildren(
-    element('header', {class: 'capcalera'}, [
+    element('header', {class: 'capcalera capcalera-de-fitxa'}, [
       element('a', {class: 'torna', href: Models.adreca({model: M.id, etapa: ETAPA}) + '#' + bloc.id, text: '← Fitxes'}),
-      ...titolFitxa(fitxa, bloc, germanes),
+      titolFitxa(fitxa, bloc, germanes),
       ajustos,
       // Avisos que només mostra el CSS quan cal: navegador sense unitats cqw, tauleta en vertical
       element('p', {class: 'avis-capcalera avis-navegador', text: 'Aquest navegador és massa antic per dibuixar la calculadora. Actualitza\'l (Chrome 105 o posterior).'}),

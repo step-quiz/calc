@@ -4,6 +4,13 @@ Què ha canviat a cada versió del web, de la més nova a la més antiga. El fun
 `README.md` i `ARCHITECTURE.md`; aquí només hi ha la història. El número de versió és `VERSIO` a
 `js/nucli/models.js` i surt al peu de les pàgines.
 
+## Versió 68 (2/11/2026)
+
+- «Amplia la figura» ja funciona amb les figures dibuixades (SVG, p. ex. T6 · Trigonometria, l'escala): abans la finestra
+  sortia buida i petita.
+- Capçalera de la fitxa: «← Fitxes» és un botó amb relleu (s'enfonsa en prémer-lo); «T6 · Trigonometria › 3. L'escala
+  recolzada: el sinus» és text pla, centrat, de la mateixa mida, sense caixeta.
+
 ## Versió 67 (2/11/2026)
 
 La tria del laboratori d'UX (combinació «final-1»), que ara és el comportament de sempre:

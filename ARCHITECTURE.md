@@ -71,7 +71,7 @@ fitxa (what the player plays) = exercici (shared)        +  model fitxa (per cal
 | `js/nucli/dom.js` | `Dom` | `element()`, `icona()`, the player icons. |
 | `js/nucli/reproductor.js` | `Reproductor` | The step player: step list, key outlines and order badges, animated cursor, `salta` / `seguent` / `repeteix`, error-zone class, ARIA live announcement, `?pas=` in the URL, the UX-lab hooks (B4, C1, C2, D1, D2, sentence copy for C4/E2). |
 | `js/nucli/ux.js` | `UX` | UX-lab levers from `?ux=` (classes on `<html>`, `UX.te`, `postMessage` to the lab). |
-| `js/nucli/motor.js` | `Motor` | The fitxa page: header (← Fitxes, «T<n> · block title» as on the home page, «<n>. fitxa title», «Escollir calculadora», language), statement (source bubble, figure dialog), player buttons, speed, «Ara tu» mode, «Prova-ho tu», closing step, keyboard shortcuts, keyboard-arrows notice. Exposes the main player as global `fitxa`. |
+| `js/nucli/motor.js` | `Motor` | The fitxa page: header (← Fitxes, «T<n> · block title» as on the home page, «<n>. fitxa title», «Escollir calculadora», language), statement (source bubble, figure dialog; SVG figures get an explicit width there, since the shrink-to-fit `<dialog>` would collapse them to 0), player buttons, speed, «Ara tu» mode, «Prova-ho tu», closing step, keyboard shortcuts, keyboard-arrows notice. Exposes the main player as global `fitxa`. |
 | `js/nucli/portada.js` | `Portada` | Home page: stage selector, «Escollir calculadora», language selector, title with the chosen calculator, one card per block of the stage, small blocks as bubbles. |
 | `models/cataleg.js` | — | `Models.cataleg([...])` (calculators; first = default), `Models.etapes([...])` (stages; first = default), `Models.exercicis([...])` (exercise files, in load order). |
 | `exercicis/blocs.js` | — | `Models.defineixBlocs([...])` and the documented format of an exercise. |
@@ -236,7 +236,7 @@ sentence, closing text included, is `[mat]` or `[calc]` (test).
   C1 reading time · C2 [calc] appears with the keys · C3 icons instead of tinted sentences · C4 sentence under the
   calculator · D1 error without page tint · D2 «Ara tu» on its own screen via ▶ · E2 three columns, sentence right of
   the calculator · E3 one column. David's choice (A2, A3, B1 at 40 %, C3 with a rule between [mat] and [calc], D2) is
-  `UX.PER_DEFECTE`: always on, with or without `?ux=`. The header titles are plain black text in white pills.
+  `UX.PER_DEFECTE`: always on, with or without `?ux=`. Fitxa header (`.capcalera-de-fitxa`, 3-column grid): «← Fitxes» is a raised button on the left; «T<n> · block › <n>. fitxa» is plain centred text (same size, block dimmed, no box, so it does not look clickable); ⚙ on the right.
 - The calculator is a query container: every position and size inside it is in `cqw`, with `aspect-ratio`; the LCD is a
   nested container. It fills its column when the height allows, otherwise its width comes from the height.
 - < 1000 px: one column (statement, player, calculator, steps). Below 700 px the header selectors wrap.
