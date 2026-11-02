@@ -237,4 +237,4 @@ function pantalles(fitxa) {
 
 M.simulador = Object.freeze({pantalles, testimonis, ESCRIU, ESCRIU_SHIFT});
 
-})(Models.obre('fx-82ms'));
+})(Models.obre());

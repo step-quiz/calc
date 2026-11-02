@@ -10,7 +10,7 @@
                        descriptor, Models.descriu({id, nom, curt, idiomes,
                        fitxers, estils, proves}); els altres fitxers
                        omplen el model en construcció:
-                       const M = Models.obre('<id>'); M.tecles = …;
+                       const M = Models.obre(); M.tecles = …;
                        M.pantalla = …; M.guions = …; M.simulador = …;
                        M.fitxes.push({id, inici, passos, …});
                        M.blocs = {<id del bloc>: {titol}} (opcional)
@@ -41,7 +41,7 @@
  * fitxa.html i al peu d'index.html (la prova ho comprova): així cap navegador no fa servir fitxers vells.
  * Els fitxers dels exercicis i dels models es carreguen amb aquest mateix «?v=».
  */
-const VERSIO = '53';
+const VERSIO = '55';
 
 /** Les parts que ha de donar cada model, amb les funcions o els camps que el nucli hi fa servir. */
 const CONTRACTE = Object.freeze({
@@ -79,8 +79,21 @@ function descriu(d) {
   descriptors[d.id] = Object.freeze(Object.assign({idiomes: null, estils: [], proves: []}, d));
 }
 
-/** El model en construcció (el fan servir els fitxers del model en carregar-se). */
-function obre(id) {
+/**
+ * El model que s'està carregant ara: els fitxers d'un model no porten l'id escrit (Models.obre()), així els d'una
+ * calculadora els pot reaprofitar una altra que només hi canvia el que és diferent (vegeu models/fx-570sp-cw/). Al
+ * navegador, l'id és el de l'script que s'executa (data-model, el posa script()); a les proves, Models.carregant(id).
+ */
+let enCarrega = null;
+function carregant(id) { enCarrega = id; }
+function modelDeLScript() {
+  const s = typeof document !== 'undefined' && document.currentScript;
+  return (s && s.dataset && s.dataset.model) || enCarrega;
+}
+
+/** El model en construcció (el fan servir els fitxers del model en carregar-se; sense id, el que s'està carregant). */
+function obre(id = modelDeLScript()) {
+  if (!id) throw new Error('Models.obre: no se sap quin model s\'està carregant');
   if (!enObres[id]) enObres[id] = {fitxes: []};
   return enObres[id];
 }
@@ -185,11 +198,12 @@ async function descriptorsTots() {
   return ids.map(id => descriptors[id]);
 }
 
-/** Carrega un script (en ordre, gràcies a async = false) amb el «?v=» de la versió. */
-function script(src) {
+/** Carrega un script (en ordre, gràcies a async = false) amb el «?v=» de la versió; model = el model que omple. */
+function script(src, model) {
   return new Promise((resol, falla) => {
     const s = document.createElement('script');
     s.src = src + '?v=' + VERSIO;
+    if (model) s.dataset.model = model;
     s.async = false;
     s.onload = () => resol();
     s.onerror = () => falla(new Error('No s\'ha pogut carregar ' + src));
@@ -218,7 +232,7 @@ async function carrega(id = idActual()) {
   if (!descriptors[id]) await script(carpeta(id) + 'model.js');
   const d = descriptors[id];
   const comuns = exercicis.size ? [] : fitxersExercicis.map(f => script('exercicis/' + f));
-  await Promise.all(comuns.concat(d.fitxers.map(f => script(carpeta(id) + f)), d.estils.map(f => estil(carpeta(id) + f))));
+  await Promise.all(comuns.concat(d.fitxers.map(f => script(carpeta(id) + f, id)), d.estils.map(f => estil(carpeta(id) + f))));
   return tanca(id);
 }
 
@@ -237,7 +251,7 @@ const dibuix = Object.freeze({
 const model = id => tancats[id] || null;
 
 arrel.Models = Object.freeze({VERSIO, CONTRACTE, cataleg, descriu, obre, tanca, carrega, idActual, model, carpeta, dibuix, adreca, descriptorsTots,
-  exercicis: exercicisFitxers, defineixBlocs, afegeixExercicis,
+  exercicis: exercicisFitxers, defineixBlocs, afegeixExercicis, carregant,
   get fitxersExercicis() { return fitxersExercicis.slice(); }, exercici: id => exercicis.get(id) || null,
   get ids() { return ids.slice(); }, descriptor: id => descriptors[id] || null,
   etapes, etapa, etapaActual, etapaDe, etapesVisibles, get llistaEtapes() { return etapesWeb.slice(); }});

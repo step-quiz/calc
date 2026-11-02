@@ -12,6 +12,9 @@
 (function (M) {
 'use strict';
 
+/** Una calculadora germana (models/<id>/variant.js) pot afegir o canviar menús (V.menus) i traduccions (V.catala). */
+const V = M.variant || {};
+
 /* ── Indicadors ─────────────────────────────────────────────────────
    Configuració per defecte després de reiniciar: E Mat/S Mat (icona √)
    i graus (D). */
@@ -45,7 +48,7 @@ const marca = (estat, nom) => Object.freeze(Object.assign({}, estat, {marca: nom
    Cada menú té un id i cada fila una clau, independents de l'idioma: el simulador hi navega per
    l'id i la clau, mai pels textos ni per la posició. Els textos són els de la calculadora en
    castellà, tal com surten al manual (la traducció al català és a CATALA, més avall). MENUS: id → [[clau, text, opcions de la fila], …]. */
-const MENUS = Object.freeze({
+const MENUS = Object.freeze(Object.assign({
   /** Menú CONFIG (tecla ≡). Manual, p. 19-20. */
   config: [['calcul', 'Config cálculo', {sub: true}], ['sistema', 'Config sistema', {sub: true}], ['reiniciar', 'Reiniciar', {sub: true}], ['recursos', 'Recursos online', {sub: true}]],
   /** Config cálculo. Manual, p. 20-23. */
@@ -85,7 +88,7 @@ const MENUS = Object.freeze({
   'menu-variable': [['guardar', 'Guardar'], ['recuperar', 'Recuperar'], ['editar', 'Editar']],
   /** El menú de la tecla FUNCTION (manual, p. 60). */
   funcio: [['f', 'f(x)'], ['g', 'g(x)'], ['definir-f', 'Definir f(x)'], ['definir-g', 'Definir g(x)']],
-});
+}, V.menus || {}));
 
 /**
  * La calculadora en català. Text en castellà (el de MENUS i el de les fitxes, {{…}}) → text en català.
@@ -93,7 +96,7 @@ const MENUS = Object.freeze({
  * submenús, TOOLS, FUNCTION i HOME. Encara sense foto: el menú FORMAT, el TOOLS i el CATALOG amb Verificar activat,
  * els símbols de Verificar, «Verdadero/Falso», el menú d'una variable i la pantalla «Normal 1 / Normal 2» (VERIFICAR.md).
  */
-const CATALA = Object.freeze({
+const CATALA = Object.freeze(Object.assign({
   'Config cálculo': 'Config Càlcul', 'Config sistema': 'Config Sistema', 'Reiniciar': 'Reiniciar', 'Recursos online': 'Recursos online',
   'Entrada/Salida': 'Entrada/Sortida', 'Unidad angular': 'Unitat angular', 'Formato número': 'Format nombre',
   'Result fracción': 'Result fracció', 'Símbolo decimal': 'Símbol decimal', 'Separar dígitos': 'Separar dígits',
@@ -114,7 +117,7 @@ const CATALA = Object.freeze({
   'Verdadero': 'Vardader', 'Falso': 'Fals',   // «Vardader», amb l'errada que té la calculadora
   'Norm1:1.23×10⁻³': 'Norm1:1.23×10⁻³', 'Norm2:0.00123': 'Norm2:0.00123', 'Idioma': 'Idioma',
   'Calcular': 'Calcular', 'Estadística': 'Estadística', 'Tabla': 'Taula', 'Math Box': 'Math Box',
-});
+}, V.catala || {}));
 /** Un text de la calculadora en l'idioma triat ('es' per defecte: el de MENUS i de les fitxes). Els idiomes de la calculadora són a model.js. */
 const textCalc = (t, idioma) => (idioma === 'ca' && Object.prototype.hasOwnProperty.call(CATALA, t) ? CATALA[t] : t);
 
@@ -173,4 +176,4 @@ M.guions = Object.freeze({
   VARIABLES, variables, definicio, home, missatge,
 });
 
-})(Models.obre('fx-82sp-cw'));
+})(Models.obre());

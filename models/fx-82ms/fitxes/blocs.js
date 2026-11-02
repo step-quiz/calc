@@ -17,4 +17,4 @@ M.comu = Object.freeze({D: IND.D, R: IND.R, FIX: ind(IND.D, {fix: 2}), ind});
 /** La fx-82MS no té mode exacte: aquest bloc parla de llegir la pantalla, de fraccions i decimals i d'arrodonir. */
 M.blocs = Object.freeze({exacte: {titol: 'Llegir la pantalla i arrodonir'}});
 
-})(Models.obre('fx-82ms'));
+})(Models.obre());

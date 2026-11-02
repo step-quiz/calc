@@ -31,4 +31,4 @@ M.fitxes.push(
 
 );
 
-})(Models.obre('fx-82sp-cw'));
+})(Models.obre());

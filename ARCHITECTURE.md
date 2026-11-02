@@ -16,8 +16,9 @@ Technical reference for a cold-start AI (or developer). It describes the site **
 
 ## 1. Purpose and constraints
 
-- Teaches Catalan ESO (3r–4t) and Batxillerat students to use two CASIO calculators: the **fx-82SP CW** (default) and the
-  **fx-82MS 2nd edition**. About 80 % of the students have one of the two.
+- Teaches Catalan ESO (3r–4t) and Batxillerat students to use CASIO calculators: the **fx-82SP CW** (default), the
+  **fx-570SP CW / fx-991SP CW** (a sibling of the fx-82SP CW, §4a) and the **fx-82MS 2nd edition**. Next: the
+  **fx-570SP X II** (and fx-991SP X II), a new model (own keyboard, numbered menus, CALC for the f(x) fitxes).
 - A **fitxa** is a worked example played step by step: the statement, a player (◀ ↻ ▶), the steps, and a drawn calculator
   whose keys are pressed by an animated cursor while the screen changes after every key. The student only watches and
   navigates; the keys of the drawn calculator are not clickable (deliberate).
@@ -25,7 +26,9 @@ Technical reference for a cold-start AI (or developer). It describes the site **
   switch the drawn menus to Catalan). fx-82MS labels as on the device (COMP, Deg, Fix…; no languages).
 - Scope per calculator: only what is useful for basic ESO/Batxillerat work and PAU / competència bàsica questions. The
   fx-82SP CW has the apps Calcular, Estadística, Tabla and Math Box; it has **no** equation solver, matrices, vectors,
-  derivatives, integrals, Σ or distributions (those are fx-570/991SP CW). Never write a fitxa that uses them.
+  derivatives, integrals, Σ or distributions. The fx-570 models have them, but for now (David) they get exactly the
+  same fitxes: never write a shared fitxa that needs a feature the fx-82SP CW lacks. A separate block for the fx-570
+  extras may come later.
 - Vanilla HTML/CSS/JS, no build, no npm at runtime, no external requests: KaTeX 0.16.9 and the two text fonts (SIL OFL)
   are in `vendor/`. Deployed by Cloudflare Pages from `main` (output directory `/`).
 - Primary devices: laptops (Chromebook 1366×657 and 1280×559 viewports; Lenovo 1536×864, 1920×1080), touch and non-touch,
@@ -96,6 +99,16 @@ fitxa (what the player plays) = exercici (shared)        +  model fitxa (per cal
 `?etapa=` if valid, else the stored stage, else the first. A fitxa page's stage is its block's (`Models.etapaDe`). Every
 page stores the stage it shows; `?model=` is never stored from the URL. `Models.adreca({model, etapa, fitxa})` omits
 default values, so old links keep working (`fitxa.html?id=ans`).
+
+## 4a. Sibling calculators
+
+A model whose keyboard and screen are those of another one reuses its files: model files never name their model
+(`Models.obre()` with no argument returns the model being loaded: in the browser, the `data-model` attribute that
+`Models.carrega` puts on each script; in Node tests, `Models.carregant(id)`). The sibling's descriptor lists its own
+`variant.js` first and then the other model's files (`'../fx-82sp-cw/tecles.js'`, …, every `fitxes/` file), and both
+stylesheets. `variant.js` sets `M.variant`, read by the shared files: `alt` (SHIFT legends by key id, in `tecles.js`),
+`menus` (menu rows by menu id) and `catala` (extra Catalan labels), in `guions.js`. Current sibling: `fx-570sp-cw`
+(fx-570SP CW and fx-991SP CW) of `fx-82sp-cw`.
 
 ## 5. The model contract
 

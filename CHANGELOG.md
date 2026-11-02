@@ -4,6 +4,23 @@ Què ha canviat a cada versió del web, de la més nova a la més antiga. El fun
 `README.md` i `ARCHITECTURE.md`; aquí només hi ha la història. El número de versió és `VERSIO` a
 `js/nucli/models.js` i surt al peu de les pàgines.
 
+## Versió 55 (2/11/2026)
+
+- Portada: l'interior dels blocs, un 10 % més blanc que el fons de la pàgina; les fitxes, sense la vora gruixuda de
+  l'esquerra.
+- Títols dels exercicis PAU més curts: «PAU (2024). Comprova la solució d'un sistema» en lloc de «Àlgebra · PAU 2024:
+  comprova…».
+
+## Versió 54 (2/11/2026)
+
+- Tercera calculadora: la **fx-570SP CW** (i la fx-991SP CW, que té el mateix teclat), «fx-570/991SP CW» al selector.
+  És una calculadora «germana» de la fx-82SP CW: fa servir el seu dibuix, la seva pantalla, el seu simulador i totes
+  les seves fitxes, i només hi canvia el que és diferent (`models/fx-570sp-cw/variant.js`): el cos blanc, PreAns sobre
+  Ans, *i* sobre el 9 i el menú Config cálculo, que té dues files més (Símb ingeniería i Result complejo).
+- Els fitxers d'una calculadora ja no porten l'id escrit (`Models.obre()`): així una altra calculadora els pot
+  reaprofitar.
+- La solució del «Prova-ho tu» de la fitxa de graus ja no parla d'una calculadora concreta.
+
 ## Versió 53 (2/11/2026)
 
 - `js/vigia.js` (el primer script de cada pàgina, en JavaScript antic): si un fitxer no es carrega, hi ha un error de

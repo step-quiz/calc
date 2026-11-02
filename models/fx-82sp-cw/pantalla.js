@@ -180,4 +180,4 @@ function ajusta(el) {
 
 M.pantalla = Object.freeze({html, ajusta, finestra, INDICADORS, OPCIONS_KATEX, TIPUS: Object.keys(DIBUIXA)});
 
-})(Models.obre('fx-82sp-cw'));
+})(Models.obre());

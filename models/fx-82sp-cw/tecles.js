@@ -43,7 +43,12 @@ const ICONA = Object.freeze({
 
 const T = (etiqueta, nom, tipus, alt, rotul, extra = {}) => Object.freeze(Object.assign({etiqueta, nom, tipus, alt: alt || null, rotul: rotul || null}, extra));
 
-const TECLES = Object.freeze({
+/** Una calculadora germana (models/<id>/variant.js) pot canviar la funció amb SHIFT d'algunes tecles (V.alt: id → html). */
+const V = M.variant || {};
+const ambCanvis = tecles => Object.freeze(Object.fromEntries(Object.entries(tecles).map(([id, t]) =>
+  [id, V.alt && id in V.alt ? Object.freeze(Object.assign({}, t, {alt: V.alt[id]})) : t])));
+
+const TECLES = ambCanvis({
   // Part de dalt
   on:       T(ICONA.on, 'ON (encén)', 'menu', null, 'ON'),
   home:     T(ICONA.home, 'HOME (pantalla d\'inici)', 'menu', null, 'HOME'),
@@ -175,4 +180,4 @@ function htmlTeclat() {
 
 M.tecles = Object.freeze({TECLES, TECLAT, html, existeix, htmlTeclat});
 
-})(Models.obre('fx-82sp-cw'));
+})(Models.obre());

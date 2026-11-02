@@ -353,7 +353,7 @@ a{color:inherit}
 .portada{flex:1; width:100%; max-width:1180px; margin:0 auto; padding:28px 20px 32px}
 .blocs{display:grid; grid-template-columns:repeat(auto-fill, minmax(320px, 1fr)); gap:16px}
 .bloc{
-  display:flex; flex-direction:column; gap:8px; background:var(--surface);
+  display:flex; flex-direction:column; gap:8px; background:color-mix(in srgb, var(--bg) 90%, #fff);   /* un 10 % més blanc que el fons */
   border:2px solid var(--cat); border-radius:10px; padding:16px;
 }
 .bloc .num{font-family:var(--mono); font-size:.78rem; color:var(--muted)}
@@ -361,7 +361,7 @@ a{color:inherit}
 .llista{list-style:none; margin:6px 0 0; padding:0; display:flex; flex-direction:column; gap:6px}
 .llista a{
   display:flex; align-items:center; gap:10px; padding:9px 12px;
-  border:1px solid var(--border); border-left:4px solid var(--cat); border-radius:6px;
+  border:1px solid var(--border); border-radius:6px;
   text-decoration:none; font-size:.85rem; transition:background-color .15s, color .15s, transform .15s;
 }
 .llista a:hover, .llista a:focus-visible{background:var(--cat); color:var(--surface); transform:translateX(3px)}

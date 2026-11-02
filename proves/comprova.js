@@ -120,7 +120,9 @@ for (const id of Models.ids) {
   for (const f of d.fitxers.concat(d.estils)) tot = ok(fs.existsSync(path.join(arrel, carpeta, f)), on, `falta el fitxer ${f}`) && tot;
   ok(d.estils.length > 0, on, 'el model ha de portar el seu full d\'estil (estils)');
   if (!tot) continue;
+  Models.carregant(id);
   for (const f of d.fitxers) executa(carpeta + f);
+  Models.carregant(null);
   let M;
   try { M = Models.tanca(id); comprovacions++; } catch (e) { error(on, e.message); continue; }
   models.push(M);

@@ -1,0 +1,24 @@
+/* ═══════════════════════════════════════════════════════════════════
+   models/fx-570sp-cw/estil.css — La fx-570/991SP CW: el cos blanc
+   ───────────────────────────────────────────────────────────────────
+   Es carrega després de l'estil de la fx-82SP CW (model.js, estils):
+   la forma és la mateixa; aquí només canvien els colors, com a la foto
+   de producte de la fx-570SP CW Iberia (cos gris molt clar, tecles
+   clares, rètols gris fosc, funcions amb SHIFT en blau fosc).
+   ═══════════════════════════════════════════════════════════════════ */
+
+.calculadora{
+  --calc-cos:#e4e6e8;
+  box-shadow:0 10px 26px rgba(15,23,42,.22), inset 0 0 0 2px #cfd3d7;
+}
+.marc{background:#cbd0d5}
+.creu{background:#d9dde1}
+.calculadora .tecla{background:#f2f3f4; color:#1f2328; box-shadow:0 .6cqw 0 #a9afb6, inset 0 0 0 .3cqw #d3d7db}
+.calculadora .tecla-menu, .calculadora .tecla-nav{background:#eceef0; color:#3c4148; box-shadow:0 .6cqw 0 #a9afb6, inset 0 0 0 .3cqw #d3d7db}
+.calculadora .tecla-shift{background:#1d3d8f; color:#fff; box-shadow:0 .6cqw 0 #102660}
+.calculadora .tecla-exe{background:#f2f3f4; color:#1f2328; box-shadow:0 .6cqw 0 #a9afb6, inset 0 0 0 .3cqw #d3d7db}
+.calculadora .rotul{color:#3a3f46}
+.calculadora .t-shift .rotul{color:#1d3d8f}
+.calculadora .alt{color:#1d4ed8}
+.calculadora.prefix-shift .alt{background:#1d3d8f; color:#fff}
+.calculadora .tecla-menu.pendent, .calculadora .tecla-nav.pendent{background:#fdf0c8; color:#111827}

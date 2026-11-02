@@ -154,4 +154,4 @@ function htmlTeclat() {
 
 M.tecles = Object.freeze({TECLES, TECLAT, html, existeix, htmlTeclat});
 
-})(Models.obre('fx-82ms'));
+})(Models.obre());

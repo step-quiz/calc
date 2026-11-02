@@ -67,4 +67,4 @@ const textCalc = t => t;
 
 M.guions = Object.freeze({IND, ind, calc, marca, OPCIONS, opcions, mode, drg, pregunta, textCalc});
 
-})(Models.obre('fx-82ms'));
+})(Models.obre());

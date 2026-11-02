@@ -7,7 +7,7 @@ Models.afegeixExercicis(
   enunciat: 'A dalt de la pantalla de la calculadora hi ha una R: és en radians. Calcula l\'altura de l\'arbre de l\'exercici 37, $12\\cdot\\tan 35^\\circ$, i arregla-ho.',
   provaTu: {
     enunciat: 'Comprova que la calculadora és en graus (D) i calcula $5\\cdot\\tan 30^\\circ$.',
-    solucio: '$5\\cdot\\tan 30^\\circ\\approx 2{,}89$ (la fx-82SP CW el dona exacte, $\\frac{5\\sqrt{3}}{3}$). Si et surt −32,03, la calculadora és en radians.',
+    solucio: '$5\\cdot\\tan 30^\\circ=\\frac{5\\sqrt{3}}{3}\\approx 2{,}89$. Si et surt −32,03, la calculadora és en radians.',
   },
 },
 {

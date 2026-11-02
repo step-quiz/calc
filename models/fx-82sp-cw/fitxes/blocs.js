@@ -35,4 +35,4 @@ M.comu = Object.freeze({
   FIX: ind(IND.D, {fix: true}),
 });
 
-})(Models.obre('fx-82sp-cw'));
+})(Models.obre());

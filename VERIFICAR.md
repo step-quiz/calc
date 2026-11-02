@@ -116,3 +116,17 @@ la CW, es retalla la franja del logotip de dalt. La creu del cursor és un oval 
 | 12 | Com es veu nCr | fitxa `combinatoria` | «6C4». |
 | 13 | El producte sense signe davant d'un parèntesi i d'una funció | fitxa `pau-ana-24i-q1` | `-2+10(1.5-1)ln 1.5` es calcula sense escriure ×. |
 | 14 | DEL i el cursor | fitxa d'ESO `eso-corregeix` | Amb el cursor al final, DEL esborra l'última xifra; amb ◀ el cursor es posa a sota d'una xifra, i escriure la substitueix. Comprovar-ho a la calculadora. |
+
+---
+
+# fx-570SP CW / fx-991SP CW: què cal comprovar amb la calculadora (versió 54)
+
+Fa servir les pantalles de la fx-82SP CW (la part de dalt d'aquest fitxer). Només s'ha canviat el que el manual
+(*fx-570SP CW / fx-991SP CW Guía del usuario*) i la foto de producte diuen que és diferent.
+
+| # | Què | On és | Què s'ha posat |
+|---|---|---|---|
+| 1 | Config cálculo | `models/fx-570sp-cw/variant.js` | Vuit files (manual, p. 23-27): Entrada/Salida, Unidad angular, Formato número, Símb ingeniería, Result fracción, Result complejo, Símbolo decimal, Separar dígitos. |
+| 2 | Les dues files noves, en català | `variant.js` (`catala`) | «Símb enginyeria» (com al manual en català de la fx-570SP X II) i «Result complex» (deduït). |
+| 3 | Els rètols blaus de SHIFT | `variant.js` (`alt`) | PreAns sobre Ans i *i* sobre el 9 (foto). La resta, com a la fx-82SP CW. |
+| 4 | Els colors del cos i de les tecles | `models/fx-570sp-cw/estil.css` | Aproximats a partir de la foto de producte. |

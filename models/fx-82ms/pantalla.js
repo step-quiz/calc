@@ -115,4 +115,4 @@ function html(estat) {
 
 M.pantalla = Object.freeze({html, INDICADORS, COLUMNES, TIPUS: Object.keys(DIBUIXA), partsResultat});
 
-})(Models.obre('fx-82ms'));
+})(Models.obre());

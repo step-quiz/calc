@@ -66,4 +66,4 @@ M.fitxes.push(
 
 );
 
-})(Models.obre('fx-82ms'));
+})(Models.obre());
