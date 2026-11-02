@@ -56,9 +56,13 @@ function finestra(descriptors, actual, adreca) {
     }
     b.append(crea('span', 'tria-nom', d.curt));
     b.addEventListener('click', () => {
-      if (d.id === actual) { dlg.close(); return; }
+      // Triar la calculadora que ja es mostra també és una tria: es desa. Si encara no n'hi havia cap de desada (la de
+      // per defecte), la pàgina es torna a carregar perquè el títol la nomeni i el botó deixi de demanar que se'n triï una.
+      const jaDesada = Preferencies.model() === d.id;
       Preferencies.desaModel(d.id);
-      location.href = adreca(d.id);
+      if (d.id !== actual) location.href = adreca(d.id);
+      else if (!jaDesada) location.reload();
+      else dlg.close();
     });
     graella.append(b);
   }

@@ -4,6 +4,12 @@ Què ha canviat a cada versió del web, de la més nova a la més antiga. El fun
 `README.md` i `ARCHITECTURE.md`; aquí només hi ha la història. El número de versió és `VERSIO` a
 `js/nucli/models.js` i surt al peu de les pàgines.
 
+## Versió 72 (2/11/2026)
+
+- Arreglat: a la primera visita, si l'alumne triava la calculadora que ja es mostrava (la fx-82SP CW), la finestra es
+  tancava sense desar la tria i el web li continuava demanant que n'escollís una. Ara es desa i la pàgina es torna a
+  carregar amb «Canviar de calculadora» i el nom de la calculadora al títol.
+
 ## Versió 71 (2/11/2026)
 
 - Al ⚙ de la fitxa, «Color del cursor»: l'alumne tria entre 16 colors (cap negre) el del cursor que prem les tecles. El
