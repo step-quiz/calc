@@ -342,6 +342,22 @@ a{color:inherit}
 .pas.actual .frase{display:block; flex:1; min-width:0; padding:6px 14px 10px 0}
 .pas.actual .num{color:var(--cat)}
 .pas.fet{opacity:.55}
+/* L'«Ara tu» / «Prova-ho tu» com a darrer pas de la llista (D2): el nom en lletra de la frase [calc], sense resum */
+.pas.pas-final .resum{font-family:var(--mono); font-size:13.5px; letter-spacing:.02em; color:var(--cat)}
+/* Convit a avançar: dues fletxes primes surten de sota del pas acabat i apunten cap al següent. L'espai hi és
+   des que comença el pas (.te-seguent); les fletxes apareixen al cap d'1,2 s, suaus, i es mouen una mica. */
+.pas.actual.te-seguent{position:relative; margin-bottom:22px}
+.pas.actual.convida::after{
+  --fletxa:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 14 18'%3E%3Cpath d='M7 1v15M2 11l5 5 5-5' fill='none' stroke='%23000' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+  content:''; position:absolute; left:0; right:0; top:calc(100% + 2px); height:18px; pointer-events:none; opacity:0;
+  background:var(--cat);
+  -webkit-mask:var(--fletxa) 30% 0 / 12px 16px no-repeat, var(--fletxa) 70% 0 / 12px 16px no-repeat;
+  mask:var(--fletxa) 30% 0 / 12px 16px no-repeat, var(--fletxa) 70% 0 / 12px 16px no-repeat;
+  animation:convida-surt .7s ease-out 1.2s forwards, convida-balla 2s ease-in-out 1.9s infinite}
+body.zona-error .pas.actual.convida::after, body.error-suau .pas.actual.convida::after{background:var(--vellut)}
+@keyframes convida-surt{from{opacity:0; transform:translateY(-4px)} to{opacity:.55; transform:none}}
+@keyframes convida-balla{0%, 100%{transform:none} 50%{transform:translateY(3px)}}
+@media (prefers-reduced-motion: reduce){ .pas.actual.convida::after{animation:convida-surt .7s ease-out 1.2s forwards} }
 .pas.zero{display:none}
 .pas.zero.actual{display:block}
 .pas.zero .frase{padding:10px 14px}

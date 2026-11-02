@@ -21,6 +21,9 @@
               abans()        es crida abans de saltar o d'avançar
               finalAPart     el que surt en acabar («Ara tu»…) no surt
                              sol: s'hi va amb ▶ des de l'últim pas
+              nomFinal       amb finalAPart, el nom d'aquesta pantalla
+                             («Ara tu», «Prova-ho tu»): surt a la llista
+                             com un pas més, el darrer
    Les palanques del laboratori d'UX (nucli/ux.js) que canvien
    l'animació: B4 (lupa), C1 (temps de lectura), C2 (la frase [calc],
    quan comencen les tecles) i D1 (error sense tenyir la pàgina). Si
@@ -164,7 +167,7 @@ function creaCursor(r) {
  * Un element per pas, i un d'inicial (el pas 0, abans de començar). Cada pas porta el número, un resum d'una línia
  * (el començament de la frase, per als passos que no són l'actual) i la frase sencera (només el pas actual).
  */
-function omplPassos(ctx, r, passos, enClicar) {
+function omplPassos(ctx, r, passos, enClicar, nomFinal, enClicarFinal) {
   const zero = element('li', {class: 'pas zero'}, [element('div', {class: 'frase', html:
     'Prem ' + icona(ICONES.seguent).replace('<svg', '<svg class="icona-inline"') + ' o la fletxa ↓ del teclat per començar.'})]);
   const files = passos.map((pas, i) => {
@@ -174,8 +177,16 @@ function omplPassos(ctx, r, passos, enClicar) {
     boto.addEventListener('click', () => enClicar(i));
     return element('li', {class: 'pas'}, [boto, element('div', {class: 'frase', html})]);
   });
-  r.passos.replaceChildren(zero, ...files);
-  return {zero, files};
+  // La pantalla de l'«Ara tu» / «Prova-ho tu», com un pas més al final de la llista: diu a l'alumne què ve després
+  let alFinal = null;
+  if (nomFinal) {
+    const boto = element('button', {class: 'cap', type: 'button', title: nomFinal},
+      [element('span', {class: 'num', text: String(passos.length + 1)}), element('span', {class: 'resum', text: nomFinal})]);
+    boto.addEventListener('click', () => enClicarFinal());
+    alFinal = element('li', {class: 'pas pas-final'}, [boto]);
+  }
+  r.passos.replaceChildren(zero, ...files, ...(alFinal ? [alFinal] : []));
+  return {zero, files, alFinal};
 }
 
 function marcaPassos(llista, pas) {
@@ -245,7 +256,14 @@ function crea(ctx, r, fitxa, temps, opcions = {}) {
     if (canvi) r.lcd.animate([{opacity: 0.35}, {opacity: 1}], {duration: temps(TEMPS.pantalla), easing: 'ease-out'});
   }
 
-  const llista = omplPassos(ctx, r, passos, i => salta(i));
+  const llista = omplPassos(ctx, r, passos, i => salta(i), finalAPart && opcions.nomFinal, () => obreFinal());
+
+  /** D2: va a la pantalla de l'«Ara tu» / «Prova-ho tu» (amb ▶ des de l'últim pas, o clicant-la a la llista). */
+  function obreFinal() {
+    if (idx !== darrer || ocupat) salta(darrer);
+    posaFinal(true);
+    pinta();
+  }
 
   /** A l'ordinador (dues columnes), que el que surt al final es vegi dins de la columna, que llavors es desplaça sencera. */
   function mostraFinal() {
@@ -278,6 +296,18 @@ function crea(ctx, r, fitxa, temps, opcions = {}) {
       if (a.el.hidden === alFinalVisible) a.el.hidden = !alFinalVisible;
     }
     marcaPassos(llista, idx);
+    // Convit a avançar: quan el pas actual ja s'ha fet i encara hi ha alguna cosa després, dues fletxes discretes
+    // surten de sota del pas cap al següent (estil.css, .convida; apareixen amb retard). L'espai per a les fletxes
+    // (.te-seguent) hi és des que comença el pas, perquè la llista no salti quan surten.
+    const teSeguent = idx >= 0 && (idx < darrer || (finalAPart && !finalObert));
+    llista.files.forEach((li, i) => {
+      li.classList.toggle('te-seguent', i === idx && teSeguent);
+      li.classList.remove('convida');
+    });
+    if (teSeguent && !ocupat) {
+      void llista.files[idx].offsetWidth;          // perquè l'animació d'aparèixer torni a començar
+      llista.files[idx].classList.add('convida');
+    }
     if (alFinalVisible) mostraFinal();
     // L'apartat de l'enunciat que es resol en aquest pas, ressaltat
     const apartat = idx >= 0 ? passos[idx].apartat : null;
@@ -339,7 +369,7 @@ function crea(ctx, r, fitxa, temps, opcions = {}) {
     if (ocupat) { salta(idx); return; }
     if (idx >= darrer) {
       // D2: des de l'últim pas, ▶ obre la pantalla de l'«Ara tu»
-      if (finalAPart && !finalObert) { posaFinal(true); pinta(); }
+      if (finalAPart && !finalObert) obreFinal();
       return;
     }
     ocupat = true;

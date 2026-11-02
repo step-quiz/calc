@@ -427,7 +427,8 @@ function inicia(model, id, contenidor) {
 
   const ambFinal = ambTancament(fitxa);
   // D2: l'«Ara tu» i el «Prova-ho tu» no surten sols en acabar; s'hi va amb ▶ des de l'últim pas, i tornen amb un botó
-  const reproductor = Reproductor.crea(ctx, r, ambFinal, temps, {abans: surtAraTu, finalAPart: Boolean(r.tornaPassos)});
+  const reproductor = Reproductor.crea(ctx, r, ambFinal, temps, {abans: surtAraTu, finalAPart: Boolean(r.tornaPassos),
+    nomFinal: fitxa.araTu ? 'Ara tu' : 'Prova-ho tu'});
   if (r.tornaPassos) r.tornaPassos.addEventListener('click', () => { surtAraTu(); reproductor.salta(reproductor.pas); });
   if (pasInicial >= 1 && pasInicial <= ambFinal.passos.length) reproductor.salta(pasInicial - 1);
   const avis = creaAvis(r);

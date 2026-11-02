@@ -209,7 +209,12 @@ sentence, closing text included, is `[mat]` or `[calc]` (test).
   `RAPIDESA_XIFRES` = 3 times faster. Pressing next during an animation finishes it instantly.
 - **Previous** (◀, ↑, ←) and clicking a step jump without animation. **Replay** (↻, R) re-animates the current step.
 - **Step list**: the current step shows its full sentence; the others show the number and a one-line, ellipsed summary of
-  the sentence. Done steps are faded.
+  the sentence. Done steps are faded. With D2 (default) the list ends with one more numbered row, «Ara tu» or «Prova-ho
+  tu» (`.pas-final`, `opcions.nomFinal`): clicking it, or ▶ from the last step, opens that screen.
+- **Invitation to go on**: once the current step has finished and something follows (another step or the «Ara tu» /
+  «Prova-ho tu» row), two thin arrows appear under its box, pointing down to the next row (`.convida`: they fade in after
+  1.2 s at 55 % opacity and bob gently; no bob under `prefers-reduced-motion`; red velvet in the error zone). The 22 px
+  gap for them (`.te-seguent`) is there from the start of the step, so the list never jumps.
 - **Error zone**: while the current step has `error: true`, `body.zona-error` turns every border red velvet (`--vellut`)
   and tints the page background 20 %. The first error step after a result starts with AC (test).
 - **Closing step**: if the last step is an error, the player appends a keyless step whose screen is the last non-error

@@ -1,7 +1,7 @@
 # La calculadora, pas a pas
 
 Web estàtica per a l'alumnat de Matemàtiques d'ESO i de Batxillerat: fitxes curtes que ensenyen a fer servir la
-calculadora CASIO **fx-82SP CW**, **fx-570SP CW** (o fx-991SP CW), **fx-82SP X II** (o fx-85SP X II, fx-350SP X II), **fx-570SP X II** (o fx-991SP X II) o **fx-82MS** (2a edició; o fx-85MS, fx-350MS) i a evitar-ne els errors típics.
+calculadora CASIO **fx-82SP CW**, **fx-570SP CW** (o fx-991SP CW), **fx-570SP X II** (o fx-991SP X II), **fx-82SP X II** (o fx-85SP X II, fx-350SP X II) o **fx-82MS** (2a edició; o fx-85MS, fx-350MS) i a evitar-ne els errors típics.
 
 Cada fitxa és un exercici resolt pas a pas. A l'esquerra, l'enunciat, els botons ◀ ↻ ▶ i la llista de passos; a la
 dreta, la calculadora dibuixada amb les mides reals. A cada pas, un cursor prem les tecles i la pantalla canvia després
@@ -16,6 +16,9 @@ Web no oficial, sense relació amb el fabricant de la calculadora.
   dels menús (castellà o català). El navegador ho recorda. La calculadora triada surt al títol de la portada; a la fitxa, la capçalera diu el bloc (T1…) i la fitxa.
 - A la fitxa: ▶ o ↓ / → passen al pas següent (animat); ◀ o ↑ / ← tornen enrere; ↻ o la tecla R tornen a fer el pas
   actual. La velocitat es pot posar «lenta», «normal» o «ràpida»; les xifres sempre van 3 vegades més de pressa que la resta de tecles. Abans de les tecles de cada pas, la vora de la calculadora s'il·lumina en groc perquè l'alumne hi miri; després s'apaguen les tecles que no són del pas i, encara 0,8 s més tard, el cursor comença a prémer.
+- Quan s'acaba un pas, al cap d'un moment surten dues fletxes discretes a sota que apunten al pas següent: conviden a
+  avançar quan l'alumne estigui a punt. L'últim element de la llista és «Prova-ho tu» (o «Ara tu»): s'hi va amb ▶ o
+  clicant-lo.
 - El peu de la fitxa surt sencer 5 segons i després només hi queda l'autor; a la portada, sempre sencer a baix.
 - Els passos que ensenyen un error típic tenyeixen la pàgina de vermell («zona d'error»). Si la fitxa acaba amb un
   error, l'últim pas torna a la manera correcta.

@@ -17,14 +17,15 @@ Read this first, then `CLAUDE.md` (rules), `ARCHITECTURE.md` (technical referenc
 - **Stack**: vanilla JS (IIFE modules exporting globals), CSS with container queries (`cqw`), KaTeX 0.16.9 (vendored),
   self-hosted fonts (Libre Baskerville, Source Code Pro). Tests in Node + Playwright.
 
-## 2. Calculators in the catalogue (`models/cataleg.js`, order matters: first = default)
+## 2. Calculators in the catalogue (`models/cataleg.js`, order matters: first = default; it is also the order of the
+   «Escollir calculadora» grid, chosen by David: row 1 the three CW/570 ones, row 2 fx-82/85SP X II and MS)
 
 | id | short name (`curt`) | notes |
 |---|---|---|
 | `fx-82sp-cw` | fx-82SP CW | reference model; owns the shared CW pantalla/guions/simulador/calcul files |
 | `fx-570sp-cw` | fx-570/991SP CW | sibling, reuses CW files, only overrides via `variant.js` |
-| `fx-82sp-x2` | fx-82/85SP X II | Class A from David's CALCULATOR_PRIORITISATION.md; X II body without CALC; f(x) fitxes use **Table** (MENU 3); Barrow typed directly; Verificar = MENU 4 |
 | `fx-570sp-x2` | fx-570/991SP X II | own keyboard (`tecles.js`), CW screen/simulator through `M.variant` hooks; numbered menus; f(x) fitxes use **CALC** (key id `calcula`, not `calc` — clashes with the `[calc]` text tag) |
+| `fx-82sp-x2` | fx-82/85SP X II | Class A from David's CALCULATOR_PRIORITISATION.md; X II body without CALC; f(x) fitxes use **Table** (MENU 3); Barrow typed directly; Verificar = MENU 4 |
 | `fx-82ms` | fx-82/85/350MS | 2nd edition; aliases fx-85MS and fx-350MS; improper fractions via SHIFT a b/c (d/c) — **no mixed numbers** anywhere (European convention) |
 
 Offered but not done: fx-85SP CW as a free alias of fx-82SP CW. Class C (ES PLUS) judged high effort/low use; legacy
@@ -52,7 +53,7 @@ Extra screen types from variants: `x2-apps`, `x2-rang`, `x2-taula`.
 - Error-zone steps (`error: true`); if a fitxa ends in error, a closing step (`tancament`) is appended.
 - Barrow «Ara tu» is **disabled** (commented block «Ara tu» DESACTIVAT in each model's `pau.js`).
 
-## 5. Work done in recent conversations (versions 56 → 69)
+## 5. Work done in recent conversations (versions 56 → 70)
 
 - **v56–57**: fx-570/991SP X II complete (drawing from 626×1333 photo, numbered menus, CALC, Verificar app). Speed «lenta»
   slowed twice (now 3.01).
@@ -76,6 +77,9 @@ Extra screen types from variants: `x2-apps`, `x2-rang`, `x2-taula`.
   cursor moves (`ATENCIO = {repos: 300, vora: 600, apaga: 250, fixacio: 800}`); «← Fitxes» has a much thicker bottom
   edge (6 px, sinks fully when pressed); no «›» between the two header texts, only a two-space gap (`column-gap:.5em`).
   Docs synced (this file, ARCHITECTURE §7/§8, stale paths in VERIFICAR).
+- **v70**: the step list ends with a numbered «Prova-ho tu»/«Ara tu» row (`.pas-final`, D2 only; ▶ from the last step
+  or a click opens it); two thin down-arrows under a finished step invite going on (`.convida`, after 1.2 s; space
+  reserved by `.te-seguent`); catalogue reordered (fx-570sp-x2 before fx-82sp-x2).
 
 ## 6. UX Laboratory (the big item of this session)
 
@@ -115,7 +119,7 @@ Extra screen types from variants: `x2-apps`, `x2-rang`, `x2-taula`.
 ## 8. Versioning & delivery protocol
 
 - Any served `.js`/`.css` change → bump `VERSIO` (`js/nucli/models.js`), every `?v=` in `index.html`/`fitxa.html`, and
-  the «Versió N» footer of `index.html` (test enforces). Current: **69**.
+  the «Versió N» footer of `index.html` (test enforces). Current: **70**.
 - Delivery = cumulative ZIP from the base commit, repo-root paths, excluding `_uploads/`. If David uploads the repo as a
   ZIP (no `.git`), `git init` it, commit it as the base and diff from that commit instead of `076cc6c`:
   `(git diff --name-only --diff-filter=AMR 076cc6c; git ls-files --others --exclude-standard) | sort -u | grep -v '^_uploads/' | zip -@ calc-versio-NN.zip`

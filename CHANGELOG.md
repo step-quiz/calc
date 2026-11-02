@@ -4,6 +4,15 @@ Què ha canviat a cada versió del web, de la més nova a la més antiga. El fun
 `README.md` i `ARCHITECTURE.md`; aquí només hi ha la història. El número de versió és `VERSIO` a
 `js/nucli/models.js` i surt al peu de les pàgines.
 
+## Versió 70 (2/11/2026)
+
+- La llista de passos acaba amb un pas més, «Prova-ho tu» (o «Ara tu»), numerat com els altres: l'alumne veu què ve
+  després. Des de l'últim pas, ▶ o la fletxa ↓ l'obren; també clicant-lo.
+- Quan un pas s'ha acabat, al cap d'1,2 s surten dues fletxes discretes a sota del pas, que apunten cap al següent i es
+  mouen una mica: conviden a avançar sense pressa.
+- «Escollir calculadora», en un ordre nou: fx-82SP CW, fx-570/991SP CW, fx-570/991SP X II (primera fila) i
+  fx-82/85SP X II, fx-82/85/350MS (segona fila).
+
 ## Versió 69 (2/11/2026)
 
 - Abans de les tecles de cada pas, un moment més de calma: quan les tecles que no són del pas ja s'han apagat, la
