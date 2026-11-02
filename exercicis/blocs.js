@@ -48,7 +48,9 @@ Models.defineixBlocs([
   {id: 'pau', titol: 'Funcions útils per a la PAU', color: '#876d0d', etapes: ['batx']},
   {id: 'pau-ag', titol: 'Exercicis PAU. Àlgebra i Geometria', color: '#853300', etapes: ['batx']},
   {id: 'pau-ap', titol: 'Exercicis PAU. Anàlisi i Probabilitat', color: '#945600', etapes: ['batx']},
-  {id: 'examen', titol: 'Abans de l\'examen', color: '#3d4f1f', etapes: ['batx'], petit: true},
+  // Les bombolles petites, a totes dues etapes (en aquest ordre, una al costat de l'altra)
+  {id: 'eso-inici', titol: 'Abans de començar', color: '#3d4f1f', etapes: ['batx', 'eso'], petit: true},
+  {id: 'examen', titol: 'Abans de l\'examen', color: '#3d4f1f', etapes: ['batx', 'eso'], petit: true},
   // ESO: verds i morats
   {id: 'eso-pantalla', titol: 'Fracció o decimal. Arrodonir. Notació científica', color: '#0b4a40', etapes: ['eso']},
   {id: 'eso-parentesis', titol: 'Ús dels parèntesis', color: '#0d5c4f', etapes: ['eso']},
@@ -56,5 +58,4 @@ Models.defineixBlocs([
   {id: 'eso-mitjanes', titol: 'Mitjanes', color: '#3b2a6b', etapes: ['eso']},
   {id: 'eso-geometria', titol: 'Pitàgores, àrees i volums', color: '#4f2a73', etapes: ['eso']},
   {id: 'eso-trigonometria', titol: 'Trigonometria', color: '#602f6a', etapes: ['eso']},
-  {id: 'eso-inici', titol: 'Abans de començar', color: '#3d4f1f', etapes: ['eso'], petit: true},
 ]);

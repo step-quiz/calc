@@ -17,7 +17,7 @@ M.fitxes.push(
   inici: calc(D),
   passos: [
     {tecles: ['1', 'entre', '2', 'exe'], pantalla: marca(calc(D, '1\\div 2', '\\frac{1}{2}'), 'resultat'),
-      text: '[calc]Calcula $1\\div 2$: ha de sortir $\\frac{1}{2}$, perquè la calculadora ha de ser en mode {{E Mat/S Mat}}. Si surt 0.5, és en {{E Mat/S Decimal}}: arregla-ho com a la fitxa «Em surt 0.5 en lloc d\'1/2».[/calc]'},
+      text: '[calc]Calcula $1\\div 2$: ha de sortir $\\frac{1}{2}$, perquè la calculadora ha de ser en mode {{E Mat/S Mat}}, el que dona resultats exactes. Si surt 0.5, és en {{E Mat/S Decimal}}: arregla-ho com a la fitxa «Em surt 0.5 en lloc d\'1/2».[/calc]'},
     {tecles: [], pantalla: marca(calc(D, '1\\div 2', '\\frac{1}{2}'), 'ang'),
       text: '[calc]Mira la lletra de la unitat dels angles: D (graus) o R (radians).[/calc] [mat]Si l\'examen té funcions trigonomètriques de $x$, ha de ser R; per a angles en graus, D.[/mat]'},
     {tecles: ['ac'], pantalla: calc(D, '', '', {hist: true}),

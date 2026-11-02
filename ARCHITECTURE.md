@@ -226,7 +226,9 @@ sentence, closing text included, is `[mat]` or `[calc]` (test).
 ## 9. Writing fitxes
 
 **Configuration problems in ESO.** No fitxa teaches an ESO student to fix the calculator's settings: David tells the
-student to reset it. Do not add such fitxes.
+student to reset it. Do not add such fitxes. The one exception is the small block «Abans de l'examen» (`abans-examen`),
+which, like «Abans de començar» (`eso-inici`), is in both stages (David): two small bubbles side by side on both home
+pages. Their texts must satisfy both stages' rules (e.g. «E Mat/S Mat» and «resultats exactes»).
 
 **Process.** Propose before implementing: send David (in Catalan) the candidate fitxes of a block — title, one-line goal,
 key sequence, step sentences — and wait for his OK. Deliver block by block. Sources are ground truth: competència bàsica

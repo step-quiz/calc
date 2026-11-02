@@ -4,6 +4,11 @@ Què ha canviat a cada versió del web, de la més nova a la més antiga. El fun
 `README.md` i `ARCHITECTURE.md`; aquí només hi ha la història. El número de versió és `VERSIO` a
 `js/nucli/models.js` i surt al peu de les pàgines.
 
+## Versió 60 (2/11/2026)
+
+- Les dues bombolles petites, «Abans de començar» i «Abans de l'examen», surten a totes dues etapes, una al costat de
+  l'altra (abans, cada una només en una etapa).
+
 ## Versió 59 (2/11/2026)
 
 - «Escollir calculadora»: només el nom curt, sense el nom llarg ni l'etiqueta «La teva» (la calculadora d'ara té la
