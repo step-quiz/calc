@@ -8,8 +8,8 @@
    ═══════════════════════════════════════════════════════════════════ */
 Models.descriu({
   id: 'fx-82ms',
-  nom: 'CASIO fx-82MS (2a edició)',
-  curt: 'fx-82MS',
+  nom: 'CASIO fx-82MS (2a edició) / fx-85MS / fx-350MS',   // el mateix manual i el mateix teclat (la fx-85MS té placa solar; les dues, la tecla EXP en lloc de ×10ˣ)
+  curt: 'fx-82/85/350MS',
   imatge: 'imatge.png',   // per a la finestra «Escollir calculadora» (la fa proves/imatges.js)
   idiomes: null,
   fitxers: [

@@ -1,7 +1,7 @@
 # La calculadora, pas a pas
 
 Web estàtica per a l'alumnat de Matemàtiques d'ESO i de Batxillerat: fitxes curtes que ensenyen a fer servir la
-calculadora CASIO **fx-82SP CW**, **fx-570SP CW** (o fx-991SP CW), **fx-82SP X II** (o fx-85SP X II, fx-350SP X II), **fx-570SP X II** (o fx-991SP X II) o **fx-82MS** (2a edició) i a evitar-ne els errors típics.
+calculadora CASIO **fx-82SP CW**, **fx-570SP CW** (o fx-991SP CW), **fx-82SP X II** (o fx-85SP X II, fx-350SP X II), **fx-570SP X II** (o fx-991SP X II) o **fx-82MS** (2a edició; o fx-85MS, fx-350MS) i a evitar-ne els errors típics.
 
 Cada fitxa és un exercici resolt pas a pas. A l'esquerra, l'enunciat, els botons ◀ ↻ ▶ i la llista de passos; a la
 dreta, la calculadora dibuixada amb les mides reals. A cada pas, un cursor prem les tecles i la pantalla canvia després

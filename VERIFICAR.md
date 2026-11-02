@@ -177,3 +177,7 @@ X II Iberia (500 × 500 px, poca resolució per llegir els rètols petits).
 | 9 | Moure's per la taula | fitxes de Tabla | ↑ ↓ canvien de fila i ← → de columna (també cap a f(x) i g(x), que no es poden editar); AC torna a f(x). |
 | 10 | Els textos en català | `variant.js` (`catala`) | Rang taula, Inici, Final, Pas; 4:Result fracció; 1:F. Hiperbòliques; Taula. |
 | 11 | Els colors | `models/fx-82sp-x2/estil.css` | Cos negre amb vora clara, totes les tecles fosques (també les de baix), DEL i AC grogues, tecles rodones i creu fosques. |
+
+La fx-85MS i la fx-350MS (versió 63) fan servir aquesta mateixa calculadora: les fotos de producte tenen el mateix teclat
+i els mateixos rètols. El dibuix és el de la fx-82MS (2a edició): les altres dues tenen el cos blau grisós, les tecles de
+baix grises, DEL i AC rosades, la tecla EXP (en lloc de ×10ˣ) i, la fx-85MS, una placa solar a dalt.

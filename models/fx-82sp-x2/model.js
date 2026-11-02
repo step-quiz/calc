@@ -11,7 +11,7 @@
    ═══════════════════════════════════════════════════════════════════ */
 Models.descriu({
   id: 'fx-82sp-x2',
-  nom: 'CASIO fx-82SP X II / fx-85SP X II / fx-350SP X II',
+  nom: 'CASIO fx-82SP X II / fx-85SP X II / fx-350SP X II (i les SP X, sense «II»)',
   curt: 'fx-82/85SP X II',
   imatge: 'imatge.png',   // per a la finestra «Escollir calculadora» (la fa proves/imatges.js)
   idiomes: {es: 'Castellano', ca: 'Català'},

@@ -4,6 +4,13 @@ Què ha canviat a cada versió del web, de la més nova a la més antiga. El fun
 `README.md` i `ARCHITECTURE.md`; aquí només hi ha la història. El número de versió és `VERSIO` a
 `js/nucli/models.js` i surt al peu de les pàgines.
 
+## Versió 63 (2/11/2026)
+
+- La fx-85MS i la fx-350MS fan servir la fx-82MS: el mateix manual i el mateix teclat (fotos de producte). Al selector,
+  «fx-82/85/350MS». Només canvien els colors, la placa solar de la fx-85MS i la tecla EXP, que a la fx-82MS (2a edició)
+  es diu ×10ˣ.
+- El nom llarg de les dues X II diu que també serveixen per a les SP X, sense «II».
+
 ## Versió 62 (2/11/2026) — la fx-82/85SP X II
 
 - Cinquena calculadora: la **fx-82SP X II** (i la fx-85SP X II, la fx-350SP X II i les SP X sense «II»: el mateix

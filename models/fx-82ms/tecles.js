@@ -73,7 +73,7 @@ const TECLES = Object.freeze({
   menys: T('−', 'menys (resta)', 'op'),
   0: T('0', '0', 'num', {shift: 'Rnd'}),
   punt:  T('•', 'punt decimal', 'num', {shift: 'Ran#'}),
-  exp:   T('×10' + sup(X), 'per 10 a la x', 'num', {shift: 'π'}),
+  exp:   T('×10' + sup(X), 'per 10 a la x (EXP a la fx-85MS i la fx-350MS)', 'num', {shift: 'π'}),
   ans:   T('Ans', 'Ans (l\'últim resultat)', 'num', {shift: 'DRG▸'}),
   igual: T('=', 'igual', 'exe', {shift: '%'}),
 });

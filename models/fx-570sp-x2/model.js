@@ -11,7 +11,7 @@
    ═══════════════════════════════════════════════════════════════════ */
 Models.descriu({
   id: 'fx-570sp-x2',
-  nom: 'CASIO fx-570SP X II / fx-991SP X II',
+  nom: 'CASIO fx-570SP X II / fx-991SP X II (i les SP X, sense «II»: la mateixa calculadora)',
   curt: 'fx-570/991SP X II',
   imatge: 'imatge.png',   // per a la finestra «Escollir calculadora» (la fa proves/imatges.js)
   idiomes: {es: 'Castellano', ca: 'Català'},
