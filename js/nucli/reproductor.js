@@ -35,6 +35,8 @@ const TEMPS = Object.freeze({
 });
 /** Les xifres i el punt (tecles de tipus 'num') van 3 vegades més de pressa: l'alumne ja sap com s'escriu un nombre. */
 const RAPIDESA_XIFRES = 3;
+/** Abans d'animar un pas amb tecles (ms, sempre els mateixos): repòs i vora groga de la calculadora que s'esvaeix. */
+const ATENCIO = Object.freeze({repos: 300, vora: 600});
 /** Fins a quantes tecles per pas es numeren al teclat (en una seqüència més llarga, els números fan soroll). */
 const MAX_ORDRE = 6;
 /** Segons sense avançar abans que el botó ▶ parpellegi per recordar que es pot avançar. */
@@ -273,6 +275,19 @@ function crea(ctx, r, fitxa, temps, opcions = {}) {
     idx++;
     pinta();
     const pas = passos[idx];
+    if (pas.tecles.length) {
+      // Temps perquè la mirada vagi de les explicacions a la calculadora (fix, no depèn de la velocitat): 0,3 s sense
+      // res marcat i, després, la vora de la calculadora en groc, que s'esvaeix en 0,6 s. Llavors comencen les tecles.
+      r.teclat.querySelectorAll('.del-pas').forEach(t => { t.classList.remove('del-pas'); t.removeAttribute('data-ordre'); });
+      await espera(ATENCIO.repos);
+      if (!viu()) return;
+      r.calculadora.classList.remove('atencio');
+      void r.calculadora.offsetWidth;              // perquè l'animació torni a començar
+      r.calculadora.classList.add('atencio');
+      await espera(ATENCIO.vora);
+      r.calculadora.classList.remove('atencio');
+      if (!viu()) return;
+    }
     marcaTeclat(r, passos, idx);
     for (const id of pas.tecles) {
       const t = r.teclat.querySelector(`[data-tecla="${id}"]`);

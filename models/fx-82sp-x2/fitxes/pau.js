@@ -90,6 +90,8 @@ M.fitxes.push(
     {tecles: ['ans', 'menys', 'frac', '2', '5', 'down', '2', 'exe'], pantalla: marca(calc(D, '\\mathrm{Ans}-\\frac{25}{2}', '\\frac{1025}{12}'), 'resultat'),
       text: '[calc]Resta-hi el triangle: [[ans]], [[menys]] i $\\frac{25}{2}$.[/calc] [mat]La superfície és $\\frac{1025}{12}\\approx 85{,}42\\,\\text{u}^2$, com a la pauta.[/mat]'},
   ],
+  /* «Ara tu» DESACTIVAT: de moment no surt als exercicis PAU reals. Per tornar-lo a activar,
+     treu aquest comentari (ARCHITECTURE.md, «Disabled “Ara tu”»).
   araTu: {
     enunciat: 'Amb la mateixa primitiva, $F(x)=-\\frac{x^4}{4}+\\frac{7x^3}{3}-3x^2+5x$, calcula $\\int_2^5 f(x)\\,dx=F(5)-F(2)$.',
     resultat: '\\frac{291}{4}=72{,}75',
@@ -104,6 +106,7 @@ M.fitxes.push(
         text: '[calc][[ans]], [[menys]] i $F(2)$ entre parèntesis: $\\frac{291}{4}=72{,}75$.[/calc]'},
     ],
   },
+  */
   relacionades: ['definir-fx', 'ans', 'pau-ana-25s-q4a', 'mode-decimal'],
 },
 {

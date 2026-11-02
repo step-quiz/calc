@@ -2,7 +2,9 @@
    nucli/tria.js — «Escollir calculadora»: el botó i la finestra
    ───────────────────────────────────────────────────────────────────
    A la capçalera de la portada i de la fitxa, un botó «Escollir
-   calculadora». En clicar-lo s'obre una finestra (<dialog>) amb una
+   calculadora» (ressaltat 1,5 s si l'alumne encara no n'ha triat cap en
+   aquest navegador) o «Canviar de calculadora» (si ja n'ha triat una).
+   En clicar-lo s'obre una finestra (<dialog>) amb una
    graella de totes les calculadores del catàleg (3 columnes; menys a
    les pantalles estretes): la imatge (models/<id>/<imatge> del
    descriptor, tan alta com permet la casella) i el nom curt. La que es
@@ -66,8 +68,12 @@ function finestra(descriptors, actual, adreca) {
 /** El botó de la capçalera (null si només hi ha una calculadora). */
 function boto(descriptors, actual, adreca) {
   if (!descriptors || descriptors.length < 2) return null;
-  const b = crea('button', 'tria-boto', 'Escollir calculadora');
+  // Si l'alumne encara no n'ha triat cap en aquest navegador: «Escollir calculadora», ressaltat 1,5 s en obrir la pàgina.
+  // Si ja n'ha triat una: «Canviar de calculadora», sense ressaltat.
+  const triada = descriptors.some(d => d.id === Preferencies.model());
+  const b = crea('button', 'tria-boto' + (triada ? '' : ' destaca'), triada ? 'Canviar de calculadora' : 'Escollir calculadora');
   b.type = 'button';
+  if (!triada) b.addEventListener('animationend', () => b.classList.remove('destaca'));
   b.setAttribute('aria-haspopup', 'dialog');
   let dlg = null;
   b.addEventListener('click', () => {

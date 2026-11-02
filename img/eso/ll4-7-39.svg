@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 420 270" font-family="Arial, Helvetica, sans-serif" font-size="17">
+<rect width="420" height="270" fill="#ffffff"/>
+<line x1="20" y1="240" x2="400" y2="240" stroke="#334155" stroke-width="2"/>
+<rect x="300" y="15" width="26" height="225" fill="#cbd5e1" stroke="#334155" stroke-width="2"/>
+<line x1="237.0" y1="240" x2="300" y2="39.672767702441405" stroke="#7c4a1e" stroke-width="6" stroke-linecap="round"/>
+<path d="M271.0 240.0 A34 34 0 0 0 247.2 207.6" fill="none" stroke="#c2410c" stroke-width="2"/>
+<text x="277.0" y="232.0" fill="#c2410c">α = ?</text>
+<text x="119.0" y="139.83638385122072">escala: 5 m</text>
+<line x1="237.0" y1="254" x2="300" y2="254" stroke="#334155" stroke-width="1.5"/>
+<text x="268.5" y="270" text-anchor="middle">1,5 m</text>
+</svg>

@@ -52,8 +52,9 @@ M.fitxes.push(
       text: '[calc]Prem [[exe]]: obtens el resultat, que és 20.[/calc] [mat]La resposta correcta és que ha imprès 20 fotografies.[/mat]'},
     {error: true, tecles: ['ac', '4', 'punt', '5', 'per', '1', 'punt', '2', '5', 'entre', '0', 'punt', '3'], pantalla: calc(D, Q24_ERROR, '', {hist: true}),
       text: '[calc]!!Error típic!!: esborra amb [[ac]] i, en lloc de dividir entre 0.75, multiplica per 1.25.[/calc]'},
-    {error: true, tecles: ['shift', 'exe'], pantalla: marca(calc(D, Q24_ERROR, '18.75'), 'resultat'),
-      text: '[calc]Prem [[shift]] [[exe]]: obtens 18.75.[/calc] [mat]No pot ser: no es poden imprimir 18,75 fotografies. Treure un 25 % i després afegir-ne un 25 % no torna al preu d\'abans.[/mat]'},
+    {error: true, tecles: ['exe', 'sd'], pantalla: marca(calc(D, Q24_ERROR, '18.75'), 'resultat'),
+      parcials: {0: marca(calc(D, Q24_ERROR, '\\frac{75}{4}'), 'resultat')},
+      text: '[calc]Prem [[exe]] i [[sd]]: obtens 18.75.[/calc] [mat]No pot ser: no es poden imprimir 18,75 fotografies. Treure un 25 % i després afegir-ne un 25 % no torna al preu d\'abans.[/mat]'},
   ],
 },
 {

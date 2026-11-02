@@ -27,6 +27,7 @@ Models.afegeixExercicis(
   id: 'cb4-23-q26', bloc: 'eso-percentatges',
   titol: 'Una foto més petita, sense deformar-la',
   font: 'CB 4ESO (2023), pregunta 26',
+  figura: {src: 'img/eso/cb4eso2023p26-figura.png', alt: 'La fotografia de 62 cm × 34 cm i la impresa, de 42 cm d\'amplada i alçada desconeguda'},
   enunciat: 'L\'Anna té una fotografia de 62 cm d\'amplada i 34 cm d\'alçada. La vol imprimir més petita, sense deformar-la:\n• la fotografia impresa ha de fer 42 cm d\'amplada;\n• s\'ha de mantenir la proporció entre els costats.\nQuina alçada tindrà, aproximadament?',
   provaTu: {
     enunciat: 'Una foto fa 45 cm d\'amplada i 30 cm d\'alçada. La vols imprimir amb 20 cm d\'amplada, sense deformar-la. Quina alçada tindrà?',

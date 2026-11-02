@@ -5,6 +5,7 @@ Models.afegeixExercicis(
   id: 'cb4-26-q7', bloc: 'eso-geometria',
   titol: 'El tram d\'escala: Pitàgores',
   font: 'CB 4ESO (2026), pregunta 7',
+  figura: {src: 'img/eso/cb4eso2026p7-figura.png', alt: 'El tram d\'escala: un triangle rectangle d\'altura 3 m i llargada 5 m; el tram, la hipotenusa, és la incògnita'},
   enunciat: 'Una escala uneix dues plantes d\'un edifici. Cada tram d\'escala:\n• puja una altura de 3 m;\n• avança una llargada de 5 m.\nQuant mesura cada tram d\'escala?',
   provaTu: {
     enunciat: 'Una rampa puja una altura d\'1,2 m i avança una llargada de 5 m. Quant mesura la rampa?',

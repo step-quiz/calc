@@ -86,6 +86,8 @@ a{color:inherit}
 }
 /* El títol de la capçalera de la fitxa (la calculadora triada), com el de la portada */
 .capcalera-titol{margin:0; font-weight:700; font-size:.98rem; line-height:1.3}
+/* A la fitxa, després del bloc: el número i el títol de la fitxa */
+.capcalera-fitxa{margin:0; font-size:.92rem; line-height:1.3; padding:3px 10px; border-radius:5px; background:color-mix(in srgb, var(--hd-txt) 14%, transparent)}
 /* El nom de la calculadora al títol: en passar-hi el ratolí, una foto petita de la calculadora (nucli/tria.js, titol) */
 .nom-calc{position:relative; cursor:default; text-decoration:underline dotted color-mix(in srgb, var(--hd-txt) 55%, transparent); text-underline-offset:3px}
 .nom-calc-foto{
@@ -99,6 +101,9 @@ a{color:inherit}
   padding:5px 11px; border:1px solid var(--surface); border-radius:5px; transition:background-color .15s, color .15s;
 }
 .tria-boto:hover{background:#1f2124; color:var(--hd-txt); border-color:#1f2124}
+/* Encara no s'ha triat cap calculadora: el botó es ressalta 1,5 s en obrir la pàgina (nucli/tria.js) */
+.tria-boto.destaca{animation:tria-destaca 1.5s ease-in-out}
+@keyframes tria-destaca{0%, 100%{box-shadow:0 0 0 0 rgba(250,204,21,0)} 15%, 85%{background:#fde047; border-color:#fde047; box-shadow:0 0 0 5px rgba(250,204,21,.45)}}
 @media (any-pointer:coarse){ .tria-boto{padding:8px 12px} }
 .tria-finestra{
   width:min(860px, 94vw); height:min(88vh, 900px); padding:18px 20px 20px; border:0; border-radius:14px;
@@ -179,6 +184,8 @@ a{color:inherit}
 .cel{position:absolute; width:var(--w); height:var(--h); transform:translate(-50%, -50%)}
 .calculadora .tecla{width:100%; height:100%; min-width:0; padding:0; border:0}
 /* Les tecles del pas (i, si n'hi ha més d'una, l'ordre en què es premen) */
+.calculadora.atencio{animation:calc-atencio .6s ease-out}   /* abans de les tecles d'un pas (reproductor.js, ATENCIO) */
+@keyframes calc-atencio{from{box-shadow:0 0 0 6px #ffff00} to{box-shadow:0 0 0 6px rgba(255,255,0,0)}}
 .calculadora .tecla.del-pas{outline:.8cqw solid var(--marca-vora); outline-offset:.6cqw}
 .calculadora .tecla.del-pas[data-ordre]::after{
   content:attr(data-ordre); position:absolute; right:-3cqw; bottom:-2.4cqw; z-index:2;   /* a baix a la dreta: no tapa els rètols */
@@ -397,7 +404,7 @@ a{color:inherit}
 .portada{flex:1; width:100%; max-width:1600px; margin:0 auto; padding:24px 10px 32px}
 .blocs{display:grid; grid-template-columns:repeat(auto-fill, minmax(min(400px, 100%), 1fr)); gap:16px}   /* 400 px: el títol de bloc més llarg hi cap en una línia */
 .bloc{
-  display:flex; flex-direction:column; gap:8px; background:color-mix(in srgb, var(--bg) 90%, #fff);   /* un 10 % més blanc que el fons */
+  display:flex; flex-direction:column; gap:8px; background:#fdfdfb;   /* gairebé blanc: contrasta amb el fons de la pàgina */
   border:2px solid var(--cat); border-radius:10px; padding:16px;
 }
 .bloc .num{font-family:var(--mono); font-size:.78rem; color:var(--muted)}
@@ -444,7 +451,7 @@ body.mode-ara-tu.zona-error{background:color-mix(in srgb, var(--oliva-fons) 80%,
 
 /* Portada: les bombolles petites, a part dels blocs (p. ex. «Abans de l'examen») */
 .bombolles{display:flex; flex-wrap:wrap; gap:10px; margin-top:16px}
-.bombolla{display:inline-flex; flex-direction:column; gap:2px; padding:10px 16px; border:2px solid var(--cat); border-radius:999px; background:var(--surface); text-decoration:none; font-size:.85rem; transition:background-color .15s, color .15s}
+.bombolla{display:inline-flex; flex-direction:column; gap:2px; padding:10px 16px; border:2px solid var(--cat); border-radius:999px; background:#fdfdfb; text-decoration:none; font-size:.85rem; transition:background-color .15s, color .15s}
 .bombolla:hover, .bombolla:focus-visible{background:var(--cat); color:var(--surface)}
 .bombolla-bloc{font-family:var(--mono); font-size:.65rem; letter-spacing:.06em; text-transform:uppercase; opacity:.75}
 

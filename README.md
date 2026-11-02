@@ -13,9 +13,9 @@ Web no oficial, sense relació amb el fabricant de la calculadora.
 
 - A la portada, l'alumne tria l'**etapa** (ESO o Batxillerat), la **seva calculadora** (botó «Escollir calculadora»:
   una finestra amb la imatge i el nom de cada una; també a la fitxa) i, a les calculadores que en tenen, l'**idioma**
-  dels menús (castellà o català). El navegador ho recorda. La calculadora triada surt al títol de la capçalera.
+  dels menús (castellà o català). El navegador ho recorda. La calculadora triada surt al títol de la portada; a la fitxa, la capçalera diu el bloc (T1…) i la fitxa.
 - A la fitxa: ▶ o ↓ / → passen al pas següent (animat); ◀ o ↑ / ← tornen enrere; ↻ o la tecla R tornen a fer el pas
-  actual. La velocitat es pot posar «lenta», «normal» o «ràpida»; les xifres sempre van 3 vegades més de pressa que la resta de tecles.
+  actual. La velocitat es pot posar «lenta», «normal» o «ràpida»; les xifres sempre van 3 vegades més de pressa que la resta de tecles. Abans de les tecles de cada pas, la vora de la calculadora s'il·lumina en groc perquè l'alumne hi miri.
 - Els passos que ensenyen un error típic tenyeixen la pàgina de vermell («zona d'error»). Si la fitxa acaba amb un
   error, l'últim pas torna a la manera correcta.
 - En acabar: a Batxillerat, «Ara tu» (un exercici semblant, que es pot fer pas a pas amb la calculadora); a l'ESO,

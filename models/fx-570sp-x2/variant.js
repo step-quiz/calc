@@ -32,7 +32,7 @@ const MENUS = Object.freeze({
     ['format-numero', '3:Formato número'], ['simbol-enginyeria', '4:Símb ingeniería']],
   'x2-es': [['mat-mat', '1:E Mat/S Mat'], ['mat-decimal', '2:E Mat/S Decimal'], ['linia-linia', '3:E Línea/S Línea'], ['linia-decimal', '4:E Línea/S Decim']],
   'x2-unitat': [['D', '1:Grado sexag (D)'], ['R', '2:Radián'], ['G', '3:Grado cent (G)']],
-  'x2-format': [['fix', '1:Fijar decim'], ['sci', '2:Not cient'], ['normal', '3:Normal']],
+  'x2-format': [['fix', '1:Fijar decimales'], ['sci', '2:Not científica'], ['normal', '3:Normal']],
   'x2-normal': [['normal1', '1:Normal 1'], ['normal2', '2:Normal 2']],
   /** OPTN a Calcular. */
   'x2-optn': [['hiperbolica', '1:Func hiperbólica'], ['unitat-angular', '2:Unidad angular'], ['enginyeria', '3:Símb ingeniería']],
@@ -47,10 +47,11 @@ const CATALA = Object.freeze({
   '4:Símb ingeniería': '4:Símb enginyeria',
   '1:E Mat/S Mat': '1:E Mat/S Mat', '2:E Mat/S Decimal': '2:E Mat/S Decimal', '3:E Línea/S Línea': '3:E Línia/S Línia', '4:E Línea/S Decim': '4:E Línia/S Decim',
   '1:Grado sexag (D)': '1:Graus sexag (D)', '2:Radián': '2:Radian', '3:Grado cent (G)': '3:Grau centesimal',
-  '1:Fijar decim': '1:Fixar dec', '2:Not cient': '2:Notac Cientí', '3:Normal': '3:Normal', '1:Normal 1': '1:Normal 1', '2:Normal 2': '2:Normal 2',
+  '1:Fijar decimales': '1:Fixar decimals', '2:Not científica': '2:Not científica', '3:Normal': '3:Normal', '1:Normal 1': '1:Normal 1', '2:Normal 2': '2:Normal 2',
   '1:Func hiperbólica': '1:Func hiperbòlica', '3:Símb ingeniería': '3:Símb enginyeria',
   '1:°': '1:°', '2:r': '2:r', '3:g': '3:g',
   '1:=': '1:=', '2:≠': '2:≠', '3:>': '3:>', '4:<': '4:<', '5:≥': '5:≥', '6:≤': '6:≤',
+  'Verdadero': 'Verdader', 'Falso': 'Fals',   // a la calculadora en català de la fx-82SP CW hi ha «Vardader»; aquí, el manual diu «Verdader»
   'Calcular': 'Calcular', 'Complejos': 'Complexos', 'Base-N': 'Base-N', 'Matriz': 'Matriu', 'Vector': 'Vector',
   'Estadística': 'Estadística', 'Distribución': 'Distribució', 'Hoja de cálculo': 'Full de càlcul',
   'Tabla': 'Taula', 'Ecuación/Func': 'Equació/Func', 'Inecuación': 'Inequació', 'Verificar': 'Verificar',

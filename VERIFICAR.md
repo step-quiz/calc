@@ -175,7 +175,7 @@ X II Iberia (500 × 500 px, poca resolució per llegir els rètols petits).
 | 7 | El rang | fitxes de Tabla | «Rango tabla», i Inic., Final, Paso amb la fila triada en negatiu; els valors per defecte, 1, 5 i 1. Després d'AC i dues vegades =, el rang recorda els valors d'abans. |
 | 8 | La taula | fitxes de Tabla | 4 files visibles, amb el número de fila a l'esquerra i una columna per a x, f(x) i g(x); la cel·la triada en negatiu i, a baix a la dreta, el seu valor sencer. Les cel·les mostren com a molt 6 xifres significatives (−0.654111) i ERROR on la funció no existeix. Comprovar com s'arrodoneixen les cel·les. |
 | 9 | Moure's per la taula | fitxes de Tabla | ↑ ↓ canvien de fila i ← → de columna (també cap a f(x) i g(x), que no es poden editar); AC torna a f(x). |
-| 10 | Els textos en català | `variant.js` (`catala`) | Rang taula, Inici, Final, Pas; 4:Result fracció; 1:F. Hiperbòliques; Taula. |
+| 10 | Els textos en català | `variant.js` (`catala`) | Del manual en català: Rang taula, Inici, Fi, Pas; 4:Result fracció; Taula; Verdader; Fixar decimals, Not científica. Deduïts: el número davant de cada fila, 1:F Hiperbòliques. |
 | 11 | Els colors | `models/fx-82sp-x2/estil.css` | Cos negre amb vora clara, totes les tecles fosques (també les de baix), DEL i AC grogues, tecles rodones i creu fosques. |
 
 La fx-85MS i la fx-350MS (versió 63) fan servir aquesta mateixa calculadora: les fotos de producte tenen el mateix teclat

@@ -4,6 +4,23 @@ Què ha canviat a cada versió del web, de la més nova a la més antiga. El fun
 `README.md` i `ARCHITECTURE.md`; aquí només hi ha la història. El número de versió és `VERSIO` a
 `js/nucli/models.js` i surt al peu de les pàgines.
 
+## Versió 64 (2/11/2026)
+
+- Abans d'animar un pas, la mirada té temps d'anar a la calculadora: 0,3 s sense res marcat i, després, la vora de la
+  calculadora en groc, que s'esvaeix en 0,6 s. Aquests temps no depenen de la velocitat.
+- La velocitat «lenta», un 20 % més lenta encara.
+- La capçalera de la fitxa diu on som, com a la portada: «T1 · <bloc>» i «1. <fitxa>», en lloc del nom de la
+  calculadora (que continua a la portada).
+- El botó diu «Escollir calculadora» i s'il·lumina 1,5 s mentre l'alumne no n'hagi triat cap en aquest navegador; després
+  diu «Canviar de calculadora». Les targetes de la portada (T1…T6) i les bombolles, de fons gairebé blanc.
+- Figures als enunciats: el tram d'escala (cb4-26-q7) i la foto (cb4-23-q26), retallades de les preguntes, i tres
+  dibuixos nous per a trigonometria (l'arbre, també a «posa-la en graus», i les dues escales).
+- «Regla de Barrow»: «Ara tu» desactivat, com als exercicis PAU.
+- fx-570/991SP X II i fx-82/85SP X II: el decimal d'un resultat exacte s'obté amb = i S⇔D en 11 passos més (SHIFT =
+  només queda quan el decimal és periòdic, a la fitxa de FIX i al pas que ensenya la drecera ≈). Textos dels menús de la
+  fx-82/85SP X II segons el manual en català (Rang taula, Inici, Fi, Pas; Verdader; Fixar decimals…) i colors segons
+  les fotos (tecles de baix negres).
+
 ## Versió 63 (2/11/2026)
 
 - La fx-85MS i la fx-350MS fan servir la fx-82MS: el mateix manual i el mateix teclat (fotos de producte). Al selector,

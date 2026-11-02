@@ -51,8 +51,9 @@ M.fitxes.push(
   passos: [
     {tecles: ['shift', 'exp', 'per', '0', 'punt', '7', '5', 'x2'], pantalla: calc(D, PARASOL),
       text: '[mat]L\'àrea és $\\pi\\cdot 0{,}75^2$.[/mat] [calc]Escriu π ([[shift]] [[exp]]), [[per]] 0.75 [[x2]].[/calc]'},
-    {tecles: ['shift', 'exe'], pantalla: marca(calc(D, PARASOL, '1.767145868'), 'resultat'),
-      text: '[calc]Prem directament [[shift]] [[exe]] (≈): obtens el resultat en decimal, que és 1.767145868. Amb [[exe]] l\'obtindries amb π, en forma exacta.[/calc] [mat]Amb $\\pi=3{,}14$ surt 1,766; arrodonits a les centèsimes, tots dos donen 1,77. La resposta correcta és que el para-sol té uns 1,77 m² de tela.[/mat]'},
+    {tecles: ['exe', 'sd'], pantalla: marca(calc(D, PARASOL, '1.767145868'), 'resultat'),
+      parcials: {0: marca(calc(D, PARASOL, '\\frac{9}{16}\\pi'), 'resultat')},
+      text: '[calc]Prem [[exe]]: obtens $\\frac{9}{16}\\pi$, amb π, en forma exacta. Amb [[sd]], el decimal: 1.767145868.[/calc] [mat]Amb $\\pi=3{,}14$ surt 1,766; arrodonits a les centèsimes, tots dos donen 1,77. La resposta correcta és que el para-sol té uns 1,77 m² de tela.[/mat]'},
   ],
 },
 

@@ -81,8 +81,9 @@ M.fitxes.push(
     {error: true, tecles: ['ac', 'lpar', '1', 'per', '2', '5', 'mes', '2', 'per', '3', '5', 'mes', '3', 'per', '2', '5', 'mes', '4', 'per', '1', '0', 'rpar',
       'entre', '2', '5', 'mes', '3', '5', 'mes', '2', '5', 'mes', '1', '0'], pantalla: calc(D, MERCAT_ERROR, '', {hist: true}),
       text: '[calc]!!Error típic!!: esborra amb [[ac]] i escriu-ho en una línia, sense la plantilla, amb parèntesis al numerador però no al denominador.[/calc]'},
-    {error: true, tecles: ['shift', 'exe'], pantalla: marca(calc(D, MERCAT_ERROR, '78.4'), 'resultat'),
-      text: '[calc]Prem [[shift]] [[exe]]: obtens 78.4. Només s\'ha dividit entre el primer 25.[/calc] [mat]No pot ser: una setmana només té 7 dies.[/mat]'},
+    {error: true, tecles: ['exe', 'sd'], pantalla: marca(calc(D, MERCAT_ERROR, '78.4'), 'resultat'),
+      parcials: {0: marca(calc(D, MERCAT_ERROR, '\\frac{392}{5}'), 'resultat')},
+      text: '[calc]Prem [[exe]] i [[sd]]: obtens 78.4. Només s\'ha dividit entre el primer 25.[/calc] [mat]No pot ser: una setmana només té 7 dies.[/mat]'},
   ],
 },
 

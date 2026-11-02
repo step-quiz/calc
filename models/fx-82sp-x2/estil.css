@@ -61,9 +61,9 @@
 }
 /* Les fletxes: peces platejades de la creu */
 .calculadora .tecla-nav{border-radius:1.8cqw; background:linear-gradient(#e8eaec, #a9aeb4); color:#2a2c30; box-shadow:0 .35cqw 0 #0b0b0c}
-/* Les tecles de baix: fosques, com les de dalt, i més grans */
+/* Les tecles de baix: negres (les de dalt són gris fosc), i més grans */
 .calculadora .tecla-num, .calculadora .tecla-op, .calculadora .tecla-exe{
-  background:linear-gradient(#3a3c40, #26282b); color:#f4f4f5; box-shadow:0 .55cqw 0 #0b0b0c, inset 0 0 0 .25cqw #4a4d52;
+  background:linear-gradient(#202123, #111213); color:#f4f4f5; box-shadow:0 .55cqw 0 #000, inset 0 0 0 .25cqw #2c2e31;   /* negres (fotos) */
   font:500 6.2cqw/1 Arial, Helvetica, sans-serif;
 }
 .calculadora .tecla-esborra{background:linear-gradient(#f0c64e, #d8a52a); color:#2a2006; box-shadow:0 .55cqw 0 #7a5a10, inset 0 0 0 .25cqw #f7d77a; font:500 5.2cqw/1 Arial, Helvetica, sans-serif}
@@ -133,3 +133,5 @@
 .x2-creu{background:radial-gradient(ellipse at 50% 50%, #0c0d0e 0 30%, #2e3034 31% 100%); box-shadow:0 .5cqw 0 #0b0b0c, inset 0 0 0 .5cqw #55585d}
 /* f(x)= i g(x)= de Tabla: una línia sense requadre (manual, p. 21) */
 .lcd-definicio{border:0}
+.calculadora{--calc-cos:#2a2b2e}
+.calculadora .tecla[data-forma="rodona"]{background:radial-gradient(circle at 45% 35%, #3a3c40, #151617 70%, #0c0c0d)}

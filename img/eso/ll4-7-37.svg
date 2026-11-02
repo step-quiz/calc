@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 420 270" font-family="Arial, Helvetica, sans-serif" font-size="17">
+<rect width="420" height="270" fill="#ffffff"/>
+<line x1="20" y1="225" x2="400" y2="225" stroke="#334155" stroke-width="2"/>
+<rect x="40" y="219" width="290" height="6" fill="#94a3b8"/>
+<rect x="324" y="61.93981391918419" width="12" height="163.0601860808158" fill="#7c4a1e"/>
+<ellipse cx="330" cy="59.93981391918419" rx="38" ry="44" fill="#4d7c0f"/>
+<line x1="40" y1="225" x2="330" y2="21.93981391918419" stroke="#eab308" stroke-width="3" stroke-dasharray="8 5"/>
+<circle cx="330" cy="21.93981391918419" r="3" fill="#334155"/>
+<path d="M95.0 225.0 A55 55 0 0 0 85.1 193.5" fill="none" stroke="#c2410c" stroke-width="2"/>
+<text x="100" y="213" fill="#c2410c">35°</text>
+<text x="185.0" y="251" text-anchor="middle">ombra: 12 m</text>
+<line x1="382" y1="21.93981391918419" x2="382" y2="225" stroke="#334155" stroke-width="1.5"/>
+<text x="390" y="129.4699069595921">?</text>
+<text x="110" y="91.93981391918419" fill="#a16207" font-size="15">raigs del sol</text>
+</svg>

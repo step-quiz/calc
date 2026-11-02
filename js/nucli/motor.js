@@ -24,7 +24,7 @@ const {element, icona, ICONES} = Dom;
 const {escapa, formula} = Text;
 
 /** Velocitats de l'animació: factor que multiplica les durades de Reproductor.TEMPS. */
-const VELOCITATS = Object.freeze([['lenta', 2.51], ['normal', 1.65], ['ràpida', 0.83]]);
+const VELOCITATS = Object.freeze([['lenta', 3.01], ['normal', 1.65], ['ràpida', 0.83]]);
 const PER_DEFECTE = 1.65;
 /** Quant de temps es veu la bombolla de la font si no es tanca abans. */
 const FONT_MS = 8000;
@@ -54,7 +54,21 @@ function parametre(nom) {
 }
 
 
-/* ── Capçalera: la calculadora i l'idioma dels menús ───────────────── */
+/* ── Capçalera: on som, la calculadora i l'idioma dels menús ─────────── */
+
+/**
+ * On som, com a la portada: «T1 · <títol del bloc>» (els blocs grans de l'etapa es numeren T1, T2…; un bloc petit, només
+ * el títol) i «1. <títol de la fitxa>» (el número dins del bloc).
+ */
+function titolFitxa(fitxa, bloc, germanes) {
+  const grans = M.dades.BLOCS.filter(b => b.etapes.includes(ETAPA) && !b.petit);
+  const t = grans.findIndex(b => b.id === bloc.id);
+  const n = germanes.findIndex(f => f.id === fitxa.id) + 1;
+  return [
+    element('p', {class: 'capcalera-titol', text: (t >= 0 ? `T${t + 1} · ` : '') + bloc.titol}),
+    element('p', {class: 'capcalera-fitxa', text: `${n}. ${fitxa.titol}`}),
+  ];
+}
 
 /** «Escollir calculadora» (nucli/tria.js): en triar-ne una altra, es desa i s'obre la mateixa fitxa (el mateix id) en aquella calculadora. */
 function selectorModel(fitxa) {
@@ -214,7 +228,7 @@ function construeixPagina(fitxa, bloc, germanes, contenidor) {
   contenidor.replaceChildren(
     element('header', {class: 'capcalera'}, [
       element('a', {class: 'torna', href: Models.adreca({model: M.id, etapa: ETAPA}) + '#' + bloc.id, text: '← Fitxes'}),
-      TriaCalculadora.titol(element('p', {class: 'capcalera-titol'}), M.id),
+      ...titolFitxa(fitxa, bloc, germanes),
       element('div', {class: 'tries'}, [selectorModel(fitxa), selectorIdioma()]),
       // Avisos que només mostra el CSS quan cal: navegador sense unitats cqw, tauleta en vertical
       element('p', {class: 'avis-capcalera avis-navegador', text: 'Aquest navegador és massa antic per dibuixar la calculadora. Actualitza\'l (Chrome 105 o posterior).'}),

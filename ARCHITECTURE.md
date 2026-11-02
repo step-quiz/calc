@@ -66,11 +66,11 @@ fitxa (what the player plays) = exercici (shared)        +  model fitxa (per cal
 | `js/vigia.js` | `Vigia` | Loaded first, ES5 only. Shows a visible box (message, file, user agent) on a script/stylesheet load failure, a JS error, an unhandled rejection, or if the page has not called `Vigia.llesta()` after 10 s. Never a silent blank page. |
 | `js/nucli/models.js` | `Models` | `VERSIO`; registry and loader of exercises, blocks and models; the contract check (`tanca`); stages; links (`adreca`); drawing helpers (`dibuix`). |
 | `js/nucli/preferencies.js` | `Preferencies` | localStorage: `calc-model`, `calc-etapa`, `calc-idioma` (try/catch everywhere). |
-| `js/nucli/tria.js` | `TriaCalculadora` | «Escollir calculadora»: `boto(descriptors, actual, adreca)` gives the header button; it opens a `<dialog>` with a 3-column grid (2 below 640 px, 1 below 380 px) of every calculator (the image, as tall as the cell allows, and the short name; the current one has a green border; hover/focus highlights). A click stores the choice and opens `adreca(id)`. `titol(el, id)` fills a header title «La calculadora <name>, pas a pas»; hovering (or focusing) the name shows the calculator's picture. No `Dom` (the home page does not load it). |
+| `js/nucli/tria.js` | `TriaCalculadora` | «Escollir calculadora»: `boto(descriptors, actual, adreca)` gives the header button; it opens a `<dialog>` with a 3-column grid (2 below 640 px, 1 below 380 px) of every calculator (the image, as tall as the cell allows, and the short name; the current one has a green border; hover/focus highlights). A click stores the choice and opens `adreca(id)`. `titol(el, id)` fills the home-page title «La calculadora <name>, pas a pas»; hovering (or focusing) the name shows the calculator's picture. No `Dom` (the home page does not load it). |
 | `js/nucli/text.js` | `Text` | Text mini-syntax → HTML (§6.3). |
 | `js/nucli/dom.js` | `Dom` | `element()`, `icona()`, the player icons. |
 | `js/nucli/reproductor.js` | `Reproductor` | The step player: step list, key outlines and order badges, animated cursor, `salta` / `seguent` / `repeteix`, error-zone class, ARIA live announcement, `?pas=` in the URL, ▶ reminder. |
-| `js/nucli/motor.js` | `Motor` | The fitxa page: header (← Fitxes, the title with the chosen calculator, «Escollir calculadora», language), statement (source bubble, figure dialog), player buttons, speed, «Ara tu» mode, «Prova-ho tu», closing step, keyboard shortcuts, keyboard-arrows notice. Exposes the main player as global `fitxa`. |
+| `js/nucli/motor.js` | `Motor` | The fitxa page: header (← Fitxes, «T<n> · block title» as on the home page, «<n>. fitxa title», «Escollir calculadora», language), statement (source bubble, figure dialog), player buttons, speed, «Ara tu» mode, «Prova-ho tu», closing step, keyboard shortcuts, keyboard-arrows notice. Exposes the main player as global `fitxa`. |
 | `js/nucli/portada.js` | `Portada` | Home page: stage selector, «Escollir calculadora», language selector, title with the chosen calculator, one card per block of the stage, small blocks as bubbles. |
 | `models/cataleg.js` | — | `Models.cataleg([...])` (calculators; first = default), `Models.etapes([...])` (stages; first = default), `Models.exercicis([...])` (exercise files, in load order). |
 | `exercicis/blocs.js` | — | `Models.defineixBlocs([...])` and the documented format of an exercise. |
@@ -204,7 +204,7 @@ sentence, closing text included, is `[mat]` or `[calc]` (test).
 - Step 0 shows the start screen and «Prem ▶ o la fletxa ↓ del teclat per començar».
 - **Next** (▶, ↓, →): outline the step's keys on the calculator (order badges when the step has 2–6 keys), then the cursor
   presses each key and the LCD shows the simulator's screen after it. Durations: `Reproductor.TEMPS` × the speed factor
-  («lenta» 2.51, «normal» 1.65 default, «ràpida» 0.83; × 0.35 under `prefers-reduced-motion`). Keys of type `'num'` go
+  («lenta» 3.01, «normal» 1.65 default, «ràpida» 0.83; × 0.35 under `prefers-reduced-motion`). Before animating a step with keys, a fixed attention cue (`ATENCIO`, independent of speed): 0.3 s with nothing marked, then the calculator's border flashes pure yellow and fades in 0.6 s (`.atencio`); only then the step's keys are outlined and pressed. Keys of type `'num'` go
   `RAPIDESA_XIFRES` = 3 times faster. Pressing next during an animation finishes it instantly.
 - **Previous** (◀, ↑, ←) and clicking a step jump without animation. **Replay** (↻, R) re-animates the current step.
 - **Step list**: the current step shows its full sentence; the others show the number and a one-line, ellipsed summary of
@@ -282,7 +282,7 @@ with the error, write `tancament`: «Recorda: …» with the correct way and the
 
 **Screens the manual does not draw** go to `VERIFICAR.md` as a new numbered row until David confirms them on the device.
 
-**Disabled «Ara tu».** The 12 real PAU fitxes (blocks `pau-ag`, `pau-ap`) keep their «Ara tu» inside a block comment
+**Disabled «Ara tu».** The 12 real PAU fitxes (blocks `pau-ag`, `pau-ap`) and `barrow` (a PAU statement, David) keep their «Ara tu» inside a block comment
 `/* «Ara tu» DESACTIVAT … */` before `relacionades`. To re-enable one: delete the two header lines of the comment and the
 closing `*/`, bump the version, run the tests. Never put `*/` inside a commented block.
 
@@ -321,10 +321,7 @@ closing `*/`, bump the version, run the tests. Never put `*/` inside a commented
 
 - `VERIFICAR.md`: fx-82MS rows 10–14 (replay cursor and overwrite, ×10 exponent on the bottom line,
   «6C4», implicit × before a parenthesis or function, DEL and the cursor); how the fx-82MS draws an EXP entry.
-- Statement figures proposed to David, waiting: crops of the figure from question images (`cb4-26-q7`, `cb4-23-q26`,
-  `cb4-25-q27`) and own SVG drawings for the trigonometry fitxes.
 - fx-570/991SP X II: all of its `VERIFICAR.md` section (menu labels and behaviour, CALC screens, Ans/PreAns after
   CALC, Verificar app, OPTN, colours) is unconfirmed; the CW-menu fitxes and the CALC ones wait for David's review.
 - More fitxes per ESO block (sources in the order of §9).
 - Larger text for projection (`clamp()` or `?projector=1`): postponed, David does not project.
-- Whether `barrow` (block `pau`, a PAU statement) should also have its «Ara tu» disabled: never answered.
