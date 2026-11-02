@@ -130,3 +130,21 @@ Fa servir les pantalles de la fx-82SP CW (la part de dalt d'aquest fitxer). Nom�
 | 2 | Les dues files noves, en català | `variant.js` (`catala`) | «Símb enginyeria» (com al manual en català de la fx-570SP X II) i «Result complex» (deduït). |
 | 3 | Els rètols blaus de SHIFT | `variant.js` (`alt`) | PreAns sobre Ans i *i* sobre el 9 (foto). La resta, com a la fx-82SP CW. |
 | 4 | Els colors del cos i de les tecles | `models/fx-570sp-cw/estil.css` | Aproximats a partir de la foto de producte. |
+
+---
+
+# fx-570SP X II / fx-991SP X II: què cal comprovar amb la calculadora (versió 56)
+
+Teclat propi (dibuixat sobre la foto de producte de la fx-570SP X II Iberia, 626 × 1333 px) i la pantalla i l'editor de
+la fx-82SP CW. Ara només hi ha 4 fitxes de mostra (`models/fx-570sp-x2/fitxes/mostra.js`). El que hi ha a sota és el
+que s'ha deduït del manual (*fx-570SP X II / fx-991SP X II Guía del usuario*, en castellà i en català) o s'ha suposat.
+
+| # | Què | On és | Què s'ha posat |
+|---|---|---|---|
+| 1 | SHIFT MENU (CONFIG), primera pàgina | `models/fx-570sp-x2/variant.js` (`MENUS`) | Quatre files numerades: 1:Entrada/Salida, 2:Unidad angular, 3:Formato número, 4:Símb ingeniería, i una barra de desplaçament a la dreta (hi ha més pàgines). Sense cap fila en negatiu. |
+| 2 | Unidad angular | `variant.js` | 1:Grado sexag (D), 2:Radián, 3:Grado cent (G). En prémer el número, la calculadora torna a la pantalla de càlcul, **buida**, amb la unitat nova a la barra. |
+| 3 | Els textos en català | `variant.js` (`catala`) | 1:Entrada/Sortida, 2:Unitat angular, 3:Format nombre, 4:Símb enginyeria; 1:Graus sexag (D), 2:Radian, 3:Grau centesimal. Comprovar-los amb la calculadora en català. |
+| 4 | La barra d'indicadors i la pantalla de càlcul | `models/fx-82sp-cw/pantalla.js` | Les de la fx-82SP CW (√▫ i D en negatiu; l'entrada a dalt, el resultat a baix a la dreta). |
+| 5 | (−) i x² | fitxa `eso-quadrat-negatiu` | (−) escriu «−» (es veu igual que la resta); `(−3)²` = 9 i `−3²` = −9. |
+| 6 | S⇔D | fitxa `cb4-24-q8`, pas 4 | Després de 19/5, S⇔D dona 3.8 i l'entrada no canvia. |
+| 7 | Els colors i les mides | `models/fx-570sp-x2/estil.css`, `tecles.js` | Mesurats i aproximats a partir de la foto: cos negre amb vora clara, quatre tecles rodones platejades, tecles negres a dalt, blanques a baix, DEL i AC blaves; SHIFT en groc daurat i ALPHA en rosa. |

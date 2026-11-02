@@ -4,6 +4,17 @@ Què ha canviat a cada versió del web, de la més nova a la més antiga. El fun
 `README.md` i `ARCHITECTURE.md`; aquí només hi ha la història. El número de versió és `VERSIO` a
 `js/nucli/models.js` i surt al peu de les pàgines.
 
+## Versió 56 (2/11/2026) — la fx-570/991SP X II, primera fase
+
+- Quarta calculadora: la **fx-570SP X II** (i la fx-991SP X II), «fx-570/991SP X II» al selector. Té un teclat propi
+  (`models/fx-570sp-x2/tecles.js`), dibuixat amb les mides de la foto de producte: tecles rectangulars, les quatre de dalt
+  rodones, les funcions de SHIFT en groc i les d'ALPHA en rosa. La pantalla, l'editor de fórmules i el simulador són els
+  de la fx-82SP CW; el que fa diferent és a `variant.js`: la tecla (−), la tecla ln, SHIFT (−) = log, SHIFT ×10ˣ = π,
+  la tecla = i els **menús numerats** (SHIFT MENU obre CONFIG, i les opcions es trien prement el número).
+- De moment, 4 fitxes de mostra per revisar (ESO): l'hotel, les estrelles (amb S⇔D), el quadrat d'un negatiu (amb (−))
+  i posar la calculadora en graus (amb SHIFT MENU i els menús numerats). Els altres blocs diuen «Properament».
+- La prova del teclat accepta tecles rectangulars; `VERIFICAR.md` té un apartat nou per a la X II.
+
 ## Versió 55 (2/11/2026)
 
 - Portada: l'interior dels blocs, un 10 % més blanc que el fons de la pàgina; les fitxes, sense la vora gruixuda de

@@ -1,0 +1,105 @@
+/* ═══════════════════════════════════════════════════════════════════
+   models/fx-570sp-x2/estil.css — Com es veu la fx-570/991SP X II
+   ───────────────────────────────────────────────────────────────────
+   Es carrega després de l'estil de la fx-82SP CW (model.js, estils),
+   que dona la pantalla per dins (és la mateixa) i les tecles petites
+   dels textos. Aquí, el que és propi, com a la foto de producte de la
+   fx-570SP X II Iberia:
+     · el cos negre amb la vora clara; les quatre tecles rodones de
+       dalt, platejades; la creu del cursor;
+     · les tecles rectangulars: negres a dalt, blanques a baix, DEL i
+       AC blaves;
+     · les funcions amb SHIFT (.alt, groc daurat, a l'esquerra) i amb
+       ALPHA (.alfa, rosa, a la dreta), a sobre de cada tecla.
+   ═══════════════════════════════════════════════════════════════════ */
+
+:root{
+  --x2-groc:#d8b46a;      /* SHIFT i les seves funcions */
+  --x2-rosa:#dd6f8e;      /* ALPHA i les seves lletres */
+  --x2-blau:#2350b8;      /* DEL i AC */
+}
+
+/* ── TECLES PETITES (textos i llista de passos) ─────────────────────── */
+.tecla-shift.t-shift{background:#f3e3b8; border-color:#a8873c; box-shadow:0 2.5px 0 #a8873c; color:#3b2f12}
+.tecla-alpha{background:#f7d3dd; border-color:#b04a68; box-shadow:0 2.5px 0 #b04a68; color:#4a1526}
+.tecla.petita.tecla-shift, .tecla.petita.tecla-alpha, .tecla.petita.tecla-menu{font-size:.66em; height:1.8em; letter-spacing:.02em}
+.tecla-esborra{background:#dbe5fb; border-color:#2350b8; color:#163a8c}
+/* La funció de sobre, quan es prem després de SHIFT (groc) o d'ALPHA (rosa) */
+.tecla .alt{color:#8a6a1d}
+.tecla.amb-shift .alt{background:var(--x2-groc); color:#1f1a10}
+.tecla .alfa{
+  position:absolute; left:50%; bottom:calc(100% + 4px); transform:translateX(-50%);
+  font:600 10.5px/1 var(--mono); white-space:nowrap; padding:1px 3px; border-radius:3px;
+}
+.tecla.amb-alpha .alfa{background:var(--x2-rosa); color:#fff}
+.tecla.amb-alpha .cara{opacity:.55}
+.pas .tecles .tecla .alfa{left:auto; right:-7px; bottom:auto; top:-8px; transform:none; font-size:9.5px; z-index:1}
+.pas .tecles .tecla.amb-shift .alt{background:var(--x2-groc); color:#1f1a10}
+.pas .tecles .tecla.amb-alpha .cara{opacity:.5}
+.pas .tecles .tecla-shift, .pas .tecles .tecla-alpha, .pas .tecles .tecla-menu{font-size:10px}
+
+/* ── LA CALCULADORA ────────────────────────────────────────────────── */
+.calculadora{
+  --calc-cos:#1e1f22;
+  background:var(--calc-cos); border-radius:7% 7% 6% 6% / 3.4% 3.4% 3% 3%;
+  box-shadow:0 10px 26px rgba(15,23,42,.3), inset 0 0 0 1.4cqw #dfe1e4, inset 0 0 0 1.8cqw #b8bcc2;
+  font-family:Arial, Helvetica, sans-serif;
+}
+.marc{background:#111214; border-radius:2cqw; box-shadow:inset 0 0 0 .4cqw #2a2b2e}
+.lcd{background:#e3e7df; border-radius:.5cqw; box-shadow:inset 0 .3cqw 1cqw rgba(0,0,0,.28)}
+/* La creu del cursor: un rombe negre amb la vora platejada (les quatre fletxes, a sobre) */
+.x2-creu{position:absolute; border-radius:50% / 50%; background:radial-gradient(ellipse at 50% 50%, #0c0d0e 0 30%, #2b2d31 31% 100%); box-shadow:0 .5cqw 0 #0b0b0c, inset 0 0 0 .5cqw #a9adb3}
+
+/* Les tecles: rectangles arrodonits */
+.calculadora .tecla{
+  border-radius:1.4cqw; color:#f4f4f5;
+  background:linear-gradient(#34363a, #222326); box-shadow:0 .5cqw 0 #0b0b0c, inset 0 0 0 .25cqw #44474c;
+  font:600 3.6cqw/1 Arial, Helvetica, sans-serif;
+}
+.calculadora .tecla .cara sup{font-size:.62em; line-height:0}
+.calculadora .tecla .cara sub{font-size:.6em; line-height:0}
+.calculadora .icona-tecla{width:55%; height:70%}
+/* Les quatre de dalt: rodones i platejades */
+.calculadora .tecla[data-forma="rodona"]{
+  border-radius:50%; background:radial-gradient(circle at 45% 35%, #f4f5f6, #a5aab0 70%, #80858c); box-shadow:0 .5cqw 0 #0b0b0c, inset 0 0 0 .3cqw #6e737a;
+}
+/* Les fletxes: peces platejades de la creu */
+.calculadora .tecla-nav{border-radius:1.8cqw; background:linear-gradient(#e8eaec, #a9aeb4); color:#2a2c30; box-shadow:0 .35cqw 0 #0b0b0c}
+/* Les tecles de baix: blanques, amb la xifra negra, més grans */
+.calculadora .tecla-num, .calculadora .tecla-op, .calculadora .tecla-exe{
+  background:linear-gradient(#ffffff, #e4e6e9); color:#151618; box-shadow:0 .55cqw 0 #6f747b, inset 0 0 0 .25cqw #c9cdd2;
+  font:500 6.2cqw/1 Arial, Helvetica, sans-serif;
+}
+.calculadora .tecla-esborra{background:linear-gradient(#3463d0, #1d47a8); color:#fff; box-shadow:0 .55cqw 0 #0f2a6b, inset 0 0 0 .25cqw #4a76dc; font:500 5.2cqw/1 Arial, Helvetica, sans-serif}
+.calculadora .t-exp{font-size:4.6cqw}
+.calculadora .t-ans{font-size:5.2cqw}
+.calculadora .t-optn, .calculadora .t-calc, .calculadora .t-sto, .calculadora .t-eng, .calculadora .t-sd{font-size:3.4cqw}
+.calculadora .t-x, .calculadora .t-x2, .calculadora .t-inv, .calculadora .t-pot{font:italic 500 4.4cqw/1 'Times New Roman', serif}
+.calculadora .t-logab, .calculadora .t-integral{font-size:3.2cqw}
+
+/* Rètols: el nom de les tecles rodones (SHIFT, ALPHA, MENU, ON) i les funcions de cada capa, a sobre */
+.calculadora .rotul{position:absolute; left:50%; bottom:calc(100% + 1.2cqw); transform:translateX(-50%); font:600 2.3cqw/1 Arial, Helvetica, sans-serif; color:#e9eaec; white-space:nowrap}
+.calculadora .t-shift .rotul{color:var(--x2-groc)}
+.calculadora .t-alpha .rotul{color:var(--x2-rosa)}
+.calculadora .t-menu .rotul{transform:translateX(calc(-100% + 1.6cqw))}
+.calculadora .alt, .calculadora .alfa{
+  position:absolute; bottom:calc(100% + .45cqw); transform:none;
+  font:600 2.3cqw/1 Arial, Helvetica, sans-serif; white-space:nowrap; padding:.1cqw .35cqw; border-radius:.5cqw; background:none;
+}
+.calculadora .alt{left:-.6cqw; color:var(--x2-groc)}
+.calculadora .alfa{right:-.6cqw; left:auto; color:var(--x2-rosa)}
+.calculadora .alt sup, .calculadora .alfa sup, .calculadora .alt sub{font-size:.7em; line-height:0}
+/* Les tecles de baix porten la funció de SHIFT al mig si no tenen la d'ALPHA (CONST, CONV, RESET, OFF, Rnd, ≈) */
+.calculadora .t-7 .alt, .calculadora .t-8 .alt, .calculadora .t-9 .alt, .calculadora .t-ac .alt, .calculadora .t-0 .alt,
+.calculadora .t-exe .alt, .calculadora .t-arrel .alt, .calculadora .t-x2 .alt, .calculadora .t-pot .alt, .calculadora .t-ln .alt,
+.calculadora .t-logab .alt, .calculadora .t-optn .alt, .calculadora .t-sto .alt, .calculadora .t-eng .alt{left:50%; transform:translateX(-50%)}
+.calculadora .t-menu .alt{left:calc(50% + 2.4cqw); transform:none; bottom:calc(100% + 1.2cqw); padding:0}
+/* Després de SHIFT o d'ALPHA, els rètols de la seva capa es ressalten */
+.calculadora.prefix-shift .alt{background:var(--x2-groc); color:#1f1a10}
+.calculadora.prefix-alpha .alfa{background:var(--x2-rosa); color:#fff}
+/* El ressaltat del reproductor sobre les tecles rodones i les fletxes (platejades) */
+.calculadora .tecla-nav.pendent, .calculadora .tecla[data-forma="rodona"].pendent{background:#f2d27a; color:#111}
+.calculadora .tecla-nav.premuda, .calculadora .tecla[data-forma="rodona"].premuda{background:#ca8a04; color:#fff}
+
+/* ── LA PANTALLA ───────────────────────────────────────────────────── */
+/* La mateixa que la fx-82SP CW; els menús són numerats («1:…») i no tenen fila triada en negatiu (pantalla.js) */

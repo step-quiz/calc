@@ -88,18 +88,23 @@ module.exports = function (M, {ok, error, compta, comprovaTeX}) {
       });
     }
 
-    /* La calculadora: cada tecla del catàleg té posició (o és a la peça de pàgina), i cap no en trepitja cap altra */
+    /* La calculadora: cada tecla del catàleg té posició (o és a la peça de pàgina), i cap no en trepitja cap altra.
+       Una posició és [x, y, diàmetre] (tecla rodona) o [x, y, amplada, alçada] (tecla rectangular, d'un altre teclat). */
     const T = Tecles.TECLAT;
+    const aLaPagina = T.aLaPagina || [];
     for (const id of Object.keys(Tecles.TECLES)) {
-      const n = (T.tecles[id] ? 1 : 0) + (T.aLaPagina.includes(id) ? 1 : 0);
+      const n = (T.tecles[id] ? 1 : 0) + (aLaPagina.includes(id) ? 1 : 0);
       ok(n === 1, `${on0} · tecla ${id}`, 'ha de tenir posició al teclat (o ser a la peça de pàgina), i només una');
     }
-    for (const id of [...Object.keys(T.tecles), ...T.aLaPagina]) ok(Tecles.existeix(id), `${on0} · TECLAT`, `tecla desconeguda (${id})`);
-    const posicions = Object.entries(T.tecles);
-    for (const [id, [x, y, d]] of posicions) {
-      ok(x - d / 2 > 0 && x + d / 2 < 100 && y - d / 2 > T.vidre.y + T.vidre.h && y + d / 2 < T.alcada, `${on0} · tecla ${id}`, 'surt de la calculadora o toca la pantalla');
-      for (const [id2, [x2, y2, d2]] of posicions) {
-        if (id < id2) ok(Math.hypot(x - x2, y - y2) >= (d + d2) / 2, `${on0} · tecles ${id} i ${id2}`, 'es trepitgen');
+    for (const id of [...Object.keys(T.tecles), ...aLaPagina]) ok(Tecles.existeix(id), `${on0} · TECLAT`, `tecla desconeguda (${id})`);
+    const posicions = Object.entries(T.tecles).map(([id, [x, y, w, h]]) => [id, {x, y, w, h: h === undefined ? w : h, rodona: h === undefined}]);
+    for (const [id, q] of posicions) {
+      ok(q.x - q.w / 2 > 0 && q.x + q.w / 2 < 100 && q.y - q.h / 2 > T.vidre.y + T.vidre.h && q.y + q.h / 2 < T.alcada, `${on0} · tecla ${id}`, 'surt de la calculadora o toca la pantalla');
+      for (const [id2, q2] of posicions) {
+        if (id >= id2) continue;
+        const separades = q.rodona && q2.rodona ? Math.hypot(q.x - q2.x, q.y - q2.y) >= (q.w + q2.w) / 2
+          : Math.abs(q.x - q2.x) >= (q.w + q2.w) / 2 || Math.abs(q.y - q2.y) >= (q.h + q2.h) / 2;
+        ok(separades, `${on0} · tecles ${id} i ${id2}`, 'es trepitgen');
       }
     }
     /* Totes les tecles del catàleg es poden dibuixar, i el teclat sencer també */

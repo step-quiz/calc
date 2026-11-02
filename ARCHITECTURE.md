@@ -17,8 +17,9 @@ Technical reference for a cold-start AI (or developer). It describes the site **
 ## 1. Purpose and constraints
 
 - Teaches Catalan ESO (3r–4t) and Batxillerat students to use CASIO calculators: the **fx-82SP CW** (default), the
-  **fx-570SP CW / fx-991SP CW** (a sibling of the fx-82SP CW, §4a) and the **fx-82MS 2nd edition**. Next: the
-  **fx-570SP X II** (and fx-991SP X II), a new model (own keyboard, numbered menus, CALC for the f(x) fitxes).
+  **fx-570SP CW / fx-991SP CW** (a sibling of the fx-82SP CW, §4a), the **fx-570SP X II / fx-991SP X II** (own
+  keyboard, CW screen and simulator with variant hooks, §4a; only 4 sample ESO fitxes so far) and the **fx-82MS 2nd
+  edition**.
 - A **fitxa** is a worked example played step by step: the statement, a player (◀ ↻ ▶), the steps, and a drawn calculator
   whose keys are pressed by an animated cursor while the screen changes after every key. The student only watches and
   navigates; the keys of the drawn calculator are not clickable (deliberate).
@@ -109,6 +110,26 @@ A model whose keyboard and screen are those of another one reuses its files: mod
 stylesheets. `variant.js` sets `M.variant`, read by the shared files: `alt` (SHIFT legends by key id, in `tecles.js`),
 `menus` (menu rows by menu id) and `catala` (extra Catalan labels), in `guions.js`. Current sibling: `fx-570sp-cw`
 (fx-570SP CW and fx-991SP CW) of `fx-82sp-cw`.
+
+A model with **its own keyboard** but the CW screen and entry editor does the same with fewer shared files:
+`fx-570sp-x2` (fx-570SP X II and fx-991SP X II) loads `variant.js`, its own `tecles.js`, then the CW `pantalla.js`,
+`guions.js`, `simulador.js` and `fitxes/blocs.js`, and its own `fitxes/`. Keys that do the same as on the CW keep the CW
+id (`frac`, `arrel`, `x2`, `pot`, `logab`, `sen`, `lpar`, `ans`, `del`, `ac`, digits, operators); the `=` key is `exe`;
+new ids: `neg` ((−)), `ln`, `alpha`, `menu`, `optn`, `calc`, `integral`, `grau`, `inv`, `sto`, `eng`, `sd` (S⇔D), `mmes`.
+Its keys are rectangles: `TECLAT.tecles` entries are `[x, y, w, h]` (round keys: `[x, y, d]`; the CW geometry test
+accepts both). Extra `M.variant` hooks, read by `simulador.js` and `pantalla.js`:
+
+| Hook | Effect |
+|---|---|
+| `escriu` | extra keys that type TeX (merged into `ESCRIU`): `neg: '-'`, `ln: '\\ln('` |
+| `escriuShift` | replaces `ESCRIU_SHIFT` (SHIFT (−) = `\\log(`, SHIFT x² = `^{3}`, SHIFT ×10ˣ = π, Arcsen…) |
+| `plantillesShift` | replaces `TECLA_PLANTILLA_SHIFT` (`pot: 'arreln'`) |
+| `obreMenu(id, shift, G)` | a menu screen opened from the calc screen (SHIFT MENU → `x2-config`), or `undefined` |
+| `enTriar(G, {canviaUnitat})` | extra menu actions, like `EN_TRIAR`: `{menuId: {clau: estat => screen}}` |
+| `menusNumerats` | menus are chosen by pressing the row number (no OK key); rows are labelled `1:…`, no inverse-video row |
+
+A menu screen may carry `desplacable: true` (more pages below: `pantalla.js` draws the scrollbar). `M.x2` (in
+`variant.js`) builds the X II screens the fitxes need (`config()`, `unitat()`).
 
 ## 5. The model contract
 
@@ -270,6 +291,9 @@ closing `*/`, bump the version, run the tests. Never put `*/` inside a commented
   «6C4», implicit × before a parenthesis or function, DEL and the cursor); how the fx-82MS draws an EXP entry.
 - Statement figures proposed to David, waiting: crops of the figure from question images (`cb4-26-q7`, `cb4-23-q26`,
   `cb4-25-q27`) and own SVG drawings for the trigonometry fitxes.
-- More fitxes per ESO block (sources in the order of §9); more calculators (fx-82SP X II…) when David decides.
+- fx-570/991SP X II: only 4 sample ESO fitxes (`fitxes/mostra.js`), waiting for David's review; then the rest (same
+  exercises as the CW; the 4 f(x) fitxes — `definir-fx`, `barrow`, `verificar`, `pau-ana-25j-q1` — with CALC). Its
+  `VERIFICAR.md` section (labels, menu behaviour, colours) is unconfirmed.
+- More fitxes per ESO block (sources in the order of §9).
 - Larger text for projection (`clamp()` or `?projector=1`): postponed, David does not project.
 - Whether `barrow` (block `pau`, a PAU statement) should also have its «Ara tu» disabled: never answered.

@@ -40,6 +40,16 @@
 'use strict';
 
 const G = M.guions;
+/**
+ * Una calculadora que fa servir aquest simulador amb un altre teclat (models/<id>/variant.js, M.variant) hi pot posar:
+ *   escriu       tecles que escriuen alguna cosa (s'afegeixen a ESCRIU; p. ex. la tecla (−))
+ *   escriuShift  el que escriu cada tecla amb SHIFT (substitueix ESCRIU_SHIFT sencer)
+ *   plantillesShift  les plantilles amb SHIFT (substitueix TECLA_PLANTILLA_SHIFT)
+ *   obreMenu(id, shift, G)  la pantalla de menú que obre una tecla des de la pantalla de càlcul (o undefined)
+ *   enTriar(G, eines)       més accions d'OK, com EN_TRIAR: {menú: {clau: estat => pantalla}}
+ *   menusNumerats  els menús es trien prement el número de la fila (1, 2, 3…), sense OK
+ */
+const V = M.variant || {};
 
 /* ── 1. L'EDITOR DE L'EXPRESSIÓ ──────────────────────────────────────
    L'expressió és una llista d'elements: {t:'tex', v:'…'} o
@@ -47,12 +57,12 @@ const G = M.guions;
    {llista, i, node, camp}: el de dalt de tot és on s'escriu. */
 
 /** El TeX que escriu cada tecla (i amb SHIFT al davant). */
-const ESCRIU = Object.freeze({
+const ESCRIU = Object.freeze(Object.assign({
   0: '0', 1: '1', 2: '2', 3: '3', 4: '4', 5: '5', 6: '6', 7: '7', 8: '8', 9: '9',
   punt: '.', mes: '+', menys: '-', per: '\\times ', entre: '\\div ', lpar: '(', rpar: ')',
   x: 'x', ans: '\\mathrm{Ans}', sen: '\\mathrm{sen}(', cos: '\\cos(', tan: '\\tan(', x2: '^{2}',
-});
-const ESCRIU_SHIFT = Object.freeze({7: '\\pi ', 8: 'e', 0: 'x', punt: 'y', exp: 'z', menys: '-',   // SHIFT − = signe negatiu (−)
+}, V.escriu || {}));
+const ESCRIU_SHIFT = Object.freeze(V.escriuShift || {7: '\\pi ', 8: 'e', 0: 'x', punt: 'y', exp: 'z', menys: '-',   // SHIFT − = signe negatiu (−)
   logab: '\\ln(', x2: '\\log(',
   sen: '\\mathrm{Arcsen}(', cos: '\\mathrm{Arccos}(', tan: '\\mathrm{Arctan}('});   // com a la calculadora, «Arccos(»
 /**
@@ -70,7 +80,7 @@ const PLANTILLA = Object.freeze({
   x10: {camps: ['exp'], tex: c => `\\times 10^{${c.exp}}`},   // la tecla ×10■ (exp) escriu «×10» i obre l'exponent
 });
 const TECLA_PLANTILLA = Object.freeze({frac: 'frac', arrel: 'arrel', pot: 'pot', logab: 'logab', exp: 'x10'});
-const TECLA_PLANTILLA_SHIFT = Object.freeze({arrel: 'arreln'});
+const TECLA_PLANTILLA_SHIFT = Object.freeze(V.plantillesShift || {arrel: 'arreln'});
 const plantilla = (id, shift) => (shift ? TECLA_PLANTILLA_SHIFT[id] : TECLA_PLANTILLA[id]);
 const CAMPS = Object.freeze(Object.fromEntries(Object.entries(PLANTILLA).map(([t, p]) => [t, p.camps])));
 /** El camp de la mateixa plantilla al qual es passa amb una tecla de cursor (null: cap). */
@@ -194,6 +204,9 @@ const EN_TRIAR = Object.freeze({
     'definir-f': e => definir(e, 'f'), 'definir-g': e => definir(e, 'g'),
   },
 });
+/** Les accions d'OK que hi posa una altra calculadora (V.enTriar), amb les eines que necessita. */
+const EN_TRIAR_VARIANT = Object.freeze(V.enTriar ? V.enTriar(G, {canviaUnitat}) : {});
+
 const FILES_VAR = [['A', 'B'], ['C', 'D'], ['E', 'F'], ['x', 'y'], ['z']];
 
 /** La pantalla després d'OK en un menú, si es pot deduir (si no, null). */
@@ -202,7 +215,8 @@ function okAlMenu(p, estat) {
   if (p.files.some(f => f.radio)) {                     // llista amb ◉: el ◉ passa a la fila triada
     return Object.freeze(Object.assign({}, p, {marca: null, files: Object.freeze(p.files.map((f, k) => G.fila(f.t, Object.assign({}, f, {radio: k === sel ? 'on' : 'off'}))))}));
   }
-  const accio = p.id && EN_TRIAR[p.id] && p.files[sel] && EN_TRIAR[p.id][p.files[sel].clau];
+  const clau = p.files[sel] && p.files[sel].clau;
+  const accio = p.id && clau && ((EN_TRIAR[p.id] && EN_TRIAR[p.id][clau]) || (EN_TRIAR_VARIANT[p.id] && EN_TRIAR_VARIANT[p.id][clau]));
   return accio ? accio(estat) : null;
 }
 
@@ -217,6 +231,14 @@ function definir(estat, nom) {
   estat.ed = editorBuit();
   estat.resultat = false;
   return G.definicio(nom, tex(estat.ed, true));
+}
+
+/** Canvia la unitat dels angles i torna a la pantalla de càlcul buida (un menú que es tanca en triar). */
+function canviaUnitat(estat, ang) {
+  estat.ind = Object.assign({}, estat.ind, {ang});
+  estat.ed = editorBuit();
+  estat.resultat = false;
+  return pantallaCalc(estat);
 }
 
 /** Activar o desactivar Verificar: la barra porta ✔ (o no) i l'historial s'esborra (manual, p. 63-64). */
@@ -280,6 +302,10 @@ function tecla(estat, id) {
 
   // Menús i llistes
   if (p.tipus === 'menu') {
+    if (V.menusNumerats && /^[1-9]$/.test(id)) {          // menú numerat: el número tria la fila
+      const k = Number(id) - 1;
+      return k < p.files.length ? okAlMenu(Object.assign({}, p, {sel: k}), estat) : null;
+    }
     if (['down', 'up'].includes(id) || (p.columnes && ['left', 'right'].includes(id))) {
       // Llista: ↓ ↑ d'una en una. Graella (p.columnes, els símbols de Verificar): ↓ ↑ canvien de fila, → ← de columna
       const pas = {down: p.columnes || 1, up: -(p.columnes || 1), right: 1, left: -1}[id];
@@ -308,6 +334,8 @@ function tecla(estat, id) {
   if (p.tipus !== 'calc') return null;
 
   // Tecles que obren un menú des de la pantalla de càlcul
+  const menuVariant = V.obreMenu && V.obreMenu(id, shift, G);
+  if (menuVariant) return menuVariant;
   if (id === 'settings') return G.config(0);
   if (id === 'catalog') return estat.ind && estat.ind.verif ? G.catalogVerificar(0) : G.catalog(0);
   if (id === 'tools') return estat.ind && estat.ind.verif ? G.toolsVerificar(0) : G.tools(0);
@@ -374,7 +402,7 @@ function pantalles(fitxa) {
       const explicita = pas.parcials && pas.parcials[j];
       let nova = tecla(estat, id);
       if (!['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'punt', 'mes', 'menys', 'per', 'entre', 'lpar', 'rpar', 'x',
-        'sen', 'cos', 'tan', 'frac', 'arrel', 'pot', 'x2', 'logab', 'ans', 'shift', 'ac', 'down', 'up', 'left', 'right', 'exe', 'exp', 'del'].includes(id)) nomesEscriu = false;
+        'sen', 'cos', 'tan', 'frac', 'arrel', 'pot', 'x2', 'logab', 'ans', 'shift', 'ac', 'down', 'up', 'left', 'right', 'exe', 'exp', 'del', 'neg', 'ln'].includes(id)) nomesEscriu = false;
       if (darrera) nova = pas.pantalla;
       else if (explicita) { nova = explicita; nomesEscriu = false; }
       if (!nova) {

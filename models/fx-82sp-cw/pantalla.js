@@ -59,6 +59,7 @@ function barra(estat) {
   const ind = estat.ind || {};
   const peces = [];
   if (ind.shift) peces.push(`<span class="ind ind-inv${marca(estat, 'shift')}" data-marca="shift" title="SHIFT premuda">S</span>`);
+  if (ind.alpha) peces.push(`<span class="ind ind-inv${marca(estat, 'alpha')}" data-marca="alpha" title="ALPHA premuda">A</span>`);
   if (ind.mat) peces.push(`<span class="ind${marca(estat, 'mat')}" data-marca="mat" title="Entrada matemàtica (E Mat)">${ICONA_MAT}</span>`);
   if (ind.ang) peces.push(`<span class="ind ind-inv${marca(estat, 'ang')}" data-marca="ang" title="Unitat dels angles">${escapa(ind.ang)}</span>`);
   if (ind.fix) peces.push(`<span class="ind ind-text${marca(estat, 'fix')}" data-marca="fix" title="Decimals fixos">FIX</span>`);
@@ -92,6 +93,9 @@ function finestra(n, sel, visibles = 4) {
   return [inici, inici + visibles];
 }
 
+/** Menús numerats (M.variant.menusNumerats, una altra calculadora): es trien amb el número, sense fila ressaltada. */
+const NUMERATS = Boolean(M.variant && M.variant.menusNumerats);
+
 function menu(estat) {
   const files = estat.files || [];
   const sel = estat.sel || 0;
@@ -101,9 +105,12 @@ function menu(estat) {
     const i = de + j;
     const radio = f.radio ? `<span class="radio">${f.radio === 'on' ? '◉' : '○'}</span>` : '';
     const sub = f.sub ? '<span class="sub">►</span>' : '';
-    return `<div class="lcd-fila${i === sel ? ' sel' : ''}${marca(estat, 'fila-' + i)}" data-marca="fila-${i}">${radio}<span class="t">${escapa(tr(f.t))}</span>${sub}</div>`;
+    return `<div class="lcd-fila${i === sel && !NUMERATS ? ' sel' : ''}${marca(estat, 'fila-' + i)}" data-marca="fila-${i}">${radio}<span class="t">${escapa(tr(f.t))}</span>${sub}</div>`;
   }).join('');
   let barraLateral = '';
+  if (files.length <= visibles && estat.desplacable) {     // un menú amb més pàgines (que la fitxa no fa servir)
+    barraLateral = '<div class="lcd-scroll"><span style="top:0%;height:45%"></span></div>';
+  }
   if (files.length > visibles) {
     const alt = 100 * 4 / files.length, top = 100 * de / files.length;
     barraLateral = `<div class="lcd-scroll"><span style="top:${top.toFixed(1)}%;height:${alt.toFixed(1)}%"></span></div>`;
