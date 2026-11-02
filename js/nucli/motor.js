@@ -25,8 +25,8 @@ const {element, icona, ICONES} = Dom;
 const {escapa, formula} = Text;
 
 /** Velocitats de l'animació: factor que multiplica les durades de Reproductor.TEMPS. */
-const VELOCITATS = Object.freeze([['lenta', 3.01], ['normal', 1.65], ['ràpida', 0.83]]);
-const PER_DEFECTE = 1.65;
+const VELOCITATS = Object.freeze([['lenta', 3.46], ['normal', 1.90], ['ràpida', 0.83]]);
+const PER_DEFECTE = 1.90;
 /** Quant de temps es veu la bombolla de la font si no es tanca abans. */
 const FONT_MS = 8000;
 /** L'avís de les fletxes del teclat: surt després de tants clics de ratolí a ◀ ▶ i es tanca sol al cap de tant. */

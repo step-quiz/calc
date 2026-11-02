@@ -4,6 +4,11 @@ Què ha canviat a cada versió del web, de la més nova a la més antiga. El fun
 `README.md` i `ARCHITECTURE.md`; aquí només hi ha la història. El número de versió és `VERSIO` a
 `js/nucli/models.js` i surt al peu de les pàgines.
 
+## Versió 74 (3/11/2026)
+
+- Les velocitats «normal» (la de per defecte) i «lenta», un 15 % més lentes: totes les durades de l'animació de les
+  tecles, × 1,15 (factors 1,90 i 3,46). La «ràpida» no canvia, ni tampoc els temps d'atenció abans de cada pas.
+
 ## Versió 73 (2/11/2026)
 
 - Arreglat: amb Brave (o amb un bloquejador de publicitat) sortia la caixa «La pàgina no s'ha pogut carregar bé» encara
