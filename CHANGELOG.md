@@ -4,6 +4,18 @@ Què ha canviat a cada versió del web, de la més nova a la més antiga. El fun
 `README.md` i `ARCHITECTURE.md`; aquí només hi ha la història. El número de versió és `VERSIO` a
 `js/nucli/models.js` i surt al peu de les pàgines.
 
+## Versió 66 (2/11/2026)
+
+- Els botons ◀ ↻ ▶ fan la mateixa mida, i ▶ ja no té fons de color ni parpelleja quan l'alumne no avança.
+- A la fitxa ja no hi ha «Fitxes de «…»» (ni «Et pot interessar»): per canviar de fitxa, «← Fitxes».
+- El peu de la fitxa surt sencer en obrir-la i, al cap de 5 s, només hi queda «© 2026 David Arso Civil». A la portada,
+  el peu sencer queda sempre a la vista, enganxat a baix de la finestra.
+- Palanques per al laboratori d'UX (`js/nucli/ux.js`): amb `?ux=a1,b3,…` a l'adreça, la fitxa prova variants de la
+  interfície (16 palanques: menys zones, tecles apagades, sense cursor, lupa, temps de lectura, la frase sota la
+  calculadora, una altra disposició…). Sense `?ux=`, no canvia res. Els enllaços conserven `?ux=`.
+- Durant el temps entre passos, les tecles del pas anterior ja no queden marcades.
+- `proves/ux.js` prova cada palanca; `proves/encaix.js` prova els peus en lloc del recordatori de ▶.
+
 ## Versió 65 (2/11/2026)
 
 - Arreglat: en començar a animar un pas, sortia una barra de desplaçament vertical. La causa era el cursor, que apareix

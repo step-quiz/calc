@@ -10,10 +10,10 @@
      · que la columna de l'esquerra no fa scroll horitzontal (també en
        mode «Ara tu», amb la solució oberta i cada pas del seu reproductor);
      · que no hi ha errors de JavaScript.
-   I, una sola vegada, el recordatori del botó ▶: amb el
-   rellotge de Playwright, comprova que no surt abans de 8 s, que surt
-   als 8 s, que es torna a comptar quan es passa de pas amb → i que a
-   l'últim pas (▶ desactivat) no surt mai.
+   I, una sola vegada, els peus i l'animació: amb el rellotge de
+   Playwright, que el peu de la fitxa surt sencer i, als 5 s, només hi
+   queda l'autor; que el peu de la portada es veu sencer a baix de la
+   finestra; i que mentre s'anima un pas la pàgina no fa scroll.
    No forma part de comprova.js perquè necessita un navegador. Els
    fitxers de proves/ no els carrega cap pàgina: no cal augmentar VERSIO.
 
@@ -22,7 +22,7 @@
      MODEL=fx-82ms node proves/encaix.js        només una calculadora
      FITXES=ans,fix node proves/encaix.js       només aquestes fitxes
      VP='[[1366,657]]' node proves/encaix.js    només aquestes finestres
-     (amb FITXES, VP o MODEL no es prova el recordatori del botó ▶; RECORDA=1 el prova igualment amb FITXES)
+     (amb FITXES, VP o MODEL no es proven els peus; UNCOP=1 els prova igualment amb FITXES)
    Acaba amb codi 1 si algun pas no hi cap.
    ═══════════════════════════════════════════════════════════════════ */
 'use strict';
@@ -67,28 +67,33 @@ const MESURA = () => {
   };
 };
 
-/** El recordatori del botó ▶: torna una llista de problemes (buida si tot va bé). */
-async function provaRecorda(browser, BASE) {
+/** Els peus (el de la fitxa s'escurça als 5 s; el de la portada sempre es veu) i l'animació sense scroll. */
+async function provaUnCop(browser, BASE) {
   const mal = [];
   const page = await browser.newPage({viewport: {width: 1366, height: 657}});
   await page.clock.install();
   await page.goto(BASE + 'fitxa.html?id=cb4-26-q15', {waitUntil: 'load'});
   await page.waitForFunction(() => globalThis.fitxa && fitxa.total !== undefined);
-  const te = () => page.evaluate(() => document.querySelector('.boto.principal').classList.contains('recorda'));
-  const avanca = async ms => { await page.clock.runFor(ms); await page.evaluate(() => new Promise(ok => requestAnimationFrame(ok))); };
-  await page.keyboard.press('ArrowRight');
-  await avanca(7800);
-  if (await te()) mal.push('recordatori del botó ▶: surt abans dels 8 s');
-  await avanca(400);
-  if (!(await te())) mal.push('recordatori del botó ▶: no surt als 8 s');
-  await page.keyboard.press('ArrowRight');
-  if (await te()) mal.push('recordatori del botó ▶: no s\'apaga en passar de pas');
-  await avanca(7800);
-  if (await te()) mal.push('recordatori del botó ▶: no es torna a comptar en passar de pas');
-  await page.evaluate(() => fitxa.salta(fitxa.total - 1));
-  await avanca(10000);
-  if (await te()) mal.push('recordatori del botó ▶: surt a l\'últim pas');
+  const peu = () => page.evaluate(() => {
+    const p = document.querySelector('.peu'), resta = p && p.querySelector('.peu-resta');
+    return {autor: p ? p.querySelector('.peu-autor').textContent : '', resta: Boolean(resta && resta.getBoundingClientRect().width > 0 && getComputedStyle(resta).opacity === '1')};
+  });
+  let ara = await peu();
+  if (!ara.resta) mal.push('peu de la fitxa: en obrir-la, ha de sortir sencer');
+  await page.clock.runFor(4800);
+  if (!(await peu()).resta) mal.push('peu de la fitxa: s\'escurça abans dels 5 s');
+  await page.clock.runFor(1000);
+  ara = await peu();
+  if (ara.resta || ara.autor !== '© 2026 David Arso Civil') mal.push(`peu de la fitxa: als 5 s només hi ha de quedar «© 2026 David Arso Civil» (hi ha «${ara.autor}», resta visible: ${ara.resta})`);
   await page.close();
+  // La portada: el peu sencer, a baix de la finestra, també amb la pàgina a mig desplaçar
+  const p1 = await browser.newPage({viewport: {width: 1280, height: 559}});
+  await p1.goto(BASE + 'index.html', {waitUntil: 'load'});
+  await p1.waitForSelector('.bloc');
+  await p1.evaluate(() => scrollTo(0, 200));
+  const q = await p1.evaluate(() => { const r = document.querySelector('.peu').getBoundingClientRect(); return {baix: r.bottom, dalt: r.top, h: innerHeight, text: document.querySelector('.peu').textContent}; });
+  if (Math.abs(q.baix - q.h) > 1 || !/Versió \d+/.test(q.text) || !/CC BY-NC-ND/.test(q.text)) mal.push(`peu de la portada: ha de ser sencer i enganxat a baix de la finestra (de ${q.dalt} a ${q.baix}, finestra ${q.h})`);
+  await p1.close();
   // Mentre s'anima un pas (la vora groga d'atenció i el cursor, que surt de sota la calculadora), la pàgina no creix
   const p2 = await browser.newPage({viewport: {width: 1280, height: 559}});
   await p2.goto(BASE + 'fitxa.html?id=cb4-26-q15', {waitUntil: 'load'});
@@ -171,8 +176,8 @@ async function provaRecorda(browser, BASE) {
     }
     await context.close();
   }
-  const ambRecorda = !process.env.VP && !process.env.MODEL && (!nomesFitxes || process.env.RECORDA);
-  if (ambRecorda) problemes.push(...await provaRecorda(browser, BASE));
+  const ambUnCop = !process.env.VP && !process.env.MODEL && (!nomesFitxes || process.env.UNCOP);
+  if (ambUnCop) problemes.push(...await provaUnCop(browser, BASE));
   await browser.close();
   servidor.close();
 
@@ -181,5 +186,5 @@ async function provaRecorda(browser, BASE) {
     console.log(`\n${problemes.length} problemes en ${total} passos.`);
     process.exit(1);
   }
-  console.log(`Tot hi cap: ${total} passos${ambRecorda ? ', i el recordatori del botó ▶ funciona' : ''} (${models.join(', ')}; finestres ${FINESTRES.map(f => f[0] + '×' + f[1]).join(', ')}).`);
+  console.log(`Tot hi cap: ${total} passos${ambUnCop ? ', i els peus i l\'animació van bé' : ''} (${models.join(', ')}; finestres ${FINESTRES.map(f => f[0] + '×' + f[1]).join(', ')}).`);
 })().catch(e => { console.error(e); process.exit(1); });

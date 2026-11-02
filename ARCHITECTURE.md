@@ -69,7 +69,8 @@ fitxa (what the player plays) = exercici (shared)        +  model fitxa (per cal
 | `js/nucli/tria.js` | `TriaCalculadora` | «Escollir calculadora»: `boto(descriptors, actual, adreca)` gives the header button; it opens a `<dialog>` with a 3-column grid (2 below 640 px, 1 below 380 px) of every calculator (the image, as tall as the cell allows, and the short name; the current one has a green border; hover/focus highlights). A click stores the choice and opens `adreca(id)`. `titol(el, id)` fills the home-page title «La calculadora <name>, pas a pas»; hovering (or focusing) the name shows the calculator's picture. No `Dom` (the home page does not load it). |
 | `js/nucli/text.js` | `Text` | Text mini-syntax → HTML (§6.3). |
 | `js/nucli/dom.js` | `Dom` | `element()`, `icona()`, the player icons. |
-| `js/nucli/reproductor.js` | `Reproductor` | The step player: step list, key outlines and order badges, animated cursor, `salta` / `seguent` / `repeteix`, error-zone class, ARIA live announcement, `?pas=` in the URL, ▶ reminder. |
+| `js/nucli/reproductor.js` | `Reproductor` | The step player: step list, key outlines and order badges, animated cursor, `salta` / `seguent` / `repeteix`, error-zone class, ARIA live announcement, `?pas=` in the URL, the UX-lab hooks (B4, C1, C2, D1, D2, sentence copy for C4/E2). |
+| `js/nucli/ux.js` | `UX` | UX-lab levers from `?ux=` (classes on `<html>`, `UX.te`, `postMessage` to the lab). |
 | `js/nucli/motor.js` | `Motor` | The fitxa page: header (← Fitxes, «T<n> · block title» as on the home page, «<n>. fitxa title», «Escollir calculadora», language), statement (source bubble, figure dialog), player buttons, speed, «Ara tu» mode, «Prova-ho tu», closing step, keyboard shortcuts, keyboard-arrows notice. Exposes the main player as global `fitxa`. |
 | `js/nucli/portada.js` | `Portada` | Home page: stage selector, «Escollir calculadora», language selector, title with the chosen calculator, one card per block of the stage, small blocks as bubbles. |
 | `models/cataleg.js` | — | `Models.cataleg([...])` (calculators; first = default), `Models.etapes([...])` (stages; first = default), `Models.exercicis([...])` (exercise files, in load order). |
@@ -216,15 +217,25 @@ sentence, closing text included, is `[mat]` or `[calc]` (test).
 - **At the last step**: «Ara tu» (Batxillerat) or «Prova-ho tu» (ESO) appears below the step list. «Prova-ho tu» has
   only «Mostra la solució». «Ara tu» adds «Comprova-ho pas a pas» (olive background, its own ◀ ▶ player on the same
   calculator; touching the main player leaves it).
-- `?pas=N` opens step N; the URL is updated at every step. After 8 s without advancing, ▶ blinks once. After 5 mouse
+- ◀ ↻ ▶ are the same size and style (▶ has no fill and never blinks).
+- `?pas=N` opens step N; the URL is updated at every step. After 5 mouse
   clicks on ◀ ▶ with no arrow key ever used, a bubble reminds about the arrows (touch taps do not count). Keyboard
   shortcuts are ignored while a `<dialog>` (the enlarged figure) is open or a form control has focus.
 
 ## 8. Layout
 
-- ≥ 1000 px wide: two columns only. Left = statement, player, step list (scrolls inside), «Ara tu»/«Prova-ho tu», collapsed
-  list of the block's fitxes («Et pot interessar» = related fitxes of other blocks). Right = the calculator only. Widths
+- ≥ 1000 px wide: two columns only. Left = statement, player, step list (scrolls inside), «Ara tu»/«Prova-ho tu». No list
+  of other fitxes (removed by David; `relacionades` in the data is unused). Right = the calculator only. Widths
   15 % margin · 40 % · 30 % · 15 % margin. The page is exactly the viewport height (grid: header / content / footer).
+- Footer: on a fitxa, full for `PEU_SENCER_MS` = 5 s, then only «© 2026 David Arso Civil» (`.peu-autor`; `.peu-resta`
+  fades out). On the home page, always full and sticky at the bottom of the viewport (`.peu-flotant`).
+- **UX lab levers** (`js/nucli/ux.js`): `?ux=a1,b3,…` sets `ux-<lever>` classes on `<html>` and `UX.te(p)` for the core;
+  without `?ux=` nothing changes. `Models.adreca` keeps `?ux=`. Inside a frame the page posts `{font:'calc-ux', href,
+  tipus, pas, total}` to the parent (the lab artifact). Levers: A1 only the current step · A2 fold the statement · A3
+  header selectors in a ⚙ · A4 no footer · B1 dim other keys · B2 no order badges · B3 no cursor · B4 zoom on the keys ·
+  C1 reading time · C2 [calc] appears with the keys · C3 icons instead of tinted sentences · C4 sentence under the
+  calculator · D1 error without page tint · D2 «Ara tu» on its own screen via ▶ · E2 three columns, sentence right of
+  the calculator · E3 one column. Winners become the defaults; then remove the lever.
 - The calculator is a query container: every position and size inside it is in `cqw`, with `aspect-ratio`; the LCD is a
   nested container. It fills its column when the height allows, otherwise its width comes from the height.
 - < 1000 px: one column (statement, player, calculator, steps). Below 700 px the header selectors wrap.
@@ -305,8 +316,10 @@ closing `*/`, bump the version, run the tests. Never put `*/` inside a commented
   - `Models.adreca` round-trips and omits defaults; `etapaActual`/`etapaDe` with fake `location`/`localStorage`.
 - `node proves/encaix.js` (Playwright; serves the repo itself) must end with «Tot hi cap»: for every calculator, fitxa and
   step (step 0 and the closing step included) at 1366×657, 1280×559 and a 10" Android tablet (1280×632, touch, DPR 1.5):
-  no page scroll, the whole calculator visible, the current step fully visible in the step list, no JS errors; plus the ▶
-  reminder timing once and, during an animated step (attention border, cursor), no page scroll. `MODEL=…`, `FITXES=a,b`, `VP='[[w,h]]'` restrict it.
+  no page scroll, the whole calculator visible, the current step fully visible in the step list, no JS errors; plus, once,
+  the footers (fitxa: full, then author only at 5 s; home: sticky and full) and no page scroll during an animated step.
+- `node proves/ux.js` (Playwright, ~1 min) must end with «Palanques correctes»: each lever alone and four combinations,
+  three steps and the last one, no JS errors, no page scroll (except E3), D2 opens «Ara tu» with ▶. `MODEL=…`, `FITXES=a,b`, `VP='[[w,h]]'` restrict it.
 
 ## 11. Versioning and delivery
 

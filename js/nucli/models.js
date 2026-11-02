@@ -41,7 +41,7 @@
  * fitxa.html i al peu d'index.html (la prova ho comprova): així cap navegador no fa servir fitxers vells.
  * Els fitxers dels exercicis i dels models es carreguen amb aquest mateix «?v=».
  */
-const VERSIO = '65';
+const VERSIO = '66';
 
 /** Les parts que ha de donar cada model, amb les funcions o els camps que el nucli hi fa servir. */
 const CONTRACTE = Object.freeze({
@@ -181,13 +181,16 @@ function etapesVisibles(M) {
 
 /**
  * L'adreça de la portada (sense fitxa) o d'una fitxa: {model, etapa, fitxa}. Els paràmetres model i etapa només hi
- * van si no són els de per defecte: així els enllaços d'abans (Batxillerat, fx-82SP CW) no canvien.
+ * van si no són els de per defecte: així els enllaços d'abans (Batxillerat, fx-82SP CW) no canvien. Si la pàgina
+ * porta ?ux= (les palanques del laboratori d'UX, nucli/ux.js), l'enllaç també el porta.
  */
 function adreca({model, etapa: e, fitxa} = {}) {
   const q = new URLSearchParams();
   if (model && model !== ids[0]) q.set('model', model);
   if (e && etapesWeb.length && e !== etapesWeb[0].id) q.set('etapa', e);
   if (fitxa) q.set('id', fitxa);
+  const ux = parametre('ux');
+  if (ux !== null) q.set('ux', ux);
   const s = q.toString();
   return (fitxa ? 'fitxa.html' : 'index.html') + (s ? '?' + s : '');
 }

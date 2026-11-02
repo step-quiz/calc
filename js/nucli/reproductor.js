@@ -19,6 +19,13 @@
      temps    ms → ms a la velocitat triada
      opcions  adreca: false  no posa el pas a l'adreça (?pas=N)
               abans()        es crida abans de saltar o d'avançar
+              finalAPart     el que surt en acabar («Ara tu»…) no surt
+                             sol: s'hi va amb ▶ des de l'últim pas
+   Les palanques del laboratori d'UX (nucli/ux.js) que canvien
+   l'animació: B4 (lupa), C1 (temps de lectura), C2 (la frase [calc],
+   quan comencen les tecles) i D1 (error sense tenyir la pàgina). Si
+   motor.js hi posa r.fraseGran (C4, E2), la frase del pas actual s'hi
+   copia.
    Depèn de Dom. Exporta «Reproductor».
    ═══════════════════════════════════════════════════════════════════ */
 (function (arrel) {
@@ -39,13 +46,53 @@ const RAPIDESA_XIFRES = 3;
 const ATENCIO = Object.freeze({repos: 300, vora: 600});
 /** Fins a quantes tecles per pas es numeren al teclat (en una seqüència més llarga, els números fan soroll). */
 const MAX_ORDRE = 6;
-/** Segons sense avançar abans que el botó ▶ parpellegi per recordar que es pot avançar. */
-const RECORDA_MS = 8000;
 const CORBA = 'cubic-bezier(.45,.05,.25,1)';
+/** C1: temps de lectura abans de les tecles, per paraula i entre un mínim i un màxim (ms, abans d'aplicar la velocitat). */
+const LECTURA = Object.freeze({perParaula: 170, min: 600, max: 4200});
+/** B4: la lupa (ms de la transició, que és a estil.css, i ampliació màxima). */
+const LUPA = Object.freeze({ms: 450, maxim: 1.9});
 const CURSOR = '<svg viewBox="0 0 22 30" aria-hidden="true"><path d="M2 2 L2 24 L7.6 18.8 L11.4 27.4 L15 25.8 L11.3 17.4 L18.6 17.4 Z" '
   + 'fill="#fff" stroke="#111" stroke-width="1.6" stroke-linejoin="round"/></svg>';
 
 const espera = ms => new Promise(resol => setTimeout(resol, ms));
+/** Una palanca del laboratori d'UX (nucli/ux.js) és activa? Sense ?ux=, mai. */
+const ux = p => Boolean(arrel.UX && arrel.UX.te(p));
+let instancies = 0;
+
+/** C1: quantes paraules té la frase d'un pas (una fórmula, una tecla o una opció de menú compten com una). Amb C2, només les de [mat]. */
+function paraules(t) {
+  let s = String(t || '');
+  const mat = s.match(/\[mat\][\s\S]*?\[\/mat\]/g);
+  if (ux('c2') && mat) s = mat.join(' ');
+  s = s.replace(/\$\$[^$]+\$\$|\$[^$]+\$|\[\[[^\]]+\]\]|\{\{[^}]+\}\}/g, ' x ').replace(/\[\/?[a-z]+\]|!!/g, ' ');
+  return s.split(/\s+/).filter(w => /[\p{L}\p{N}]/u.test(w)).length;
+}
+
+/**
+ * B4: amplia la calculadora al voltant de les tecles del pas (centrades en horitzontal, i dins de la calculadora en
+ * vertical). activa = false la torna a la mida de sempre. Torna true si l'ha ampliada.
+ */
+function lupa(r, activa) {
+  const c = r.calculadora;
+  if (!activa) { c.style.transform = ''; return false; }
+  const tecles = [...c.querySelectorAll('.tecla.del-pas')];
+  if (!tecles.length) return false;
+  const o = c.getBoundingClientRect();
+  let x0 = Infinity, y0 = Infinity, x1 = -Infinity, y1 = -Infinity;
+  for (const t of tecles) {
+    const q = t.getBoundingClientRect();
+    x0 = Math.min(x0, q.left); y0 = Math.min(y0, q.top); x1 = Math.max(x1, q.right); y1 = Math.max(y1, q.bottom);
+  }
+  const W = o.width, H = o.height, w = x1 - x0, h = y1 - y0;
+  const s = Math.min(LUPA.maxim, (W * 0.8) / w, (H * 0.5) / h);
+  if (!(s > 1.15)) return false;
+  const cx = (x0 + x1) / 2 - o.left, cy = (y0 + y1) / 2 - o.top;
+  const marge = s * h / 2 + 0.05 * H;
+  const ty = Math.min(Math.max(cy, marge), H - marge);
+  c.style.transformOrigin = '0 0';
+  c.style.transform = `translate(${W / 2 - s * cx}px, ${ty - s * cy}px) scale(${s})`;
+  return true;
+}
 
 /** Anima un element i espera que acabi. Si l'animació es cancel·la (el pas s'interromp), acaba igualment, sense error. */
 function anima(el, fotogrames, opcions) {
@@ -119,7 +166,7 @@ function omplPassos(ctx, r, passos, enClicar) {
   const files = passos.map((pas, i) => {
     const html = ctx.text(pas.text);
     const boto = element('button', {class: 'cap', type: 'button', title: `Ves al pas ${i + 1}`},
-      [element('span', {class: 'num', text: String(i + 1)}), element('span', {class: 'resum', 'aria-hidden': 'true', html})]);
+      [element('span', {class: 'num', 'data-de': String(passos.length), text: String(i + 1)}), element('span', {class: 'resum', 'aria-hidden': 'true', html})]);
     boto.addEventListener('click', () => enClicar(i));
     return element('li', {class: 'pas'}, [boto, element('div', {class: 'frase', html})]);
   });
@@ -184,6 +231,9 @@ function crea(ctx, r, fitxa, temps, opcions = {}) {
   let idx = -1;                 // -1 = el pas 0 (abans de començar)
   let ocupat = false;           // hi ha un pas animant-se
   let torn = 0;                 // canvia quan s'interromp l'animació
+  let finalObert = false;       // finalAPart: es veu la pantalla de l'«Ara tu»
+  const instancia = ++instancies;
+  const finalAPart = Boolean(opcions.finalAPart && alFinal.length);
 
   function mostraPantalla(estat, canvi = false) {
     r.lcd.innerHTML = M.pantalla.html(estat, ctx.idioma);
@@ -204,8 +254,21 @@ function crea(ctx, r, fitxa, temps, opcions = {}) {
   }
   for (const a of alFinal) a.el.querySelectorAll('button').forEach(b => b.addEventListener('click', () => requestAnimationFrame(mostraFinal)));
 
+  /** Els elements que mostren la frase del pas actual: el de la llista i, si n'hi ha, la frase gran (C4, E2). */
+  const ambLaFrase = () => [idx >= 0 ? llista.files[idx] : llista.zero, r.fraseGran].filter(Boolean);
+  /** Treu els estats d'un pas animant-se (C1, C2, B4) de tots els passos. */
+  function netejaEstats() {
+    for (const el of [...llista.files, llista.zero, r.fraseGran]) if (el) el.classList.remove('calc-amagat', 'llegint');
+    lupa(r, false);
+  }
+  /** D2: obre o tanca la pantalla de l'«Ara tu». */
+  function posaFinal(obert) {
+    finalObert = obert;
+    document.documentElement.classList.toggle('ux-final', obert);
+  }
+
   function pinta() {
-    const alFinalVisible = idx === darrer && !ocupat;
+    const alFinalVisible = idx === darrer && !ocupat && (!finalAPart || finalObert);
     for (const a of alFinal) {
       if (!alFinalVisible) a.reinicia();
       if (a.el.hidden === alFinalVisible) a.el.hidden = !alFinalVisible;
@@ -217,7 +280,17 @@ function crea(ctx, r, fitxa, temps, opcions = {}) {
     r.enunciat.querySelectorAll('.apartat').forEach(e => e.classList.toggle('actiu', e.dataset.apartat === apartat));
     // Zona d'error: si el pas ensenya un ús erroni, la pàgina es tenyeix de vermell (estil.css)
     const error = idx >= 0 && Boolean(passos[idx].error);
-    document.body.classList.toggle('zona-error', error);
+    document.body.classList.toggle(ux('d1') ? 'error-suau' : 'zona-error', error);
+    // La frase gran (C4, E2): la del pas actual, copiada de la llista (només quan canvia el pas, que no torni a sortir)
+    if (r.fraseGran) {
+      const clau = instancia + ':' + idx;
+      if (r.fraseGran.dataset.clau !== clau) {
+        r.fraseGran.dataset.clau = clau;
+        const frase = (idx < 0 ? llista.zero : llista.files[idx]).querySelector('.frase');
+        r.fraseGran.innerHTML = (idx >= 0 ? `<p class="frase-gran-num">Pas ${idx + 1} de ${passos.length}</p>` : '') + frase.innerHTML;
+      }
+      r.fraseGran.classList.toggle('error', error);
+    }
     // L'anunci per als lectors de pantalla porta l'HTML de KaTeX, que inclou MathML accessible
     r.anunci.innerHTML = idx < 0 ? ctx.text(fitxa.enunciat)
       : `Pas ${idx + 1} de ${passos.length}.${error ? ' Atenció: aquest pas ensenya un ús erroni.' : ''} ${ctx.text(passos[idx].text)}`;
@@ -227,31 +300,23 @@ function crea(ctx, r, fitxa, temps, opcions = {}) {
       if (idx < 0) u.searchParams.delete('pas'); else u.searchParams.set('pas', String(idx + 1));
       history.replaceState(null, '', u);
     } catch (e) { /* sense history (p. ex. file://) */ }
+    if (opcions.adreca !== false) {
+      document.body.classList.toggle('en-marxa', idx >= 0);       // A2: l'enunciat es plega un cop començada la fitxa
+      if (arrel.UX) arrel.UX.avisa({tipus: 'pas', pas: idx + 1, total: passos.length});
+    }
     r.anterior.disabled = idx < 0;
-    r.seguent.disabled = idx === darrer && !ocupat;
+    r.seguent.disabled = idx === darrer && !ocupat && (!finalAPart || finalObert);
     if (r.repeteix) r.repeteix.disabled = idx < 0 || !passos[idx].tecles.length;
-    recordaSeguent();
   }
 
-  /* Si en RECORDA_MS l'alumne no ha avançat, el botó ▶ parpelleja (només el reproductor principal i fora del mode «Ara tu»). */
-  let rellotgeRecorda = null;
-  function recordaSeguent() {
-    clearTimeout(rellotgeRecorda);
-    r.seguent.classList.remove('recorda');
-    if (opcions.adreca === false || r.seguent.disabled) return;
-    rellotgeRecorda = setTimeout(() => {
-      if (r.seguent.disabled || document.body.classList.contains('mode-ara-tu')) return;
-      void r.seguent.offsetWidth;            // perquè l'animació torni a començar
-      r.seguent.classList.add('recorda');
-    }, RECORDA_MS);
-  }
-  r.seguent.addEventListener('animationend', () => r.seguent.classList.remove('recorda'));
 
   /** Va al pas i (-1 = el pas 0), sense animació. Si hi ha un pas animant-se, l'interromp. */
   function salta(i) {
     if (opcions.abans) opcions.abans();
     torn++;
     ocupat = false;
+    netejaEstats();
+    if (finalObert) posaFinal(false);
     idx = Math.max(-1, Math.min(darrer, i));
     mostraPantalla(final(idx));
     marcaTeclat(r, passos, idx);
@@ -268,17 +333,33 @@ function crea(ctx, r, fitxa, temps, opcions = {}) {
   async function seguent() {
     if (opcions.abans) opcions.abans();
     if (ocupat) { salta(idx); return; }
-    if (idx >= darrer) return;
+    if (idx >= darrer) {
+      // D2: des de l'últim pas, ▶ obre la pantalla de l'«Ara tu»
+      if (finalAPart && !finalObert) { posaFinal(true); pinta(); }
+      return;
+    }
     ocupat = true;
     const meu = ++torn;
     const viu = () => meu === torn;
     idx++;
     pinta();
     const pas = passos[idx];
+    // Les tecles del pas d'abans deixen d'estar marcades: fins que comencin les d'aquest, no n'hi ha cap
+    if (pas.tecles.length) r.teclat.querySelectorAll('.del-pas').forEach(t => { t.classList.remove('del-pas'); t.removeAttribute('data-ordre'); });
+    // C2: la frase [calc] s'amaga fins que comencen les tecles
+    const ambCalc = ux('c2') && pas.tecles.length > 0;
+    if (ambCalc) for (const el of ambLaFrase()) el.classList.add('calc-amagat');
+    // C1: abans de les tecles, el temps de llegir la frase (una barra a sota de la frase el va marcant)
+    if (ux('c1') && pas.tecles.length) {
+      const ms = temps(Math.min(LECTURA.max, Math.max(LECTURA.min, paraules(pas.text) * LECTURA.perParaula)));
+      for (const el of ambLaFrase()) { el.style.setProperty('--lectura', ms + 'ms'); el.classList.add('llegint'); }
+      await espera(ms);
+      if (!viu()) return;
+      for (const el of ambLaFrase()) el.classList.remove('llegint');
+    }
     if (pas.tecles.length) {
       // Temps perquè la mirada vagi de les explicacions a la calculadora (fix, no depèn de la velocitat): 0,3 s sense
       // res marcat i, després, la vora de la calculadora en groc, que s'esvaeix en 0,6 s. Llavors comencen les tecles.
-      r.teclat.querySelectorAll('.del-pas').forEach(t => { t.classList.remove('del-pas'); t.removeAttribute('data-ordre'); });
       await espera(ATENCIO.repos);
       if (!viu()) return;
       r.calculadora.classList.remove('atencio');
@@ -289,6 +370,12 @@ function crea(ctx, r, fitxa, temps, opcions = {}) {
       if (!viu()) return;
     }
     marcaTeclat(r, passos, idx);
+    // B4: la lupa s'acosta a les tecles del pas abans de prémer-les
+    if (ux('b4') && pas.tecles.length && lupa(r, true)) {
+      await espera(LUPA.ms);
+      if (!viu()) return;
+    }
+    if (ambCalc) for (const el of ambLaFrase()) el.classList.remove('calc-amagat');
     for (const id of pas.tecles) {
       const t = r.teclat.querySelector(`[data-tecla="${id}"]`);
       if (t) t.classList.add('pendent');           // les tecles que encara s'han de prémer
@@ -319,6 +406,13 @@ function crea(ctx, r, fitxa, temps, opcions = {}) {
       }
     }
     if (!pas.tecles.length) mostraPantalla(pas.pantalla, true);
+    // B4: un moment amb la pantalla nova a la vista ampliada i, després, la calculadora sencera (la pantalla, a dalt)
+    if (r.calculadora.style.transform) {
+      await espera(temps(TEMPS.pantalla) + 350);
+      if (!viu()) return;
+      cursor.amaga();
+      lupa(r, false);
+    }
     ocupat = false;
     if (idx === darrer) cursor.amaga();
     pinta();

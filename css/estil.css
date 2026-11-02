@@ -72,6 +72,12 @@ a{color:inherit}
   font-family:var(--mono); font-size:.77rem; color:#334155; text-align:center;
 }
 .versio{white-space:nowrap; opacity:.7}
+/* A la portada, el peu sempre es veu: s'enganxa a baix de la finestra mentre es desplaça la pàgina */
+.peu-flotant{position:sticky; bottom:0; z-index:10}
+/* A la fitxa, el peu surt sencer i, al cap de 5 s, només hi queda l'autor (motor.js, PEU_SENCER_MS) */
+.peu-resta{transition:opacity .5s}
+.peu.esvaint .peu-resta{opacity:0}
+.peu.curt .peu-resta{display:none}
 /* «Etapa», «La teva calculadora» i «Calculadora en»: a la dreta de la capçalera */
 .tries{flex-shrink:0; display:flex; flex-wrap:wrap; align-items:center; gap:6px 16px}
 .tria-etapa, .tria-model, .tria-idioma{flex-shrink:0; display:flex; align-items:center; gap:6px; font-family:var(--mono); font-size:.72rem; color:color-mix(in srgb, var(--hd-txt) 85%, transparent)}
@@ -263,7 +269,6 @@ a{color:inherit}
 }
 .boto:hover:not(:disabled){border-color:var(--cat)}
 .boto:disabled{opacity:.4; cursor:default}
-.boto.principal{width:46px; height:46px; background:var(--cat); border-color:var(--cat); color:var(--surface)}
 .boto svg{width:17px; height:17px; fill:currentColor}
 .velocitat{display:flex; align-items:center; gap:6px; margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted)}
 .velocitat select{font:inherit; color:var(--txt); background:var(--surface); border:1px solid var(--border); border-radius:6px; padding:4px 6px}
@@ -287,9 +292,6 @@ a{color:inherit}
 }
 .avis-tanca:hover{background:rgba(255,255,255,.16); color:var(--hd-txt)}
 /* Parpelleig (l'opacitat puja i baixa) i sacseig (a esquerra i dreta, cada cop menys): 0,8 s en total */
-/* El botó ▶ parpelleja i es sacseja si l'alumne no avança (reproductor.js, recordaSeguent) */
-.boto.recorda{animation:avis-parpelleig-sacseig .8s ease-in-out 1}
-@media (prefers-reduced-motion: reduce){ .boto.recorda{animation:none} }
 @keyframes avis-parpelleig-sacseig{
   0%{opacity:0; transform:translateX(0)}
   12%{opacity:1; transform:translateX(-9px)}
@@ -332,29 +334,14 @@ a{color:inherit}
 .icona-inline{width:1em; height:1em; vertical-align:-.12em; fill:currentColor}
 @media (hover:hover){ .pas:not(.actual):hover{border-color:var(--border); opacity:1} }
 
-/* Les altres fitxes del bloc, plegades */
-.altres{border-top:1px solid var(--border); padding-top:8px}
-.altres > summary{cursor:pointer; font-family:var(--mono); font-size:12px; letter-spacing:.04em; color:var(--muted); padding:4px 0; list-style-position:inside}
-.altres > summary:hover{color:var(--cat)}
-.altres[open] > summary{margin-bottom:8px}
-.titol-altres{margin:10px 0 6px; font-family:var(--mono); font-size:11px; letter-spacing:.06em; text-transform:uppercase; color:var(--muted)}
-.pastilles{display:flex; flex-wrap:wrap; gap:6px}
-.pastilla{
-  font-size:13.5px; text-decoration:none; padding:5px 11px; border-radius:999px;
-  border:1px solid var(--border); background:var(--surface); transition:border-color .15s, background-color .15s;
-}
-.pastilla:hover{border-color:var(--cat)}
-.pastilla.actual{border-color:var(--cat); background:var(--cat-fons); font-weight:700}
-
 /* ── DISPOSICIÓ DE LA FITXA ────────────────────────────────────────── */
-/* Una columna (pantalles estretes): enunciat, reproductor, calculadora, passos, altres fitxes */
+/* Una columna (pantalles estretes): enunciat, reproductor, calculadora, passos
 .contingut{flex:1; width:100%; max-width:640px; margin:0 auto; padding:14px; display:flex; flex-direction:column; gap:14px}
 .columna{display:contents}
 .enunciat{order:1}
 .reproductor{order:2}
 .contingut > .escenari{order:3}
 .passos{order:4}
-.altres{order:5}
 
 /* Portàtils: a l'esquerra, tot el que es llegeix; a la dreta, només la calculadora.
    Amplada repartida 15 % (marge) · 40 % (explicacions) · 30 % (calculadora) · 15 % (marge): marges amb
@@ -399,8 +386,6 @@ a{color:inherit}
 /* Pantalles tàctils (Chromebook): botons més grans */
 @media (any-pointer:coarse){
   .boto{width:46px; height:46px}
-  .boto.principal{width:52px; height:52px}
-  .pastilla{padding:8px 13px}
   .velocitat select{padding:8px}
   .pas .cap{min-height:44px}
 }
@@ -446,7 +431,6 @@ a{color:inherit}
 .ara-tu-mode{display:grid; grid-template-columns:minmax(0, 1fr); gap:8px; padding-top:8px; border-top:1px solid var(--oliva)}
 .ara-tu-controls{display:flex; flex-wrap:wrap; align-items:center; gap:8px 14px}
 .ara-tu .passos{order:0; flex:none; min-height:0; max-height:none; overflow:visible}
-.ara-tu .boto.principal{background:var(--oliva); border-color:var(--oliva)}
 /* Mode «Ara tu»: el fons de la pàgina, verd oliva clar, perquè es distingeixi de l'exercici principal */
 body.mode-ara-tu{background:var(--oliva-fons)}
 body.mode-ara-tu .peu{background:color-mix(in srgb, var(--oliva-fons) 70%, var(--surface))}
@@ -463,16 +447,16 @@ body.mode-ara-tu.zona-error{background:color-mix(in srgb, var(--oliva-fons) 80%,
 /* ── Zona d'error ─────────────────────────────────────────────────────
    Quan el pas actual ensenya un ús erroni de la calculadora (pas.error a fitxes.js), motor.js posa
    la classe «zona-error» al body i TOTES les vores de la pàgina passen a ser de color vellut vermell:
-   les caixes, els botons, les tecles petites dels passos, les pastilles, les línies de separació i els
+   les caixes, els botons, les tecles petites dels passos, les línies de separació i els
    marcs grocs de la calculadora (tecles del pas, part ressaltada de la pantalla). Les línies que formen
    part del dibuix de la calculadora (dins de la pantalla, les vores de les tecles) no canvien. */
 body.zona-error{--marca-vora:var(--vellut)}
-body.zona-error .enunciat, body.zona-error .boto, body.zona-error .boto.principal, body.zona-error .velocitat select,
-body.zona-error .pas.actual, body.zona-error .pas:not(.actual):hover, body.zona-error .pastilla, body.zona-error .pastilla.actual,
+body.zona-error .enunciat, body.zona-error .boto, body.zona-error .velocitat select,
+body.zona-error .pas.actual, body.zona-error .pas:not(.actual):hover,
 body.zona-error .tecla, body.zona-error .torna, body.zona-error .ona{border-color:var(--vellut)}
-body.zona-error .altres, body.zona-error .peu{border-top-color:var(--vellut)}
+body.zona-error .peu{border-top-color:var(--vellut)}
 body.zona-error .pas.actual{box-shadow:0 0 0 1px var(--vellut), 0 2px 8px rgba(158,27,50,.18)}
-.enunciat, .velocitat select, .altres{transition:border-color .25s}
+.enunciat, .velocitat select{transition:border-color .25s}
 /* El fons de tota la pàgina (cos, capçalera i peu): 80 % el color de sempre i 20 % vellut vermell */
 body.zona-error{background:color-mix(in srgb, var(--bg) 80%, var(--vellut))}
 body.zona-error .capcalera{background:color-mix(in srgb, var(--hd-bg) 80%, var(--vellut))}
@@ -483,3 +467,119 @@ body, .capcalera{transition:background-color .25s}
 .avis-error{border-radius:3px; padding:0 .15em; margin:0 -.15em}
 .pas.actual .avis-error{animation:avis-error 1s linear}
 @keyframes avis-error{0%, 88%{background:#ffff00} 100%{background:transparent}}
+
+/* ── LABORATORI D'UX: LES PALANQUES (?ux=…, nucli/ux.js) ──────────────
+   Variants de la interfície per provar-les abans de decidir. Cada palanca activa posa «ux-<palanca>» a <html>.
+   Sense ?ux= a l'adreça, res d'això no s'aplica. */
+
+/* A1 · Només el pas actual (amb «3/6»); «Tots els passos» ensenya la llista sencera */
+.ux-a1 .passos .pas:not(.actual){display:none}
+.ux-a1.ux-a1-tots .passos .pas:not(.actual):not(.zero){display:block}
+.ux-a1 .pas.actual .num::after{content:'/' attr(data-de); color:var(--muted); font-weight:400}
+.ux-tots{font-family:var(--mono); font-size:12px; padding:5px 11px; border:1px solid var(--border); border-radius:999px; background:var(--surface); color:var(--muted); cursor:pointer}
+.ux-tots:hover, .ux-tots[aria-pressed="true"]{border-color:var(--cat); color:var(--cat)}
+
+/* A2 · Un cop començada la fitxa, l'enunciat es plega a una línia (en clicar-lo, es desplega) */
+.ux-a2 .enunciat{cursor:pointer}
+.ux-a2 body.en-marxa .enunciat:not(.desplegat){
+  max-height:calc(1.55em + 24px); overflow:hidden;
+  -webkit-mask-image:linear-gradient(#000 50%, transparent); mask-image:linear-gradient(#000 50%, transparent);
+}
+
+/* A3 · Capçalera mínima: «Escollir calculadora» i l'idioma, dins d'un ⚙ a la dreta */
+.ux-ajustos{position:relative; margin-left:auto}
+.ux-ajustos > summary{list-style:none; cursor:pointer; width:34px; height:34px; display:grid; place-items:center; border-radius:7px; font-size:1.2rem; line-height:1; color:var(--hd-txt)}
+.ux-ajustos > summary::-webkit-details-marker{display:none}
+.ux-ajustos > summary:hover, .ux-ajustos[open] > summary{background:color-mix(in srgb, var(--hd-txt) 18%, transparent)}
+.ux-ajustos > .tries{position:absolute; right:0; top:calc(100% + 8px); z-index:50; flex-direction:column; align-items:stretch; gap:10px;
+  padding:12px; border-radius:10px; background:var(--hd-bg); box-shadow:0 10px 28px rgba(15,23,42,.35)}
+
+/* A4 · Sense peu */
+.ux-a4 .pagina-fitxa .peu{display:none}
+
+/* B1 · Les tecles que no són del pas, apagades */
+.ux-b1 .calculadora .tecla{transition:opacity .25s, transform .08s, box-shadow .08s, background-color .15s}
+.ux-b1 .calculadora:has(.tecla.del-pas) .tecla:not(.del-pas){opacity:.28}
+
+/* B2 · Sense els números d'ordre de les tecles */
+.ux-b2 .calculadora .tecla.del-pas[data-ordre]::after{content:none}
+
+/* B3 · Sense cursor ni ona: la tecla s'il·lumina quan es prem */
+.ux-b3 .cursor, .ux-b3 .ona{display:none}
+.ux-b3 .calculadora .tecla.premuda{box-shadow:0 0 0 1.3cqw #facc15, 0 0 4cqw 1.2cqw rgba(250,204,21,.65)}
+
+/* B4 · Lupa: la calculadora s'amplia al voltant de les tecles del pas mentre es premen (reproductor.js, lupa) */
+.ux-b4 .calculadora{transition:transform .45s cubic-bezier(.45,.05,.25,1)}
+@media (prefers-reduced-motion: reduce){ .ux-b4 .calculadora{transition:none} }
+
+/* C1 · Temps de lectura: una barra sota la frase marca el temps abans que comencin les tecles */
+.ux-c1 .pas, .ux-c1 .frase-gran{position:relative}
+.llegint::after{content:''; position:absolute; left:12px; bottom:3px; height:3px; border-radius:2px; background:var(--cat); animation:ux-lectura var(--lectura, 2s) linear forwards}
+@keyframes ux-lectura{from{width:0} to{width:calc(100% - 24px)}}
+
+/* C2 · La frase [calc] surt quan comencen les tecles */
+.ux-c2 .frase-calc{transition:opacity .35s}
+.calc-amagat .frase-calc{opacity:0}
+
+/* C3 · [mat] i [calc] sense fons de color: una icona petita (llapis / calculadora) davant */
+.ux-c3 .frase-mat, .ux-c3 .frase-calc{position:relative; background:none; padding:2px 0 2px 1.7em}
+.ux-c3 .frase-mat::before, .ux-c3 .frase-calc::before{
+  content:''; position:absolute; left:0; top:.32em; width:1.1em; height:1.1em; background:var(--muted);
+  -webkit-mask:var(--icona) center/contain no-repeat; mask:var(--icona) center/contain no-repeat;
+}
+.ux-c3 .frase-mat{--icona:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M4 20h4L19.5 8.5l-4-4L4 16z M13.5 6.5l4 4' fill='none' stroke='black' stroke-width='2' stroke-linejoin='round'/%3E%3C/svg%3E")}
+.ux-c3 .frase-calc{--icona:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Crect x='5' y='2.5' width='14' height='19' rx='2' fill='none' stroke='black' stroke-width='2'/%3E%3Crect x='8' y='5.5' width='8' height='4' fill='black'/%3E%3Ccircle cx='9' cy='13.5' r='1.3'/%3E%3Ccircle cx='15' cy='13.5' r='1.3'/%3E%3Ccircle cx='9' cy='17.5' r='1.3'/%3E%3Ccircle cx='15' cy='17.5' r='1.3'/%3E%3C/svg%3E")}
+.ux-c3 .pas .resum .frase-mat::before, .ux-c3 .pas .resum .frase-calc::before{content:none}
+
+/* C4 i E2 · La frase del pas actual, fora de la llista i en gran (la llista en mostra només el resum) */
+.ux-frase-fora .pas.actual .frase{display:none}
+.ux-frase-fora .pas.actual .cap{flex:1; width:100%}
+.ux-frase-fora .pas.actual .resum{display:block; color:var(--txt)}
+.ux-frase-fora .pas.zero.actual{display:none}
+.frase-gran{
+  position:relative; min-width:0; overflow-y:auto; padding:12px 16px; border:1.5px solid var(--cat); border-radius:12px;
+  background:var(--surface); box-shadow:0 2px 8px rgba(15,23,42,.07); font-size:17px; line-height:1.6;
+}
+.frase-gran-num{margin:0 0 6px; font:600 12px/1 var(--mono); letter-spacing:.04em; color:var(--cat)}
+.frase-gran .avis-error{animation:avis-error 1s linear}
+/* C4 · Sota la calculadora (que s'encongeix per deixar-hi lloc) */
+.ux-c4 .escenari{flex-direction:column; align-items:center; gap:10px; --sota:150px}
+.ux-c4 .escenari > .frase-gran{flex:none; width:100%}
+@media (min-width:1000px){
+  .ux-c4 .escenari > .frase-gran{height:var(--sota)}
+  .ux-c4 .pagina-fitxa .calculadora{width:min(100cqw, calc((100cqh - var(--sota) - 10px) / var(--alcada-rel, 1.864)))}
+}
+/* E2 · Tres columnes: enunciat i passos | la calculadora, al mig | la frase del pas i els botons */
+.costat{order:3; display:flex; flex-direction:column; gap:12px; min-width:0}
+@media (min-width:1000px){
+  .ux-e2 .pagina-fitxa .contingut{grid-template-columns:minmax(0, 1.05fr) minmax(0, .9fr) minmax(0, 1fr); column-gap:clamp(16px, 2vw, 32px); padding:10px 3%}
+  .ux-e2 .pagina-fitxa .contingut > .escenari{padding-left:0}
+  .ux-e2 .costat{min-height:0}
+  .ux-e2 .costat > .frase-gran{flex:0 1 auto; min-height:0}
+}
+
+/* D1 · Error típic sense tenyir la pàgina: només la vora del pas (i de les tecles) en vermell */
+body.error-suau{--marca-vora:var(--vellut)}
+body.error-suau .pas.actual, body.error-suau .frase-gran{border-color:var(--vellut); box-shadow:0 0 0 1px var(--vellut), 0 2px 8px rgba(158,27,50,.18)}
+
+/* D2 · L'«Ara tu» / «Prova-ho tu», en una pantalla a part: s'hi va amb ▶ des de l'últim pas */
+.ux-torna-passos{display:none}
+.ux-final .ux-torna-passos{display:inline-flex; align-self:flex-start; font-family:var(--mono); font-size:13px; padding:6px 12px; border:1px solid var(--border); border-radius:999px; background:var(--surface); cursor:pointer}
+.ux-final .ux-torna-passos:hover{border-color:var(--cat); color:var(--cat)}
+.ux-final .pagina-fitxa .columna > :not(.ara-tu):not(.ux-torna-passos):not(.nomes-lectors){display:none}
+.ux-final .costat > .reproductor, .ux-final body:not(.mode-ara-tu) .frase-gran{display:none}
+.ux-final .ara-tu{font-size:1.06em; padding:18px 20px}
+
+/* E3 · Una sola columna, com al mòbil (la pàgina es desplaça): enunciat, botons, passos i, a sota, la calculadora */
+@media (min-width:1000px){
+  .ux-e3 body.pagina-fitxa{height:auto; min-height:100vh; display:flex}
+  .ux-e3 .pagina-fitxa .contingut{display:flex; flex-direction:column; max-width:720px; padding:14px; gap:14px}
+  .ux-e3 .pagina-fitxa .columna{display:contents}
+  .ux-e3 .pagina-fitxa .passos{flex:none; overflow:visible}
+  .ux-e3 .pagina-fitxa .enunciat{order:1}
+  .ux-e3 .pagina-fitxa .reproductor{order:2}
+  .ux-e3 .pagina-fitxa .passos{order:3}
+  .ux-e3 .pagina-fitxa .ara-tu{order:4}
+  .ux-e3 .pagina-fitxa .contingut > .escenari{order:5; container-type:normal; padding-left:0}
+  .ux-e3 .pagina-fitxa .calculadora{width:min(100%, 360px)}
+}

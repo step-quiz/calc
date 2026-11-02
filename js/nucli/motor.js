@@ -4,9 +4,10 @@
    Construeix fitxa.html?id=… en dues columnes:
      · a l'esquerra, tot el que es llegeix: l'enunciat (amb la font i
        la figura, si n'hi ha), els botons ◀ ↻ ▶, la velocitat, la llista
-       de passos, l'«Ara tu» o el «Prova-ho tu» (en acabar) i, plegades,
-       les altres fitxes del bloc;
+       de passos i l'«Ara tu» o el «Prova-ho tu» (en acabar);
      · a la dreta, només la calculadora (la dibuixa el model).
+   El peu surt sencer en obrir la fitxa i, al cap de PEU_SENCER_MS,
+   només hi queda «© 2026 David Arso Civil».
    El reproductor pas a pas és a reproductor.js.
 
    Si l'últim pas d'una fitxa és un error, s'hi afegeix un pas de
@@ -33,9 +34,12 @@ const AVIS_CLICS = 5;
 const AVIS_DURADA = 10000;
 const AVIS_TEXT = 'Recorda: pots fer servir les fletxes ↑, ↓ del teclat per fer tots els passos';
 
-const PEU = '© 2026 <strong>David Arso Civil</strong>. Ús educatiu lliure. Prohibida la comercialització '
-  + 'i la modificació (<a rel="license" href="https://creativecommons.org/licenses/by-nc-nd/4.0/">CC BY-NC-ND 4.0</a>). '
-  + 'Web no oficial, sense relació amb el fabricant de la calculadora. <span class="versio">Versió ' + Models.VERSIO + '</span>';
+/** El peu: l'autor, que sempre es veu, i la resta, que s'esvaeix al cap de PEU_SENCER_MS (i en ESVAIR_MS). */
+const PEU = '<span class="peu-autor">© 2026 <strong>David Arso Civil</strong></span><span class="peu-resta">. Ús educatiu lliure. '
+  + 'Prohibida la comercialització i la modificació (<a rel="license" href="https://creativecommons.org/licenses/by-nc-nd/4.0/">CC BY-NC-ND 4.0</a>). '
+  + 'Web no oficial, sense relació amb el fabricant de la calculadora. <span class="versio">Versió ' + Models.VERSIO + '</span></span>';
+const PEU_SENCER_MS = 5000;
+const ESVAIR_MS = 500;
 
 const ICONA_FONT = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 2.5h8.5L19 7v14.5H6z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>'
   + '<path d="M14 2.5V7.5h5M9 12h7M9 16h7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>';
@@ -52,6 +56,9 @@ let text = t => escapa(t);
 function parametre(nom) {
   try { return new URLSearchParams(location.search).get(nom); } catch (e) { return null; }
 }
+
+/** Una palanca del laboratori d'UX (nucli/ux.js) és activa? Sense ?ux=, mai. */
+const ux = p => Boolean(arrel.UX && arrel.UX.te(p));
 
 
 /* ── Capçalera: on som, la calculadora i l'idioma dels menús ─────────── */
@@ -201,10 +208,28 @@ function construeixPagina(fitxa, bloc, germanes, contenidor) {
   if (figura) r.enunciat.prepend(figura);
   for (const [nom, factor] of VELOCITATS) r.velocitat.append(element('option', {value: String(factor), text: nom}));
   r.velocitat.value = String(PER_DEFECTE);
-  r.reproductor.append(
+  // Palanca A1: només es veu el pas actual; aquest botó ensenya o amaga la llista sencera
+  const totsElsPassos = ux('a1') ? element('button', {class: 'ux-tots', type: 'button', 'aria-pressed': 'false', text: 'Tots els passos'}) : null;
+  if (totsElsPassos) totsElsPassos.addEventListener('click', () => {
+    const tots = document.documentElement.classList.toggle('ux-a1-tots');
+    totsElsPassos.setAttribute('aria-pressed', String(tots));
+  });
+  r.reproductor.append(...[
     element('div', {class: 'botons'}, [r.anterior, r.repeteix, r.seguent]),
+    totsElsPassos,
     element('label', {class: 'velocitat', for: 'velocitat', text: 'Velocitat '}, [r.velocitat]),
-  );
+  ].filter(Boolean));
+  // Palanca A2: un cop començada, l'enunciat es plega a una línia; en clicar-lo, es desplega (i es torna a plegar)
+  if (ux('a2')) r.enunciat.title = 'Clica per veure o plegar l\'enunciat';
+  if (ux('a2')) r.enunciat.addEventListener('click', e => {
+    if (e.target.closest('button, a, dialog')) return;
+    r.enunciat.classList.toggle('desplegat');
+  });
+  // Palanques C4 i E2: la frase del pas actual surt fora de la llista, en gran (sota la calculadora o a la dreta)
+  if (ux('c4') || ux('e2')) {
+    r.fraseGran = element('div', {class: 'frase-gran', 'aria-hidden': 'true'});
+    document.documentElement.classList.add('ux-frase-fora');
+  }
 
   r.calculadora = element('div', {class: 'calculadora', style: `aspect-ratio:100/${T.alcada};--alcada-rel:${T.alcada / 100}`, html: M.tecles.htmlTeclat()});
   r.calculadora.append(element('div', {class: 'lcd', style: `left:${T.vidre.x}cqw;top:${T.vidre.y}cqw;width:${T.vidre.w}cqw;height:${T.vidre.h}cqw`}, [r.lcd]));
@@ -213,23 +238,29 @@ function construeixPagina(fitxa, bloc, germanes, contenidor) {
   if (fitxa.provaTu) r.alFinal.push(construeixProvaTu(fitxa.provaTu));
 
   r.escenari = element('div', {class: 'escenari'}, [r.calculadora, r.efectes, r.cursor]);
+  // C4: la frase, sota la calculadora. E2 (sense C4): la frase i els botons, en una columna a la dreta de la calculadora.
+  let costat = null;
+  if (r.fraseGran && ux('c4')) r.escenari.append(r.fraseGran);
+  else if (r.fraseGran) costat = element('div', {class: 'costat'}, [r.fraseGran, r.reproductor]);
+  // D2: a la pantalla de l'«Ara tu», un botó per tornar als passos
+  r.tornaPassos = ux('d2') && r.alFinal.length ? element('button', {class: 'ux-torna-passos', type: 'button', text: '← Torna als passos'}) : null;
 
-  const enllac = f => element('a', {class: 'pastilla' + (f.id === fitxa.id ? ' actual' : ''), href: Models.adreca({model: M.id, etapa: ETAPA, fitxa: f.id}),
-    'aria-current': f.id === fitxa.id ? 'page' : null, text: f.titol});
-  // Les relacionades d'un altre bloc (les del mateix bloc ja hi són)
-  const relacionades = (fitxa.relacionades || []).map(id => M.dades.FITXES.find(f => f.id === id)).filter(f => f && f.bloc !== fitxa.bloc);
-  const altres = element('details', {class: 'altres'}, [
-    element('summary', {text: 'Fitxes de «' + bloc.titol + '»'}),
-    element('div', {class: 'pastilles'}, germanes.map(enllac)),
-    relacionades.length ? element('p', {class: 'titol-altres', text: 'Et pot interessar'}) : null,
-    relacionades.length ? element('div', {class: 'pastilles'}, relacionades.map(enllac)) : null,
-  ]);
+  // El peu: sencer en obrir la fitxa; al cap de PEU_SENCER_MS, només l'autor
+  const peu = element('footer', {class: 'peu', html: PEU});
+  setTimeout(() => {
+    peu.classList.add('esvaint');
+    setTimeout(() => peu.classList.add('curt'), ESVAIR_MS);
+  }, PEU_SENCER_MS);
+
+  // A3: capçalera mínima, amb «Escollir calculadora» i l'idioma plegats dins d'un ⚙
+  const tries = element('div', {class: 'tries'}, [selectorModel(fitxa), selectorIdioma()]);
+  const ajustos = ux('a3') ? element('details', {class: 'ux-ajustos'}, [element('summary', {title: 'Ajustos', 'aria-label': 'Ajustos', text: '⚙'}), tries]) : tries;
 
   contenidor.replaceChildren(
     element('header', {class: 'capcalera'}, [
       element('a', {class: 'torna', href: Models.adreca({model: M.id, etapa: ETAPA}) + '#' + bloc.id, text: '← Fitxes'}),
       ...titolFitxa(fitxa, bloc, germanes),
-      element('div', {class: 'tries'}, [selectorModel(fitxa), selectorIdioma()]),
+      ajustos,
       // Avisos que només mostra el CSS quan cal: navegador sense unitats cqw, tauleta en vertical
       element('p', {class: 'avis-capcalera avis-navegador', text: 'Aquest navegador és massa antic per dibuixar la calculadora. Actualitza\'l (Chrome 105 o posterior).'}),
       element('p', {class: 'avis-capcalera avis-gira', text: 'Gira la tauleta: en horitzontal veuràs alhora la calculadora i les explicacions.'}),
@@ -237,16 +268,17 @@ function construeixPagina(fitxa, bloc, germanes, contenidor) {
     element('main', {class: 'contingut'}, [
       element('div', {class: 'columna'}, [
         element('h1', {class: 'nomes-lectors', text: fitxa.titol}),
+        r.tornaPassos,
         r.enunciat,
-        r.reproductor,
+        costat ? null : r.reproductor,
         r.passos,
         ...r.alFinal.map(a => a.el),
         r.anunci,
-        altres,
       ]),
       r.escenari,
+      costat,
     ]),
-    element('footer', {class: 'peu', html: PEU}),
+    peu,
   );
   return r;
 }
@@ -394,7 +426,9 @@ function inicia(model, id, contenidor) {
   const actiu = () => (modeAraTu && sub ? sub : reproductor);
 
   const ambFinal = ambTancament(fitxa);
-  const reproductor = Reproductor.crea(ctx, r, ambFinal, temps, {abans: surtAraTu});
+  // D2: l'«Ara tu» i el «Prova-ho tu» no surten sols en acabar; s'hi va amb ▶ des de l'últim pas, i tornen amb un botó
+  const reproductor = Reproductor.crea(ctx, r, ambFinal, temps, {abans: surtAraTu, finalAPart: Boolean(r.tornaPassos)});
+  if (r.tornaPassos) r.tornaPassos.addEventListener('click', () => { surtAraTu(); reproductor.salta(reproductor.pas); });
   if (pasInicial >= 1 && pasInicial <= ambFinal.passos.length) reproductor.salta(pasInicial - 1);
   const avis = creaAvis(r);
   for (const b of [r.anterior, r.seguent]) {

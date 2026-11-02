@@ -16,6 +16,7 @@ Web no oficial, sense relació amb el fabricant de la calculadora.
   dels menús (castellà o català). El navegador ho recorda. La calculadora triada surt al títol de la portada; a la fitxa, la capçalera diu el bloc (T1…) i la fitxa.
 - A la fitxa: ▶ o ↓ / → passen al pas següent (animat); ◀ o ↑ / ← tornen enrere; ↻ o la tecla R tornen a fer el pas
   actual. La velocitat es pot posar «lenta», «normal» o «ràpida»; les xifres sempre van 3 vegades més de pressa que la resta de tecles. Abans de les tecles de cada pas, la vora de la calculadora s'il·lumina en groc perquè l'alumne hi miri.
+- El peu de la fitxa surt sencer 5 segons i després només hi queda l'autor; a la portada, sempre sencer a baix.
 - Els passos que ensenyen un error típic tenyeixen la pàgina de vermell («zona d'error»). Si la fitxa acaba amb un
   error, l'últim pas torna a la manera correcta.
 - En acabar: a Batxillerat, «Ara tu» (un exercici semblant, que es pot fer pas a pas amb la calculadora); a l'ESO,
@@ -79,7 +80,8 @@ Per comprovar que cada pas de cada fitxa cap a la finestra sense desplaçar la p
 node proves/encaix.js
 ```
 
-Ha d'acabar amb «Tot hi cap».
+Ha d'acabar amb «Tot hi cap». Les palanques del laboratori d'UX (`?ux=…` a l'adreça d'una fitxa; sense, la pàgina
+no canvia) es proven amb `node proves/ux.js`, que ha d'acabar amb «Palanques correctes».
 
 ## Publicació
 
