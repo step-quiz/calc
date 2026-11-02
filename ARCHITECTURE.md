@@ -64,7 +64,7 @@ fitxa (what the player plays) = exercici (shared)        +  model fitxa (per cal
 | `js/vigia.js` | `Vigia` | Loaded first, ES5 only. Shows a visible box (message, file, user agent) on a script/stylesheet load failure, a JS error, an unhandled rejection, or if the page has not called `Vigia.llesta()` after 10 s. Never a silent blank page. |
 | `js/nucli/models.js` | `Models` | `VERSIO`; registry and loader of exercises, blocks and models; the contract check (`tanca`); stages; links (`adreca`); drawing helpers (`dibuix`). |
 | `js/nucli/preferencies.js` | `Preferencies` | localStorage: `calc-model`, `calc-etapa`, `calc-idioma` (try/catch everywhere). |
-| `js/nucli/tria.js` | `TriaCalculadora` | «Escollir calculadora»: `boto(descriptors, actual, adreca)` gives the header button; it opens a `<dialog>` with a 3-column grid (2 below 640 px, 1 below 380 px) of every calculator (image + name; the current one marked «La teva»; hover/focus highlights). A click stores the choice and opens `adreca(id)`. No `Dom` (the home page does not load it). |
+| `js/nucli/tria.js` | `TriaCalculadora` | «Escollir calculadora»: `boto(descriptors, actual, adreca)` gives the header button; it opens a `<dialog>` with a 3-column grid (2 below 640 px, 1 below 380 px) of every calculator (the image, as tall as the cell allows, and the short name; the current one has a green border; hover/focus highlights). A click stores the choice and opens `adreca(id)`. No `Dom` (the home page does not load it). |
 | `js/nucli/text.js` | `Text` | Text mini-syntax → HTML (§6.3). |
 | `js/nucli/dom.js` | `Dom` | `element()`, `icona()`, the player icons. |
 | `js/nucli/reproductor.js` | `Reproductor` | The step player: step list, key outlines and order badges, animated cursor, `salta` / `seguent` / `repeteix`, error-zone class, ARIA live announcement, `?pas=` in the URL, ▶ reminder. |
@@ -232,6 +232,11 @@ student to reset it. Do not add such fitxes.
 key sequence, step sentences — and wait for his OK. Deliver block by block. Sources are ground truth: competència bàsica
 tests (`step-quiz/cb`, official key), the department's 4t ESO book (`step-quiz/llibre`), real PAU exercises, or own
 examples when David allows it. Never invent an official statement or solution.
+
+**Fractions.** Mixed numbers (a b/c) are not used in Europe: a fraction is always shown improper. On the fx-82MS, a
+decimal result goes to a fraction with SHIFT a b/c (d/c: `7┘4`), never with a b/c alone (`1┘3┘4`). On the
+fx-570/991SP X II, when a fraction (or another exact result) is already on the screen, its decimal is S⇔D (`sd`), not
+SHIFT =; SHIFT = (≈) stays for getting the decimal directly from the expression.
 
 **Realism.** Show the calculator the way a student would use it in an exam: the shortest sensible sequence. No detours
 such as storing values in variables (on the fx-82MS, re-evaluate with replay ◀ and overwrite). No pointless steps.

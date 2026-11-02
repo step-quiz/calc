@@ -66,8 +66,8 @@ M.fitxes.push(
       text: '[calc]Ara fes l\'operació [[entre]] 62.[/calc]'},
     {tecles: ['exe'], pantalla: marca(calc(D, Q26, '\\frac{714}{31}'), 'resultat'),
       text: '[calc]Prem [[exe]]: obtens $\\frac{714}{31}$. Surt en fracció perquè la calculadora està configurada per donar resultats exactes; si estigués configurada per donar decimals, sortiria 23.03225806.[/calc]'},
-    {tecles: ['shift', 'exe'], pantalla: marca(calc(D, Q26, '23.03225806'), 'resultat'),
-      text: '[calc]Per tenir-lo en decimal, prem [[shift]] i [[exe]] (≈): obtens 23.03225806.[/calc] [mat]La resposta correcta és que l\'alçada serà d\'uns 23 cm.[/mat]'},
+    {tecles: ['sd'], pantalla: marca(calc(D, Q26, '23.03225806'), 'resultat'),
+      text: '[calc]Per tenir-lo en decimal, prem [[sd]]: obtens 23.03225806.[/calc] [mat]La resposta correcta és que l\'alçada serà d\'uns 23 cm.[/mat]'},
   ],
 },
 

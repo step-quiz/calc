@@ -63,8 +63,8 @@ M.fitxes.push(
       text: '[mat]L\'escala és la hipotenusa i l\'altura, el catet oposat a l\'angle de 60°: oposat i hipotenusa → sinus. Altura $=5\\cdot\\sin 60^\\circ$.[/mat] [calc]Amb la D a la barra, escriu 5, [[sen]], 60 i [[rpar]].[/calc]'},
     {tecles: ['exe'], pantalla: marca(calc(D, ESCALA, '\\frac{5\\sqrt{3}}{2}'), 'resultat'),
       text: '[calc]Prem [[exe]]: obtens $\\frac{5\\sqrt{3}}{2}$. Surt exacte perquè la calculadora està configurada per donar resultats exactes; si estigués configurada per donar decimals, sortiria 4.330127019.[/calc]'},
-    {tecles: ['shift', 'exe'], pantalla: marca(calc(D, ESCALA, '4.330127019'), 'resultat'),
-      text: '[calc]Per tenir-lo en decimal, prem [[shift]] i [[exe]] (≈): obtens 4.330127019.[/calc] [mat]La resposta correcta és que l\'escala arriba a uns 4,33 m d\'altura.[/mat]'},
+    {tecles: ['sd'], pantalla: marca(calc(D, ESCALA, '4.330127019'), 'resultat'),
+      text: '[calc]Per tenir-lo en decimal, prem [[sd]]: obtens 4.330127019.[/calc] [mat]La resposta correcta és que l\'escala arriba a uns 4,33 m d\'altura.[/mat]'},
   ],
 },
 {

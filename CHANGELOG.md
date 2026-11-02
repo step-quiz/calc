@@ -4,6 +4,15 @@ Què ha canviat a cada versió del web, de la més nova a la més antiga. El fun
 `README.md` i `ARCHITECTURE.md`; aquí només hi ha la història. El número de versió és `VERSIO` a
 `js/nucli/models.js` i surt al peu de les pàgines.
 
+## Versió 59 (2/11/2026)
+
+- «Escollir calculadora»: només el nom curt, sense el nom llarg ni l'etiqueta «La teva» (la calculadora d'ara té la
+  vora verda); el títol, un 20 % més petit; les imatges de les calculadores, tan altes com permet la casella.
+- Fraccions sense nombres mixtos. A la fx-82MS, un resultat decimal passa a fracció amb SHIFT a b/c (d/c): 1.75 → 7┘4,
+  i no 1┘3┘4 (fitxes «Em surt una fracció: vull el decimal», «Fracció de sumes: on van els parèntesis» i «Potència d'una fracció»).
+- fx-570/991SP X II: quan ja hi ha una fracció (o un resultat exacte) a la pantalla, el decimal s'obté amb S⇔D i no
+  amb SHIFT = (5 fitxes d'ESO). SHIFT = continua servint per obtenir el decimal directament.
+
 ## Versió 58 (2/11/2026) — «Escollir calculadora»
 
 - La calculadora ja no es tria amb un desplegable: el botó **«Escollir calculadora»** (a la portada i a la fitxa) obre

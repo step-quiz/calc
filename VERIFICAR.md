@@ -108,7 +108,7 @@ la CW, es retalla la franja del logotip de dalt. La creu del cursor és un oval 
 | 4 | El menú de DRG▸ (SHIFT Ans) | `guions.js` (`drg`) | «D R G» a dalt i 1, 2, 3 a baix; el 2 escriu una r darrere del valor: `sin (π÷6)r`. |
 | 5 | Com es veu el que s'escriu | `simulador.js` (`ESCRIU`) | «sin », «cos », «tan », «log » i «ln » porten un espai darrere (la foto: «sin 60+cos 9»); el signe negatiu (−) i la resta es veuen igual, «-»; SHIFT x³ escriu «³√»; SHIFT ^ escriu «ˣ√» (`4ˣ√16`); a b/c escriu «┘». |
 | 6 | La fracció a la línia de baix | `pantalla.js` | 7 segments amb ┘ (els segments c i d): «1┘7┘12». |
-| 7 | Les conversions amb a b/c | fitxes `frac-prioritat` i `pot-fraccio` | Després de 1.666666667, a b/c dona 1┘2┘3; després de 2.25, 2┘1┘4. |
+| 7 | Les conversions amb SHIFT a b/c (d/c) | fitxes `frac-prioritat`, `pot-fraccio` i `eso-fraccio-decimal` | Amb un resultat decimal a la pantalla, SHIFT a b/c el passa a fracció impròpia: 1.666666667 → 5┘3, 2.25 → 9┘4, 1.75 → 7┘4. |
 | 8 | Quants caràcters té la línia de dalt | `pantalla.js` (`COLUMNES`) | 12 (la foto: «sin 60+cos 9»); si n'hi ha més, es desplaça i surt una fletxa. |
 | 9 | Les 10 xifres de baix | `calcul.js` | Compten el 0 de davant dels decimals (el manual: tan(−35) = −0,612800788): cos (π÷3) en graus dona 0.999832979. |
 | 10 | La repetició (versió 35) | fitxa `pau-ana-24i-q1`, passos 3 i 4 | Amb un resultat a la pantalla, ◀ torna a l'expressió amb el cursor al final, i escriure **sobreescriu** el caràcter del cursor (el manual: SHIFT DEL, INS, canvia al cursor d'inserció). |

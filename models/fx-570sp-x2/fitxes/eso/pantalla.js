@@ -24,8 +24,8 @@ M.fitxes.push(
       text: '[calc]Escriu 7 [[entre]] 4.[/calc]'},
     {tecles: ['exe'], pantalla: marca(calc(D, '7\\div 4', '\\frac{7}{4}'), 'resultat'),
       text: '[calc]Prem [[exe]]: obtens el resultat, que és $\\frac{7}{4}$. Surt en fracció perquè la calculadora està configurada per donar resultats exactes; si estigués configurada per donar decimals, sortiria 1.75.[/calc] [mat]Una divisió és una fracció: $7\\div 4=\\frac{7}{4}$.[/mat]'},
-    {tecles: ['shift', 'exe'], pantalla: marca(calc(D, '7\\div 4', '1.75'), 'resultat'),
-      text: '[calc]Per tenir-lo en decimal, prem [[shift]] i [[exe]] (a sobre de = hi ha ≈): obtens 1.75.[/calc] [mat]La resposta correcta és $\\frac{7}{4}=1{,}75$.[/mat]'},
+    {tecles: ['sd'], pantalla: marca(calc(D, '7\\div 4', '1.75'), 'resultat'),
+      text: '[calc]Per tenir-lo en decimal, prem [[sd]]: obtens 1.75.[/calc] [mat]La resposta correcta és $\\frac{7}{4}=1{,}75$.[/mat]'},
   ],
 },
 {

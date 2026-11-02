@@ -29,8 +29,8 @@ M.fitxes.push(
       text: '[mat]El tram és la hipotenusa d\'un triangle rectangle amb catets de 3 m i 5 m. Pel teorema de Pitàgores, mesura $\\sqrt{3^2+5^2}$.[/mat] [calc]Prem [[arrel]] i escriu a dins 3 [[x2]] + 5 [[x2]].[/calc]'},
     {tecles: ['exe'], pantalla: marca(calc(D, ESCALA, '\\sqrt{34}'), 'resultat'),
       text: '[calc]Prem [[exe]]: obtens $\\sqrt{34}$. Surt exacte perquè la calculadora està configurada per donar resultats exactes; si estigués configurada per donar decimals, sortiria 5.830951895.[/calc]'},
-    {tecles: ['shift', 'exe'], pantalla: marca(calc(D, ESCALA, '5.830951895'), 'resultat'),
-      text: '[calc]Per tenir-lo en decimal, prem [[shift]] i [[exe]] (≈): obtens 5.830951895.[/calc] [mat]La resposta correcta és que cada tram mesura uns 5,83 m.[/mat]'},
+    {tecles: ['sd'], pantalla: marca(calc(D, ESCALA, '5.830951895'), 'resultat'),
+      text: '[calc]Per tenir-lo en decimal, prem [[sd]]: obtens 5.830951895.[/calc] [mat]La resposta correcta és que cada tram mesura uns 5,83 m.[/mat]'},
   ],
 },
 {
@@ -41,8 +41,8 @@ M.fitxes.push(
       text: '[mat]El volum és $\\pi\\cdot 3^2\\cdot 15$.[/mat] [calc]Escriu π ([[shift]] [[exp]]), [[per]] 3 [[x2]] [[per]] 15.[/calc]'},
     {tecles: ['exe'], pantalla: marca(calc(D, GOT, '135\\pi'), 'resultat'),
       text: '[calc]Prem [[exe]]: obtens $135\\pi$. Surt exacte perquè la calculadora està configurada per donar resultats exactes; si estigués configurada per donar decimals, sortiria 424.1150082.[/calc]'},
-    {tecles: ['shift', 'exe'], pantalla: marca(calc(D, GOT, '424.1150082'), 'resultat'),
-      text: '[calc]Per tenir-lo en decimal, prem [[shift]] i [[exe]] (≈): obtens 424.1150082.[/calc] [mat]Amb $\\pi=3{,}14$ surt 423,9: arrodonits, tots dos donen 424. La resposta correcta és que el volum és d\'uns 424 cm³.[/mat]'},
+    {tecles: ['sd'], pantalla: marca(calc(D, GOT, '424.1150082'), 'resultat'),
+      text: '[calc]Per tenir-lo en decimal, prem [[sd]]: obtens 424.1150082.[/calc] [mat]Amb $\\pi=3{,}14$ surt 423,9: arrodonits, tots dos donen 424. La resposta correcta és que el volum és d\'uns 424 cm³.[/mat]'},
   ],
 },
 {

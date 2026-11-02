@@ -5,7 +5,8 @@
    calculadora». En clicar-lo s'obre una finestra (<dialog>) amb una
    graella de totes les calculadores del catàleg (3 columnes; menys a
    les pantalles estretes): la imatge (models/<id>/<imatge> del
-   descriptor) i el nom. La que es fa servir ara porta «La teva». En
+   descriptor, tan alta com permet la casella) i el nom curt. La que es
+   fa servir ara té la vora verda. En
    clicar-ne una, es desa (Preferencies) i s'obre la mateixa pàgina amb
    aquella calculadora. Esc, la creu o un clic fora la tanquen.
 
@@ -47,8 +48,6 @@ function finestra(descriptors, actual, adreca) {
       b.append(img);
     }
     b.append(crea('span', 'tria-nom', d.curt));
-    if (d.nom !== d.curt) b.append(crea('span', 'tria-nom-llarg', d.nom));
-    if (d.id === actual) b.append(crea('span', 'tria-actual', 'La teva'));
     b.addEventListener('click', () => {
       if (d.id === actual) { dlg.close(); return; }
       Preferencies.desaModel(d.id);

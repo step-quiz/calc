@@ -20,8 +20,8 @@ M.fitxes.push(
       text: '[calc]Escriu 7 [[entre]] 4.[/calc]'},
     {tecles: ['igual'], pantalla: marca(calc(D, '7÷4', '1.75'), 'resultat'),
       text: '[calc]Prem [[igual]]: obtens el resultat en decimal, que és 1.75. Amb [[entre]], la fx-82MS sempre dona decimals.[/calc]'},
-    {tecles: ['abc'], pantalla: marca(calc(D, '7÷4', '1┘3┘4'), 'resultat'),
-      text: '[calc]Prem [[abc]]: el resultat passa a fracció, 1┘3┘4.[/calc] [mat]És un nombre mixt: $1+\\frac{3}{4}=\\frac{7}{4}$. La resposta correcta és $\\frac{7}{4}=1{,}75$.[/mat]'},
+    {tecles: ['shift', 'abc'], pantalla: marca(calc(D, '7÷4', '7┘4'), 'resultat'),
+      text: '[calc]Prem [[shift]] i [[abc]] (a sobre hi ha d/c): el resultat passa a fracció, 7┘4, és a dir, $\\frac{7}{4}$.[/calc] [mat]La resposta correcta és $\\frac{7}{4}=1{,}75$.[/mat]'},
   ],
 },
 {
