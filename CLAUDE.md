@@ -32,7 +32,8 @@ repositori, si n'hi ha més avall, manen sobre aquestes quan diuen una altra cos
 
 Static site with step-by-step worked examples («fitxes») for CASIO calculators — the **fx-82SP CW** (default), the
 **fx-570/991SP CW** (a sibling model that reuses the CW files), the **fx-570/991SP X II** (own keyboard, CW screen and
-simulator through `variant.js` hooks; f(x) fitxes with CALC) and the **fx-82MS 2nd edition** — for ESO (3r–4t) and Batxillerat students. A fitxa = a shared exercise (`exercicis/`) + the keys and screens of one
+simulator through `variant.js` hooks; f(x) fitxes with CALC), the **fx-82/85/350SP X II** (the X II body without CALC;
+f(x) fitxes with Table) and the **fx-82MS 2nd edition** — for ESO (3r–4t) and Batxillerat students. A fitxa = a shared exercise (`exercicis/`) + the keys and screens of one
 calculator (`models/<id>/fitxes/`). The core (`js/nucli/`) never names a key or a menu.
 
 **Read first:** `ARCHITECTURE.md` (the technical reference: structure, data format, authoring rules in §9, tests, open

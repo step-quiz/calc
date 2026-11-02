@@ -4,6 +4,18 @@ Què ha canviat a cada versió del web, de la més nova a la més antiga. El fun
 `README.md` i `ARCHITECTURE.md`; aquí només hi ha la història. El número de versió és `VERSIO` a
 `js/nucli/models.js` i surt al peu de les pàgines.
 
+## Versió 62 (2/11/2026) — la fx-82/85SP X II
+
+- Cinquena calculadora: la **fx-82SP X II** (i la fx-85SP X II, la fx-350SP X II i les SP X sense «II»: el mateix
+  manual i el mateix teclat), «fx-82/85SP X II» al selector. És la germana petita de la fx-570/991SP X II: el mateix
+  cos i les mateixes tecles, però sense CALC, SOLVE, ∫ ni d/dx (hi ha ⌙ i Simp), totes les tecles fosques i DEL i AC
+  grogues. MENU té quatre aplicacions: Calcular, Estadística, Tabla i Verificar.
+- Totes les fitxes. Les de la fx-570/991SP X II, i les de f(x) amb **Tabla**: «Calcula valors d'una funció amb Tabla»
+  (f i g en una sola taula: extrems i tangent), «Bolzano» (taula d'1 a 1,5 de 0,1 en 0,1) i «Intueix els límits amb
+  Tabla» (prop d'1 i lluny). Barrow, substituint a la primitiva: «Regla de Barrow: substitueix a la primitiva».
+- Pantalles noves: el rang de la taula (Inic., Final, Paso) i la taula (4 files, la cel·la triada en negatiu i el seu
+  valor a baix). Les proves recalculen cada valor de la taula.
+
 ## Versió 61 (2/11/2026) — la capçalera
 
 - En passar el ratolí pel nom de la calculadora del títol («La calculadora fx-…, pas a pas»), surt una foto petita

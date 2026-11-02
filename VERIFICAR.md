@@ -155,3 +155,25 @@ suposat: el manual no dibuixa les pantalles dels menús.
 | 12 | La barra d'indicadors i la pantalla de càlcul | `models/fx-82sp-cw/pantalla.js` | Les de la fx-82SP CW (√▫ i D en negatiu; l'entrada a dalt, el resultat a baix a la dreta); ALPHA posa una A, com SHIFT una S. |
 | 13 | (−), x² i S⇔D | fitxes `eso-quadrat-negatiu`, `cb4-24-q8`, `exacte-decimal` | (−) escriu «−»; `(−3)²` = 9 i `−3²` = −9. S⇔D passa de 19/5 a 3.8 i de √2/2 a 0.7071067812, i una altra vegada torna a l'exacte. Amb Dec periódico activat (és el de fàbrica), potser una fracció com 2/3 surt amb període: les fitxes fan servir SHIFT = (≈) en aquests casos. |
 | 14 | Els colors i les mides | `models/fx-570sp-x2/estil.css`, `tecles.js` | Mesurats i aproximats a partir de la foto: cos negre amb vora clara, quatre tecles rodones platejades, tecles negres a dalt, blanques a baix, DEL i AC blaves; SHIFT en groc daurat i ALPHA en rosa. |
+
+---
+
+# fx-82SP X II / fx-85SP X II / fx-350SP X II: què cal comprovar amb la calculadora (versió 62)
+
+El cos i la posició de les tecles són els de la fx-570/991SP X II (el teclat està dibuixat amb aquella geometria). Font:
+*fx-82SP X II / fx-85SP X II / fx-350SP X II Guía del usuario* (RJA537073-001V01) i la foto de producte de la fx-82SP
+X II Iberia (500 × 500 px, poca resolució per llegir els rètols petits).
+
+| # | Què | On és | Què s'ha posat |
+|---|---|---|---|
+| 1 | Els rètols petits de les tecles | `models/fx-82sp-x2/tecles.js` | ⌙ amb ALPHA «:», Simp amb SHIFT «Abs», res a sobre d'OPTN, x, ( , 7 i 8; la resta com a la fx-570/991SP X II. |
+| 2 | Les mides i la posició de les tecles | `tecles.js` | Les de la fx-570/991SP X II (el mateix cos, segons la botiga). |
+| 3 | MENU | fitxes `definir-fx`, `verificar` | Quatre icones en una fila (1 Calcular, 2 Estadística, 3 Tabla, 4 Verificar) i el nom a baix; el número tria l'aplicació (el manual diu cursor i =). |
+| 4 | OPTN | fitxa `grau-puntual` | 1:F. Hiperbólicas, 2:Unidad angular (el manual: OPTN 2 (Unidad angular) 2 (r)); a 2, 1:° 2:r 3:g. |
+| 5 | CONFIG i els seus menús | `variant.js` | Primera pàgina: 1:Entrada/Salida, 2:Unidad angular, 3:Formato número, 4:Result fracción (com al manual, p. 4). Formato número i Normal: com a la fx-570/991SP X II (fila 5 d'aquella secció). |
+| 6 | f(x)= i g(x)= de Tabla | fitxes de Tabla | Una línia «f(x)=…» sense requadre. Amb Tabla a «f(x),g(x)» (el de fàbrica), = a f(x) demana g(x); si g(x) es deixa buida, la taula només té f(x) (manual, p. 22). |
+| 7 | El rang | fitxes de Tabla | «Rango tabla», i Inic., Final, Paso amb la fila triada en negatiu; els valors per defecte, 1, 5 i 1. Després d'AC i dues vegades =, el rang recorda els valors d'abans. |
+| 8 | La taula | fitxes de Tabla | 4 files visibles, amb el número de fila a l'esquerra i una columna per a x, f(x) i g(x); la cel·la triada en negatiu i, a baix a la dreta, el seu valor sencer. Les cel·les mostren com a molt 6 xifres significatives (−0.654111) i ERROR on la funció no existeix. Comprovar com s'arrodoneixen les cel·les. |
+| 9 | Moure's per la taula | fitxes de Tabla | ↑ ↓ canvien de fila i ← → de columna (també cap a f(x) i g(x), que no es poden editar); AC torna a f(x). |
+| 10 | Els textos en català | `variant.js` (`catala`) | Rang taula, Inici, Final, Pas; 4:Result fracció; 1:F. Hiperbòliques; Taula. |
+| 11 | Els colors | `models/fx-82sp-x2/estil.css` | Cos negre amb vora clara, totes les tecles fosques (també les de baix), DEL i AC grogues, tecles rodones i creu fosques. |

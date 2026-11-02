@@ -1,7 +1,7 @@
 # La calculadora, pas a pas
 
 Web estàtica per a l'alumnat de Matemàtiques d'ESO i de Batxillerat: fitxes curtes que ensenyen a fer servir la
-calculadora CASIO **fx-82SP CW**, **fx-570SP CW** (o fx-991SP CW), **fx-570SP X II** (o fx-991SP X II) o **fx-82MS** (2a edició) i a evitar-ne els errors típics.
+calculadora CASIO **fx-82SP CW**, **fx-570SP CW** (o fx-991SP CW), **fx-82SP X II** (o fx-85SP X II, fx-350SP X II), **fx-570SP X II** (o fx-991SP X II) o **fx-82MS** (2a edició) i a evitar-ne els errors típics.
 
 Cada fitxa és un exercici resolt pas a pas. A l'esquerra, l'enunciat, els botons ◀ ↻ ▶ i la llista de passos; a la
 dreta, la calculadora dibuixada amb les mides reals. A cada pas, un cursor prem les tecles i la pantalla canvia després
@@ -34,7 +34,7 @@ columna.
 | `index.html`, `fitxa.html` | Les dues pàgines. Les construeix el JavaScript. |
 | `exercicis/` | **Els exercicis**: títol, enunciat, font, figura, tancament i «Prova-ho tu». Són iguals per a totes les calculadores. `exercicis/blocs.js` té els blocs de la portada i explica el format. |
 | `models/fx-82sp-cw/`, `models/fx-82ms/` | **Cada calculadora**: el dibuix (tecles i mides), la pantalla, el simulador i, a `fitxes/`, les tecles i les pantalles de cada exercici. |
-| `models/fx-570sp-cw/`, `models/fx-570sp-x2/` | Calculadores que reaprofiten fitxers de la fx-82SP CW: la CW 570/991 ho fa servir tot (només hi canvien colors i menús); la X II hi posa el seu teclat i les seves fitxes (les mateixes, amb les seves tecles; les de f(x), amb CALC), i fa servir la pantalla i el simulador de la CW. El que és diferent, a `variant.js`. |
+| `models/fx-570sp-cw/`, `models/fx-570sp-x2/`, `models/fx-82sp-x2/` | Calculadores que reaprofiten fitxers de la fx-82SP CW: la CW 570/991 ho fa servir tot (només hi canvien colors i menús); les X II hi posen el seu teclat i les seves fitxes (les mateixes, amb les seves tecles; les de f(x), amb CALC a la fx-570/991 i amb Tabla a la fx-82/85), i fan servir la pantalla i el simulador de la CW. El que és diferent, a `variant.js`. |
 | `models/cataleg.js` | Quines calculadores, quines etapes i quins fitxers d'exercicis hi ha. |
 | `js/nucli/` | El motor comú: la portada, la pàgina de la fitxa, el reproductor pas a pas. No coneix cap calculadora. |
 | `css/estil.css` | L'estil comú. L'aspecte de cada calculadora és a `models/<calculadora>/estil.css`. |

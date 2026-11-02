@@ -16,15 +16,16 @@
 Models.cataleg([
   'fx-82sp-cw',
   'fx-570sp-cw',
+  'fx-82sp-x2',
   'fx-570sp-x2',
   'fx-82ms',
 ]);
 
 Models.etapes([
   {id: 'batx', nom: 'Batxillerat', titol: 'Matemàtiques de Batxillerat',
-    descripcio: 'Fitxes pas a pas per aprendre a fer servir les calculadores fx-82SP CW, fx-570/991SP CW, fx-570/991SP X II i fx-82MS a Matemàtiques de Batxillerat i a la PAU.'},
+    descripcio: 'Fitxes pas a pas per aprendre a fer servir les calculadores fx-82SP CW, fx-570/991SP CW, fx-82/85SP X II, fx-570/991SP X II i fx-82MS a Matemàtiques de Batxillerat i a la PAU.'},
   {id: 'eso', nom: 'ESO', titol: 'Matemàtiques d\'ESO',
-    descripcio: 'Fitxes pas a pas per aprendre a fer servir les calculadores fx-82SP CW, fx-570/991SP CW, fx-570/991SP X II i fx-82MS a Matemàtiques d\'ESO i a les proves de competències bàsiques.'},
+    descripcio: 'Fitxes pas a pas per aprendre a fer servir les calculadores fx-82SP CW, fx-570/991SP CW, fx-82/85SP X II, fx-570/991SP X II i fx-82MS a Matemàtiques d\'ESO i a les proves de competències bàsiques.'},
 ]);
 
 Models.exercicis([

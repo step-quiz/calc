@@ -18,7 +18,9 @@ Technical reference for a cold-start AI (or developer). It describes the site **
 
 - Teaches Catalan ESO (3r–4t) and Batxillerat students to use CASIO calculators: the **fx-82SP CW** (default), the
   **fx-570SP CW / fx-991SP CW** (a sibling of the fx-82SP CW, §4a), the **fx-570SP X II / fx-991SP X II** (own
-  keyboard, CW screen and simulator with variant hooks, §4a; the same exercises as the CW, the f(x) ones with CALC)
+  keyboard, CW screen and simulator with variant hooks, §4a; the same exercises as the CW, the f(x) ones with CALC), the
+  **fx-82SP X II / fx-85SP X II / fx-350SP X II** (and the SP X without «II»: same manual and keyboard; the X II body
+  without CALC/∫; f(x) fitxes with Table)
   and the **fx-82MS 2nd
   edition**.
 - A **fitxa** is a worked example played step by step: the statement, a player (◀ ↻ ▶), the steps, and a drawn calculator
@@ -143,7 +145,15 @@ A menu screen may carry `desplacable: true` (more pages below: `pantalla.js` dra
   result; the typed value makes the entry `x=-1`; `=` gives the expression and its value (the fitxa's screen). When the
   value and `=` are in the same step, give the `x=…` screen in `parcials` (`calcul.js` reads `x` from it). `calcul.js`
   also knows `PreAns` (the Ans before the last one), used for Barrow: `F(6)`, `F(1)` and `PreAns−Ans`.
-- **Verificar** is an app (MENU, then the key with the C, x⁻¹), not a switch: the fitxas mark it with `ind.verif`
+- **`fx-82sp-x2`** (fx-82/85/350SP X II) is built the same way: a copy of the X II keyboard (same body; `resta` ⌙ and
+  `simp` where the X II has CALC and ∫; all keys dark, DEL/AC yellow) and its own `variant.js`: CONFIG page 1 ends with
+  «4:Result fracción» (manual), OPTN has «1:F. Hiperbólicas, 2:Unidad angular», MENU has 4 apps (1 Calcular, 2
+  Estadística, 3 Tabla, 4 Verificar). No CALC: the f(x) fitxes use **Tabla** — MENU 3 → `definicio` f, `=` → g, `=` →
+  `x2-rang` (Inic./Final/Paso; digits type into the selected row, `=` stores and moves down; the last `=` gives the table,
+  from the fitxa) → `x2-taula` (`M.x2.taula(files, fila, col, ambG)`; ↑↓←→ move the selected cell, its full value is
+  shown at the bottom, cells show 6 significant digits; AC goes back to f(x)). `calcul.js` recomputes every f/g cell
+  from the `definicio` screens (`ERROR` where undefined). Barrow is typed directly (F(6), then `Ans−(F(1))`).
+- **Verificar** is an app (MENU, then the key with the C, x⁻¹; on the fx-82/85SP X II, MENU 4), not a switch: the fitxas mark it with `ind.verif`
   (as on the CW, so `calcul.js` checks «Verdadero»), and the X II stylesheet hides the ✔.
 
 ## 5. The model contract

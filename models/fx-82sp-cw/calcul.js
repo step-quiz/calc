@@ -216,6 +216,19 @@ function comprova(Dades) {
       const p = pas.pantalla;
       if (p.tipus === 'definicio' && p.entrada) ctx.funcions[p.nom] = p.entrada;
       for (const k of Object.keys(pas.parcials || {}).map(Number).sort((a, b) => a - b)) valorX(pas.parcials[k], i);
+      // La taula de Tabla (fx-82/85SP X II): cada f(x) i g(x) de la taula, amb les funcions escrites abans (f(x)=, g(x)=)
+      if (p.tipus === 'x2-taula') {
+        p.files.forEach((fila, r) => p.cols.slice(1).forEach((col, k) => {
+          const nom = col[0], fn = ctx.funcions[nom], cel = fila[k + 1];
+          if (!fn) { errors.push(`fitxa ${f.id} · pas ${i + 1}: la taula té ${col}, però no s'ha escrit`); return; }
+          comprovats++;
+          let v;
+          try { v = avalua(fn, Object.assign({}, ctx, {x: Number(fila[0]), pila: []})); } catch (err) { v = NaN; }
+          const esperat = isFinite(v) ? normal2(v) : 'ERROR';
+          if (cel !== esperat) errors.push(`fitxa ${f.id} · pas ${i + 1}: a la taula, ${col} per a x = ${fila[0]} hauria de ser ${esperat}, no ${cel}`);
+        }));
+        return;
+      }
       if (valorX(p, i)) return;
       if (p.tipus !== 'calc' || !p.resultat || !p.entrada || p.linia) return;
       ctx.graus = !p.ind || p.ind.ang !== 'R';

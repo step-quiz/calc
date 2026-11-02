@@ -1,0 +1,135 @@
+/* ═══════════════════════════════════════════════════════════════════
+   models/fx-82sp-x2/estil.css — Com es veu la fx-82/85/350SP X II
+   ───────────────────────────────────────────────────────────────────
+   Es carrega després de l'estil de la fx-82SP CW (model.js, estils),
+   que dona la pantalla per dins i les tecles petites dels textos. És el
+   de la fx-570/991SP X II (el mateix cos) amb els colors de la foto de
+   la fx-82SP X II Iberia: totes les tecles fosques, també les de baix, i
+   DEL i AC grogues. Al final, les pantalles pròpies: MENU (4
+   aplicacions), el rang i la taula de Tabla.
+   ═══════════════════════════════════════════════════════════════════ */
+
+:root{
+  --x2-groc:#d8b46a;      /* SHIFT i les seves funcions */
+  --x2-rosa:#dd6f8e;      /* ALPHA i les seves lletres */
+  --x2-blau:#2350b8;      /* DEL i AC */
+}
+
+/* ── TECLES PETITES (textos i llista de passos) ─────────────────────── */
+.tecla-shift.t-shift{background:#f3e3b8; border-color:#a8873c; box-shadow:0 2.5px 0 #a8873c; color:#3b2f12}
+.tecla-alpha{background:#f7d3dd; border-color:#b04a68; box-shadow:0 2.5px 0 #b04a68; color:#4a1526}
+.tecla.petita.tecla-shift, .tecla.petita.tecla-alpha, .tecla.petita.tecla-menu{font-size:.66em; height:1.8em; letter-spacing:.02em}
+.tecla-esborra{background:#f6e3a6; border-color:#a37a12; color:#3b2c05}
+/* La funció de sobre, quan es prem després de SHIFT (groc) o d'ALPHA (rosa) */
+.tecla .alt{color:#8a6a1d}
+.tecla.amb-shift .alt{background:var(--x2-groc); color:#1f1a10}
+.tecla .alfa{
+  position:absolute; left:50%; bottom:calc(100% + 4px); transform:translateX(-50%);
+  font:600 10.5px/1 var(--mono); white-space:nowrap; padding:1px 3px; border-radius:3px;
+}
+.tecla.amb-alpha .alfa{background:var(--x2-rosa); color:#fff}
+.tecla.amb-alpha .cara{opacity:.55}
+.pas .tecles .tecla .alfa{left:auto; right:-7px; bottom:auto; top:-8px; transform:none; font-size:9.5px; z-index:1}
+.pas .tecles .tecla.amb-shift .alt{background:var(--x2-groc); color:#1f1a10}
+.pas .tecles .tecla.amb-alpha .cara{opacity:.5}
+.pas .tecles .tecla-shift, .pas .tecles .tecla-alpha, .pas .tecles .tecla-menu{font-size:10px}
+
+/* ── LA CALCULADORA ────────────────────────────────────────────────── */
+.calculadora{
+  --calc-cos:#1e1f22;
+  background:var(--calc-cos); border-radius:7% 7% 6% 6% / 3.4% 3.4% 3% 3%;
+  box-shadow:0 10px 26px rgba(15,23,42,.3), inset 0 0 0 1.4cqw #dfe1e4, inset 0 0 0 1.8cqw #b8bcc2;
+  font-family:Arial, Helvetica, sans-serif;
+}
+.marc{background:#111214; border-radius:2cqw; box-shadow:inset 0 0 0 .4cqw #2a2b2e}
+.lcd{background:#e3e7df; border-radius:.5cqw; box-shadow:inset 0 .3cqw 1cqw rgba(0,0,0,.28)}
+/* La creu del cursor: un rombe negre amb la vora platejada (les quatre fletxes, a sobre) */
+.x2-creu{position:absolute; border-radius:50% / 50%; background:radial-gradient(ellipse at 50% 50%, #0c0d0e 0 30%, #2b2d31 31% 100%); box-shadow:0 .5cqw 0 #0b0b0c, inset 0 0 0 .5cqw #a9adb3}
+
+/* Les tecles: rectangles arrodonits */
+.calculadora .tecla{
+  border-radius:1.4cqw; color:#f4f4f5;
+  background:linear-gradient(#34363a, #222326); box-shadow:0 .5cqw 0 #0b0b0c, inset 0 0 0 .25cqw #44474c;
+  font:600 3.6cqw/1 Arial, Helvetica, sans-serif;
+}
+.calculadora .tecla .cara sup{font-size:.62em; line-height:0}
+.calculadora .tecla .cara sub{font-size:.6em; line-height:0}
+.calculadora .icona-tecla{width:55%; height:70%}
+/* Les quatre de dalt: rodones i platejades */
+.calculadora .tecla[data-forma="rodona"]{
+  border-radius:50%; background:radial-gradient(circle at 45% 35%, #f4f5f6, #a5aab0 70%, #80858c); box-shadow:0 .5cqw 0 #0b0b0c, inset 0 0 0 .3cqw #6e737a;
+}
+/* Les fletxes: peces platejades de la creu */
+.calculadora .tecla-nav{border-radius:1.8cqw; background:linear-gradient(#e8eaec, #a9aeb4); color:#2a2c30; box-shadow:0 .35cqw 0 #0b0b0c}
+/* Les tecles de baix: fosques, com les de dalt, i més grans */
+.calculadora .tecla-num, .calculadora .tecla-op, .calculadora .tecla-exe{
+  background:linear-gradient(#3a3c40, #26282b); color:#f4f4f5; box-shadow:0 .55cqw 0 #0b0b0c, inset 0 0 0 .25cqw #4a4d52;
+  font:500 6.2cqw/1 Arial, Helvetica, sans-serif;
+}
+.calculadora .tecla-esborra{background:linear-gradient(#f0c64e, #d8a52a); color:#2a2006; box-shadow:0 .55cqw 0 #7a5a10, inset 0 0 0 .25cqw #f7d77a; font:500 5.2cqw/1 Arial, Helvetica, sans-serif}
+.calculadora .t-resta{font-size:4.4cqw}
+.calculadora .t-simp{font-size:3.4cqw}
+.calculadora .t-exp{font-size:4.6cqw}
+.calculadora .t-ans{font-size:5.2cqw}
+.calculadora .t-optn, .calculadora .t-calc, .calculadora .t-sto, .calculadora .t-eng, .calculadora .t-sd{font-size:3.4cqw}
+.calculadora .t-x, .calculadora .t-x2, .calculadora .t-inv, .calculadora .t-pot{font:italic 500 4.4cqw/1 'Times New Roman', serif}
+.calculadora .t-logab, .calculadora .t-integral{font-size:3.2cqw}
+
+/* Rètols: el nom de les tecles rodones (SHIFT, ALPHA, MENU, ON) i les funcions de cada capa, a sobre */
+.calculadora .rotul{position:absolute; left:50%; bottom:calc(100% + 1.2cqw); transform:translateX(-50%); font:600 2.3cqw/1 Arial, Helvetica, sans-serif; color:#e9eaec; white-space:nowrap}
+.calculadora .t-shift .rotul{color:var(--x2-groc)}
+.calculadora .t-alpha .rotul{color:var(--x2-rosa)}
+.calculadora .t-menu .rotul{transform:translateX(calc(-100% + 1.6cqw))}
+.calculadora .alt, .calculadora .alfa{
+  position:absolute; bottom:calc(100% + .45cqw); transform:none;
+  font:600 2.3cqw/1 Arial, Helvetica, sans-serif; white-space:nowrap; padding:.1cqw .35cqw; border-radius:.5cqw; background:none;
+}
+.calculadora .alt{left:-.6cqw; color:var(--x2-groc)}
+.calculadora .alfa{right:-.6cqw; left:auto; color:var(--x2-rosa)}
+.calculadora .alt sup, .calculadora .alfa sup, .calculadora .alt sub{font-size:.7em; line-height:0}
+/* Les tecles de baix porten la funció de SHIFT al mig si no tenen la d'ALPHA (CONST, CONV, RESET, OFF, Rnd, ≈) */
+.calculadora .t-7 .alt, .calculadora .t-8 .alt, .calculadora .t-9 .alt, .calculadora .t-ac .alt, .calculadora .t-0 .alt,
+.calculadora .t-exe .alt, .calculadora .t-arrel .alt, .calculadora .t-x2 .alt, .calculadora .t-pot .alt, .calculadora .t-ln .alt,
+.calculadora .t-logab .alt, .calculadora .t-optn .alt, .calculadora .t-sto .alt, .calculadora .t-eng .alt{left:50%; transform:translateX(-50%)}
+.calculadora .t-menu .alt{left:calc(50% + 2.4cqw); transform:none; bottom:calc(100% + 1.2cqw); padding:0}
+/* Després de SHIFT o d'ALPHA, els rètols de la seva capa es ressalten */
+.calculadora.prefix-shift .alt{background:var(--x2-groc); color:#1f1a10}
+.calculadora.prefix-alpha .alfa{background:var(--x2-rosa); color:#fff}
+/* El ressaltat del reproductor sobre les tecles rodones i les fletxes (platejades) */
+.calculadora .tecla-nav.pendent, .calculadora .tecla[data-forma="rodona"].pendent{background:#f2d27a; color:#111}
+.calculadora .tecla-nav.premuda, .calculadora .tecla[data-forma="rodona"].premuda{background:#ca8a04; color:#fff}
+
+/* ── LA PANTALLA ───────────────────────────────────────────────────── */
+/* La mateixa que la fx-82SP CW; els menús són numerats («1:…») i no tenen fila triada en negatiu (pantalla.js) */
+/* A Verificar, la barra no porta ✔ (aquí Verificar és una aplicació, no un interruptor: VERIFICAR.md) */
+.lcd .ind-verif{display:none}
+/* MENU: les aplicacions, 4 × 2, la triada en negatiu, i el nom a baix («1:Calcular») */
+.x2-apps{position:absolute; left:3cqw; right:3cqw; top:2cqw; height:66%; display:grid; grid-template-columns:repeat(4, 1fr); grid-template-rows:1fr 1fr; gap:1cqw}
+.x2-app{position:relative; display:flex; align-items:center; justify-content:center; border-bottom:.4cqw solid var(--lcd-tinta); font:700 4.4cqw/1.05 var(--mono); text-align:center}
+.x2-app .n{position:absolute; right:.4cqw; bottom:.3cqw; font-size:.62em; background:var(--lcd-tinta); color:var(--lcd-fons); padding:0 .4cqw}
+.x2-app.sel{background:var(--lcd-tinta); color:var(--lcd-fons)}
+.x2-app.sel .n{background:var(--lcd-fons); color:var(--lcd-tinta)}
+.x2-app-nom{position:absolute; left:3cqw; bottom:2cqw; font:600 6.2cqw/1 var(--mono)}
+
+/* MENU: quatre aplicacions, en una fila */
+.x2-apps-4{grid-template-rows:1fr; height:44%}
+/* Tabla: el rang (Inic., Final, Paso) */
+.x2-rang{position:absolute; inset:1.6cqw 3cqw; display:grid; grid-template-rows:repeat(4, 1fr); font:600 6.2cqw/1 var(--mono)}
+.x2-rang-titol, .x2-rang-fila{display:flex; align-items:center; gap:.4em; padding:0 .3em; white-space:nowrap}
+.x2-rang-fila{padding-left:.9em}
+.x2-rang-fila.sel{background:var(--lcd-tinta); color:var(--lcd-fons)}
+/* Tabla: la taula (4 files visibles; la cel·la triada en negatiu) i, a baix, el valor sencer de la cel·la */
+.x2-taula{position:absolute; left:2cqw; right:2cqw; top:1.2cqw; width:calc(100% - 4cqw); border-collapse:collapse; table-layout:fixed; font:600 4.4cqw/1.15 var(--mono)}
+.x2-taula th{font-weight:600; font-size:.9em; padding:.2em 0; border-bottom:.3cqw solid var(--lcd-tinta)}
+.x2-taula th .katex{font-size:1em}
+.x2-taula td{text-align:right; padding:.12em .3em; border-left:.3cqw solid var(--lcd-tinta); white-space:nowrap; overflow:hidden}
+.x2-taula td.n, .x2-taula th:first-child{width:7%; border-left:0; font-size:.75em; text-align:center}
+.x2-taula td.sel{background:var(--lcd-tinta); color:var(--lcd-fons)}
+.x2-taula-valor{position:absolute; right:3.4cqw; bottom:1.6cqw; font:600 7cqw/1 var(--mono); padding:0 .3em}
+.x2-taula-valor.marcat{box-shadow:0 0 0 .8cqw var(--marca-vora)}
+/* Les quatre tecles rodones i la creu del cursor: fosques (foto), no platejades com a la fx-570/991SP X II */
+.calculadora .tecla[data-forma="rodona"]{background:radial-gradient(circle at 45% 35%, #5a5d62, #2a2c2f 70%, #1c1d1f); box-shadow:0 .5cqw 0 #0b0b0c, inset 0 0 0 .3cqw #3d4044}
+.calculadora .tecla-nav{background:linear-gradient(#4a4d52, #2c2e31); color:#d9dbde}
+.x2-creu{background:radial-gradient(ellipse at 50% 50%, #0c0d0e 0 30%, #2e3034 31% 100%); box-shadow:0 .5cqw 0 #0b0b0c, inset 0 0 0 .5cqw #55585d}
+/* f(x)= i g(x)= de Tabla: una línia sense requadre (manual, p. 21) */
+.lcd-definicio{border:0}
