@@ -56,6 +56,7 @@ fitxa (what the player plays) = exercici (shared)        +  model fitxa (per cal
 | `index.html` | — | Home page shell; `js/nucli/portada.js` fills it. |
 | `fitxa.html` | — | Fitxa page shell; `js/nucli/motor.js` builds it. `fitxa.html?id=<fitxa>[&model=<id>][&etapa=eso][&pas=N]`. |
 | `css/estil.css` | — | Core styles: palette, layout, player, step list, home page, error zone, «Ara tu»/«Prova-ho tu», and how *any* calculator is placed and highlighted. Never a key class, key-type class or layer class (test). |
+| `js/vigia.js` | `Vigia` | Loaded first, ES5 only. Shows a visible box (message, file, user agent) on a script/stylesheet load failure, a JS error, an unhandled rejection, or if the page has not called `Vigia.llesta()` after 10 s. Never a silent blank page. |
 | `js/nucli/models.js` | `Models` | `VERSIO`; registry and loader of exercises, blocks and models; the contract check (`tanca`); stages; links (`adreca`); drawing helpers (`dibuix`). |
 | `js/nucli/preferencies.js` | `Preferencies` | localStorage: `calc-model`, `calc-etapa`, `calc-idioma` (try/catch everywhere). |
 | `js/nucli/text.js` | `Text` | Text mini-syntax → HTML (§6.3). |

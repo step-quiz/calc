@@ -86,7 +86,9 @@ async function arrenca() {
   try {
     const [M, models] = await Promise.all([Models.carrega(), Models.descriptorsTots()]);
     dibuixa(M, models);
+    if (arrel.Vigia) Vigia.llesta();
   } catch (e) {
+    if (arrel.Vigia) Vigia.problema('Portada: ' + (e && e.message || e));
     document.getElementById('blocs').innerHTML = '<p class="error-carrega">No s\'ha pogut carregar la calculadora. Comprova la connexió i torna a carregar la pàgina.</p>';
   }
 }

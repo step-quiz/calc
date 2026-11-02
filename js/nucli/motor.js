@@ -14,7 +14,7 @@
    fitxa.tancament (la manera correcta i la resposta).
 
    No coneix cap calculadora: tot el que en sap ho demana al model.
-   Depèn de KaTeX, Models, Preferencies, Text, Dom i Reproductor.
+   Depèn de KaTeX, Models, Preferencies, Text, Dom i Reproductor (i avisa js/vigia.js quan ha acabat).
    Exporta «Motor»: arrenca(), inicia(model, id, contenidor).
    ═══════════════════════════════════════════════════════════════════ */
 (function (arrel) {
@@ -299,9 +299,11 @@ async function arrenca(contenidor = document.getElementById('fitxa')) {
   }
   let model;
   try { [model, MODELS] = await Promise.all([Models.carrega(), Models.descriptorsTots()]); } catch (e) {
+    if (arrel.Vigia) Vigia.problema('Fitxa: ' + (e && e.message || e));
     return errorCarrega(contenidor, 'No s\'ha pogut carregar la calculadora. Comprova la connexió i torna a carregar la pàgina.');
   }
   arrel.fitxa = inicia(model, parametre('id'), contenidor);
+  if (arrel.Vigia) Vigia.llesta();
   return arrel.fitxa;
 }
 

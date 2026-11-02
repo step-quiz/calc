@@ -4,6 +4,12 @@ Què ha canviat a cada versió del web, de la més nova a la més antiga. El fun
 `README.md` i `ARCHITECTURE.md`; aquí només hi ha la història. El número de versió és `VERSIO` a
 `js/nucli/models.js` i surt al peu de les pàgines.
 
+## Versió 53 (2/11/2026)
+
+- `js/vigia.js` (el primer script de cada pàgina, en JavaScript antic): si un fitxer no es carrega, hi ha un error de
+  JavaScript o al cap de 10 s la pàgina no s'ha dibuixat, surt una caixa amb el missatge, el fitxer i el navegador, en
+  lloc d'una pantalla en blanc. La portada i la fitxa avisen quan han acabat (`Vigia.llesta()`).
+
 ## Versió 52 (2/11/2026)
 
 - Les xifres i el punt s'animen 3 vegades més de pressa que la resta de tecles (a la v50, 1,4 vegades).
