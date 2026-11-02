@@ -81,7 +81,7 @@ for (const f of Models.fitxersExercicis) {
   for (const f of tots('exercicis')) ok(llistats.has(f), 'models/cataleg.js', `exercicis/${f} no és a Models.exercicis`);
 }
 
-/* Les etapes: id curt i únic, i els textos de la portada (nom del selector, lema, <title>, descripció) */
+/* Les etapes: id curt i únic, i els textos de la portada (nom del selector, <title>, descripció) */
 const ETAPES = Models.llistaEtapes;
 ok(ETAPES.length > 0, 'models/cataleg.js', 'no hi ha cap etapa (Models.etapes)');
 {
@@ -90,7 +90,7 @@ ok(ETAPES.length > 0, 'models/cataleg.js', 'no hi ha cap etapa (Models.etapes)')
     const on = `models/cataleg.js · etapa ${e.id}`;
     ok(/^[a-z]+$/.test(e.id) && !vistes.has(e.id), on, 'l\'id d\'una etapa ha de ser únic i en minúscules');
     vistes.add(e.id);
-    for (const camp of ['nom', 'lema', 'titol', 'descripcio']) ok(typeof e[camp] === 'string' && e[camp].trim(), on, `falta «${camp}»`);
+    for (const camp of ['nom', 'titol', 'descripcio']) ok(typeof e[camp] === 'string' && e[camp].trim(), on, `falta «${camp}»`);
   }
 }
 const ID_ETAPES = new Set(ETAPES.map(e => e.id));

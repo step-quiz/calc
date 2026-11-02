@@ -41,7 +41,7 @@
  * fitxa.html i al peu d'index.html (la prova ho comprova): així cap navegador no fa servir fitxers vells.
  * Els fitxers dels exercicis i dels models es carreguen amb aquest mateix «?v=».
  */
-const VERSIO = '50';
+const VERSIO = '51';
 
 /** Les parts que ha de donar cada model, amb les funcions o els camps que el nucli hi fa servir. */
 const CONTRACTE = Object.freeze({
@@ -133,7 +133,7 @@ function idActual() {
    Cada bloc diu a quines etapes surt (bloc.etapes); una fitxa és de l'etapa del seu bloc. La portada només
    ensenya els blocs de l'etapa triada. */
 
-let etapesWeb = [];                 // [{id, nom, lema, titol, descripcio}], en ordre; la primera, la de per defecte
+let etapesWeb = [];                 // [{id, nom, titol, descripcio}], en ordre; la primera, la de per defecte
 
 function etapes(llista) { etapesWeb = Object.freeze(llista.map(e => Object.freeze(Object.assign({}, e)))); }
 

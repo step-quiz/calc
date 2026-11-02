@@ -7,7 +7,6 @@
 
    Models.etapes: la primera és la de per defecte. Camps:
      nom         el del selector «Etapa» de la portada
-     lema        la línia petita de sobre el títol de la portada
      titol       la segona part del <title> de la portada
      descripcio  la <meta name="description"> de la portada
 
@@ -20,9 +19,9 @@ Models.cataleg([
 ]);
 
 Models.etapes([
-  {id: 'batx', nom: 'Batxillerat', lema: 'Matemàtiques · Batxillerat · PAU', titol: 'Matemàtiques de Batxillerat',
+  {id: 'batx', nom: 'Batxillerat', titol: 'Matemàtiques de Batxillerat',
     descripcio: 'Fitxes pas a pas per aprendre a fer servir les calculadores fx-82SP CW i fx-82MS a Matemàtiques de Batxillerat i a la PAU.'},
-  {id: 'eso', nom: 'ESO', lema: 'Matemàtiques · ESO · Competència matemàtica', titol: 'Matemàtiques d\'ESO',
+  {id: 'eso', nom: 'ESO', titol: 'Matemàtiques d\'ESO',
     descripcio: 'Fitxes pas a pas per aprendre a fer servir les calculadores fx-82SP CW i fx-82MS a Matemàtiques d\'ESO i a les proves de competències bàsiques.'},
 ]);
 

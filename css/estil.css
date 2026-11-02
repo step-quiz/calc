@@ -19,15 +19,18 @@
 /* ── PALETA ────────────────────────────────────────────────────────── */
 :root{
   color-scheme:light;
-  --bg:#f8fafc;
-  --surface:#ffffff;
-  --border:#cbd5e1;
+  /* Blanc trencat (amb un punt de gris i de marró) en lloc de blanc pur, i gris fosc a la capçalera */
+  --bg:#f2f0eb;
+  --surface:#faf8f4;
+  --peu-bg:#e9e6df;
+  --border:#d3cec4;
   --txt:#1e293b;
   --muted:#64748b;
   --accent:#3b82f6;
-  --hd-bg:#1e293b;
+  --hd-bg:#33363b;
+  --hd-txt:#f2f0eb;
   --cat:var(--accent);
-  --cat-fons:color-mix(in srgb, var(--cat) 10%, #fff);
+  --cat-fons:color-mix(in srgb, var(--cat) 10%, var(--surface));
   --graella:#e3e8ef;
   --lletra:'Libre Baskerville', Georgia, 'Times New Roman', serif;
   --mono:'Source Code Pro', ui-monospace, Menlo, Consolas, monospace;
@@ -55,25 +58,24 @@ a{color:inherit}
 
 /* ── CAPÇALERA I PEU ───────────────────────────────────────────────── */
 .capcalera{
-  background:var(--hd-bg); color:#fff; padding:8px 20px;
+  background:var(--hd-bg); color:var(--hd-txt); padding:8px 20px;
   display:flex; align-items:center; gap:16px;
 }
 .capcalera h1{margin:0; font-size:.98rem; font-weight:700; line-height:1.3}
-.nom-bloc{margin:0; font-family:var(--mono); font-size:.68rem; color:rgba(255,255,255,.65); letter-spacing:.04em}
 .torna{
-  flex-shrink:0; font-family:var(--mono); font-size:.72rem; color:var(--txt); text-decoration:none; background:#fff;
-  padding:5px 11px; border:1px solid #fff; border-radius:5px; transition:background-color .15s, color .15s;
+  flex-shrink:0; font-family:var(--mono); font-size:.72rem; color:var(--txt); text-decoration:none; background:var(--surface);
+  padding:5px 11px; border:1px solid var(--surface); border-radius:5px; transition:background-color .15s, color .15s;
 }
-.torna:hover{background:#000; color:#fff; border-color:#000}
+.torna:hover{background:#1f2124; color:var(--hd-txt); border-color:#1f2124}
 .peu{
-  margin-top:auto; background:#f1f5f9; border-top:1px solid var(--border); padding:8px 16px;
-  font-family:var(--mono); font-size:.7rem; color:#334155; text-align:center;
+  margin-top:auto; background:var(--peu-bg); border-top:1px solid var(--border); padding:8px 16px;
+  font-family:var(--mono); font-size:.77rem; color:#334155; text-align:center;
 }
 .versio{white-space:nowrap; opacity:.7}
 /* «Etapa», «La teva calculadora» i «Calculadora en»: a la dreta de la capçalera */
 .tries{margin-left:auto; flex-shrink:0; display:flex; flex-wrap:wrap; align-items:center; gap:6px 16px}
-.tria-etapa, .tria-model, .tria-idioma{flex-shrink:0; display:flex; align-items:center; gap:6px; font-family:var(--mono); font-size:.72rem; color:rgba(255,255,255,.8)}
-.tria-etapa select, .tria-model select, .tria-idioma select{font:inherit; color:var(--txt); background:#fff; border:1px solid #fff; border-radius:5px; padding:3px 4px}
+.tria-etapa, .tria-model, .tria-idioma{flex-shrink:0; display:flex; align-items:center; gap:6px; font-family:var(--mono); font-size:.72rem; color:color-mix(in srgb, var(--hd-txt) 85%, transparent)}
+.tria-etapa select, .tria-model select, .tria-idioma select{font:inherit; color:var(--txt); background:var(--surface); border:1px solid var(--surface); border-radius:5px; padding:3px 4px}
 @media (any-pointer:coarse){ .tria-etapa select, .tria-model select, .tria-idioma select{padding:7px 6px} }
 .capcalera{flex-wrap:wrap}
 /* Pantalles estretes (mòbil): els selectors de la capçalera s'encongeixen i passen a la línia següent */
@@ -101,14 +103,14 @@ a{color:inherit}
 .tecla{
   position:relative; display:inline-flex; align-items:center; justify-content:center;
   min-width:46px; height:40px; padding:0 9px;
-  border-radius:9px; border:1px solid var(--tecla-vora); background:#fff;
+  border-radius:9px; border:1px solid var(--tecla-vora); background:var(--surface);
   box-shadow:0 2.5px 0 var(--tecla-vora);
   font:600 15px/1 var(--mono); color:var(--txt); white-space:nowrap;
   transition:transform .08s, box-shadow .08s, background-color .15s;
 }
 .tecla .cara{display:inline-flex; align-items:center; justify-content:center}
 /* Premuda pel cursor */
-.tecla.premuda{transform:translateY(2.5px); box-shadow:0 0 0 var(--tecla-vora); background:color-mix(in srgb, var(--cat) 28%, #fff)}
+.tecla.premuda{transform:translateY(2.5px); box-shadow:0 0 0 var(--tecla-vora); background:color-mix(in srgb, var(--cat) 28%, var(--surface))}
 /* Petita, dins d'un text */
 .tecla.petita{
   min-width:1.85em; height:1.5em; padding:0 .32em; border-radius:.38em;
@@ -136,7 +138,7 @@ a{color:inherit}
 .calculadora .tecla.del-pas{outline:.8cqw solid var(--marca-vora); outline-offset:.6cqw}
 .calculadora .tecla.del-pas[data-ordre]::after{
   content:attr(data-ordre); position:absolute; right:-3cqw; bottom:-2.4cqw; z-index:2;   /* a baix a la dreta: no tapa els rètols */
-  min-width:4.4cqw; padding:.6cqw 1.1cqw; border-radius:999px; background:#ca8a04; color:#fff;
+  min-width:4.4cqw; padding:.6cqw 1.1cqw; border-radius:999px; background:#ca8a04; color:var(--surface);
   font:700 2.8cqw/1 var(--mono); text-align:center; box-shadow:0 0 0 .45cqw var(--calc-cos, #25292f);
 }
 .calculadora .tecla.pendent{background:#fdf0c8; color:#111827}   /* encara s'ha de prémer: fons groc suau */
@@ -176,13 +178,13 @@ a{color:inherit}
 .font-tanca:hover, .font-tanca:focus-visible{background:#dde2e9; color:var(--txt)}
 
 /* La figura de l'enunciat: miniatura a la dreta; en clicar-la, gran en un <dialog> (motor.js, botoFigura) */
-.figura-mini{float:right; margin:2px 0 6px 12px; padding:3px; border:1px solid var(--border); border-radius:6px; background:#fff; cursor:zoom-in}
+.figura-mini{float:right; margin:2px 0 6px 12px; padding:3px; border:1px solid var(--border); border-radius:6px; background:var(--surface); cursor:zoom-in}
 .figura-mini img{display:block; height:54px; width:auto}
 .figura-mini{transition:transform .12s, border-color .12s}
 .figura-mini:hover, .figura-mini:focus-visible{border-color:#000; transform:scale(1.05)}
 /* Una nota de l'enunciat ([nota]…[/nota]): línia pròpia, cursiva */
 .frase-nota{display:block; font-style:italic; margin-top:.2em}
-.figura-gran{max-width:min(92vw, 1100px); padding:14px; border:2px solid var(--cat); border-radius:12px; background:#fff}
+.figura-gran{max-width:min(92vw, 1100px); padding:14px; border:2px solid var(--cat); border-radius:12px; background:var(--surface)}
 .figura-gran::backdrop{background:rgba(15,23,42,.55)}
 .figura-gran img{display:block; max-width:100%; max-height:82vh; width:auto; height:auto}
 .figura-tanca{position:absolute; top:6px; right:6px; width:2em; height:2em; border:0; border-radius:50%; background:#eceff3; font-size:1.1rem; line-height:1; cursor:pointer}
@@ -191,7 +193,7 @@ a{color:inherit}
    indicacions de calculadora (lletra sense gràcia, fons del color de la pantalla). Cada una, un bloc. */
 .frase-mat, .frase-calc{display:block; margin:3px 0; padding:3px 9px; border-radius:6px}
 .frase-mat{background:#faf5e8}
-.frase-calc{background:color-mix(in srgb, var(--lcd-fons) 55%, #fff); font-family:system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif; font-size:.94em}
+.frase-calc{background:color-mix(in srgb, var(--lcd-fons) 55%, var(--surface)); font-family:system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif; font-size:.94em}
 .frase-mat:first-child, .frase-calc:first-child{margin-top:0}
 .frase-mat:last-child, .frase-calc:last-child{margin-bottom:0}
 .apartat.actiu{background:rgba(134,239,172,.6); box-shadow:0 0 0 2px rgba(134,239,172,.6)}
@@ -205,7 +207,7 @@ a{color:inherit}
 }
 .boto:hover:not(:disabled){border-color:var(--cat)}
 .boto:disabled{opacity:.4; cursor:default}
-.boto.principal{width:46px; height:46px; background:var(--cat); border-color:var(--cat); color:#fff}
+.boto.principal{width:46px; height:46px; background:var(--cat); border-color:var(--cat); color:var(--surface)}
 .boto svg{width:17px; height:17px; fill:currentColor}
 .velocitat{display:flex; align-items:center; gap:6px; margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted)}
 .velocitat select{font:inherit; color:var(--txt); background:var(--surface); border:1px solid var(--border); border-radius:6px; padding:4px 6px}
@@ -215,7 +217,7 @@ a{color:inherit}
 .avis-teclat{
   position:absolute; left:0; top:calc(100% + 12px); z-index:20; box-sizing:border-box; max-width:min(396px, 100%);
   display:flex; align-items:flex-start; gap:10px; padding:10px 10px 10px 14px; border:2px solid #ff8000; border-radius:12px;
-  background:var(--hd-bg); color:#fff; font-size:16.2px; line-height:1.4; box-shadow:0 5px 17px rgba(15,23,42,.25);
+  background:var(--hd-bg); color:var(--hd-txt); font-size:16.2px; line-height:1.4; box-shadow:0 5px 17px rgba(15,23,42,.25);
   opacity:0; visibility:hidden; transform:translateY(-5px); transition:opacity .25s, transform .25s, visibility .25s;
 }
 .avis-teclat.visible{opacity:1; visibility:visible; transform:none; animation:avis-parpelleig-sacseig .8s ease-in-out 1}
@@ -227,7 +229,7 @@ a{color:inherit}
   flex:none; width:26px; height:26px; padding:0; border:0; border-radius:50%; background:transparent; color:#cbd5e1;
   font:inherit; font-size:22px; line-height:1; cursor:pointer;
 }
-.avis-tanca:hover{background:rgba(255,255,255,.16); color:#fff}
+.avis-tanca:hover{background:rgba(255,255,255,.16); color:var(--hd-txt)}
 /* Parpelleig (l'opacitat puja i baixa) i sacseig (a esquerra i dreta, cada cop menys): 0,8 s en total */
 /* El botó ▶ parpelleja i es sacseja si l'alumne no avança (reproductor.js, recordaSeguent) */
 .boto.recorda{animation:avis-parpelleig-sacseig .8s ease-in-out 1}
@@ -327,7 +329,7 @@ a{color:inherit}
 /* Pantalles baixes (Chromebook): una mica més compacte */
 @media (min-width:1000px) and (max-height:700px){
   .capcalera{padding-block:4px}
-  .peu{padding-block:5px; font-size:.64rem}   /* que el peu càpiga en una línia a 1280 px */
+  .peu{padding-block:5px; font-size:.7rem}   /* que el peu càpiga en una línia a 1280 px */
   .contingut{padding-block:8px}
   .columna{gap:10px}
   .enunciat{padding-block:9px; font-size:16px}
@@ -336,7 +338,7 @@ a{color:inherit}
 }
 /* Portàtils estrets (1024–1300 px): el peu ha de cabre en una línia */
 @media (min-width:1000px) and (max-width:1300px){
-  .peu{padding-block:5px; font-size:.6rem}
+  .peu{padding-block:5px; font-size:.66rem}
 }
 /* Pantalles tàctils (Chromebook): botons més grans */
 @media (any-pointer:coarse){
@@ -354,7 +356,7 @@ a{color:inherit}
   display:flex; flex-direction:column; gap:8px; background:var(--surface);
   border:2px solid var(--cat); border-radius:10px; padding:16px;
 }
-.bloc .num{font-family:var(--mono); font-size:.65rem; color:var(--muted)}
+.bloc .num{font-family:var(--mono); font-size:.78rem; color:var(--muted)}
 .bloc h2{margin:0; font-size:1rem; color:var(--cat)}
 .llista{list-style:none; margin:6px 0 0; padding:0; display:flex; flex-direction:column; gap:6px}
 .llista a{
@@ -362,7 +364,7 @@ a{color:inherit}
   border:1px solid var(--border); border-left:4px solid var(--cat); border-radius:6px;
   text-decoration:none; font-size:.85rem; transition:background-color .15s, color .15s, transform .15s;
 }
-.llista a:hover, .llista a:focus-visible{background:var(--cat); color:#fff; transform:translateX(3px)}
+.llista a:hover, .llista a:focus-visible{background:var(--cat); color:var(--surface); transform:translateX(3px)}
 .llista .n{font-family:var(--mono); font-size:.68rem; opacity:.7; min-width:1.6em}
 .properament{margin-top:6px; align-self:flex-start; font-family:var(--mono); font-size:.68rem; letter-spacing:.06em; text-transform:uppercase; color:var(--muted); border:1px dashed var(--border); border-radius:4px; padding:4px 8px}
 @media (any-pointer:coarse){ .llista a{padding-block:12px} }
@@ -383,7 +385,7 @@ a{color:inherit}
 .ara-tu-solucio{display:grid; gap:8px; font-size:15.5px; line-height:1.6}
 .ara-tu-solucio[hidden], .ara-tu-mode[hidden]{display:none}
 .ara-tu-resultat{margin:0; font-weight:700}
-.ara-tu-error{margin:0; padding:6px 10px; border:1.5px solid var(--vellut); border-radius:8px; background:color-mix(in srgb, var(--vellut) 7%, #fff)}
+.ara-tu-error{margin:0; padding:6px 10px; border:1.5px solid var(--vellut); border-radius:8px; background:color-mix(in srgb, var(--vellut) 7%, var(--surface))}
 .ara-tu-error .avis-error{font-weight:700; color:var(--vellut)}
 .ara-tu-mode{display:grid; gap:8px; padding-top:8px; border-top:1px solid var(--oliva)}
 .ara-tu-controls{display:flex; flex-wrap:wrap; align-items:center; gap:8px 14px}
@@ -391,7 +393,7 @@ a{color:inherit}
 .ara-tu .boto.principal{background:var(--oliva); border-color:var(--oliva)}
 /* Mode «Ara tu»: el fons de la pàgina, verd oliva clar, perquè es distingeixi de l'exercici principal */
 body.mode-ara-tu{background:var(--oliva-fons)}
-body.mode-ara-tu .peu{background:color-mix(in srgb, var(--oliva-fons) 70%, #fff)}
+body.mode-ara-tu .peu{background:color-mix(in srgb, var(--oliva-fons) 70%, var(--surface))}
 body.mode-ara-tu .ara-tu{border-style:solid; border-color:var(--oliva); background:var(--surface)}
 body.mode-ara-tu .ara-tu-titol{color:var(--oliva)}
 body.mode-ara-tu.zona-error{background:color-mix(in srgb, var(--oliva-fons) 80%, var(--vellut))}
@@ -399,7 +401,7 @@ body.mode-ara-tu.zona-error{background:color-mix(in srgb, var(--oliva-fons) 80%,
 /* Portada: les bombolles petites, a part dels blocs (p. ex. «Abans de l'examen») */
 .bombolles{display:flex; flex-wrap:wrap; gap:10px; margin-top:16px}
 .bombolla{display:inline-flex; flex-direction:column; gap:2px; padding:10px 16px; border:2px solid var(--cat); border-radius:999px; background:var(--surface); text-decoration:none; font-size:.85rem; transition:background-color .15s, color .15s}
-.bombolla:hover, .bombolla:focus-visible{background:var(--cat); color:#fff}
+.bombolla:hover, .bombolla:focus-visible{background:var(--cat); color:var(--surface)}
 .bombolla-bloc{font-family:var(--mono); font-size:.65rem; letter-spacing:.06em; text-transform:uppercase; opacity:.75}
 
 /* ── Zona d'error ─────────────────────────────────────────────────────
@@ -418,7 +420,7 @@ body.zona-error .pas.actual{box-shadow:0 0 0 1px var(--vellut), 0 2px 8px rgba(1
 /* El fons de tota la pàgina (cos, capçalera i peu): 80 % el color de sempre i 20 % vellut vermell */
 body.zona-error{background:color-mix(in srgb, var(--bg) 80%, var(--vellut))}
 body.zona-error .capcalera{background:color-mix(in srgb, var(--hd-bg) 80%, var(--vellut))}
-body.zona-error .peu{background:color-mix(in srgb, #f1f5f9 80%, var(--vellut))}
+body.zona-error .peu{background:color-mix(in srgb, var(--peu-bg) 80%, var(--vellut))}
 body, .capcalera{transition:background-color .25s}
 .peu{transition:border-color .25s, background-color .25s}
 /* «Error típic» (!!…!! als textos): fons groc pur durant 1 segon, cada cop que el pas es fa actual */

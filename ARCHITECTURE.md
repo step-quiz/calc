@@ -168,10 +168,15 @@ sentence, closing text included, is `[mat]` or `[calc]` (test).
 - The calculator is a query container: every position and size inside it is in `cqw`, with `aspect-ratio`; the LCD is a
   nested container. It fills its column when the height allows, otherwise its width comes from the height.
 - < 1000 px: one column (statement, player, calculator, steps). Below 700 px the header selectors wrap.
+- Colours: off-white surfaces (`--surface`, `--bg`: a touch of grey and brown, never pure white) and a dark-grey header
+  (`--hd-bg`). The drawn calculators keep their own colours. Home page: blocks numbered T1, T2…; fitxes 1, 2…
 - Rejected by David: a third column, a «Per recordar» box, a title in the header, step dots, autoplay, a restart button,
   clickable keys, home-page descriptions or step counts, an explicit «agafa la calculadora» prompt, prediction questions.
 
 ## 9. Writing fitxes
+
+**Configuration problems in ESO.** No fitxa teaches an ESO student to fix the calculator's settings: David tells the
+student to reset it. Do not add such fitxes.
 
 **Process.** Propose before implementing: send David (in Catalan) the candidate fitxes of a block — title, one-line goal,
 key sequence, step sentences — and wait for his OK. Deliver block by block. Sources are ground truth: competència bàsica
@@ -247,11 +252,8 @@ closing `*/`, bump the version, run the tests. Never put `*/` inside a commented
 
 ## 12. Open items
 
-- `VERIFICAR.md`: CW rows 29 (DEL); fx-82MS rows 10–14 (replay cursor and overwrite, ×10 exponent on the bottom line,
+- `VERIFICAR.md`: fx-82MS rows 10–14 (replay cursor and overwrite, ×10 exponent on the bottom line,
   «6C4», implicit × before a parenthesis or function, DEL and the cursor); how the fx-82MS draws an EXP entry.
-- ESO, «Abans de començar»: a fitxa to check the calculator (fraction mode, FIX/SCI, and D only in 4t, where there is
-  trigonometry) and what an ESO student should do when it is wrong (David to decide: ESO copies of the Batxillerat
-  fitxes, or resetting the calculator, whose screens must first be confirmed on the device).
 - Statement figures proposed to David, waiting: crops of the figure from question images (`cb4-26-q7`, `cb4-23-q26`,
   `cb4-25-q27`) and own SVG drawings for the trigonometry fitxes.
 - More fitxes per ESO block (sources in the order of §9); more calculators (fx-82SP X II…) when David decides.

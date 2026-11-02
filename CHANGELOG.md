@@ -4,6 +4,14 @@ Què ha canviat a cada versió del web, de la més nova a la més antiga. El fun
 `README.md` i `ARCHITECTURE.md`; aquí només hi ha la història. El número de versió és `VERSIO` a
 `js/nucli/models.js` i surt al peu de les pàgines.
 
+## Versió 51 (2/11/2026) — aspecte
+
+- Colors: blanc trencat (amb un punt de gris i de marró) en lloc del blanc pur, i capçalera gris fosc.
+- Portada: sense la línia «Matemàtiques · Batxillerat · PAU» (camp `lema` de les etapes, eliminat); els blocs es
+  numeren T1, T2… (un 20 % més grans) i les fitxes 1, 2… (sense el 0 de davant).
+- El peu, un 10 % més gran.
+- Confirmat a la calculadora: DEL a la fx-82SP CW (`VERIFICAR.md`, fila 29).
+
 ## Versió 50 (2/11/2026) — revisió del projecte
 
 - **Exercicis comuns.** La part d'una fitxa que no depèn de la calculadora (títol, enunciat, font,

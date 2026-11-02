@@ -22,8 +22,6 @@ function dibuixa(M, models) {
   document.title = `Calculadora ${M.curt} — ${etapa.titol}`;
   const h1 = document.querySelector('.capcalera h1');
   if (h1) h1.textContent = `La calculadora ${M.curt}, pas a pas`;
-  const lema = document.querySelector('.capcalera .nom-bloc');
-  if (lema) lema.textContent = etapa.lema;
   const descripcio = document.querySelector('meta[name="description"]');
   if (descripcio) descripcio.setAttribute('content', etapa.descripcio);
 
@@ -65,11 +63,11 @@ function dibuixa(M, models) {
     const fitxes = FITXES.filter(f => f.bloc === b.id);
     const llista = fitxes.length
       ? '<ol class="llista">' + fitxes.map((f, j) =>
-        `<li><a href="${enllac(f)}"><span class="n">${String(j + 1).padStart(2, '0')}</span>`
+        `<li><a href="${enllac(f)}"><span class="n">${j + 1}</span>`
         + `<span>${escapa(f.titol)}</span></a></li>`).join('') + '</ol>'
       : '<span class="properament">Properament</span>';
     return `<section class="bloc" id="${b.id}" style="--cat:${b.color}">`
-      + `<span class="num">${String(i + 1).padStart(2, '0')}</span>`
+      + `<span class="num">T${i + 1}</span>`
       + `<h2>${escapa(b.titol)}</h2>${llista}</section>`;
   }).join('') : `<p class="properament etapa-buida">Properament: fitxes per a ${escapa(etapa.nom)}</p>`;
   const bombolles = document.createElement('div');
