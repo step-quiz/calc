@@ -33,8 +33,8 @@ const TEMPS = Object.freeze({
   entreTecles: 170,    // pausa després de la tecla (la pantalla ja ha canviat)
   pantalla: 220,       // la pantalla del final del pas apareix
 });
-/** Les xifres i el punt (tecles de tipus 'num') van més de pressa: l'alumne ja sap com s'escriu un nombre. */
-const RAPIDESA_XIFRES = 1.4;
+/** Les xifres i el punt (tecles de tipus 'num') van 3 vegades més de pressa: l'alumne ja sap com s'escriu un nombre. */
+const RAPIDESA_XIFRES = 3;
 /** Fins a quantes tecles per pas es numeren al teclat (en una seqüència més llarga, els números fan soroll). */
 const MAX_ORDRE = 6;
 /** Segons sense avançar abans que el botó ▶ parpellegi per recordar que es pot avançar. */

@@ -255,8 +255,8 @@ a{color:inherit}
   padding:5px 10px; min-height:36px; border:0; border-radius:10px; background:transparent; cursor:pointer;
 }
 .pas .num{min-width:1.3em; flex:none; font:600 12.5px/1 var(--mono); color:var(--muted); text-align:right}
-/* El resum: una sola línia, retallada amb «…»; les frases [mat]/[calc] i les fórmules hi van en línia, sense fons */
-.pas .resum{flex:1; min-width:0; overflow:hidden; white-space:nowrap; text-overflow:ellipsis; font-size:14px; color:var(--muted)}
+/* El resum: una sola línia, retallada amb «…» (relative: el MathML ocult de KaTeX, absolut, queda retallat a dins); les frases [mat]/[calc] i les fórmules hi van en línia, sense fons */
+.pas .resum{position:relative; flex:1; min-width:0; overflow:hidden; white-space:nowrap; text-overflow:ellipsis; font-size:14px; color:var(--muted)}
 .pas .resum .frase-mat, .pas .resum .frase-calc{display:inline; margin:0 .4em 0 0; padding:0; background:none; font:inherit}
 .pas .resum .katex-display{display:inline; margin:0}
 .pas .resum .katex-display > .katex{display:inline}
@@ -374,20 +374,20 @@ a{color:inherit}
 /* «Ara tu» i «Prova-ho tu»: surten en acabar l'últim pas. La solució: el resultat correcte, l'error típic (en vermell)
    i «Comprova-ho pas a pas», que posa la pàgina en mode «Ara tu» (fons verd oliva clar, reproductor propi) */
 :root{--oliva:#55691f; --oliva-fons:#eef2dd}
-.ara-tu{order:4; display:grid; gap:8px; padding:12px 16px; border:1.5px dashed var(--cat); border-radius:12px; background:var(--cat-fons)}
+.ara-tu{order:4; display:grid; grid-template-columns:minmax(0, 1fr); gap:8px; padding:12px 16px; border:1.5px dashed var(--cat); border-radius:12px; background:var(--cat-fons)}
 .ara-tu[hidden]{display:none}
-.ara-tu > *{order:0}
+.ara-tu > *{order:0; min-width:0}   /* el resum d'una línia dels passos no ha d'eixamplar la graella */
 .ara-tu-titol{margin:0; font-family:var(--mono); font-size:12px; font-weight:700; letter-spacing:.06em; text-transform:uppercase; color:var(--cat)}
 .ara-tu-enunciat{margin:0; font-size:16px}
 .ara-tu-boto{justify-self:start; font-family:var(--mono); font-size:13px; padding:6px 12px; border-radius:999px; border:1px solid var(--cat); background:var(--surface); color:var(--cat); cursor:pointer}
 .ara-tu-comprova{border-color:var(--oliva); color:var(--oliva)}
 @media (any-pointer:coarse){ .ara-tu-boto{padding:10px 14px} }
-.ara-tu-solucio{display:grid; gap:8px; font-size:15.5px; line-height:1.6}
+.ara-tu-solucio{display:grid; grid-template-columns:minmax(0, 1fr); gap:8px; font-size:15.5px; line-height:1.6}
 .ara-tu-solucio[hidden], .ara-tu-mode[hidden]{display:none}
 .ara-tu-resultat{margin:0; font-weight:700}
 .ara-tu-error{margin:0; padding:6px 10px; border:1.5px solid var(--vellut); border-radius:8px; background:color-mix(in srgb, var(--vellut) 7%, var(--surface))}
 .ara-tu-error .avis-error{font-weight:700; color:var(--vellut)}
-.ara-tu-mode{display:grid; gap:8px; padding-top:8px; border-top:1px solid var(--oliva)}
+.ara-tu-mode{display:grid; grid-template-columns:minmax(0, 1fr); gap:8px; padding-top:8px; border-top:1px solid var(--oliva)}
 .ara-tu-controls{display:flex; flex-wrap:wrap; align-items:center; gap:8px 14px}
 .ara-tu .passos{order:0; flex:none; min-height:0; max-height:none; overflow:visible}
 .ara-tu .boto.principal{background:var(--oliva); border-color:var(--oliva)}

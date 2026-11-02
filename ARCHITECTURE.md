@@ -145,7 +145,7 @@ sentence, closing text included, is `[mat]` or `[calc]` (test).
 - **Next** (▶, ↓, →): outline the step's keys on the calculator (order badges when the step has 2–6 keys), then the cursor
   presses each key and the LCD shows the simulator's screen after it. Durations: `Reproductor.TEMPS` × the speed factor
   («lenta» 2.09, «normal» 1.65 default, «ràpida» 0.83; × 0.35 under `prefers-reduced-motion`). Keys of type `'num'` go
-  `RAPIDESA_XIFRES` = 1.4 times faster. Pressing next during an animation finishes it instantly.
+  `RAPIDESA_XIFRES` = 3 times faster. Pressing next during an animation finishes it instantly.
 - **Previous** (◀, ↑, ←) and clicking a step jump without animation. **Replay** (↻, R) re-animates the current step.
 - **Step list**: the current step shows its full sentence; the others show the number and a one-line, ellipsed summary of
   the sentence. Done steps are faded.

@@ -14,7 +14,7 @@ Web no oficial, sense relació amb el fabricant de la calculadora.
 - A la portada, l'alumne tria l'**etapa** (ESO o Batxillerat), la **seva calculadora** i, a la fx-82SP CW, l'**idioma**
   dels menús (castellà o català). El navegador ho recorda.
 - A la fitxa: ▶ o ↓ / → passen al pas següent (animat); ◀ o ↑ / ← tornen enrere; ↻ o la tecla R tornen a fer el pas
-  actual. La velocitat es pot posar «lenta», «normal» o «ràpida»; les xifres sempre van una mica més de pressa.
+  actual. La velocitat es pot posar «lenta», «normal» o «ràpida»; les xifres sempre van 3 vegades més de pressa.
 - Els passos que ensenyen un error típic tenyeixen la pàgina de vermell («zona d'error»). Si la fitxa acaba amb un
   error, l'últim pas torna a la manera correcta.
 - En acabar: a Batxillerat, «Ara tu» (un exercici semblant, que es pot fer pas a pas amb la calculadora); a l'ESO,

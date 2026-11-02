@@ -7,6 +7,8 @@
      · que la pàgina no fa scroll (vertical ni horitzontal);
      · que la calculadora sencera és dins de la finestra (dues columnes);
      · que el pas actual es veu sencer dins de la llista de passos;
+     · que la columna de l'esquerra no fa scroll horitzontal (també en
+       mode «Ara tu», amb la solució oberta i cada pas del seu reproductor);
      · que no hi ha errors de JavaScript.
    I, una sola vegada, el recordatori del botó ▶: amb el
    rellotge de Playwright, comprova que no surt abans de 8 s, que surt
@@ -59,6 +61,7 @@ const MESURA = () => {
   return {
     scrollV: de.scrollHeight - innerHeight,
     scrollH: de.scrollWidth - innerWidth,
+    columnaH: (c => (c ? c.scrollWidth - c.clientWidth : 0))(document.querySelector('.columna')),
     calcSurt: dosCol && calc ? calc.bottom - innerHeight : 0,
     actualAmagat: actual ? !(actual.top >= dalt && actual.bottom <= baix) : false,
   };
@@ -130,9 +133,24 @@ async function provaRecorda(browser, BASE) {
           const mal = [];
           if (m.scrollV > 1) mal.push(`scroll vertical de ${Math.round(m.scrollV)} px`);
           if (m.scrollH > 1) mal.push(`scroll horitzontal de ${Math.round(m.scrollH)} px`);
+          if (m.columnaH > 1) mal.push(`la columna de l'esquerra fa scroll horitzontal (${Math.round(m.columnaH)} px)`);
           if (m.calcSurt > 0.5) mal.push(`la calculadora surt ${Math.round(m.calcSurt)} px per baix`);
           if (m.actualAmagat) mal.push('el pas actual no es veu sencer');
           if (mal.length) problemes.push(`${w}×${h} · ${model} · ${id} · pas ${i + 1}: ${mal.join('; ')}`);
+        }
+        // El mode «Ara tu»: la solució oberta i cada pas del seu reproductor, sense scroll horitzontal a la columna
+        if (await page.evaluate(() => Boolean(document.querySelector('.ara-tu-comprova')))) {
+          await page.evaluate(() => fitxa.salta(fitxa.total - 1));
+          await page.click('.ara-tu:not(.prova-tu) > .ara-tu-boto');
+          await page.click('.ara-tu-comprova');
+          const k = await page.evaluate(() => document.querySelectorAll('.passos-ara-tu .pas:not(.zero)').length);
+          for (let i = 0; i <= k; i++) {
+            if (i) await page.keyboard.press('ArrowDown');
+            await page.evaluate(() => new Promise(ok => setTimeout(ok, 30)));
+            const m = await page.evaluate(MESURA);
+            total++;
+            if (m.columnaH > 1 || m.scrollH > 1) problemes.push(`${w}×${h} · ${model} · ${id} · «Ara tu» pas ${i}: scroll horitzontal (${Math.round(Math.max(m.columnaH, m.scrollH))} px)`);
+          }
         }
         for (const e of new Set(errors)) problemes.push(`${w}×${h} · ${model} · ${id}: error de JavaScript: ${e}`);
         await page.close();

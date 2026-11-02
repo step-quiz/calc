@@ -4,6 +4,13 @@ Què ha canviat a cada versió del web, de la més nova a la més antiga. El fun
 `README.md` i `ARCHITECTURE.md`; aquí només hi ha la història. El número de versió és `VERSIO` a
 `js/nucli/models.js` i surt al peu de les pàgines.
 
+## Versió 52 (2/11/2026)
+
+- Les xifres i el punt s'animen 3 vegades més de pressa que la resta de tecles (a la v50, 1,4 vegades).
+- Arreglat: el resum d'una línia dels passos podia eixamplar la columna de l'esquerra (scroll horitzontal): dins de
+  l'«Ara tu» (la graella no el retallava) i en algunes fitxes de la fx-82MS (el MathML ocult de KaTeX en sortia).
+- `proves/encaix.js` també comprova que la columna de l'esquerra no faci scroll horitzontal, també en mode «Ara tu».
+
 ## Versió 51 (2/11/2026) — aspecte
 
 - Colors: blanc trencat (amb un punt de gris i de marró) en lloc del blanc pur, i capçalera gris fosc.
@@ -20,7 +27,7 @@ Què ha canviat a cada versió del web, de la més nova a la més antiga. El fun
   que parla de la tecla a b/c). Els blocs també són a `exercicis/blocs.js`.
 - **Reproductor.** `js/nucli/motor.js` s'ha dividit: el reproductor pas a pas és a
   `js/nucli/reproductor.js` i les eines del DOM, a `js/nucli/dom.js`.
-  - Les xifres i el punt s'animen un 40 % més de pressa que la velocitat triada; la resta de tecles, igual.
+  - Les xifres i el punt s'animen 1,4 vegades més de pressa que la resta de tecles.
   - La llista de passos ja no mostra les tecles petites: cada pas que no és l'actual mostra el número
     i el començament de la frase.
   - Botó ↻ (i tecla R): torna a animar el pas actual.
