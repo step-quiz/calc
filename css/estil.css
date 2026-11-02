@@ -96,15 +96,16 @@ a{color:inherit}
 .capcalera-de-fitxa > .torna{justify-self:start}
 .capcalera-de-fitxa > .ux-ajustos, .capcalera-de-fitxa > .tries{justify-self:end; margin-left:0}
 .capcalera-de-fitxa > .avis-capcalera{grid-column:1 / -1}
-/* On som: dos textos, mateixa lletra i mida, sense caixa (no són botons); el bloc, més apagat; un › entre tots dos */
-.on-som{display:flex; flex-wrap:wrap; justify-content:center; align-items:baseline; column-gap:.6em; min-width:0; text-align:center}
+/* On som: dos textos, mateixa lletra i mida, sense caixa (no són botons); el bloc, més apagat; entre tots dos, només
+   l'espai de dos espais en blanc (sense cap signe) */
+.on-som{display:flex; flex-wrap:wrap; justify-content:center; align-items:baseline; column-gap:.5em; min-width:0; text-align:center}
 .on-som-bloc, .on-som-fitxa{margin:0; font-size:.95rem; font-weight:400; line-height:1.3; color:var(--hd-txt)}
 .on-som-bloc{color:color-mix(in srgb, var(--hd-txt) 70%, transparent)}
-.on-som-bloc::after{content:'›'; margin-left:.6em}
-/* «← Fitxes»: un botó de debò (relleu, ombra, canvi en passar-hi el ratolí i en prémer-lo) */
+/* «← Fitxes»: un botó de debò, amb un cantell inferior gruixut (relleu 3D marcat) que desapareix en prémer-lo */
 .capcalera-de-fitxa > .torna{white-space:nowrap; font-size:.8rem; font-weight:600; padding:6px 13px 6px 10px; border:1px solid #cbd5e1; border-radius:7px;
-  box-shadow:0 2px 0 #94a3b8, 0 3px 6px rgba(0,0,0,.25); transition:background-color .15s, color .15s, transform .08s, box-shadow .08s}
-.capcalera-de-fitxa > .torna:active{transform:translateY(2px); box-shadow:0 0 0 #94a3b8, 0 1px 2px rgba(0,0,0,.25)}
+  margin-bottom:6px; box-shadow:0 6px 0 #94a3b8, 0 8px 10px rgba(0,0,0,.45);
+  transition:background-color .15s, color .15s, transform .08s, box-shadow .08s}
+.capcalera-de-fitxa > .torna:active{transform:translateY(6px); box-shadow:0 0 0 #94a3b8, 0 1px 2px rgba(0,0,0,.25)}
 /* El nom de la calculadora al títol: en passar-hi el ratolí, una foto petita de la calculadora (nucli/tria.js, titol) */
 .nom-calc{position:relative; cursor:default; text-decoration:underline dotted color-mix(in srgb, var(--hd-txt) 55%, transparent); text-underline-offset:3px}
 .nom-calc-foto{

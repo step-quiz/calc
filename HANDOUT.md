@@ -11,7 +11,8 @@ Read this first, then `CLAUDE.md` (rules), `ARCHITECTURE.md` (technical referenc
   use CASIO calculators and avoid typical errors. Every fitxa = a shared exercise (`exercicis/`) + the key sequence and
   screens of one calculator (`models/<id>/fitxes/`). An animated cursor presses keys on a drawn calculator; the LCD is
   rendered by a per-model simulator after every key.
-- **Owner/user**: David — maths graduate, secondary maths teacher in Catalonia, C programmer, 6/10 on HTML/CSS/JS/Git.
+- **Owner/user**: David — maths graduate, secondary maths teacher in Catalonia, C programmer, ~4/10 on HTML/CSS/JS/Git
+  (always give numbered copy-paste steps).
   Speak **Catalan** to him. Documents addressed to an AI: **English, highly technical**.
 - **Stack**: vanilla JS (IIFE modules exporting globals), CSS with container queries (`cqw`), KaTeX 0.16.9 (vendored),
   self-hosted fonts (Libre Baskerville, Source Code Pro). Tests in Node + Playwright.
@@ -51,7 +52,7 @@ Extra screen types from variants: `x2-apps`, `x2-rang`, `x2-taula`.
 - Error-zone steps (`error: true`); if a fitxa ends in error, a closing step (`tancament`) is appended.
 - Barrow «Ara tu» is **disabled** (commented block «Ara tu» DESACTIVAT in each model's `pau.js`).
 
-## 5. Work done in this conversation (versions 56 → 67)
+## 5. Work done in recent conversations (versions 56 → 69)
 
 - **v56–57**: fx-570/991SP X II complete (drawing from 626×1333 photo, numbered menus, CALC, Verificar app). Speed «lenta»
   slowed twice (now 3.01).
@@ -68,7 +69,13 @@ Extra screen types from variants: `x2-apps`, `x2-rang`, `x2-taula`.
 - **v66**: David's direct requests: ◀ ↻ ▶ identical (no fill, no blink — `RECORDA` reminder removed); «Fitxes de…» and
   «Et pot interessar» removed (`relacionades` data now unused); fitxa footer full for 5 s then only «© 2026 David Arso
   Civil» (`PEU_SENCER_MS`); home footer full and sticky (`.peu-flotant`). UX levers infrastructure (§6).
-- **v67**: David's lever choice made default (§6); header titles plain black on white pills; big ⚙.
+- **v67**: David's lever choice made default (§6); big ⚙.
+- **v68**: SVG statement figures enlarge correctly in the dialog; header «← Fitxes» is a raised button; «T<n> · bloc»
+  and «<n>. fitxa» are plain centred text with no box (the white pills of v67 are gone).
+- **v69**: after the yellow border, keys are outlined and the rest dim (0.25 s); then 0.8 s of stillness before the
+  cursor moves (`ATENCIO = {repos: 300, vora: 600, apaga: 250, fixacio: 800}`); «← Fitxes» has a much thicker bottom
+  edge (6 px, sinks fully when pressed); no «›» between the two header texts, only a two-space gap (`column-gap:.5em`).
+  Docs synced (this file, ARCHITECTURE §7/§8, stale paths in VERIFICAR).
 
 ## 6. UX Laboratory (the big item of this session)
 
@@ -108,8 +115,9 @@ Extra screen types from variants: `x2-apps`, `x2-rang`, `x2-taula`.
 ## 8. Versioning & delivery protocol
 
 - Any served `.js`/`.css` change → bump `VERSIO` (`js/nucli/models.js`), every `?v=` in `index.html`/`fitxa.html`, and
-  the «Versió N» footer of `index.html` (test enforces). Current: **67**.
-- Delivery = cumulative ZIP from commit `076cc6c`, repo-root paths, excluding `_uploads/`:
+  the «Versió N» footer of `index.html` (test enforces). Current: **69**.
+- Delivery = cumulative ZIP from the base commit, repo-root paths, excluding `_uploads/`. If David uploads the repo as a
+  ZIP (no `.git`), `git init` it, commit it as the base and diff from that commit instead of `076cc6c`:
   `(git diff --name-only --diff-filter=AMR 076cc6c; git ls-files --others --exclude-standard) | sort -u | grep -v '^_uploads/' | zip -@ calc-versio-NN.zip`
 - David uploads it to `_uploads/` on GitHub; workflow `unzip-upload.yml` unzips at root and commits. Give him numbered
   copy-paste steps and the commit message. **Never** put «[skip ci]», «[ci skip]» or «[cf-pages-skip]» in any commit

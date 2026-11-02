@@ -42,8 +42,12 @@ const TEMPS = Object.freeze({
 });
 /** Les xifres i el punt (tecles de tipus 'num') van 3 vegades més de pressa: l'alumne ja sap com s'escriu un nombre. */
 const RAPIDESA_XIFRES = 3;
-/** Abans d'animar un pas amb tecles (ms, sempre els mateixos): repòs i vora groga de la calculadora que s'esvaeix. */
-const ATENCIO = Object.freeze({repos: 300, vora: 600});
+/**
+ * Abans d'animar un pas amb tecles (ms, sempre els mateixos, no depenen de la velocitat): repòs, vora groga de la
+ * calculadora que s'esvaeix, les altres tecles que s'apaguen (la transició d'opacitat de .ux-b1 a estil.css) i, amb
+ * les tecles ja apagades, un temps perquè la mirada es fixi a la calculadora abans que el cursor es mogui.
+ */
+const ATENCIO = Object.freeze({repos: 300, vora: 600, apaga: 250, fixacio: 800});
 /** Fins a quantes tecles per pas es numeren al teclat (en una seqüència més llarga, els números fan soroll). */
 const MAX_ORDRE = 6;
 const CORBA = 'cubic-bezier(.45,.05,.25,1)';
@@ -370,6 +374,11 @@ function crea(ctx, r, fitxa, temps, opcions = {}) {
       if (!viu()) return;
     }
     marcaTeclat(r, passos, idx);
+    if (pas.tecles.length) {
+      // Les tecles del pas queden marcades i les altres s'apaguen; quan ja són apagades, encara un temps de fixació
+      await espera(ATENCIO.apaga + ATENCIO.fixacio);
+      if (!viu()) return;
+    }
     // B4: la lupa s'acosta a les tecles del pas abans de prémer-les
     if (ux('b4') && pas.tecles.length && lupa(r, true)) {
       await espera(LUPA.ms);

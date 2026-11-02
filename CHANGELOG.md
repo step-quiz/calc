@@ -4,6 +4,15 @@ Què ha canviat a cada versió del web, de la més nova a la més antiga. El fun
 `README.md` i `ARCHITECTURE.md`; aquí només hi ha la història. El número de versió és `VERSIO` a
 `js/nucli/models.js` i surt al peu de les pàgines.
 
+## Versió 69 (2/11/2026)
+
+- Abans de les tecles de cada pas, un moment més de calma: quan les tecles que no són del pas ja s'han apagat, la
+  calculadora es queda quieta 0,8 s perquè la mirada s'hi fixi, i després el cursor comença a prémer.
+- «← Fitxes»: el relleu de sota, molt més gruixut (s'enfonsa del tot en prémer-lo).
+- Capçalera de la fitxa: entre «T6 · Trigonometria» i «2. L'altura d'un arbre: la tangent» ja no hi ha el signe ›,
+  només l'espai de dos espais en blanc.
+- Documentació posada al dia (HANDOUT, ARCHITECTURE, VERIFICAR).
+
 ## Versió 68 (2/11/2026)
 
 - «Amplia la figura» ja funciona amb les figures dibuixades (SVG, p. ex. T6 · Trigonometria, l'escala): abans la finestra

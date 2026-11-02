@@ -205,7 +205,7 @@ sentence, closing text included, is `[mat]` or `[calc]` (test).
 - Step 0 shows the start screen and «Prem ▶ o la fletxa ↓ del teclat per començar».
 - **Next** (▶, ↓, →): outline the step's keys on the calculator (order badges when the step has 2–6 keys), then the cursor
   presses each key and the LCD shows the simulator's screen after it. Durations: `Reproductor.TEMPS` × the speed factor
-  («lenta» 3.01, «normal» 1.65 default, «ràpida» 0.83; × 0.35 under `prefers-reduced-motion`). Before animating a step with keys, a fixed attention cue (`ATENCIO`, independent of speed): 0.3 s with nothing marked, then the calculator's border flashes pure yellow and fades in 0.6 s (`.atencio`); only then the step's keys are outlined and pressed. Keys of type `'num'` go
+  («lenta» 3.01, «normal» 1.65 default, «ràpida» 0.83; × 0.35 under `prefers-reduced-motion`). Before animating a step with keys, a fixed attention cue (`ATENCIO`, independent of speed): 0.3 s with nothing marked, then the calculator's border flashes pure yellow and fades in 0.6 s (`.atencio`); then the step's keys are outlined and the others dim to 40 % (B1, a 0.25 s opacity transition); once they are dim, 0.8 s more of stillness so the student's eyes settle on the calculator (`ATENCIO = {repos: 300, vora: 600, apaga: 250, fixacio: 800}`); only then does the cursor start pressing keys. Keys of type `'num'` go
   `RAPIDESA_XIFRES` = 3 times faster. Pressing next during an animation finishes it instantly.
 - **Previous** (◀, ↑, ←) and clicking a step jump without animation. **Replay** (↻, R) re-animates the current step.
 - **Step list**: the current step shows its full sentence; the others show the number and a one-line, ellipsed summary of
@@ -214,7 +214,8 @@ sentence, closing text included, is `[mat]` or `[calc]` (test).
   and tints the page background 20 %. The first error step after a result starts with AC (test).
 - **Closing step**: if the last step is an error, the player appends a keyless step whose screen is the last non-error
   step's screen and whose text is `tancament` (the correct way and the answer). It leaves the error zone.
-- **At the last step**: «Ara tu» (Batxillerat) or «Prova-ho tu» (ESO) appears below the step list. «Prova-ho tu» has
+- **At the last step**: ▶ opens «Ara tu» (Batxillerat) or «Prova-ho tu» (ESO) on its own screen (lever D2, on by default; with
+  D2 off it would appear below the step list). «Prova-ho tu» has
   only «Mostra la solució». «Ara tu» adds «Comprova-ho pas a pas» (olive background, its own ◀ ▶ player on the same
   calculator; touching the main player leaves it).
 - ◀ ↻ ▶ are the same size and style (▶ has no fill and never blinks).
@@ -236,7 +237,7 @@ sentence, closing text included, is `[mat]` or `[calc]` (test).
   C1 reading time · C2 [calc] appears with the keys · C3 icons instead of tinted sentences · C4 sentence under the
   calculator · D1 error without page tint · D2 «Ara tu» on its own screen via ▶ · E2 three columns, sentence right of
   the calculator · E3 one column. David's choice (A2, A3, B1 at 40 %, C3 with a rule between [mat] and [calc], D2) is
-  `UX.PER_DEFECTE`: always on, with or without `?ux=`. Fitxa header (`.capcalera-de-fitxa`, 3-column grid): «← Fitxes» is a raised button on the left; «T<n> · block › <n>. fitxa» is plain centred text (same size, block dimmed, no box, so it does not look clickable); ⚙ on the right.
+  `UX.PER_DEFECTE`: always on, with or without `?ux=`. Fitxa header (`.capcalera-de-fitxa`, 3-column grid): «← Fitxes» is a raised button on the left (a thick 6 px bottom edge that disappears when pressed); «T<n> · block» and «<n>. fitxa» are plain centred text separated only by a two-space gap, no sign between them (same size, block dimmed, no box, so they do not look clickable); ⚙ on the right.
 - The calculator is a query container: every position and size inside it is in `cqw`, with `aspect-ratio`; the LCD is a
   nested container. It fills its column when the height allows, otherwise its width comes from the height.
 - < 1000 px: one column (statement, player, calculator, steps). Below 700 px the header selectors wrap.

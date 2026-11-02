@@ -22,12 +22,12 @@ de CASIO) es veuen diferents, el que s'ha de corregir és la fitxa: la majoria s
 | 6 | En obrir una llista amb ◉ (Entrada/Salida, Unidad angular…), quina fila surt ressaltada | `G.entradaSortida`, `G.unitatAngular` | La que té el ◉. |
 | 7 | Després de prémer OK en una llista amb ◉, si la pantalla s'hi queda o torna enrere | fitxes `mode-decimal`, `canvia-radians`, `fix` | S'hi queda; se surt amb AC. |
 | 8 | Com s'escriu a la pantalla $\sin\frac{\pi}{6}$ amb la r de radians | fitxa `grau-puntual` | La r a dalt, darrere de la fracció (com a la guia ClassWiz, p. 49). |
-| 9 | Les icones de les aplicacions a la pantalla HOME | `js/pantalla.js` (APPS) | Només orientatives; els noms sí que són els del manual. |
+| 9 | Les icones de les aplicacions a la pantalla HOME | `models/fx-82sp-cw/pantalla.js` (APPS) | Només orientatives; els noms sí que són els del manual. |
 | 10 | Si es veu el triangle ▲ després d'AC | diverses fitxes | Es veu si hi ha historial; no es veu després de canviar Entrada/Salida ni de reiniciar (el manual diu que s'esborra). |
 | 11 | FUNCTION > {Definir f(x)}: la pantalla d'escriure f(x) | `G.definicio`, fitxa `pau-ana-24i-q1` | Una línia «f(x)=…» dins d'un requadre, com a la p. 60 del manual; sense barra d'indicadors. Després d'EXE, torna a la pantalla d'abans (el manual ho diu). |
 | 12 | Menú de FUNCTION | `G.menuFuncio` | f(x), g(x), Definir f(x), Definir g(x), amb f(x) triada (p. 60). En triar f(x) s'escriu «f(». |
 | 13 | Si $\frac{4}{6}\times 0.75+\frac{2}{6}\times 0.4$ dona la fracció 19/30 en mode E Mat/S Mat | fitxa `pau-pro-24i-q4` | Fracció 19/30 (decimals exactes barrejats amb fraccions). |
-| 14 | Plantilla de l'arrel d'índex n (SHIFT arrel): dues caselles, i en quina es comença | `js/simulador.js` (`arreln`), fitxa `arrel-n` | Cursor primer a l'índex (la casella petita); `→` passa al radicand. El manual (p. 34, exemple 5√32) ho indica amb la seqüència «5 ▶ 32», però no dibuixa les pantalles. |
+| 14 | Plantilla de l'arrel d'índex n (SHIFT arrel): dues caselles, i en quina es comença | `models/fx-82sp-cw/simulador.js` (`arreln`), fitxa `arrel-n` | Cursor primer a l'índex (la casella petita); `→` passa al radicand. El manual (p. 34, exemple 5√32) ho indica amb la seqüència «5 ▶ 32», però no dibuixa les pantalles. |
 | 15 | Fracció escrita dins del denominador en oblidar el `→` | fitxa `frac-plantilla`, passos 5-6 | $\frac{3}{4+\frac{5}{6}}$, resultat $\frac{18}{29}$ (calculat). |
 | 16 | $-2^4$ sense parèntesis | fitxa `pot-negativa`, passos 4-5 | Resultat −16: la potència té més prioritat que el signe negatiu (seqüència de prioritat del manual, p. 113; comprovat a les guies CASIO de la sèrie CW). Es comença amb AC perquè, després d'un resultat, la tecla − podria continuar amb Ans. |
 | 17 | Exponent dins del denominador en no tancar la fracció | fitxa `pot-fraccio`, passos 5-7 | $\frac{2}{3^{-2}}$, resultat 18 (calculat). |
