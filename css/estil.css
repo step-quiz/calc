@@ -184,8 +184,13 @@ a{color:inherit}
 .cel{position:absolute; width:var(--w); height:var(--h); transform:translate(-50%, -50%)}
 .calculadora .tecla{width:100%; height:100%; min-width:0; padding:0; border:0}
 /* Les tecles del pas (i, si n'hi ha més d'una, l'ordre en què es premen) */
-.calculadora.atencio{animation:calc-atencio .6s ease-out}   /* abans de les tecles d'un pas (reproductor.js, ATENCIO) */
-@keyframes calc-atencio{from{box-shadow:0 0 0 6px #ffff00} to{box-shadow:0 0 0 6px rgba(255,255,0,0)}}
+/* Abans de les tecles d'un pas (reproductor.js, ATENCIO): una vora groga que s'esvaeix. És una capa a sobre, DINS de la
+   calculadora: no en canvia la mida ni l'ombra del model, i no fa sortir cap barra de desplaçament. */
+.calculadora.atencio::after{
+  content:''; position:absolute; inset:0; z-index:30; pointer-events:none; border-radius:inherit;
+  box-shadow:inset 0 0 0 1.6cqw #ffff00; animation:calc-atencio .6s ease-out forwards;
+}
+@keyframes calc-atencio{from{opacity:1} to{opacity:0}}
 .calculadora .tecla.del-pas{outline:.8cqw solid var(--marca-vora); outline-offset:.6cqw}
 .calculadora .tecla.del-pas[data-ordre]::after{
   content:attr(data-ordre); position:absolute; right:-3cqw; bottom:-2.4cqw; z-index:2;   /* a baix a la dreta: no tapa els rètols */
@@ -195,7 +200,7 @@ a{color:inherit}
 .calculadora .tecla.pendent{background:#fdf0c8; color:#111827}   /* encara s'ha de prémer: fons groc suau */
 .calculadora .tecla.premuda{transform:translateY(.6cqw); box-shadow:0 0 0 transparent; background:#fde68a; color:#111827}
 
-.escenari{position:relative; display:flex; justify-content:center; align-items:flex-start}
+.escenari{position:relative; display:flex; justify-content:center; align-items:flex-start; overflow:clip}   /* el cursor (que surt de sota la calculadora) mai no fa créixer la pàgina */
 .efectes{position:absolute; inset:0; pointer-events:none}
 .ona{position:absolute; width:34px; height:34px; margin:-17px 0 0 -17px; border-radius:50%; border:2px solid #ca8a04}
 .cursor{

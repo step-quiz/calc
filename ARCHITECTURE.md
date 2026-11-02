@@ -306,7 +306,7 @@ closing `*/`, bump the version, run the tests. Never put `*/` inside a commented
 - `node proves/encaix.js` (Playwright; serves the repo itself) must end with «Tot hi cap»: for every calculator, fitxa and
   step (step 0 and the closing step included) at 1366×657, 1280×559 and a 10" Android tablet (1280×632, touch, DPR 1.5):
   no page scroll, the whole calculator visible, the current step fully visible in the step list, no JS errors; plus the ▶
-  reminder timing once. `MODEL=…`, `FITXES=a,b`, `VP='[[w,h]]'` restrict it.
+  reminder timing once and, during an animated step (attention border, cursor), no page scroll. `MODEL=…`, `FITXES=a,b`, `VP='[[w,h]]'` restrict it.
 
 ## 11. Versioning and delivery
 

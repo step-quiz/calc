@@ -89,6 +89,19 @@ async function provaRecorda(browser, BASE) {
   await avanca(10000);
   if (await te()) mal.push('recordatori del botó ▶: surt a l\'últim pas');
   await page.close();
+  // Mentre s'anima un pas (la vora groga d'atenció i el cursor, que surt de sota la calculadora), la pàgina no creix
+  const p2 = await browser.newPage({viewport: {width: 1280, height: 559}});
+  await p2.goto(BASE + 'fitxa.html?id=cb4-26-q15', {waitUntil: 'load'});
+  await p2.waitForFunction(() => globalThis.fitxa && fitxa.total !== undefined);
+  await p2.keyboard.press('ArrowRight');
+  for (let t = 0; t < 40; t++) {
+    await p2.waitForTimeout(50);
+    if (await p2.evaluate(() => document.documentElement.scrollHeight > innerHeight || document.documentElement.scrollWidth > innerWidth)) {
+      mal.push('mentre s\'anima un pas, la pàgina fa scroll (vora d\'atenció o cursor)');
+      break;
+    }
+  }
+  await p2.close();
   return mal;
 }
 

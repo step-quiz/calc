@@ -4,6 +4,13 @@ Què ha canviat a cada versió del web, de la més nova a la més antiga. El fun
 `README.md` i `ARCHITECTURE.md`; aquí només hi ha la història. El número de versió és `VERSIO` a
 `js/nucli/models.js` i surt al peu de les pàgines.
 
+## Versió 65 (2/11/2026)
+
+- Arreglat: en començar a animar un pas, sortia una barra de desplaçament vertical. La causa era el cursor, que apareix
+  just a sota de la calculadora (i la vora d'atenció, una ombra per fora). Ara la zona de la calculadora retalla el que
+  en surt (`overflow: clip`), i la vora groga es dibuixa per dins de la calculadora, sense canviar-ne la mida ni l'ombra.
+- `proves/encaix.js` comprova que la pàgina no fa scroll mentre s'anima un pas.
+
 ## Versió 64 (2/11/2026)
 
 - Abans d'animar un pas, la mirada té temps d'anar a la calculadora: 0,3 s sense res marcat i, després, la vora de la
