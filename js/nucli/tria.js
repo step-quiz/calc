@@ -2,8 +2,9 @@
    nucli/tria.js — «Escollir calculadora»: el botó i la finestra
    ───────────────────────────────────────────────────────────────────
    A la capçalera de la portada i de la fitxa, un botó «Escollir
-   calculadora» (ressaltat 1,5 s si l'alumne encara no n'ha triat cap en
-   aquest navegador) o «Canviar de calculadora» (si ja n'ha triat una).
+   calculadora» (si l'alumne encara no n'ha triat cap en aquest
+   navegador: ressaltat 1,5 s i després groc pur, fixe) o «Canviar de
+   calculadora» (si ja n'ha triat una).
    En clicar-lo s'obre una finestra (<dialog>) amb una
    graella de totes les calculadores del catàleg (3 columnes; menys a
    les pantalles estretes): la imatge (models/<id>/<imatge> del
@@ -15,7 +16,9 @@
    TriaCalculadora.boto(descriptors, actual, adreca) → l'element del botó
      (la finestra s'afegeix al <body>); adreca(id) = l'adreça on anar.
    TriaCalculadora.titol(element, id) → el títol «La calculadora <nom>,
-     pas a pas», amb la foto de la calculadora en passar el ratolí pel nom.
+     pas a pas», amb la foto de la calculadora en passar el ratolí pel nom;
+     «La teva calculadora, pas a pas» si l'alumne encara no n'ha triat cap
+     (i l'adreça no en porta cap, ?model=).
    No fa servir Dom (la portada no el carrega). Exporta «TriaCalculadora».
    ═══════════════════════════════════════════════════════════════════ */
 (function (arrel) {
@@ -68,10 +71,10 @@ function finestra(descriptors, actual, adreca) {
 /** El botó de la capçalera (null si només hi ha una calculadora). */
 function boto(descriptors, actual, adreca) {
   if (!descriptors || descriptors.length < 2) return null;
-  // Si l'alumne encara no n'ha triat cap en aquest navegador: «Escollir calculadora», ressaltat 1,5 s en obrir la pàgina.
-  // Si ja n'ha triat una: «Canviar de calculadora», sense ressaltat.
+  // Si l'alumne encara no n'ha triat cap en aquest navegador: «Escollir calculadora», ressaltat 1,5 s en obrir la pàgina
+  // i després groc pur, fixe. Si ja n'ha triat una: «Canviar de calculadora», sense ressaltat.
   const triada = descriptors.some(d => d.id === Preferencies.model());
-  const b = crea('button', 'tria-boto' + (triada ? '' : ' destaca'), triada ? 'Canviar de calculadora' : 'Escollir calculadora');
+  const b = crea('button', 'tria-boto' + (triada ? '' : ' destaca sense-triar'), triada ? 'Canviar de calculadora' : 'Escollir calculadora');
   b.type = 'button';
   if (!triada) b.addEventListener('animationend', () => b.classList.remove('destaca'));
   b.setAttribute('aria-haspopup', 'dialog');
@@ -90,6 +93,10 @@ function boto(descriptors, actual, adreca) {
  * nom (o en donar-li el focus), surt una foto petita de la calculadora (la imatge del descriptor).
  */
 function titol(el, id) {
+  // Encara sense calculadora triada (ni a l'adreça): el títol no en diu cap, tot i que es mostra la de per defecte
+  let delUrl = false;
+  try { delUrl = new URLSearchParams(location.search).has('model'); } catch (e) { /* sense location */ }
+  if (!Preferencies.model() && !delUrl) { el.replaceChildren('La teva calculadora, pas a pas'); return el; }
   const d = Models.descriptor(id);
   const nom = crea('span', 'nom-calc', d ? d.curt : id);
   if (d && d.imatge) {

@@ -13,12 +13,14 @@ Web no oficial, sense relació amb el fabricant de la calculadora.
 
 - A la portada, l'alumne tria l'**etapa** (ESO o Batxillerat), la **seva calculadora** (botó «Escollir calculadora»:
   una finestra amb la imatge i el nom de cada una; també a la fitxa) i, a les calculadores que en tenen, l'**idioma**
-  dels menús (castellà o català). El navegador ho recorda. La calculadora triada surt al títol de la portada; a la fitxa, la capçalera diu el bloc (T1…) i la fitxa.
+  dels menús (castellà o català). El navegador ho recorda. La calculadora triada surt al títol de la portada (abans de triar-ne cap, «La teva calculadora, pas a pas», i el botó «Escollir calculadora» en groc); a la fitxa, la capçalera diu el bloc (T1…) i la fitxa.
 - A la fitxa: ▶ o ↓ / → passen al pas següent (animat); ◀ o ↑ / ← tornen enrere; ↻ o la tecla R tornen a fer el pas
   actual. La velocitat es pot posar «lenta», «normal» o «ràpida»; les xifres sempre van 3 vegades més de pressa que la resta de tecles. Abans de les tecles de cada pas, la vora de la calculadora s'il·lumina en groc perquè l'alumne hi miri; després s'apaguen les tecles que no són del pas i, encara 0,8 s més tard, el cursor comença a prémer.
 - Quan s'acaba un pas, al cap d'un moment surten dues fletxes discretes a sota que apunten al pas següent: conviden a
   avançar quan l'alumne estigui a punt. L'últim element de la llista és «Prova-ho tu» (o «Ara tu»): s'hi va amb ▶ o
   clicant-lo.
+- Al ⚙ de dalt a la dreta de la fitxa: «Escollir calculadora», l'idioma i el **color del cursor** (16 colors; el navegador
+  el recorda).
 - El peu de la fitxa surt sencer 5 segons i després només hi queda l'autor; a la portada, sempre sencer a baix.
 - Els passos que ensenyen un error típic tenyeixen la pàgina de vermell («zona d'error»). Si la fitxa acaba amb un
   error, l'últim pas torna a la manera correcta.

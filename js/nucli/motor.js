@@ -44,7 +44,7 @@ const ESVAIR_MS = 500;
 const ICONA_FONT = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 2.5h8.5L19 7v14.5H6z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>'
   + '<path d="M14 2.5V7.5h5M9 12h7M9 16h7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>';
 const CURSOR_HTML = '<svg viewBox="0 0 22 30" aria-hidden="true"><path d="M2 2 L2 24 L7.6 18.8 L11.4 27.4 L15 25.8 L11.3 17.4 L18.6 17.4 Z" '
-  + 'fill="#fff" stroke="#111" stroke-width="1.6" stroke-linejoin="round"/></svg>';
+  + 'style="fill:var(--cursor-fons, #fff); stroke:var(--cursor-vora, #111)" stroke-width="1.6" stroke-linejoin="round"/></svg>';
 
 /** El model, l'idioma dels menús de la calculadora, l'etapa i el creador de textos d'aquesta pàgina (els posa inicia). */
 let M = null;
@@ -80,6 +80,53 @@ function titolFitxa(fitxa, bloc, germanes) {
 /** «Escollir calculadora» (nucli/tria.js): en triar-ne una altra, es desa i s'obre la mateixa fitxa (el mateix id) en aquella calculadora. */
 function selectorModel(fitxa) {
   return TriaCalculadora.boto(MODELS, M.id, id => Models.adreca({model: id, etapa: ETAPA, fitxa: fitxa.id}));
+}
+
+/**
+ * Els colors que l'alumne pot triar per al cursor que prem les tecles (⚙ → «Color del cursor»). El primer, el blanc, és
+ * el de per defecte. Cap negre: sobre les calculadores fosques no es veuria. La vora del cursor és fosca sobre els
+ * colors clars i blanca sobre els foscos (luminància), perquè sempre es distingeixi de la tecla.
+ */
+const COLORS_CURSOR = Object.freeze([
+  ['blanc', 'Blanc', '#ffffff'], ['groc', 'Groc', '#ffd60a'], ['ambre', 'Ambre', '#ffa600'], ['taronja', 'Taronja', '#ff6b1a'],
+  ['vermell', 'Vermell', '#e5383b'], ['gerd', 'Gerd', '#c9184a'], ['rosa', 'Rosa', '#ff8fc7'], ['magenta', 'Magenta', '#d020d6'],
+  ['lila', 'Lila', '#b197fc'], ['violeta', 'Violeta', '#7b2ff7'], ['blau', 'Blau', '#2563eb'], ['cel', 'Blau cel', '#4cc9f0'],
+  ['turquesa', 'Turquesa', '#14e0c0'], ['verd', 'Verd', '#22c55e'], ['llima', 'Llima', '#b5f23a'], ['gris', 'Gris', '#a0a7b4'],
+].map(([id, nom, color]) => Object.freeze({id, nom, color})));
+
+/** Vora del cursor per a un color: fosca si el color és clar, blanca si és fosc (luminància relativa sRGB). */
+function voraCursor(hex) {
+  const lin = c => (c <= 0.04045 ? c / 12.92 : ((c + 0.055) / 1.055) ** 2.4);
+  const [r, g, b] = [1, 3, 5].map(i => lin(parseInt(hex.slice(i, i + 2), 16) / 255));
+  return 0.2126 * r + 0.7152 * g + 0.0722 * b > 0.22 ? '#111111' : '#ffffff';
+}
+
+/** Posa el color del cursor (variables CSS --cursor-fons i --cursor-vora de la pàgina). */
+function aplicaColorCursor(id) {
+  const c = COLORS_CURSOR.find(x => x.id === id) || COLORS_CURSOR[0];
+  document.documentElement.style.setProperty('--cursor-fons', c.color);
+  document.documentElement.style.setProperty('--cursor-vora', voraCursor(c.color));
+  return c.id;
+}
+
+/** «Color del cursor» (dins del ⚙): 16 mostres; en clicar-ne una, el cursor canvia a l'instant i el color es desa. */
+function selectorColorCursor() {
+  let actual = aplicaColorCursor(Preferencies.cursor());
+  const mostres = COLORS_CURSOR.map(c => {
+    const b = element('button', {class: 'mostra-cursor', type: 'button', title: c.nom, 'aria-label': c.nom,
+      'aria-pressed': String(c.id === actual)});
+    b.style.setProperty('--mostra', c.color);
+    b.addEventListener('click', () => {
+      actual = aplicaColorCursor(c.id);
+      Preferencies.desaCursor(c.id);
+      for (const m of mostres) m.setAttribute('aria-pressed', String(m === b));
+    });
+    return b;
+  });
+  return element('div', {class: 'tria-cursor', role: 'group', 'aria-label': 'Color del cursor'}, [
+    element('span', {class: 'tria-cursor-nom', text: 'Color del cursor'}),
+    element('div', {class: 'mostres-cursor'}, mostres),
+  ]);
 }
 
 /** «Calculadora en: Castellano / Català» (només si el model té idiomes). En canviar-lo, es desa i es recarrega la pàgina al mateix pas. */
@@ -253,7 +300,8 @@ function construeixPagina(fitxa, bloc, germanes, contenidor) {
   }, PEU_SENCER_MS);
 
   // A3: capçalera mínima, amb «Escollir calculadora» i l'idioma plegats dins d'un ⚙
-  const tries = element('div', {class: 'tries'}, [selectorModel(fitxa), selectorIdioma()]);
+  const tries = element('div', {class: 'tries'}, [selectorModel(fitxa), selectorIdioma(), ux('a3') ? selectorColorCursor() : null]);
+  if (!ux('a3')) aplicaColorCursor(Preferencies.cursor());
   const ajustos = ux('a3') ? element('details', {class: 'ux-ajustos'}, [element('summary', {title: 'Ajustos', 'aria-label': 'Ajustos', text: '⚙'}), tries]) : tries;
 
   contenidor.replaceChildren(

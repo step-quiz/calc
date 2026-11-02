@@ -58,8 +58,6 @@ const CORBA = 'cubic-bezier(.45,.05,.25,1)';
 const LECTURA = Object.freeze({perParaula: 170, min: 600, max: 4200});
 /** B4: la lupa (ms de la transició, que és a estil.css, i ampliació màxima). */
 const LUPA = Object.freeze({ms: 450, maxim: 1.9});
-const CURSOR = '<svg viewBox="0 0 22 30" aria-hidden="true"><path d="M2 2 L2 24 L7.6 18.8 L11.4 27.4 L15 25.8 L11.3 17.4 L18.6 17.4 Z" '
-  + 'fill="#fff" stroke="#111" stroke-width="1.6" stroke-linejoin="round"/></svg>';
 
 const espera = ms => new Promise(resol => setTimeout(resol, ms));
 /** Una palanca del laboratori d'UX (nucli/ux.js) és activa? Sense ?ux=, mai. */

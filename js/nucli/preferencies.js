@@ -5,10 +5,13 @@
    «calc-etapa»   l'última etapa que ha vist (la desa cada pàgina)
    «calc-idioma»  l'idioma dels menús de la seva calculadora (només si
                   el model té idiomes; el primer és el de per defecte)
+   «calc-cursor»  el color del cursor que prem les tecles (un id de la
+                  paleta de motor.js; si no n'hi ha, el blanc)
    Sense memòria al navegador (mode privat, galetes bloquejades), tot
    funciona amb els valors per defecte.
 
-   Exporta «Preferencies»: model(), desaModel(id), idioma(model), desaIdioma(valor), etapa(), desaEtapa(id).
+   Exporta «Preferencies»: model(), desaModel(id), idioma(model), desaIdioma(valor), etapa(), desaEtapa(id),
+   cursor(), desaCursor(id).
    ═══════════════════════════════════════════════════════════════════ */
 (function (arrel) {
 'use strict';
@@ -16,6 +19,7 @@
 const CLAU_MODEL = 'calc-model';
 const CLAU_IDIOMA = 'calc-idioma';
 const CLAU_ETAPA = 'calc-etapa';
+const CLAU_CURSOR = 'calc-cursor';
 
 function llegeix(clau) {
   try { return typeof localStorage !== 'undefined' ? localStorage.getItem(clau) : null; } catch (e) { return null; }
@@ -41,7 +45,11 @@ const desaModel = id => desa(CLAU_MODEL, String(id));
 /** L'última etapa que l'alumne ha vist (l'id, o null). Models.etapaActual comprova que existeixi. */
 const etapa = () => llegeix(CLAU_ETAPA);
 const desaEtapa = id => desa(CLAU_ETAPA, String(id));
+/** El color del cursor que l'alumne va triar (l'id, o null). motor.js comprova que sigui de la paleta. */
+const cursor = () => llegeix(CLAU_CURSOR);
+const desaCursor = id => desa(CLAU_CURSOR, String(id));
 
-arrel.Preferencies = Object.freeze({model, desaModel, idioma, desaIdioma, etapa, desaEtapa, CLAU_MODEL, CLAU_IDIOMA, CLAU_ETAPA});
+arrel.Preferencies = Object.freeze({model, desaModel, idioma, desaIdioma, etapa, desaEtapa, cursor, desaCursor,
+  CLAU_MODEL, CLAU_IDIOMA, CLAU_ETAPA, CLAU_CURSOR});
 
 })(globalThis);

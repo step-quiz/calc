@@ -53,7 +53,7 @@ Extra screen types from variants: `x2-apps`, `x2-rang`, `x2-taula`.
 - Error-zone steps (`error: true`); if a fitxa ends in error, a closing step (`tancament`) is appended.
 - Barrow «Ara tu» is **disabled** (commented block «Ara tu» DESACTIVAT in each model's `pau.js`).
 
-## 5. Work done in recent conversations (versions 56 → 70)
+## 5. Work done in recent conversations (versions 56 → 71)
 
 - **v56–57**: fx-570/991SP X II complete (drawing from 626×1333 photo, numbered menus, CALC, Verificar app). Speed «lenta»
   slowed twice (now 3.01).
@@ -80,6 +80,11 @@ Extra screen types from variants: `x2-apps`, `x2-rang`, `x2-taula`.
 - **v70**: the step list ends with a numbered «Prova-ho tu»/«Ara tu» row (`.pas-final`, D2 only; ▶ from the last step
   or a click opens it); two thin down-arrows under a finished step invite going on (`.convida`, after 1.2 s; space
   reserved by `.te-seguent`); catalogue reordered (fx-570sp-x2 before fx-82sp-x2).
+- **v71**: «Color del cursor» in the ⚙ (16 swatches, `COLORS_CURSOR` in motor.js, `calc-cursor` in localStorage, CSS vars
+  `--cursor-fons`/`--cursor-vora`); ⚙ panel min-width 360 px so it overlaps the calculator; removed a dead duplicate of
+  the cursor SVG from reproductor.js (the real one is `CURSOR_HTML` in motor.js). First visit (no stored model, no
+  `?model=`): home title «La teva calculadora, pas a pas»; «Escollir calculadora» blinks 1.5 s, then stays pure yellow
+  (`.sense-triar`) until a choice is made.
 
 ## 6. UX Laboratory (the big item of this session)
 
@@ -119,7 +124,7 @@ Extra screen types from variants: `x2-apps`, `x2-rang`, `x2-taula`.
 ## 8. Versioning & delivery protocol
 
 - Any served `.js`/`.css` change → bump `VERSIO` (`js/nucli/models.js`), every `?v=` in `index.html`/`fitxa.html`, and
-  the «Versió N» footer of `index.html` (test enforces). Current: **70**.
+  the «Versió N» footer of `index.html` (test enforces). Current: **71**.
 - Delivery = cumulative ZIP from the base commit, repo-root paths, excluding `_uploads/`. If David uploads the repo as a
   ZIP (no `.git`), `git init` it, commit it as the base and diff from that commit instead of `076cc6c`:
   `(git diff --name-only --diff-filter=AMR 076cc6c; git ls-files --others --exclude-standard) | sort -u | grep -v '^_uploads/' | zip -@ calc-versio-NN.zip`

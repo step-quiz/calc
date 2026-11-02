@@ -4,6 +4,15 @@ Què ha canviat a cada versió del web, de la més nova a la més antiga. El fun
 `README.md` i `ARCHITECTURE.md`; aquí només hi ha la història. El número de versió és `VERSIO` a
 `js/nucli/models.js` i surt al peu de les pàgines.
 
+## Versió 71 (2/11/2026)
+
+- Al ⚙ de la fitxa, «Color del cursor»: l'alumne tria entre 16 colors (cap negre) el del cursor que prem les tecles. El
+  navegador el recorda. La vora del cursor es torna blanca amb els colors foscos, perquè es vegi sempre.
+- El menú del ⚙ és més ample i trepitja clarament la calculadora (abans s'acabava just on començava).
+- Primera visita (cap calculadora triada en aquest navegador): el títol de la portada diu «La teva calculadora, pas a
+  pas» (es mostra la fx-82SP CW, però el títol no la nomena) i el botó «Escollir calculadora», després del ressaltat
+  d'1,5 s, es queda groc pur fins que l'alumne en tria una.
+
 ## Versió 70 (2/11/2026)
 
 - La llista de passos acaba amb un pas més, «Prova-ho tu» (o «Ara tu»), numerat com els altres: l'alumne veu què ve
