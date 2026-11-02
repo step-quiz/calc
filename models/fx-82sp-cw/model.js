@@ -12,6 +12,7 @@ Models.descriu({
   id: 'fx-82sp-cw',
   nom: 'CASIO fx-82SP CW',
   curt: 'fx-82SP CW',
+  imatge: 'imatge.png',   // per a la finestra «Escollir calculadora» (la fa proves/imatges.js)
   // Els menús de la calculadora es poden posar en castellà o en català: l'alumne tria el de la seva
   idiomes: {es: 'Castellano', ca: 'Català'},
   fitxers: [

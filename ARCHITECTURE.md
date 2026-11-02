@@ -64,15 +64,16 @@ fitxa (what the player plays) = exercici (shared)        +  model fitxa (per cal
 | `js/vigia.js` | `Vigia` | Loaded first, ES5 only. Shows a visible box (message, file, user agent) on a script/stylesheet load failure, a JS error, an unhandled rejection, or if the page has not called `Vigia.llesta()` after 10 s. Never a silent blank page. |
 | `js/nucli/models.js` | `Models` | `VERSIO`; registry and loader of exercises, blocks and models; the contract check (`tanca`); stages; links (`adreca`); drawing helpers (`dibuix`). |
 | `js/nucli/preferencies.js` | `Preferencies` | localStorage: `calc-model`, `calc-etapa`, `calc-idioma` (try/catch everywhere). |
+| `js/nucli/tria.js` | `TriaCalculadora` | «Escollir calculadora»: `boto(descriptors, actual, adreca)` gives the header button; it opens a `<dialog>` with a 3-column grid (2 below 640 px, 1 below 380 px) of every calculator (image + name; the current one marked «La teva»; hover/focus highlights). A click stores the choice and opens `adreca(id)`. No `Dom` (the home page does not load it). |
 | `js/nucli/text.js` | `Text` | Text mini-syntax → HTML (§6.3). |
 | `js/nucli/dom.js` | `Dom` | `element()`, `icona()`, the player icons. |
 | `js/nucli/reproductor.js` | `Reproductor` | The step player: step list, key outlines and order badges, animated cursor, `salta` / `seguent` / `repeteix`, error-zone class, ARIA live announcement, `?pas=` in the URL, ▶ reminder. |
-| `js/nucli/motor.js` | `Motor` | The fitxa page: header selectors, statement (source bubble, figure dialog), player buttons, speed, «Ara tu» mode, «Prova-ho tu», closing step, keyboard shortcuts, keyboard-arrows notice. Exposes the main player as global `fitxa`. |
-| `js/nucli/portada.js` | `Portada` | Home page: stage/calculator/language selectors, one card per block of the stage, small blocks as bubbles. |
+| `js/nucli/motor.js` | `Motor` | The fitxa page: header (← Fitxes, the title with the chosen calculator, «Escollir calculadora», language), statement (source bubble, figure dialog), player buttons, speed, «Ara tu» mode, «Prova-ho tu», closing step, keyboard shortcuts, keyboard-arrows notice. Exposes the main player as global `fitxa`. |
+| `js/nucli/portada.js` | `Portada` | Home page: stage selector, «Escollir calculadora», language selector, title with the chosen calculator, one card per block of the stage, small blocks as bubbles. |
 | `models/cataleg.js` | — | `Models.cataleg([...])` (calculators; first = default), `Models.etapes([...])` (stages; first = default), `Models.exercicis([...])` (exercise files, in load order). |
 | `exercicis/blocs.js` | — | `Models.defineixBlocs([...])` and the documented format of an exercise. |
 | `exercicis/<bloc>.js`, `exercicis/eso/<bloc>.js` | — | `Models.afegeixExercicis({…}, …)`: data only. |
-| `models/<id>/model.js` | — | Descriptor: `Models.descriu({id, nom, curt, idiomes, fitxers, estils, proves})`. |
+| `models/<id>/model.js` | — | Descriptor: `Models.descriu({id, nom, curt, imatge, idiomes, fitxers, estils, proves})`; `imatge` = the picture of the chooser (`imatge.png`, made by `proves/imatges.js`). |
 | `models/<id>/tecles.js` | `M.tecles` | Key catalogue (`etiqueta`, `nom`, `tipus`, layers) and the **measured geometry** (`TECLAT`, all in % of the body width). Never stretch it. |
 | `models/<id>/pantalla.js` | `M.pantalla` | Pure LCD renderer `html(state, idioma)`; optional `ajusta(element)` after painting (CW: ◀ ▶ overflow arrows). |
 | `models/<id>/guions.js` | `M.guions` (`G`) | Builders of screens (`calc`, menus…), menu data, Catalan labels (CW), `textCalc`. |
@@ -83,6 +84,7 @@ fitxa (what the player plays) = exercici (shared)        +  model fitxa (per cal
 | `models/<id>/calcul.js`, `proves.js` | — | Node only: result evaluator (recomputes every authored result) and model tests. |
 | `proves/comprova.js` | — | Node test runner (§10). |
 | `proves/encaix.js` | — | Playwright layout test (§10). |
+| `proves/imatges.js` | — | Playwright: photographs each drawn calculator (a fitxa at step 0, highlights removed, transparent background) into `models/<id>/imatge.png`. Rerun when a drawing changes or a calculator is added. |
 | `img/eso/` | — | Statement figures (copied from the competència bàsica repository; statement images only). |
 | `vendor/` | — | KaTeX 0.16.9 and fonts. |
 | `_headers` | — | Cloudflare Pages: `Cache-Control: no-cache` (the browser revalidates; `?v=` busts the cache). |
@@ -95,7 +97,7 @@ fitxa (what the player plays) = exercici (shared)        +  model fitxa (per cal
 2. `Models.carrega(id = Models.idActual())`: loads `models/<id>/model.js`, then — appended in order with `async = false` —
    the exercise files (once per page), the model's `fitxers` and its `estils` (awaited), all with the same `?v=`.
 3. `Models.tanca(id)` checks the contract, merges fitxes with exercises, applies block overrides, freezes everything.
-4. `Models.descriptorsTots()` loads the other `model.js` files for the calculator selector.
+4. `Models.descriptorsTots()` loads the other `model.js` files for the «Escollir calculadora» window.
 
 `Models.idActual()` = `?model=` if in the catalogue, else the stored choice, else the first. `Models.etapaActual()` =
 `?etapa=` if valid, else the stored stage, else the first. A fitxa page's stage is its block's (`Models.etapaDe`). Every

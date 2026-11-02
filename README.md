@@ -11,8 +11,9 @@ Web no oficial, sense relació amb el fabricant de la calculadora.
 
 ## Com es fa servir
 
-- A la portada, l'alumne tria l'**etapa** (ESO o Batxillerat), la **seva calculadora** i, a la fx-82SP CW, l'**idioma**
-  dels menús (castellà o català). El navegador ho recorda.
+- A la portada, l'alumne tria l'**etapa** (ESO o Batxillerat), la **seva calculadora** (botó «Escollir calculadora»:
+  una finestra amb la imatge i el nom de cada una; també a la fitxa) i, a les calculadores que en tenen, l'**idioma**
+  dels menús (castellà o català). El navegador ho recorda. La calculadora triada surt al títol de la capçalera.
 - A la fitxa: ▶ o ↓ / → passen al pas següent (animat); ◀ o ↑ / ← tornen enrere; ↻ o la tecla R tornen a fer el pas
   actual. La velocitat es pot posar «lenta», «normal» o «ràpida»; les xifres sempre van 3 vegades més de pressa que la resta de tecles.
 - Els passos que ensenyen un error típic tenyeixen la pàgina de vermell («zona d'error»). Si la fitxa acaba amb un
@@ -38,7 +39,7 @@ columna.
 | `js/nucli/` | El motor comú: la portada, la pàgina de la fitxa, el reproductor pas a pas. No coneix cap calculadora. |
 | `css/estil.css` | L'estil comú. L'aspecte de cada calculadora és a `models/<calculadora>/estil.css`. |
 | `img/eso/` | Les figures dels enunciats. |
-| `proves/` | Les proves (no es publiquen a cap pàgina). |
+| `proves/` | Les proves (no es publiquen a cap pàgina) i `imatges.js`, que fa la foto de cada calculadora per a la finestra «Escollir calculadora» (`node proves/imatges.js`, quan canvia un dibuix o n'hi ha una de nova). |
 | `vendor/` | KaTeX i les lletres: el web no demana res a cap altre servidor. |
 
 ## Com s'afegeix una fitxa

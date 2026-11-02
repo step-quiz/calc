@@ -13,6 +13,7 @@ Models.descriu({
   id: 'fx-570sp-x2',
   nom: 'CASIO fx-570SP X II / fx-991SP X II',
   curt: 'fx-570/991SP X II',
+  imatge: 'imatge.png',   // per a la finestra «Escollir calculadora» (la fa proves/imatges.js)
   idiomes: {es: 'Castellano', ca: 'Català'},
   fitxers: ['variant.js', 'tecles.js', '../fx-82sp-cw/pantalla.js', '../fx-82sp-cw/guions.js', '../fx-82sp-cw/simulador.js',
     '../fx-82sp-cw/fitxes/blocs.js', 'fitxes/exacte.js', 'fitxes/fraccions.js', 'fitxes/angles.js', 'fitxes/pau.js',

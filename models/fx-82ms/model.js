@@ -10,6 +10,7 @@ Models.descriu({
   id: 'fx-82ms',
   nom: 'CASIO fx-82MS (2a edició)',
   curt: 'fx-82MS',
+  imatge: 'imatge.png',   // per a la finestra «Escollir calculadora» (la fa proves/imatges.js)
   idiomes: null,
   fitxers: [
     'tecles.js', 'pantalla.js', 'guions.js', 'simulador.js',

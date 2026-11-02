@@ -7,10 +7,10 @@
 <meta name="description" content="Fitxes pas a pas per aprendre a fer servir les calculadores fx-82SP CW, fx-570/991SP CW, fx-570/991SP X II i fx-82MS a Matemàtiques de Batxillerat i a la PAU.">
 <title>Calculadora fx-82SP CW — Matemàtiques de Batxillerat</title>
 <link rel="icon" href="icon.png">
-<script src="js/vigia.js?v=57"></script>
+<script src="js/vigia.js?v=58"></script>
 <link rel="stylesheet" href="vendor/lletres/lletres.css">
 <link rel="stylesheet" href="vendor/katex/katex.min.css">
-<link rel="stylesheet" href="css/estil.css?v=57">
+<link rel="stylesheet" href="css/estil.css?v=58">
 </head>
 <body>
 <header class="capcalera">
@@ -19,7 +19,7 @@
   </div>
   <div class="tries">
     <label class="tria-etapa" for="etapa" hidden>Etapa <select id="etapa" aria-label="Etapa"></select></label>
-    <label class="tria-model" for="model">La teva calculadora <select id="model" aria-label="La teva calculadora"></select></label>
+    <span class="tria-model" id="tria-model"></span>
     <label class="tria-idioma" for="idioma">Calculadora en <select id="idioma" aria-label="Idioma de la teva calculadora"><option value="es">Castellano</option><option value="ca">Català</option></select></label>
   </div>
 </header>
@@ -30,12 +30,13 @@
 
 <footer class="peu">© 2026 <strong>David Arso Civil</strong>. Ús educatiu lliure. Prohibida la comercialització i la modificació
   (<a rel="license" href="https://creativecommons.org/licenses/by-nc-nd/4.0/">CC BY-NC-ND 4.0</a>).
-  Web no oficial, sense relació amb el fabricant de la calculadora. <span class="versio">Versió 57</span></footer>
+  Web no oficial, sense relació amb el fabricant de la calculadora. <span class="versio">Versió 58</span></footer>
 
-<script src="js/nucli/models.js?v=57"></script>
-<script src="models/cataleg.js?v=57"></script>
-<script src="js/nucli/preferencies.js?v=57"></script>
-<script src="js/nucli/portada.js?v=57"></script>
+<script src="js/nucli/models.js?v=58"></script>
+<script src="models/cataleg.js?v=58"></script>
+<script src="js/nucli/preferencies.js?v=58"></script>
+<script src="js/nucli/tria.js?v=58"></script>
+<script src="js/nucli/portada.js?v=58"></script>
 <script>Portada.arrenca();</script>
 </body>
 </html>

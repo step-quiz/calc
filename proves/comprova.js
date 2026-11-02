@@ -119,6 +119,8 @@ for (const id of Models.ids) {
   let tot = true;
   for (const f of d.fitxers.concat(d.estils)) tot = ok(fs.existsSync(path.join(arrel, carpeta, f)), on, `falta el fitxer ${f}`) && tot;
   ok(d.estils.length > 0, on, 'el model ha de portar el seu full d\'estil (estils)');
+  // La imatge de la finestra «Escollir calculadora» (la fa proves/imatges.js)
+  ok(typeof d.imatge === 'string' && fs.existsSync(path.join(arrel, carpeta, d.imatge)), on, 'falta la imatge (imatge al descriptor i el fitxer; node proves/imatges.js)');
   if (!tot) continue;
   Models.carregant(id);
   for (const f of d.fitxers) executa(carpeta + f);

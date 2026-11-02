@@ -56,14 +56,9 @@ function parametre(nom) {
 
 /* ── Capçalera: la calculadora i l'idioma dels menús ───────────────── */
 
-/** «La teva calculadora»: en triar-ne una altra, es desa i s'obre la mateixa fitxa (el mateix id) en aquella calculadora. */
+/** «Escollir calculadora» (nucli/tria.js): en triar-ne una altra, es desa i s'obre la mateixa fitxa (el mateix id) en aquella calculadora. */
 function selectorModel(fitxa) {
-  if (MODELS.length < 2) return null;
-  const sel = element('select', {id: 'model', 'aria-label': 'La teva calculadora'});
-  for (const d of MODELS) sel.append(element('option', {value: d.id, text: d.curt}));
-  sel.value = M.id;
-  sel.addEventListener('change', () => { Preferencies.desaModel(sel.value); location.href = Models.adreca({model: sel.value, etapa: ETAPA, fitxa: fitxa.id}); });
-  return element('label', {class: 'tria-model', for: 'model', text: 'La teva calculadora '}, [sel]);
+  return TriaCalculadora.boto(MODELS, M.id, id => Models.adreca({model: id, etapa: ETAPA, fitxa: fitxa.id}));
 }
 
 /** «Calculadora en: Castellano / Català» (només si el model té idiomes). En canviar-lo, es desa i es recarrega la pàgina al mateix pas. */
@@ -218,7 +213,8 @@ function construeixPagina(fitxa, bloc, germanes, contenidor) {
 
   contenidor.replaceChildren(
     element('header', {class: 'capcalera'}, [
-      element('a', {class: 'torna', href: Models.adreca({model: M.id, etapa: ETAPA}) + '#' + bloc.id, text: '← Calculadora'}),
+      element('a', {class: 'torna', href: Models.adreca({model: M.id, etapa: ETAPA}) + '#' + bloc.id, text: '← Fitxes'}),
+      element('p', {class: 'capcalera-titol', text: `La calculadora ${M.curt}, pas a pas`}),
       element('div', {class: 'tries'}, [selectorModel(fitxa), selectorIdioma()]),
       // Avisos que només mostra el CSS quan cal: navegador sense unitats cqw, tauleta en vertical
       element('p', {class: 'avis-capcalera avis-navegador', text: 'Aquest navegador és massa antic per dibuixar la calculadora. Actualitza\'l (Chrome 105 o posterior).'}),

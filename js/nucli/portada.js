@@ -36,12 +36,8 @@ function dibuixa(M, models) {
   }
 
   /* La calculadora: l'alumne tria la seva; el navegador la recorda */
-  const model = document.getElementById('model');
-  if (model) {
-    model.replaceChildren(...models.map(d => Object.assign(document.createElement('option'), {value: d.id, textContent: d.curt})));
-    model.value = M.id;
-    model.addEventListener('change', () => { Preferencies.desaModel(model.value); location.href = Models.adreca({model: model.value, etapa: etapa.id}); });
-  }
+  const model = document.getElementById('tria-model');
+  if (model) model.replaceChildren(...[TriaCalculadora.boto(models, M.id, id => Models.adreca({model: id, etapa: etapa.id}))].filter(Boolean));
 
   /* L'idioma dels menús de la calculadora: l'alumne el tria aquí o a qualsevol fitxa, i el navegador el recorda.
      Si la calculadora no té idiomes, el selector no surt. */

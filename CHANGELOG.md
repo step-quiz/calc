@@ -4,6 +4,16 @@ Què ha canviat a cada versió del web, de la més nova a la més antiga. El fun
 `README.md` i `ARCHITECTURE.md`; aquí només hi ha la història. El número de versió és `VERSIO` a
 `js/nucli/models.js` i surt al peu de les pàgines.
 
+## Versió 58 (2/11/2026) — «Escollir calculadora»
+
+- La calculadora ja no es tria amb un desplegable: el botó **«Escollir calculadora»** (a la portada i a la fitxa) obre
+  una finestra amb totes les calculadores en una graella de 3 columnes (2 o 1 al mòbil), cada una amb la seva imatge i
+  el nom. La casella es ressalta en passar-hi el ratolí; en clicar-la, s'obre la mateixa pàgina amb aquella
+  calculadora. La que es fa servir porta «La teva». Esc, la creu o un clic fora la tanquen.
+- La calculadora triada surt al títol de la capçalera, també a la fitxa («La calculadora fx-…, pas a pas»); el botó
+  de tornar es diu «← Fitxes».
+- Les imatges són fotos del dibuix de cada calculadora (`models/<id>/imatge.png`), fetes amb `proves/imatges.js`.
+
 ## Versió 57 (2/11/2026) — la fx-570/991SP X II, completa
 
 - La **fx-570/991SP X II** té totes les fitxes de la fx-82SP CW, amb les seves tecles: = en lloc d'EXE, la tecla (−)
