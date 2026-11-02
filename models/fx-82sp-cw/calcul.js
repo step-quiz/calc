@@ -6,7 +6,9 @@
    càlcul que té entrada i resultat i comprova que coincideixen:
      · llegeix el TeX de l'entrada (el subconjunt que escriu el
        simulador: fraccions, arrels, potències, sen/cos/tan, log, ln,
-       logaritme en base a, π, Ans, nCr, f( ) i g( ), la r de radians…);
+       logaritme en base a, π, Ans, PreAns, nCr, f( ) i g( ), la r de radians…);
+     · CALC (fx-570/991SP X II): una pantalla «x=valor» (també a parcials)
+       dona el valor de x amb què es calculen les expressions següents;
      · fa servir la unitat dels angles de la barra (D o R), el valor
        d'Ans de la pantalla anterior i les f(x), g(x) definides abans;
      · un resultat decimal ha de ser el valor arrodonit a 10 xifres
@@ -27,7 +29,7 @@
 
 const ORDRES = [   // ordre → testimoni (les més llargues primer)
   ['\\mathrm{Arcsen}', 'asen'], ['\\mathrm{Arccos}', 'acos'], ['\\mathrm{Arctan}', 'atan'],   // SHIFT sen/cos/tan (VERIFICAR.md, fila 27)
-  ['\\mathrm{sen}', 'sen'], ['\\mathrm{Ans}', 'Ans'], ['\\mathrm{C}', 'C'], ['\\mathrm{r}', 'r'],
+  ['\\mathrm{sen}', 'sen'], ['\\mathrm{PreAns}', 'PreAns'], ['\\mathrm{Ans}', 'Ans'], ['\\mathrm{C}', 'C'], ['\\mathrm{r}', 'r'],
   ['\\displaystyle', null], ['\\frac', 'frac'], ['\\dfrac', 'frac'], ['\\sqrt', 'sqrt'], ['\\log_', 'logb'],
   ['\\left', null], ['\\right', null], ['\\times', '*'], ['\\div', '/'], ['\\cdot', '*'],
   ['\\cos', 'cos'], ['\\tan', 'tan'], ['\\log', 'log'], ['\\ln', 'ln'], ['\\pi', 'pi'],
@@ -68,7 +70,7 @@ function avalua(tex, ctx) {
   };
   const grup = (obre = '{', tanca = '}') => { pren(obre); const v = expressio(); pren(tanca); return v; };
   const angle = v => (ctx.graus ? v * Math.PI / 180 : v);
-  const COMENCA = v => typeof v === 'number' || ['(', '{', 'frac', 'sqrt', 'logb', 'sen', 'cos', 'tan', 'asen', 'acos', 'atan', 'log', 'ln', 'pi', 'Ans', 'x', 'e', 'f', 'g'].includes(v);
+  const COMENCA = v => typeof v === 'number' || ['(', '{', 'frac', 'sqrt', 'logb', 'sen', 'cos', 'tan', 'asen', 'acos', 'atan', 'log', 'ln', 'pi', 'Ans', 'PreAns', 'x', 'e', 'f', 'g'].includes(v);
 
   function primari() {
     const v = pren();
@@ -107,6 +109,7 @@ function avalua(tex, ctx) {
       case 'pi': return Math.PI;
       case 'e': return Math.E;
       case 'Ans': return ctx.ans;
+      case 'PreAns': return ctx.preans;   // l'Ans d'abans (fx-570/991SP X II)
       case 'x': return ctx.x;
       case 'f': case 'g': {
         if (!ctx.funcions[v]) throw new Error(`${v}(x) no està definida`);
@@ -179,10 +182,12 @@ function comprovaPantalla(p, ctx) {
   if (p.ind && p.ind.verif) {
     const [esq, dre] = p.entrada.split('=');
     const cert = iguals(avalua(esq, ctx), avalua(dre, ctx));
+    ctx.preans = ctx.ans;
     ctx.ans = cert ? 1 : 0;   // manual, p. 66
     return (resultat === '\\text{Verdadero}') === cert ? null : `Verificar hauria de dir «${cert ? 'Verdadero' : 'Falso'}»`;
   }
   const v = avalua(p.entrada, ctx);
+  ctx.preans = ctx.ans;
   ctx.ans = v;
   if (p.ind && p.ind.fix) return v.toFixed(2) === resultat ? null : `amb FIX 2 hauria de sortir ${v.toFixed(2)}`;
   if (/^-?\d+\.\d+$/.test(resultat)) return normal2(v) === resultat ? null : `hauria de sortir ${normal2(v)}`;
@@ -195,10 +200,23 @@ function comprova(Dades) {
   const errors = [];
   let comprovats = 0;
   for (const f of Dades.FITXES) {
-    const ctx = {graus: true, ans: 0, funcions: Object.assign({}, f.funcions), x: 0};   // f.funcions: les de la fitxa, a l'«Ara tu»
+    const ctx = {graus: true, ans: 0, preans: 0, funcions: Object.assign({}, f.funcions), x: 0};   // f.funcions: les de la fitxa, a l'«Ara tu»
+    // CALC (fx-570/991SP X II): «x=» demana el valor de x (el resultat, si n'hi ha, és el valor d'ara); «x=-1», el valor
+    // nou. També en una pantalla intermèdia (parcials), quan el valor s'escriu al mateix pas que el calcula.
+    const valorX = (p, i) => {
+      const demana = p && p.tipus === 'calc' && /^x=(.*)$/.exec(p.entrada || '');
+      if (!demana) return false;
+      try {
+        if (demana[1]) ctx.x = avalua(demana[1], ctx);
+        else if (p.resultat && !iguals(avalua(p.resultat, ctx), ctx.x)) errors.push(`fitxa ${f.id} · pas ${i + 1}: CALC demana x, i ara x val ${normal2(ctx.x)}, no ${p.resultat}`);
+      } catch (err) { errors.push(`fitxa ${f.id} · pas ${i + 1}: no es pot llegir «${p.entrada}» (${err.message})`); }
+      return true;
+    };
     f.passos.forEach((pas, i) => {
       const p = pas.pantalla;
       if (p.tipus === 'definicio' && p.entrada) ctx.funcions[p.nom] = p.entrada;
+      for (const k of Object.keys(pas.parcials || {}).map(Number).sort((a, b) => a - b)) valorX(pas.parcials[k], i);
+      if (valorX(p, i)) return;
       if (p.tipus !== 'calc' || !p.resultat || !p.entrada || p.linia) return;
       ctx.graus = !p.ind || p.ind.ang !== 'R';
       comprovats++;

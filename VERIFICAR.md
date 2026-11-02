@@ -133,18 +133,25 @@ Fa servir les pantalles de la fx-82SP CW (la part de dalt d'aquest fitxer). Nom�
 
 ---
 
-# fx-570SP X II / fx-991SP X II: què cal comprovar amb la calculadora (versió 56)
+# fx-570SP X II / fx-991SP X II: què cal comprovar amb la calculadora (versions 56 i 57)
 
 Teclat propi (dibuixat sobre la foto de producte de la fx-570SP X II Iberia, 626 × 1333 px) i la pantalla i l'editor de
-la fx-82SP CW. Ara només hi ha 4 fitxes de mostra (`models/fx-570sp-x2/fitxes/mostra.js`). El que hi ha a sota és el
-que s'ha deduït del manual (*fx-570SP X II / fx-991SP X II Guía del usuario*, en castellà i en català) o s'ha suposat.
+la fx-82SP CW. El que hi ha a sota s'ha deduït del manual (*fx-570SP X II / fx-991SP X II Guía del usuario*) o s'ha
+suposat: el manual no dibuixa les pantalles dels menús.
 
 | # | Què | On és | Què s'ha posat |
 |---|---|---|---|
 | 1 | SHIFT MENU (CONFIG), primera pàgina | `models/fx-570sp-x2/variant.js` (`MENUS`) | Quatre files numerades: 1:Entrada/Salida, 2:Unidad angular, 3:Formato número, 4:Símb ingeniería, i una barra de desplaçament a la dreta (hi ha més pàgines). Sense cap fila en negatiu. |
-| 2 | Unidad angular | `variant.js` | 1:Grado sexag (D), 2:Radián, 3:Grado cent (G). En prémer el número, la calculadora torna a la pantalla de càlcul, **buida**, amb la unitat nova a la barra. |
-| 3 | Els textos en català | `variant.js` (`catala`) | 1:Entrada/Sortida, 2:Unitat angular, 3:Format nombre, 4:Símb enginyeria; 1:Graus sexag (D), 2:Radian, 3:Grau centesimal. Comprovar-los amb la calculadora en català. |
-| 4 | La barra d'indicadors i la pantalla de càlcul | `models/fx-82sp-cw/pantalla.js` | Les de la fx-82SP CW (√▫ i D en negatiu; l'entrada a dalt, el resultat a baix a la dreta). |
-| 5 | (−) i x² | fitxa `eso-quadrat-negatiu` | (−) escriu «−» (es veu igual que la resta); `(−3)²` = 9 i `−3²` = −9. |
-| 6 | S⇔D | fitxa `cb4-24-q8`, pas 4 | Després de 19/5, S⇔D dona 3.8 i l'entrada no canvia. |
-| 7 | Els colors i les mides | `models/fx-570sp-x2/estil.css`, `tecles.js` | Mesurats i aproximats a partir de la foto: cos negre amb vora clara, quatre tecles rodones platejades, tecles negres a dalt, blanques a baix, DEL i AC blaves; SHIFT en groc daurat i ALPHA en rosa. |
+| 2 | En triar una opció d'un menú de configuració | `variant.js` (`enTriar`) | La calculadora torna a la pantalla de càlcul, **buida**, sense prémer AC. Amb Entrada/Salida, l'historial s'esborra (el manual ho diu); amb Unidad angular i Formato número, no. |
+| 3 | Entrada/Salida | `variant.js` | 1:E Mat/S Mat, 2:E Mat/S Decimal, 3:E Línea/S Línea, 4:E Línea/S Decim (els noms són del manual; la numeració, suposada). |
+| 4 | Unidad angular | `variant.js` | 1:Grado sexag (D), 2:Radián, 3:Grado cent (G). |
+| 5 | Formato número i Normal | fitxa `fix` | 1:Fijar decim, 2:Not cient, 3:Normal (textos de la fx-82SP CW). En triar 3, un menú 1:Normal 1, 2:Normal 2 (potser és una pregunta, «Normal 1~2?»). |
+| 6 | OPTN a Calcular | fitxa `grau-puntual` | 1:Func hiperbólica, 2:Unidad angular, 3:Símb ingeniería; a 2, 1:° 2:r 3:g. La r s'escriu darrere de l'angle. |
+| 7 | SHIFT ÷ (nCr) | fitxa `combinatoria` | Escriu «6C4», com la fx-82SP CW. |
+| 8 | CALC | fitxes `definir-fx`, `barrow`, `pau-ana-24i-q1`, `pau-ana-25j-q1` | Després de CALC, a dalt «x=» amb el cursor i, a baix a la dreta, el valor que té ara x (0 al principi); en escriure el valor nou, «x=−1» i el valor d'abans desapareix; = mostra l'expressió i el resultat. Un altre CALC torna a demanar x. |
+| 9 | El resultat de CALC | fitxes `barrow`, `pau-ana-25j-q1` | Surt exacte (fracció) en mode E Mat/S Mat, i S⇔D el passa a decimal. Es desa a Ans, i l'anterior queda a PreAns (ALPHA Ans): `PreAns − Ans` = F(6) − F(1). |
+| 10 | MENU i Verificar | fitxa `verificar` | MENU mostra 8 aplicacions per pàgina (1:Calcular triada) amb el nom a baix; la tecla que porta la C (x⁻¹) obre Verificar (la C és la 12a aplicació). A Verificar, la barra no porta cap indicador nou; OPTN dona els signes (1:= 2:≠ 3:> 4:< 5:≥ 6:≤, en dues columnes); el resultat és «Verdadero». MENU i 1 tornen a Calcular. |
+| 11 | Els textos en català | `variant.js` (`catala`) | Els de la fx-82SP CW amb el número davant (1:Entrada/Sortida, 2:Unitat angular, 3:Format nombre, 4:Símb enginyeria, 1:Graus sexag (D), 2:Radian…) i els noms de les aplicacions (Complexos, Matriu, Full de càlcul, Equació/Func…). |
+| 12 | La barra d'indicadors i la pantalla de càlcul | `models/fx-82sp-cw/pantalla.js` | Les de la fx-82SP CW (√▫ i D en negatiu; l'entrada a dalt, el resultat a baix a la dreta); ALPHA posa una A, com SHIFT una S. |
+| 13 | (−), x² i S⇔D | fitxes `eso-quadrat-negatiu`, `cb4-24-q8`, `exacte-decimal` | (−) escriu «−»; `(−3)²` = 9 i `−3²` = −9. S⇔D passa de 19/5 a 3.8 i de √2/2 a 0.7071067812, i una altra vegada torna a l'exacte. Amb Dec periódico activat (és el de fàbrica), potser una fracció com 2/3 surt amb període: les fitxes fan servir SHIFT = (≈) en aquests casos. |
+| 14 | Els colors i les mides | `models/fx-570sp-x2/estil.css`, `tecles.js` | Mesurats i aproximats a partir de la foto: cos negre amb vora clara, quatre tecles rodones platejades, tecles negres a dalt, blanques a baix, DEL i AC blaves; SHIFT en groc daurat i ALPHA en rosa. |

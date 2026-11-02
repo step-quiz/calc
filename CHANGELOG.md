@@ -4,6 +4,19 @@ Què ha canviat a cada versió del web, de la més nova a la més antiga. El fun
 `README.md` i `ARCHITECTURE.md`; aquí només hi ha la història. El número de versió és `VERSIO` a
 `js/nucli/models.js` i surt al peu de les pàgines.
 
+## Versió 57 (2/11/2026) — la fx-570/991SP X II, completa
+
+- La **fx-570/991SP X II** té totes les fitxes de la fx-82SP CW, amb les seves tecles: = en lloc d'EXE, la tecla (−)
+  per als negatius, SHIFT ×10ˣ per a π, la tecla ln, SHIFT (−) per a log, SHIFT x■ per a l'arrel d'índex n i S⇔D en
+  lloc de FORMAT. Les que fan servir menús, amb els menús numerats de la X II: SHIFT MENU (CONFIG: entrada/sortida,
+  unitat dels angles, format del nombre), OPTN (la r d'un sol angle en radians) i SHIFT ÷ (nCr).
+- Les fitxes de f(x), amb **CALC**: s'escriu l'expressió amb la x un sol cop i CALC la calcula per a cada valor
+  («Calcula valors d'una funció amb CALC», «Regla de Barrow amb CALC», on F(6) − F(1) es fa amb PreAns − Ans, i
+  «Intueix els límits amb CALC»). «Comprova una igualtat» fa servir l'aplicació **Verificar** (MENU i la C).
+- La X II té la tecla ALPHA (la A a la barra) i una pantalla nova, la de les aplicacions de MENU.
+- La velocitat «lenta» és un 20 % més lenta (també les xifres).
+- Les proves recalculen també els resultats de CALC i de PreAns.
+
 ## Versió 56 (2/11/2026) — la fx-570/991SP X II, primera fase
 
 - Quarta calculadora: la **fx-570SP X II** (i la fx-991SP X II), «fx-570/991SP X II» al selector. Té un teclat propi

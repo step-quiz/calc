@@ -18,7 +18,8 @@ Technical reference for a cold-start AI (or developer). It describes the site **
 
 - Teaches Catalan ESO (3r–4t) and Batxillerat students to use CASIO calculators: the **fx-82SP CW** (default), the
   **fx-570SP CW / fx-991SP CW** (a sibling of the fx-82SP CW, §4a), the **fx-570SP X II / fx-991SP X II** (own
-  keyboard, CW screen and simulator with variant hooks, §4a; only 4 sample ESO fitxes so far) and the **fx-82MS 2nd
+  keyboard, CW screen and simulator with variant hooks, §4a; the same exercises as the CW, the f(x) ones with CALC)
+  and the **fx-82MS 2nd
   edition**.
 - A **fitxa** is a worked example played step by step: the statement, a player (◀ ↻ ▶), the steps, and a drawn calculator
   whose keys are pressed by an animated cursor while the screen changes after every key. The student only watches and
@@ -115,21 +116,33 @@ A model with **its own keyboard** but the CW screen and entry editor does the sa
 `fx-570sp-x2` (fx-570SP X II and fx-991SP X II) loads `variant.js`, its own `tecles.js`, then the CW `pantalla.js`,
 `guions.js`, `simulador.js` and `fitxes/blocs.js`, and its own `fitxes/`. Keys that do the same as on the CW keep the CW
 id (`frac`, `arrel`, `x2`, `pot`, `logab`, `sen`, `lpar`, `ans`, `del`, `ac`, digits, operators); the `=` key is `exe`;
-new ids: `neg` ((−)), `ln`, `alpha`, `menu`, `optn`, `calc`, `integral`, `grau`, `inv`, `sto`, `eng`, `sd` (S⇔D), `mmes`.
+new ids: `neg` ((−)), `ln`, `alpha`, `menu`, `optn`, `calcula` (CALC; not `calc`, which would read as the `[calc]` tag
+inside `[[…]]`), `integral`, `grau`, `inv`, `sto`, `eng`, `sd` (S⇔D), `mmes`. Its fitxes are the CW files with these
+keys (`(−)` for a negative sign, SHIFT ×10ˣ for π, S⇔D instead of FORMAT) and own versions of the fitxes that use CW menus.
 Its keys are rectangles: `TECLAT.tecles` entries are `[x, y, w, h]` (round keys: `[x, y, d]`; the CW geometry test
 accepts both). Extra `M.variant` hooks, read by `simulador.js` and `pantalla.js`:
 
 | Hook | Effect |
 |---|---|
-| `escriu` | extra keys that type TeX (merged into `ESCRIU`): `neg: '-'`, `ln: '\\ln('` |
-| `escriuShift` | replaces `ESCRIU_SHIFT` (SHIFT (−) = `\\log(`, SHIFT x² = `^{3}`, SHIFT ×10ˣ = π, Arcsen…) |
+| `escriu` | extra keys that type TeX (merged into `ESCRIU`): `neg: '-'`, `ln: '\\ln('`, `inv: '^{-1}'` |
+| `escriuShift` | replaces `ESCRIU_SHIFT` (SHIFT (−) = `\\log(`, SHIFT x² = `^{3}`, SHIFT ×10ˣ = π, SHIFT ÷ = nCr, Arcsen…) |
+| `escriuAlpha` | enables the `alpha` prefix key (A on the bar) and what each key types after it (ALPHA Ans = `\\mathrm{PreAns}`, ALPHA ×10ˣ = `e`) |
 | `plantillesShift` | replaces `TECLA_PLANTILLA_SHIFT` (`pot: 'arreln'`) |
-| `obreMenu(id, shift, G)` | a menu screen opened from the calc screen (SHIFT MENU → `x2-config`), or `undefined` |
-| `enTriar(G, {canviaUnitat})` | extra menu actions, like `EN_TRIAR`: `{menuId: {clau: estat => screen}}` |
+| `obreMenu(id, shift, G, estat)` | a screen opened from the calc screen (SHIFT MENU → `x2-config`, OPTN → `x2-optn` or, in Verificar, the signs, MENU → `x2-apps`), or `undefined` |
+| `enTriar(G, eines)` | extra menu actions, like `EN_TRIAR`: `{menuId: {clau: estat => screen}}`; `eines` = `{editorBuit, insereix, pantallaCalc, tex, escriuDelMenu, canviaUnitat, canvia(estat, ind, {hist})}` |
+| `tecla(id, {shift, alpha}, estat, eines)` | called first for every key: a screen, `null` (unknown) or `undefined` (default path). The X II uses it for CALC and for the `x2-apps` screen |
 | `menusNumerats` | menus are chosen by pressing the row number (no OK key); rows are labelled `1:…`, no inverse-video row |
+| `pantalles({escapa, tr, marca, texLcd})` | extra screen types for `pantalla.js` (`{tipus: estat => HTML}`); they join `Pantalla.TIPUS` |
 
 A menu screen may carry `desplacable: true` (more pages below: `pantalla.js` draws the scrollbar). `M.x2` (in
-`variant.js`) builds the X II screens the fitxes need (`config()`, `unitat()`).
+`variant.js`) builds the X II screens the fitxes need: `config()`, `menu(id)`, `signes()`, `apps(sel)`, `demana(ind, valor)`.
+
+- **CALC** (`calcula`): the fitxa types the expression with `x` once; CALC shows `x=` with the current value as the
+  result; the typed value makes the entry `x=-1`; `=` gives the expression and its value (the fitxa's screen). When the
+  value and `=` are in the same step, give the `x=…` screen in `parcials` (`calcul.js` reads `x` from it). `calcul.js`
+  also knows `PreAns` (the Ans before the last one), used for Barrow: `F(6)`, `F(1)` and `PreAns−Ans`.
+- **Verificar** is an app (MENU, then the key with the C, x⁻¹), not a switch: the fitxas mark it with `ind.verif`
+  (as on the CW, so `calcul.js` checks «Verdadero»), and the X II stylesheet hides the ✔.
 
 ## 5. The model contract
 
@@ -179,7 +192,7 @@ sentence, closing text included, is `[mat]` or `[calc]` (test).
 - Step 0 shows the start screen and «Prem ▶ o la fletxa ↓ del teclat per començar».
 - **Next** (▶, ↓, →): outline the step's keys on the calculator (order badges when the step has 2–6 keys), then the cursor
   presses each key and the LCD shows the simulator's screen after it. Durations: `Reproductor.TEMPS` × the speed factor
-  («lenta» 2.09, «normal» 1.65 default, «ràpida» 0.83; × 0.35 under `prefers-reduced-motion`). Keys of type `'num'` go
+  («lenta» 2.51, «normal» 1.65 default, «ràpida» 0.83; × 0.35 under `prefers-reduced-motion`). Keys of type `'num'` go
   `RAPIDESA_XIFRES` = 3 times faster. Pressing next during an animation finishes it instantly.
 - **Previous** (◀, ↑, ←) and clicking a step jump without animation. **Replay** (↻, R) re-animates the current step.
 - **Step list**: the current step shows its full sentence; the others show the number and a one-line, ellipsed summary of
@@ -291,9 +304,8 @@ closing `*/`, bump the version, run the tests. Never put `*/` inside a commented
   «6C4», implicit × before a parenthesis or function, DEL and the cursor); how the fx-82MS draws an EXP entry.
 - Statement figures proposed to David, waiting: crops of the figure from question images (`cb4-26-q7`, `cb4-23-q26`,
   `cb4-25-q27`) and own SVG drawings for the trigonometry fitxes.
-- fx-570/991SP X II: only 4 sample ESO fitxes (`fitxes/mostra.js`), waiting for David's review; then the rest (same
-  exercises as the CW; the 4 f(x) fitxes — `definir-fx`, `barrow`, `verificar`, `pau-ana-25j-q1` — with CALC). Its
-  `VERIFICAR.md` section (labels, menu behaviour, colours) is unconfirmed.
+- fx-570/991SP X II: all of its `VERIFICAR.md` section (menu labels and behaviour, CALC screens, Ans/PreAns after
+  CALC, Verificar app, OPTN, colours) is unconfirmed; the CW-menu fitxes and the CALC ones wait for David's review.
 - More fitxes per ESO block (sources in the order of §9).
 - Larger text for projection (`clamp()` or `?projector=1`): postponed, David does not project.
 - Whether `barrow` (block `pau`, a PAU statement) should also have its «Ara tu» disabled: never answered.

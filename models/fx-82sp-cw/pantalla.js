@@ -20,6 +20,7 @@
    · Missatge (text centrat i, opcionalment, opcions a triar)
        {tipus:'missatge', linies:[…], opcions:[…], sel}
    · Definir f(x) (tecla FUNCTION): {tipus:'definicio', nom:'f', entrada, cursor}
+   · Els tipus propis d'una altra calculadora (M.variant.pantalles), p. ex. el menú d'aplicacions de la X II.
    · Llista de variables (tecla VARIABLE; manual, p. 38): 5 files,
        A/B, C/D, E/F, x/y i z, amb els valors en decimal
        {tipus:'variables', valors:[[nom, valor], …], sel}
@@ -154,7 +155,9 @@ function definicio(estat) {
   return `<div class="lcd-definicio${marca(estat, 'entrada')}" data-marca="entrada">${texLcd(estat.nom + '(x)=' + (estat.entrada || ''))}${cursor}</div>`;
 }
 
-const DIBUIXA = Object.freeze({calc, menu, home, missatge, variables, definicio});
+/** Una altra calculadora (M.variant.pantalles) pot afegir tipus de pantalla propis: {tipus: estat => HTML}, amb aquestes eines. */
+const PROPIES = (M.variant && M.variant.pantalles) ? M.variant.pantalles({escapa, tr: t => tr(t), marca, texLcd}) : {};
+const DIBUIXA = Object.freeze(Object.assign({calc, menu, home, missatge, variables, definicio}, PROPIES));
 
 /** HTML del contingut de la pantalla per a un estat. idioma: 'es' (per defecte) o 'ca', la calculadora en català. */
 function html(estat, llengua = 'es') {

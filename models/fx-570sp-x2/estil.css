@@ -103,3 +103,12 @@
 
 /* ── LA PANTALLA ───────────────────────────────────────────────────── */
 /* La mateixa que la fx-82SP CW; els menús són numerats («1:…») i no tenen fila triada en negatiu (pantalla.js) */
+/* A Verificar, la barra no porta ✔ (aquí Verificar és una aplicació, no un interruptor: VERIFICAR.md) */
+.lcd .ind-verif{display:none}
+/* MENU: les aplicacions, 4 × 2, la triada en negatiu, i el nom a baix («1:Calcular») */
+.x2-apps{position:absolute; left:3cqw; right:3cqw; top:2cqw; height:66%; display:grid; grid-template-columns:repeat(4, 1fr); grid-template-rows:1fr 1fr; gap:1cqw}
+.x2-app{position:relative; display:flex; align-items:center; justify-content:center; border-bottom:.4cqw solid var(--lcd-tinta); font:700 4.4cqw/1.05 var(--mono); text-align:center}
+.x2-app .n{position:absolute; right:.4cqw; bottom:.3cqw; font-size:.62em; background:var(--lcd-tinta); color:var(--lcd-fons); padding:0 .4cqw}
+.x2-app.sel{background:var(--lcd-tinta); color:var(--lcd-fons)}
+.x2-app.sel .n{background:var(--lcd-fons); color:var(--lcd-tinta)}
+.x2-app-nom{position:absolute; left:3cqw; bottom:2cqw; font:600 6.2cqw/1 var(--mono)}

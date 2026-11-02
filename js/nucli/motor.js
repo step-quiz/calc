@@ -24,7 +24,7 @@ const {element, icona, ICONES} = Dom;
 const {escapa, formula} = Text;
 
 /** Velocitats de l'animació: factor que multiplica les durades de Reproductor.TEMPS. */
-const VELOCITATS = Object.freeze([['lenta', 2.09], ['normal', 1.65], ['ràpida', 0.83]]);
+const VELOCITATS = Object.freeze([['lenta', 2.51], ['normal', 1.65], ['ràpida', 0.83]]);
 const PER_DEFECTE = 1.65;
 /** Quant de temps es veu la bombolla de la font si no es tanca abans. */
 const FONT_MS = 8000;

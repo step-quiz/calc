@@ -1,8 +1,7 @@
 # La calculadora, pas a pas
 
 Web estàtica per a l'alumnat de Matemàtiques d'ESO i de Batxillerat: fitxes curtes que ensenyen a fer servir la
-calculadora CASIO **fx-82SP CW**, **fx-570SP CW** (o fx-991SP CW), **fx-570SP X II** (o fx-991SP X II; de moment,
-4 fitxes de mostra) o **fx-82MS** (2a edició) i a evitar-ne els errors típics.
+calculadora CASIO **fx-82SP CW**, **fx-570SP CW** (o fx-991SP CW), **fx-570SP X II** (o fx-991SP X II) o **fx-82MS** (2a edició) i a evitar-ne els errors típics.
 
 Cada fitxa és un exercici resolt pas a pas. A l'esquerra, l'enunciat, els botons ◀ ↻ ▶ i la llista de passos; a la
 dreta, la calculadora dibuixada amb les mides reals. A cada pas, un cursor prem les tecles i la pantalla canvia després
@@ -15,7 +14,7 @@ Web no oficial, sense relació amb el fabricant de la calculadora.
 - A la portada, l'alumne tria l'**etapa** (ESO o Batxillerat), la **seva calculadora** i, a la fx-82SP CW, l'**idioma**
   dels menús (castellà o català). El navegador ho recorda.
 - A la fitxa: ▶ o ↓ / → passen al pas següent (animat); ◀ o ↑ / ← tornen enrere; ↻ o la tecla R tornen a fer el pas
-  actual. La velocitat es pot posar «lenta», «normal» o «ràpida»; les xifres sempre van 3 vegades més de pressa.
+  actual. La velocitat es pot posar «lenta», «normal» o «ràpida»; les xifres sempre van 3 vegades més de pressa que la resta de tecles.
 - Els passos que ensenyen un error típic tenyeixen la pàgina de vermell («zona d'error»). Si la fitxa acaba amb un
   error, l'últim pas torna a la manera correcta.
 - En acabar: a Batxillerat, «Ara tu» (un exercici semblant, que es pot fer pas a pas amb la calculadora); a l'ESO,
@@ -34,7 +33,7 @@ columna.
 | `index.html`, `fitxa.html` | Les dues pàgines. Les construeix el JavaScript. |
 | `exercicis/` | **Els exercicis**: títol, enunciat, font, figura, tancament i «Prova-ho tu». Són iguals per a totes les calculadores. `exercicis/blocs.js` té els blocs de la portada i explica el format. |
 | `models/fx-82sp-cw/`, `models/fx-82ms/` | **Cada calculadora**: el dibuix (tecles i mides), la pantalla, el simulador i, a `fitxes/`, les tecles i les pantalles de cada exercici. |
-| `models/fx-570sp-cw/`, `models/fx-570sp-x2/` | Calculadores que reaprofiten fitxers de la fx-82SP CW: la CW 570/991 ho fa servir tot (només hi canvien colors i menús); la X II hi posa el seu teclat i les seves fitxes, i fa servir la pantalla i el simulador de la CW. El que és diferent, a `variant.js`. |
+| `models/fx-570sp-cw/`, `models/fx-570sp-x2/` | Calculadores que reaprofiten fitxers de la fx-82SP CW: la CW 570/991 ho fa servir tot (només hi canvien colors i menús); la X II hi posa el seu teclat i les seves fitxes (les mateixes, amb les seves tecles; les de f(x), amb CALC), i fa servir la pantalla i el simulador de la CW. El que és diferent, a `variant.js`. |
 | `models/cataleg.js` | Quines calculadores, quines etapes i quins fitxers d'exercicis hi ha. |
 | `js/nucli/` | El motor comú: la portada, la pàgina de la fitxa, el reproductor pas a pas. No coneix cap calculadora. |
 | `css/estil.css` | L'estil comú. L'aspecte de cada calculadora és a `models/<calculadora>/estil.css`. |

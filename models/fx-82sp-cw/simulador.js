@@ -44,10 +44,14 @@ const G = M.guions;
  * Una calculadora que fa servir aquest simulador amb un altre teclat (models/<id>/variant.js, M.variant) hi pot posar:
  *   escriu       tecles que escriuen alguna cosa (s'afegeixen a ESCRIU; p. ex. la tecla (−))
  *   escriuShift  el que escriu cada tecla amb SHIFT (substitueix ESCRIU_SHIFT sencer)
+ *   escriuAlpha  el que escriu cada tecla amb ALPHA (la tecla «alpha», com SHIFT: la A de la barra)
  *   plantillesShift  les plantilles amb SHIFT (substitueix TECLA_PLANTILLA_SHIFT)
- *   obreMenu(id, shift, G)  la pantalla de menú que obre una tecla des de la pantalla de càlcul (o undefined)
+ *   obreMenu(id, shift, G, estat)  la pantalla de menú que obre una tecla des de la pantalla de càlcul (o undefined)
  *   enTriar(G, eines)       més accions d'OK, com EN_TRIAR: {menú: {clau: estat => pantalla}}
  *   menusNumerats  els menús es trien prement el número de la fila (1, 2, 3…), sense OK
+ *   tecla(id, {shift, alpha}, estat, eines)  una tecla que la calculadora fa a la seva manera (p. ex. CALC), abans de
+ *                  tot: torna la pantalla, null (no se sap) o undefined (la tecla segueix el camí de sempre)
+ * eines = {editorBuit, insereix, pantallaCalc, tex, escriuDelMenu, canviaUnitat, canvia}.
  */
 const V = M.variant || {};
 
@@ -65,6 +69,7 @@ const ESCRIU = Object.freeze(Object.assign({
 const ESCRIU_SHIFT = Object.freeze(V.escriuShift || {7: '\\pi ', 8: 'e', 0: 'x', punt: 'y', exp: 'z', menys: '-',   // SHIFT − = signe negatiu (−)
   logab: '\\ln(', x2: '\\log(',
   sen: '\\mathrm{Arcsen}(', cos: '\\mathrm{Arccos}(', tan: '\\mathrm{Arctan}('});   // com a la calculadora, «Arccos(»
+const ESCRIU_ALPHA = Object.freeze(V.escriuAlpha || {});
 /**
  * Les plantilles, en una sola taula: tipus de node → {camps (en ordre; el cursor entra al primer),
  * tex (el TeX a partir del de cada camp), vertical (↓ ↑ passen d'un camp a l'altre, com a la
@@ -205,7 +210,9 @@ const EN_TRIAR = Object.freeze({
   },
 });
 /** Les accions d'OK que hi posa una altra calculadora (V.enTriar), amb les eines que necessita. */
-const EN_TRIAR_VARIANT = Object.freeze(V.enTriar ? V.enTriar(G, {canviaUnitat}) : {});
+const EINES = Object.freeze({editorBuit, insereix: (ed, el) => insereix(ed, el), pantallaCalc: (e, c) => pantallaCalc(e, c), tex: (ed, c) => tex(ed, c),
+  escriuDelMenu: (e, t) => escriuDelMenu(e, t), canviaUnitat: (e, a) => canviaUnitat(e, a), canvia: (e, ind, op) => canvia(e, ind, op)});
+const EN_TRIAR_VARIANT = Object.freeze(V.enTriar ? V.enTriar(G, EINES) : {});
 
 const FILES_VAR = [['A', 'B'], ['C', 'D'], ['E', 'F'], ['x', 'y'], ['z']];
 
@@ -238,6 +245,20 @@ function canviaUnitat(estat, ang) {
   estat.ind = Object.assign({}, estat.ind, {ang});
   estat.ed = editorBuit();
   estat.resultat = false;
+  return pantallaCalc(estat);
+}
+
+/**
+ * Canvia els indicadors (ind: {clau: valor}; undefined esborra la clau) i torna a la pantalla de càlcul buida, com fa
+ * la calculadora en tancar un menú de configuració. opcions.hist = false: l'historial s'esborra.
+ */
+function canvia(estat, ind, opcions = {}) {
+  const nous = Object.assign({}, estat.ind);
+  for (const [k, v] of Object.entries(ind || {})) { if (v === undefined) delete nous[k]; else nous[k] = v; }
+  estat.ind = nous;
+  estat.ed = editorBuit();
+  estat.resultat = false;
+  if (opcions.hist === false) estat.hist = false;
   return pantallaCalc(estat);
 }
 
@@ -280,16 +301,23 @@ function mouVariables(p, tecla) {
    Torna la pantalla nova (i canvia l'estat), o null si no la sap deduir. */
 
 function pantallaCalc(estat, ambCursor = true) {
-  const ind = Object.assign({}, estat.ind, {shift: estat.shift || undefined, hist: estat.hist || undefined});
+  const ind = Object.assign({}, estat.ind, {shift: estat.shift || undefined, alpha: estat.alpha || undefined, hist: estat.hist || undefined});
   return Object.freeze({tipus: 'calc', ind: Object.freeze(ind), entrada: estat.ed ? tex(estat.ed, ambCursor) : '',
     resultat: '', cursor: false, linia: false, marca: null});
 }
 
 function tecla(estat, id) {
   const p = estat.pantalla;
-  const shift = estat.shift;
+  const shift = estat.shift, alpha = estat.alpha;
   estat.shift = false;
+  estat.alpha = false;
 
+  const propia = V.tecla ? V.tecla(id, {shift, alpha}, estat, EINES) : undefined;
+  if (propia !== undefined) return propia;
+  if (id === 'alpha' && V.escriuAlpha) {
+    estat.alpha = true;
+    return p.tipus === 'calc' ? Object.freeze(Object.assign({}, p, {ind: Object.freeze(Object.assign({}, p.ind, {alpha: true})), marca: null})) : p;
+  }
   if (id === 'shift') {
     estat.shift = true;
     return p.tipus === 'calc' ? Object.freeze(Object.assign({}, p, {ind: Object.freeze(Object.assign({}, p.ind, {shift: true})), marca: null})) : p;
@@ -334,7 +362,7 @@ function tecla(estat, id) {
   if (p.tipus !== 'calc') return null;
 
   // Tecles que obren un menú des de la pantalla de càlcul
-  const menuVariant = V.obreMenu && V.obreMenu(id, shift, G);
+  const menuVariant = V.obreMenu && V.obreMenu(id, shift, G, estat);
   if (menuVariant) return menuVariant;
   if (id === 'settings') return G.config(0);
   if (id === 'catalog') return estat.ind && estat.ind.verif ? G.catalogVerificar(0) : G.catalog(0);
@@ -344,8 +372,8 @@ function tecla(estat, id) {
   if (id === 'funcio') return G.menuFuncio(0);
 
   // Escriure
-  const tros = shift ? ESCRIU_SHIFT[id] : ESCRIU[id];
-  const pl = plantilla(id, shift);
+  const tros = shift ? ESCRIU_SHIFT[id] : alpha ? ESCRIU_ALPHA[id] : ESCRIU[id];
+  const pl = alpha ? null : plantilla(id, shift);
   if (tros !== undefined || pl) {
     if (estat.resultat || !estat.ed) {                  // després d'un resultat: càlcul nou
       if (!estat.resultat && !estat.ed) return null;    // no se sap què hi ha escrit
@@ -376,12 +404,14 @@ function tecla(estat, id) {
 function adopta(estat, p, edSimulat) {
   estat.pantalla = p;
   estat.shift = Boolean(p.tipus === 'calc' && p.ind && p.ind.shift);   // un pas pot acabar amb ⇧ (la S de la barra): la tecla del pas següent és la de SHIFT
+  estat.alpha = Boolean(p.tipus === 'calc' && p.ind && p.ind.alpha);
   if (p.tipus === 'variables') {
     estat.vars = Object.fromEntries(p.valors);
   }
   if (p.tipus !== 'calc') return;
   estat.ind = Object.assign({}, p.ind);
   delete estat.ind.shift;
+  delete estat.ind.alpha;
   estat.hist = Boolean(p.ind.hist);
   delete estat.ind.hist;
   estat.resultat = Boolean(p.resultat);
@@ -392,7 +422,7 @@ function adopta(estat, p, edSimulat) {
 
 function pantalles(fitxa) {
   const errors = [];
-  const estat = {pantalla: null, ed: null, resultat: false, ind: {}, hist: false, vars: {}, shift: false};
+  const estat = {pantalla: null, ed: null, resultat: false, ind: {}, hist: false, vars: {}, shift: false, alpha: false};
   adopta(estat, fitxa.inici, null);
   const totes = fitxa.passos.map((pas, i) => {
     const llista = [];
@@ -402,7 +432,7 @@ function pantalles(fitxa) {
       const explicita = pas.parcials && pas.parcials[j];
       let nova = tecla(estat, id);
       if (!['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'punt', 'mes', 'menys', 'per', 'entre', 'lpar', 'rpar', 'x',
-        'sen', 'cos', 'tan', 'frac', 'arrel', 'pot', 'x2', 'logab', 'ans', 'shift', 'ac', 'down', 'up', 'left', 'right', 'exe', 'exp', 'del', 'neg', 'ln'].includes(id)) nomesEscriu = false;
+        'sen', 'cos', 'tan', 'frac', 'arrel', 'pot', 'x2', 'logab', 'ans', 'shift', 'ac', 'down', 'up', 'left', 'right', 'exe', 'exp', 'del', 'neg', 'ln', 'inv', 'alpha'].includes(id)) nomesEscriu = false;
       if (darrera) nova = pas.pantalla;
       else if (explicita) { nova = explicita; nomesEscriu = false; }
       if (!nova) {
