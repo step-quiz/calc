@@ -27,6 +27,11 @@
      E2 la calculadora al mig, la frase del pas a la dreta
      E3 una sola columna (com al mòbil)
 
+   PER_DEFECTE són les palanques triades, que sempre són actives (amb
+   ?ux= o sense): l'enunciat plegat (A2), el ⚙ a la capçalera (A3),
+   les tecles apagades (B1), [mat] i [calc] amb icona i ratlla (C3) i
+   l'«Ara tu» en una pantalla a part (D2). ?ux= hi afegeix les altres.
+
    Si la pàgina és dins d'un marc (el laboratori) i porta ?ux=, li
    envia l'adreça i el pas actual amb postMessage, perquè el
    laboratori pugui tornar a obrir el mateix pas amb unes altres
@@ -37,6 +42,8 @@
 (function (arrel) {
 'use strict';
 
+/** Les palanques que David ha triat (al laboratori, combinació «final-1»): ja són el comportament de sempre. */
+const PER_DEFECTE = Object.freeze(['a2', 'a3', 'b1', 'c3', 'd2']);
 const PALANQUES = Object.freeze(['a1', 'a2', 'a3', 'a4', 'b1', 'b2', 'b3', 'b4', 'c1', 'c2', 'c3', 'c4', 'd1', 'd2', 'e2', 'e3']);
 
 function llegeix() {
@@ -49,7 +56,7 @@ function llegeix() {
 }
 
 const {hiEs, llista} = typeof location !== 'undefined' ? llegeix() : {hiEs: false, llista: []};
-const actives = new Set(llista);
+const actives = new Set(PER_DEFECTE.concat(llista));
 const dinsDeMarc = (() => { try { return arrel.parent && arrel.parent !== arrel; } catch (e) { return true; } })();
 
 if (typeof document !== 'undefined') for (const p of actives) document.documentElement.classList.add('ux-' + p);

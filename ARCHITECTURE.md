@@ -235,7 +235,8 @@ sentence, closing text included, is `[mat]` or `[calc]` (test).
   header selectors in a ⚙ · A4 no footer · B1 dim other keys · B2 no order badges · B3 no cursor · B4 zoom on the keys ·
   C1 reading time · C2 [calc] appears with the keys · C3 icons instead of tinted sentences · C4 sentence under the
   calculator · D1 error without page tint · D2 «Ara tu» on its own screen via ▶ · E2 three columns, sentence right of
-  the calculator · E3 one column. Winners become the defaults; then remove the lever.
+  the calculator · E3 one column. David's choice (A2, A3, B1 at 40 %, C3 with a rule between [mat] and [calc], D2) is
+  `UX.PER_DEFECTE`: always on, with or without `?ux=`. The header titles are plain black text in white pills.
 - The calculator is a query container: every position and size inside it is in `cqw`, with `aspect-ratio`; the LCD is a
   nested container. It fills its column when the height allows, otherwise its width comes from the height.
 - < 1000 px: one column (statement, player, calculator, steps). Below 700 px the header selectors wrap.

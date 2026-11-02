@@ -4,6 +4,17 @@ Què ha canviat a cada versió del web, de la més nova a la més antiga. El fun
 `README.md` i `ARCHITECTURE.md`; aquí només hi ha la història. El número de versió és `VERSIO` a
 `js/nucli/models.js` i surt al peu de les pàgines.
 
+## Versió 67 (2/11/2026)
+
+La tria del laboratori d'UX (combinació «final-1»), que ara és el comportament de sempre:
+- L'enunciat es plega a una línia un cop començada la fitxa; en clicar-lo, es desplega (A2).
+- La capçalera: «Escollir calculadora» i l'idioma, dins d'un ⚙ gran a la dreta, que es ressalta 1,5 s si l'alumne
+  encara no ha triat calculadora (A3). «T4 · <bloc>» i «2. <fitxa>», sense negreta, en lletra negra sobre una caixeta
+  blanca, com «← Fitxes».
+- Les tecles que no són del pas, apagades al 40 % (B1).
+- [mat] i [calc] sense fons de color: una icona petita (llapis / calculadora) i una ratlla entre l'una i l'altra (C3).
+- L'«Ara tu» / «Prova-ho tu» no surt sol en acabar: s'hi va amb ▶ des de l'últim pas, en una pantalla a part (D2).
+
 ## Versió 66 (2/11/2026)
 
 - Els botons ◀ ↻ ▶ fan la mateixa mida, i ▶ ja no té fons de color ni parpelleja quan l'alumne no avança.

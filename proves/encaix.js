@@ -159,6 +159,7 @@ async function provaUnCop(browser, BASE) {
         // El mode «Ara tu»: la solució oberta i cada pas del seu reproductor, sense scroll horitzontal a la columna
         if (await page.evaluate(() => Boolean(document.querySelector('.ara-tu-comprova')))) {
           await page.evaluate(() => fitxa.salta(fitxa.total - 1));
+          await page.evaluate(() => fitxa.seguent());        // l'«Ara tu» és en una pantalla a part: s'hi va amb ▶
           await page.click('.ara-tu:not(.prova-tu) > .ara-tu-boto');
           await page.click('.ara-tu-comprova');
           const k = await page.evaluate(() => document.querySelectorAll('.passos-ara-tu .pas:not(.zero)').length);

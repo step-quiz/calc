@@ -41,7 +41,7 @@ function serveix() {
 async function prova(navegador, base, model, id, ux) {
   const on = `${model} ${id} ?ux=${ux}`;
   const mal = [];
-  const amb = p => ux.split(',').includes(p);
+  const amb = p => ux.split(',').includes(p) || ['a2', 'a3', 'b1', 'c3', 'd2'].includes(p);   // les triades, sempre actives (nucli/ux.js)
   const pagina = await navegador.newPage({viewport: {width: 1366, height: 657}});
   pagina.on('pageerror', e => mal.push(`${on}: ${e.message}`));
   await pagina.goto(`${base}fitxa.html?model=${model}&id=${id}&ux=${ux}`);

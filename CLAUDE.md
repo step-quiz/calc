@@ -36,7 +36,7 @@ simulator through `variant.js` hooks; f(x) fitxes with CALC), the **fx-82/85/350
 f(x) fitxes with Table) and the **fx-82MS 2nd edition** — for ESO (3r–4t) and Batxillerat students. A fitxa = a shared exercise (`exercicis/`) + the keys and screens of one
 calculator (`models/<id>/fitxes/`). The core (`js/nucli/`) never names a key or a menu.
 
-**Read first:** `ARCHITECTURE.md` (the technical reference: structure, data format, authoring rules in §9, tests, open
+**Read first:** `HANDOUT.md` (cold-start briefing), then `ARCHITECTURE.md` (the technical reference: structure, data format, authoring rules in §9, tests, open
 items). `VERIFICAR.md` when you touch a screen. `CHANGELOG.md` only for history.
 
 - **Process:** propose before implementing (title, goal, key sequence, sentences), wait for David's OK, deliver block by
