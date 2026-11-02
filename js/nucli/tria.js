@@ -12,6 +12,8 @@
 
    TriaCalculadora.boto(descriptors, actual, adreca) → l'element del botó
      (la finestra s'afegeix al <body>); adreca(id) = l'adreça on anar.
+   TriaCalculadora.titol(element, id) → el títol «La calculadora <nom>,
+     pas a pas», amb la foto de la calculadora en passar el ratolí pel nom.
    No fa servir Dom (la portada no el carrega). Exporta «TriaCalculadora».
    ═══════════════════════════════════════════════════════════════════ */
 (function (arrel) {
@@ -77,6 +79,24 @@ function boto(descriptors, actual, adreca) {
   return b;
 }
 
-arrel.TriaCalculadora = Object.freeze({boto});
+/**
+ * El títol de la capçalera, «La calculadora <nom>, pas a pas», dins de l'element que es passa. En passar el ratolí pel
+ * nom (o en donar-li el focus), surt una foto petita de la calculadora (la imatge del descriptor).
+ */
+function titol(el, id) {
+  const d = Models.descriptor(id);
+  const nom = crea('span', 'nom-calc', d ? d.curt : id);
+  if (d && d.imatge) {
+    nom.tabIndex = 0;
+    const img = crea('img', 'nom-calc-foto');
+    img.src = Models.carpeta(id) + d.imatge + '?v=' + Models.VERSIO;
+    img.alt = d.nom;
+    nom.append(img);
+  }
+  el.replaceChildren('La calculadora ', nom, ', pas a pas');
+  return el;
+}
+
+arrel.TriaCalculadora = Object.freeze({boto, titol});
 
 })(globalThis);

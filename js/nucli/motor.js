@@ -214,7 +214,7 @@ function construeixPagina(fitxa, bloc, germanes, contenidor) {
   contenidor.replaceChildren(
     element('header', {class: 'capcalera'}, [
       element('a', {class: 'torna', href: Models.adreca({model: M.id, etapa: ETAPA}) + '#' + bloc.id, text: '← Fitxes'}),
-      element('p', {class: 'capcalera-titol', text: `La calculadora ${M.curt}, pas a pas`}),
+      TriaCalculadora.titol(element('p', {class: 'capcalera-titol'}), M.id),
       element('div', {class: 'tries'}, [selectorModel(fitxa), selectorIdioma()]),
       // Avisos que només mostra el CSS quan cal: navegador sense unitats cqw, tauleta en vertical
       element('p', {class: 'avis-capcalera avis-navegador', text: 'Aquest navegador és massa antic per dibuixar la calculadora. Actualitza\'l (Chrome 105 o posterior).'}),

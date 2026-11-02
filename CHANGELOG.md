@@ -4,6 +4,15 @@ Què ha canviat a cada versió del web, de la més nova a la més antiga. El fun
 `README.md` i `ARCHITECTURE.md`; aquí només hi ha la història. El número de versió és `VERSIO` a
 `js/nucli/models.js` i surt al peu de les pàgines.
 
+## Versió 61 (2/11/2026) — la capçalera
+
+- En passar el ratolí pel nom de la calculadora del títol («La calculadora fx-…, pas a pas»), surt una foto petita
+  de la calculadora (a la portada i a la fitxa).
+- La capçalera, d'un gris més suau. Els botons van just després del títol, en aquest ordre: «Escollir calculadora»,
+  «Etapa» i «Calculadora en».
+- Portada: marges laterals més petits, títols dels blocs una mica més petits i columnes d'almenys 400 px, perquè
+  «Fracció o decimal. Arrodonir. Notació científica» hi càpiga en una línia.
+
 ## Versió 60 (2/11/2026)
 
 - Les dues bombolles petites, «Abans de començar» i «Abans de l'examen», surten a totes dues etapes, una al costat de

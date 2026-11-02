@@ -21,7 +21,7 @@ function dibuixa(M, models) {
   Preferencies.desaEtapa(etapa.id);         // l'última etapa vista (els enllaços de l'etapa per defecte no la porten)
   document.title = `Calculadora ${M.curt} — ${etapa.titol}`;
   const h1 = document.querySelector('.capcalera h1');
-  if (h1) h1.textContent = `La calculadora ${M.curt}, pas a pas`;
+  if (h1) TriaCalculadora.titol(h1, M.id);
   const descripcio = document.querySelector('meta[name="description"]');
   if (descripcio) descripcio.setAttribute('content', etapa.descripcio);
 
