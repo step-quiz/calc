@@ -4,6 +4,13 @@ Què ha canviat a cada versió del web, de la més nova a la més antiga. El fun
 `README.md` i `ARCHITECTURE.md`; aquí només hi ha la història. El número de versió és `VERSIO` a
 `js/nucli/models.js` i surt al peu de les pàgines.
 
+## Versió 73 (2/11/2026)
+
+- Arreglat: amb Brave (o amb un bloquejador de publicitat) sortia la caixa «La pàgina no s'ha pogut carregar bé» encara
+  que la pàgina funcionava. El fitxer que fallava era el comptador de visites que Cloudflare afegeix a la pàgina
+  (`static.cloudflareinsights.com/beacon.min.js`), que Brave bloqueja. `js/vigia.js` ja només avisa dels fitxers i dels
+  errors del mateix web.
+
 ## Versió 72 (2/11/2026)
 
 - Arreglat: a la primera visita, si l'alumne triava la calculadora que ja es mostrava (la fx-82SP CW), la finestra es

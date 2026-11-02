@@ -53,7 +53,7 @@ Extra screen types from variants: `x2-apps`, `x2-rang`, `x2-taula`.
 - Error-zone steps (`error: true`); if a fitxa ends in error, a closing step (`tancament`) is appended.
 - Barrow «Ara tu» is **disabled** (commented block «Ara tu» DESACTIVAT in each model's `pau.js`).
 
-## 5. Work done in recent conversations (versions 56 → 72)
+## 5. Work done in recent conversations (versions 56 → 73)
 
 - **v56–57**: fx-570/991SP X II complete (drawing from 626×1333 photo, numbered menus, CALC, Verificar app). Speed «lenta»
   slowed twice (now 3.01).
@@ -87,6 +87,9 @@ Extra screen types from variants: `x2-apps`, `x2-rang`, `x2-taula`.
   (`.sense-triar`) until a choice is made.
 - **v72**: bug fix in `tria.js`: clicking the calculator already shown (the default, on a first visit) now stores it
   and reloads the page; before, it only closed the dialog and the site kept asking for a choice.
+- **v73**: Brave showed the `vigia.js` alert because Brave Shields block Cloudflare Web Analytics' injected
+  `beacon.min.js`; `vigia.js` now ignores cross-origin load failures and errors (the site itself requests nothing from
+  other origins).
 
 ## 6. UX Laboratory (the big item of this session)
 
@@ -126,7 +129,7 @@ Extra screen types from variants: `x2-apps`, `x2-rang`, `x2-taula`.
 ## 8. Versioning & delivery protocol
 
 - Any served `.js`/`.css` change → bump `VERSIO` (`js/nucli/models.js`), every `?v=` in `index.html`/`fitxa.html`, and
-  the «Versió N» footer of `index.html` (test enforces). Current: **72**.
+  the «Versió N» footer of `index.html` (test enforces). Current: **73**.
 - Delivery = cumulative ZIP from the base commit, repo-root paths, excluding `_uploads/`. If David uploads the repo as a
   ZIP (no `.git`), `git init` it, commit it as the base and diff from that commit instead of `076cc6c`:
   `(git diff --name-only --diff-filter=AMR 076cc6c; git ls-files --others --exclude-standard) | sort -u | grep -v '^_uploads/' | zip -@ calc-versio-NN.zip`

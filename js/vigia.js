@@ -6,6 +6,12 @@
      · Si un fitxer (script o full d'estil) no es pot carregar, o hi ha
        un error de JavaScript, surt una caixa a dalt de la pàgina amb el
        missatge, el fitxer i el navegador (per poder-ho arreglar).
+     · Només compten els fitxers i els errors d'aquest mateix lloc web.
+       La web no demana res a cap altre servidor: el que ve de fora l'hi
+       ha afegit algú altre (el comptador de visites que Cloudflare
+       injecta, una extensió del navegador) i, si no es carrega (p. ex.
+       Brave o un bloquejador de publicitat el bloquegen), la pàgina
+       funciona igual. No es diu res.
      · Si al cap de VIGIA_MS la pàgina no ha dit que està llesta
        (portada.js i motor.js posen data-llest a <html>), surt la caixa
        igualment.
@@ -36,6 +42,14 @@ function escriu() {
     + '\nPantalla: ' + window.innerWidth + '×' + window.innerHeight + ' · ' + location.href;
 }
 
+/** L'adreça és d'aquest mateix lloc web? (Sense adreça, es considera que sí.) */
+function delLloc(url) {
+  if (!url) return true;
+  var a = document.createElement('a');
+  a.href = url;
+  return a.protocol === location.protocol && a.host === location.host;
+}
+
 function afegeix(text) {
   if (problemes.length >= 8) return;
   problemes.push('• ' + text);
@@ -47,8 +61,9 @@ function afegeix(text) {
 window.addEventListener('error', function (e) {
   var t = e.target;
   if (t && t !== window && (t.tagName === 'SCRIPT' || t.tagName === 'LINK')) {
-    afegeix('No s\'ha pogut carregar ' + (t.src || t.href));
-  } else {
+    if (delLloc(t.src || t.href)) afegeix('No s\'ha pogut carregar ' + (t.src || t.href));
+  } else if (e.filename ? delLloc(e.filename) : e.message !== 'Script error.') {
+    // («Script error.» sense fitxer: un error d'un script d'un altre lloc, que el navegador amaga)
     afegeix('Error: ' + (e.message || 'desconegut') + (e.filename ? ' (' + e.filename.replace(/^.*\//, '') + ':' + e.lineno + ')' : ''));
   }
 }, true);
