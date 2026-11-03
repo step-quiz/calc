@@ -4,6 +4,11 @@ Què ha canviat a cada versió del web, de la més nova a la més antiga. El fun
 `README.md` i `ARCHITECTURE.md`; aquí només hi ha la història. El número de versió és `VERSIO` a
 `js/nucli/models.js` i surt al peu de les pàgines.
 
+## Versió 89 (3/11/2026)
+
+- Un enunciat que ocupa una sola línia ja no es pot plegar: no hi surt la icona (el seu lloc es queda buit, perquè
+  l'enunciat no es mogui) i clicar-lo no fa res.
+
 ## Versió 88 (3/11/2026)
 
 - La vora del botó per plegar l'enunciat, en passar-hi el ratolí, ja no queda retallada: la columna s'eixampla 6 px més.

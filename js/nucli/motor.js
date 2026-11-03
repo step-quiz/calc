@@ -291,7 +291,35 @@ function construeixPagina(fitxa, bloc, germanes, contenidor) {
     }
     if (r.plegaEnunciat) r.plegaEnunciat.setAttribute('aria-expanded', String(!en.classList.contains('plegat')));
   }
-  if (ux('a2')) r.enunciat.addEventListener('click', e => { if (!e.target.closest('button, a, dialog')) plegaEnunciat(); });
+  if (ux('a2')) r.enunciat.addEventListener('click', e => {
+    if (!e.target.closest('button, a, dialog') && !r.caixaEnunciat.classList.contains('enunciat-curt')) plegaEnunciat();
+  });
+  // Un enunciat d'una sola línia de text (encara que porti una fracció alta) no es pot plegar: no s'hi guanyaria res.
+  // Sense icona ni clic (.enunciat-curt). Les línies es compten amb els rectangles del text: un rectangle que comença
+  // per sota del final de la línia d'ara n'obre una de nova (els trossos d'una fracció es solapen amb la seva línia).
+  function linies(en) {
+    const rang = document.createRange();
+    rang.selectNodeContents(en);
+    const rs = [...rang.getClientRects()].filter(q => q.width > 0 && q.height > 0).sort((p, q) => p.top - q.top);
+    let n = 0, fi = -Infinity;
+    for (const q of rs) {
+      if (q.top >= fi - 2) { n++; fi = q.bottom; } else fi = Math.max(fi, q.bottom);
+    }
+    return n;
+  }
+  function revisaCurt() {
+    const en = r.enunciat;
+    if (en.classList.contains('plegat') || en.classList.contains('mesurat')) return;
+    const curt = linies(en) <= 1;
+    r.caixaEnunciat.classList.toggle('enunciat-curt', curt);
+    en.title = curt ? '' : 'Clica per plegar o desplegar l\'enunciat';
+  }
+  if (ux('a2')) {
+    requestAnimationFrame(revisaCurt);
+    // Quan l'enunciat canvia de mida (lletres de les fórmules que acaben d'arribar, finestra més estreta), es torna a mirar
+    if ('ResizeObserver' in arrel) new ResizeObserver(() => requestAnimationFrame(revisaCurt)).observe(r.enunciat);
+    addEventListener('resize', revisaCurt);
+  }
   if (ux('a2')) r.plegaEnunciat.addEventListener('click', plegaEnunciat);
   if (ux('a2')) r.enunciat.addEventListener('transitionend', ev => {
     if (ev.propertyName === 'max-height' && !r.enunciat.classList.contains('plegat')) r.enunciat.classList.remove('mesurat');

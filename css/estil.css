@@ -571,6 +571,7 @@ body, .capcalera{transition:background-color .25s}
    que puja en 0,9 s: max-height va de l'alçada sencera (--alt-enunciat, que motor.js mesura en clicar) a una línia, i la part de
    baix s'esvaeix a poc a poc (--plec-fos, de 100 % a 50 %; @property perquè es pugui animar). */
 @property --plec-fos{syntax:'<percentage>'; inherits:false; initial-value:100%}
+.ux-a2 .enunciat-curt > .enunciat{cursor:auto}   /* cap en una línia: no es plega (motor.js, revisaCurt) */
 .ux-a2 .enunciat{cursor:pointer; overflow:hidden; --plec-fos:100%;
   -webkit-mask-image:linear-gradient(#000 var(--plec-fos), transparent); mask-image:linear-gradient(#000 var(--plec-fos), transparent);
   transition:max-height .9s cubic-bezier(.45,.05,.25,1), --plec-fos .9s ease-in-out}
@@ -595,6 +596,7 @@ body, .capcalera{transition:background-color .25s}
   .ux-a2 .plega-enunciat svg{width:22px; height:22px}
   .ux-a2 .plega-enunciat:hover, .ux-a2 .plega-enunciat:focus-visible{border-color:#000; box-shadow:0 0 0 1px #000; background:#e7e5e0; color:#000}
   .ux-a2 .plega-enunciat .expandeix{display:none}
+  .ux-a2 .enunciat-caixa.enunciat-curt .plega-enunciat{visibility:hidden}   /* el lloc es queda: l'enunciat no es mou */
   .ux-a2 .enunciat-caixa:has(.enunciat.plegat) .plega-enunciat .comprimeix{display:none}
   .ux-a2 .enunciat-caixa:has(.enunciat.plegat) .plega-enunciat .expandeix{display:block}
 }
