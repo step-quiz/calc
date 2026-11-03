@@ -430,7 +430,7 @@ body.zona-error .pas.actual.convida::after, body.error-suau .pas.actual.convida:
 .bloc h2{white-space:nowrap}
 @media (max-width:500px){ .bloc h2{white-space:normal} }
 /* Una ratlla entre dues fitxes de temes diferents (grup): el 80 % de l'amplada de la targeta, centrada */
-.llista .separa-grup{width:80%; margin:4px auto; border-top:1.5px solid color-mix(in srgb, var(--cat) 45%, transparent)}
+.llista .separa-grup{width:80%; margin:7px auto; border-top:1.5px solid #000}   /* negre pur; amb els dos gaps de la llista, ≈ 28 px entre fitxes */
 .bloc{
   display:flex; flex-direction:column; gap:8px; background:#fdfdfb;   /* gairebé blanc: contrasta amb el fons de la pàgina */
   border:2px solid var(--cat); border-radius:10px; padding:16px;

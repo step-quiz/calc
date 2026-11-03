@@ -273,6 +273,11 @@ which, like «Correcció d'errors d'escriptura» (`eso-inici`) and «Interpretar
 stages (David): three small bubbles side by side on both home pages. Their texts must satisfy both stages' rules (e.g.
 «E Mat/S Mat» and «resultats exactes»).
 
+**Degrees to radians.** `graus-radians` (Batxillerat T3, replaced `grau-puntual`): 60° → π/3 with the conversion
+factor written as a fraction, `60×π/180` (fx-82MS: `60×π÷180`, decimal), then an error zone with the factor upside down
+(`60×180/π`, ≈ 3437.746771) explained as units that do not cancel, and the closing step «Recorda: …» (David). «Ara tu»:
+135° → 3π/4.
+
 **Symbols fitxa.** `indicadors` («Què vol dir cada símbol de la pantalla?», block `simbols`; it used to be the first
 fitxa of Batxillerat T1, same id so old links work): ≤ 10 steps, almost all keyless, each marking one symbol and only
 explaining it (David: no advice such as «reset it»). CW: √▫/, D, ▲, S (SHIFT pressed), R/G, FIX, SCI, ✔, ◀ ▶ on the

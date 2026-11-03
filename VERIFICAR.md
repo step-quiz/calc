@@ -21,7 +21,7 @@ de CASIO) es veuen diferents, el que s'ha de corregir és la fitxa: la majoria s
 | 5 | Opcions del menú FORMAT quan el resultat és √2/2 | fitxa `exacte-decimal`, pas 3 | Estándar, Decimal, Notación ING, Sexagesimal (com a l'exemple de π/6 del manual). |
 | 6 | En obrir una llista amb ◉ (Entrada/Salida, Unidad angular…), quina fila surt ressaltada | `G.entradaSortida`, `G.unitatAngular` | La que té el ◉. |
 | 7 | Després de prémer OK en una llista amb ◉, si la pantalla s'hi queda o torna enrere | fitxes `mode-decimal`, `canvia-radians`, `fix` | S'hi queda; se surt amb AC. |
-| 8 | Com s'escriu a la pantalla $\sin\frac{\pi}{6}$ amb la r de radians | fitxa `grau-puntual` | La r a dalt, darrere de la fracció (com a la guia ClassWiz, p. 49). |
+| 8 | Com s'escriu a la pantalla $\sin\frac{\pi}{6}$ amb la r de radians | `G.angCoordSexag` (ara no la fa servir cap fitxa: la fitxa `grau-puntual` es va treure a la versió 79) | La r a dalt, darrere de la fracció (com a la guia ClassWiz, p. 49). |
 | 9 | Les icones de les aplicacions a la pantalla HOME | `models/fx-82sp-cw/pantalla.js` (APPS) | Només orientatives; els noms sí que són els del manual. |
 | 10 | Si es veu el triangle ▲ després d'AC | diverses fitxes | Es veu si hi ha historial; no es veu després de canviar Entrada/Salida ni de reiniciar (el manual diu que s'esborra). |
 | 11 | FUNCTION > {Definir f(x)}: la pantalla d'escriure f(x) | `G.definicio`, fitxa `pau-ana-24i-q1` | Una línia «f(x)=…» dins d'un requadre, com a la p. 60 del manual; sense barra d'indicadors. Després d'EXE, torna a la pantalla d'abans (el manual ho diu). |
@@ -149,7 +149,7 @@ suposat: el manual no dibuixa les pantalles dels menús.
 | 3 | Entrada/Salida | `variant.js` | 1:E Mat/S Mat, 2:E Mat/S Decimal, 3:E Línea/S Línea, 4:E Línea/S Decim (els noms són del manual; la numeració, suposada). |
 | 4 | Unidad angular | `variant.js` | 1:Grado sexag (D), 2:Radián, 3:Grado cent (G). |
 | 5 | Formato número i Normal | fitxa `fix` | 1:Fijar decim, 2:Not cient, 3:Normal (textos de la fx-82SP CW). En triar 3, un menú 1:Normal 1, 2:Normal 2 (potser és una pregunta, «Normal 1~2?»). |
-| 6 | OPTN a Calcular | fitxa `grau-puntual` | 1:Func hiperbólica, 2:Unidad angular, 3:Símb ingeniería; a 2, 1:° 2:r 3:g. La r s'escriu darrere de l'angle. |
+| 6 | OPTN a Calcular | `variant.js` (ara no la fa servir cap fitxa: la fitxa `grau-puntual` es va treure a la versió 79) | 1:Func hiperbólica, 2:Unidad angular, 3:Símb ingeniería; a 2, 1:° 2:r 3:g. La r s'escriu darrere de l'angle. |
 | 7 | SHIFT ÷ (nCr) | fitxa `combinatoria` | Escriu «6C4», com la fx-82SP CW. |
 | 8 | CALC | fitxes `definir-fx`, `barrow`, `pau-ana-24i-q1`, `pau-ana-25j-q1` | Després de CALC, a dalt «x=» amb el cursor i, a baix a la dreta, el valor que té ara x (0 al principi); en escriure el valor nou, «x=−1» i el valor d'abans desapareix; = mostra l'expressió i el resultat. Un altre CALC torna a demanar x. |
 | 9 | El resultat de CALC | fitxes `barrow`, `pau-ana-25j-q1` | Surt exacte (fracció) en mode E Mat/S Mat, i S⇔D el passa a decimal. Es desa a Ans, i l'anterior queda a PreAns (ALPHA Ans): `PreAns − Ans` = F(6) − F(1). |
@@ -173,7 +173,7 @@ X II Iberia (500 × 500 px, poca resolució per llegir els rètols petits).
 | 1 | Els rètols petits de les tecles | `models/fx-82sp-x2/tecles.js` | ⌙ amb ALPHA «:», Simp amb SHIFT «Abs», res a sobre d'OPTN, x, ( , 7 i 8; la resta com a la fx-570/991SP X II. |
 | 2 | Les mides i la posició de les tecles | `tecles.js` | Les de la fx-570/991SP X II (el mateix cos, segons la botiga). |
 | 3 | MENU | fitxes `definir-fx`, `verificar` | Quatre icones en una fila (1 Calcular, 2 Estadística, 3 Tabla, 4 Verificar) i el nom a baix; el número tria l'aplicació (el manual diu cursor i =). |
-| 4 | OPTN | fitxa `grau-puntual` | 1:F. Hiperbólicas, 2:Unidad angular (el manual: OPTN 2 (Unidad angular) 2 (r)); a 2, 1:° 2:r 3:g. |
+| 4 | OPTN | `variant.js` (ara no la fa servir cap fitxa: la fitxa `grau-puntual` es va treure a la versió 79) | 1:F. Hiperbólicas, 2:Unidad angular (el manual: OPTN 2 (Unidad angular) 2 (r)); a 2, 1:° 2:r 3:g. |
 | 5 | CONFIG i els seus menús | `variant.js` | Primera pàgina: 1:Entrada/Salida, 2:Unidad angular, 3:Formato número, 4:Result fracción (com al manual, p. 4). Formato número i Normal: com a la fx-570/991SP X II (fila 5 d'aquella secció). |
 | 6 | f(x)= i g(x)= de Tabla | fitxes de Tabla | Una línia «f(x)=…» sense requadre. Amb Tabla a «f(x),g(x)» (el de fàbrica), = a f(x) demana g(x); si g(x) es deixa buida, la taula només té f(x) (manual, p. 22). |
 | 7 | El rang | fitxes de Tabla | «Rango tabla», i Inic., Final, Paso amb la fila triada en negatiu; els valors per defecte, 1, 5 i 1. Després d'AC i dues vegades =, el rang recorda els valors d'abans. |

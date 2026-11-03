@@ -15,6 +15,10 @@ const {IND, ind, calc, marca, config, configCalcul, entradaSortida, unitatAngula
 const X2 = M.x2;
 const {SEN45, ARREL2_2, D, R, FIX} = M.comu;
 
+/** Convertir de graus a radiants: el factor de conversió ben posat i capgirat. */
+const FACTOR = '60\\times\\frac{\\pi}{180}';
+const CAPGIRAT = '60\\times\\frac{180}{\\pi}';
+
 M.fitxes.push(
 
 {
@@ -46,7 +50,7 @@ M.fitxes.push(
         text: '[calc]Prem [[exe]]: $\\frac{\\sqrt{2}}{2}$.[/calc]'},
     ],
   },
-  relacionades: ['error-angles', 'grau-puntual', 'mode-decimal'],
+  relacionades: ['error-angles', 'graus-radians', 'mode-decimal'],
 },
 {
   id: 'error-angles',
@@ -77,39 +81,33 @@ M.fitxes.push(
         text: '[calc]Prem [[exe]]: $-\\frac{1}{2}$, el resultat correcte.[/calc]'},
     ],
   },
-  relacionades: ['canvia-radians', 'grau-puntual', 'mode-decimal'],
+  relacionades: ['canvia-radians', 'graus-radians', 'mode-decimal'],
 },
 {
-  id: 'grau-puntual',
+  id: 'graus-radians',
   inici: calc(D),
   passos: [
-    {tecles: ['sen', 'frac', 'shift', 'exp', 'down', '6', 'right'], pantalla: calc(D, '\\mathrm{sen}(\\frac{\\pi}{6}'),
-      text: '[calc]Escriu [[sen]] i la fracció $\\frac{\\pi}{6}$ amb la tecla [[frac]]: π ([[shift]] [[exp]]), [[down]], 6 i [[right]] per sortir de la fracció.[/calc]'},
-    {tecles: ['optn'], pantalla: X2.menu('x2-optn'),
-      text: '[calc]Prem [[optn]]: hi ha més funcions. Els símbols de les unitats dels angles són a {{2:Unidad angular}}.[/calc]'},
-    {tecles: ['2'], pantalla: X2.menu('x2-unitats'),
-      text: '[calc]Prem 2: hi ha ° (graus), r (radians) i g (graus centesimals).[/calc]'},
-    {tecles: ['2'], pantalla: calc(D, '\\mathrm{sen}({\\frac{\\pi}{6}}^{\\mathrm{r}}'),
-      text: '[calc]Prem 2: la r s\'escriu darrere la fracció i vol dir «aquest angle és en radians».[/calc]'},
-    {tecles: ['rpar', 'exe'], pantalla: marca(calc(D, '\\mathrm{sen}({\\frac{\\pi}{6}}^{\\mathrm{r}})', '\\frac{1}{2}'), 'resultat'),
-      parcials: {0: calc(D, '\\mathrm{sen}({\\frac{\\pi}{6}}^{\\mathrm{r}})')},   // la r ve d'un menú: el simulador no sap on és
-      text: '[calc]Tanca el parèntesi i prem [[exe]]: $\\frac{1}{2}$, encara que la calculadora continua en D. Surt exacte perquè la calculadora és en mode {{E Mat/S Mat}}; en mode {{E Mat/S Decimal}} sortiria 0.5.[/calc]'},
+    {tecles: ['6', '0', 'per'], pantalla: calc(D, '60\\times'),
+      text: '[mat]Per canviar d\'unitats es multiplica per un factor de conversió que val 1: $\\frac{\\pi\\ \\mathrm{rad}}{180^\\circ}$, perquè $\\pi$ rad i $180^\\circ$ són el mateix angle.[/mat] [calc]Escriu 60 i [[per]].[/calc]'},
+    {tecles: ['frac', 'shift', 'exp', 'down', '1', '8', '0'], pantalla: calc(D, FACTOR),
+      text: '[mat]$60^\\circ\\cdot\\frac{\\pi\\ \\mathrm{rad}}{180^\\circ}$: els graus que vols treure van al denominador i se simplifiquen amb els de dalt; només hi queden radiants.[/mat] [calc]Prem [[frac]], escriu π ([[shift]] [[exp]]) al numerador i, amb [[down]], 180 al denominador.[/calc]'},
+    {tecles: ['exe'], pantalla: marca(calc(D, FACTOR, '\\frac{\\pi}{3}'), 'resultat'),
+      text: '[calc]Prem [[exe]]: obtens $\\frac{\\pi}{3}$. Surt exacte perquè la calculadora és en mode {{E Mat/S Mat}}; en mode {{E Mat/S Decimal}} sortiria 1.047197551.[/calc] [mat]$60^\\circ=\\frac{\\pi}{3}$ rad.[/mat]'},
+    {tecles: ['ac', '6', '0', 'per', 'frac', '1', '8', '0', 'down', 'shift', 'exp'], pantalla: calc(D, CAPGIRAT, '', {hist: true}), error: true,
+      text: '[calc]!!Error típic!!: esborra amb [[ac]] i escriu el factor capgirat, $\\frac{180}{\\pi}$.[/calc] [mat]$60^\\circ\\cdot\\frac{180^\\circ}{\\pi\\ \\mathrm{rad}}$: els graus queden a dalt tots dos cops i no se simplifiquen. El que surt ja no són radiants.[/mat]'},
+    {tecles: ['shift', 'exe'], pantalla: marca(calc(D, CAPGIRAT, '3437.746771'), 'resultat'), error: true,
+      text: '[calc]Prem [[shift]] [[exe]] (≈): surt 3437.746771.[/calc] [mat]No pot ser: 1 rad són uns $57^\\circ$, així que $60^\\circ$ ha de ser una mica més d\'1 rad. El factor de conversió estava capgirat: no s\'han simplificat els graus.[/mat]'},
   ],
   araTu: {
-    enunciat: 'Amb la calculadora en graus (D), calcula $\\cos\\frac{\\pi}{3}$ sense canviar el mode.',
-    resultat: '\\frac{1}{2}',
-    error: 'Oblidar la r: surt 0.9998329795, el cosinus de π/3 graus.',
+    enunciat: 'Expressa en radiants un angle de $135^\\circ$.',
+    resultat: '\\frac{3\\pi}{4}',
+    error: 'Multiplicar per $\\frac{180}{\\pi}$ en lloc de $\\frac{\\pi}{180}$: surt 7734.930234, perquè els graus no se simplifiquen.',
     inici: calc(D),
     passos: [
-      {tecles: ['cos', 'frac', 'shift', 'exp', 'down', '3', 'right'], pantalla: calc(D, '\\cos(\\frac{\\pi}{3}'),
-        text: '[calc][[cos]] i la fracció $\\frac{\\pi}{3}$ amb [[frac]]; surt-ne amb [[right]].[/calc]'},
-      {tecles: ['optn', '2'], pantalla: X2.menu('x2-unitats'),
-        text: '[calc][[optn]] i 2 ({{2:Unidad angular}}).[/calc]'},
-      {tecles: ['2'], pantalla: calc(D, '\\cos({\\frac{\\pi}{3}}^{\\mathrm{r}}'),
-        text: '[calc]Prem 2: s\'escriu la r.[/calc]'},
-      {tecles: ['rpar', 'exe'], pantalla: marca(calc(D, '\\cos({\\frac{\\pi}{3}}^{\\mathrm{r}})', '\\frac{1}{2}'), 'resultat'),
-        parcials: {0: calc(D, '\\cos({\\frac{\\pi}{3}}^{\\mathrm{r}})')},   // la r ve d'un menú: el simulador no sap on és
-        text: '[calc][[rpar]] i [[exe]]: $\\frac{1}{2}$, amb la calculadora encara en D.[/calc]'},
+      {tecles: ['1', '3', '5', 'per', 'frac', 'shift', 'exp', 'down', '1', '8', '0'], pantalla: calc(D, '135\\times\\frac{\\pi}{180}'),
+        text: '[calc]135 [[per]] i la fracció $\\frac{\\pi}{180}$ amb [[frac]]: π a dalt i 180 a baix.[/calc]'},
+      {tecles: ['exe'], pantalla: marca(calc(D, '135\\times\\frac{\\pi}{180}', '\\frac{3\\pi}{4}'), 'resultat'),
+        text: '[calc][[exe]]: $\\frac{3\\pi}{4}$.[/calc] [mat]$135^\\circ=\\frac{3\\pi}{4}$ rad.[/mat]'},
     ],
   },
   relacionades: ['canvia-radians', 'error-angles', 'mode-decimal'],

@@ -4,6 +4,15 @@ Què ha canviat a cada versió del web, de la més nova a la més antiga. El fun
 `README.md` i `ARCHITECTURE.md`; aquí només hi ha la història. El número de versió és `VERSIO` a
 `js/nucli/models.js` i surt al peu de les pàgines.
 
+## Versió 79 (3/11/2026)
+
+- Portada: la ratlla que separa els temes del T5 i del T6, negra i amb un 30 % més d'espai.
+- «Arrels d'índex n» es diu ara «Arrels quadrades, cúbiques, ...».
+- T3 de Batxillerat: la fitxa «Un sol angle en radians, sense canviar el mode» se substitueix per **«Convertir de graus
+  a radiants»**: $60^\circ$ es multiplica pel factor de conversió $\frac{\pi}{180}$ i surt $\frac{\pi}{3}$. Després,
+  l'error típic de capgirar el factor ($\frac{180}{\pi}$): els graus no se simplifiquen i surt 3437.746771, que no pot
+  ser. «Ara tu»: $135^\circ$.
+
 ## Versió 78 (3/11/2026)
 
 - Portada, les bombolles: d'una sola línia, només amb el títol, i amb noms nous, en aquest ordre: «Interpretar els

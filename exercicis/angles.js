@@ -13,9 +13,10 @@ Models.afegeixExercicis(
   tancament: '[calc]Recorda: abans de calcular, mira la unitat dels angles a dalt de la pantalla: R si l\'angle és en radians (per exemple, si porta π); D si és en graus.[/calc]',
 },
 {
-  id: 'grau-puntual', bloc: 'angles',
-  titol: 'Un sol angle en radians, sense canviar el mode',
-  enunciat: 'La calculadora és en graus (D) i només necessites un càlcul en radians: $\\sin\\frac{\\pi}{6}$.',
+  id: 'graus-radians', bloc: 'angles',
+  titol: 'Convertir de graus a radiants',
+  enunciat: 'Expressa en radiants un angle de $60^\\circ$.',
+  tancament: '[mat]Recorda: al factor de conversió, a dalt hi va la unitat que vols ($\\pi$ rad) i a baix la que vols treure ($180^\\circ$), perquè se simplifiqui. $60^\\circ=\\frac{\\pi}{3}$ rad.[/mat]',
 },
 
 );

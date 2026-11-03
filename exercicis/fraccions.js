@@ -25,7 +25,7 @@ Models.afegeixExercicis(
 },
 {
   id: 'arrel-n', bloc: 'fraccions',
-  titol: 'Arrels d\'índex n',
+  titol: 'Arrels quadrades, cúbiques, ...',
   enunciat: 'Calcula l\'arrel cúbica de $-27$, és a dir, $\\sqrt[3]{-27}$.',
 },
 
