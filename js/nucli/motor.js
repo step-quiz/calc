@@ -383,6 +383,18 @@ function errorCarrega(contenidor, html) {
 }
 
 /** Carrega la calculadora d'aquesta pàgina i hi obre la fitxa ?id=. El controlador del reproductor queda a globalThis.fitxa. */
+/**
+ * Les fletxes que conviden a passar al pas següent (reproductor.js, .convida) surten primer ben visibles, en cercles
+ * grocs, durant uns segons que s'escurcen a cada visita al web: 4 s la primera, 3,5, 2,5, 1,5, 0,5 i, a partir de la
+ * sisena, gens (només les fletxes discretes). estil.css llegeix --convida-fort i .sense-convida-fort.
+ */
+const CONVIT_FORT_S = Object.freeze([4, 3.5, 2.5, 1.5, 0.5]);
+function posaConvitFort(visita) {
+  const s = CONVIT_FORT_S[Math.max(1, visita) - 1] || 0;
+  document.documentElement.style.setProperty('--convida-fort', s + 's');
+  document.documentElement.classList.toggle('sense-convida-fort', !s);
+}
+
 async function arrenca(contenidor = document.getElementById('fitxa')) {
   if (typeof katex === 'undefined') {
     return errorCarrega(contenidor, 'No s\'ha pogut carregar KaTeX, la biblioteca que dibuixa les fórmules. Comprova la connexió i torna a carregar la pàgina.');
@@ -392,6 +404,7 @@ async function arrenca(contenidor = document.getElementById('fitxa')) {
     if (arrel.Vigia) Vigia.problema('Fitxa: ' + (e && e.message || e));
     return errorCarrega(contenidor, 'No s\'ha pogut carregar la calculadora. Comprova la connexió i torna a carregar la pàgina.');
   }
+  posaConvitFort(Preferencies.visita());
   arrel.fitxa = inicia(model, parametre('id'), contenidor);
   if (arrel.Vigia) Vigia.llesta();
   return arrel.fitxa;

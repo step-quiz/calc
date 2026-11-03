@@ -65,7 +65,7 @@ fitxa (what the player plays) = exercici (shared)        +  model fitxa (per cal
 | `css/estil.css` | — | Core styles: palette, layout, player, step list, home page, error zone, «Ara tu»/«Prova-ho tu», and how *any* calculator is placed and highlighted. Never a key class, key-type class or layer class (test). |
 | `js/vigia.js` | `Vigia` | Loaded first, ES5 only. Shows a visible box (message, file, user agent) on a script/stylesheet load failure, a JS error, an unhandled rejection, or if the page has not called `Vigia.llesta()` after 10 s. Never a silent blank page. Only same-origin files and errors count: anything from another origin was injected by someone else (Cloudflare Web Analytics' `beacon.min.js`, a browser extension) and its failure (Brave Shields, ad blockers) is ignored, as is an opaque «Script error.». |
 | `js/nucli/models.js` | `Models` | `VERSIO`; registry and loader of exercises, blocks and models; the contract check (`tanca`); stages; links (`adreca`); drawing helpers (`dibuix`). |
-| `js/nucli/preferencies.js` | `Preferencies` | localStorage: `calc-model`, `calc-etapa`, `calc-idioma`, `calc-cursor`, `calc-visites` (home-page visits), `calc-bombolles` (`'baix'` = bubbles sent down) (try/catch everywhere). |
+| `js/nucli/preferencies.js` | `Preferencies` | localStorage: `calc-model`, `calc-etapa`, `calc-idioma`, `calc-cursor`, `calc-visites` (visits to the site: one per browser session, `sessionStorage` `calc-en-visita`, home or fitxa; `Preferencies.visita()`), `calc-bombolles` (`'baix'` = bubbles sent down) (try/catch everywhere). |
 | `js/nucli/tria.js` | `TriaCalculadora` | «Escollir calculadora»: `boto(descriptors, actual, adreca)` gives the header button; it opens a `<dialog>` with a 3-column grid (2 below 640 px, 1 below 380 px) of every calculator (the image, as tall as the cell allows, and the short name; the current one has a green border; hover/focus highlights). A click stores the choice and opens `adreca(id)`; clicking the calculator already shown also stores it (and reloads the page if nothing was stored yet, so the title and the button update). `titol(el, id)` fills the home-page title «La calculadora <name>, pas a pas» («La teva calculadora, pas a pas» while no calculator has been chosen in this browser and the URL has no `?model=`); hovering (or focusing) the name shows the calculator's picture. Until a choice is made, the button reads «Escollir calculadora», blinks 1.5 s and then stays pure yellow (`.sense-triar`); afterwards it reads «Canviar de calculadora». No `Dom` (the home page does not load it). |
 | `js/nucli/text.js` | `Text` | Text mini-syntax → HTML (§6.3). |
 | `js/nucli/dom.js` | `Dom` | `element()`, `icona()`, the player icons. |
@@ -186,8 +186,8 @@ highlights that layer's legends). The calculator's proportion comes from `TECLAT
 Real PAU titles start with the year, «(2024). …» (the block title already says PAU).
 
 Blocks: `{id, titol, color, etapes, petit}`. `etapes` is always an array of catalogue stage ids. `petit: true` renders as a
-small bubble in one row **above** the numbered blocks (so they are seen without scrolling). From the 10th home-page
-visit in a browser (`VISITES_PER_MOURE`), a discreet «↓ Envia-les a baix» button ends the row; it moves the row below the
+small bubble in one row **above** the numbered blocks (so they are seen without scrolling). From the 10th visit in a
+browser (`VISITES_PER_MOURE`, `Preferencies.visita()`), a discreet «↓ Envia-les a baix» button ends the row; it moves the row below the
 cards (stored as `calc-bombolles`), where «↑ Torna-les a dalt» brings it back. With the row below, `.fletxes-baix`
 (two ↓ chevrons, gently bobbing) invite scrolling: in the empty left margin when the window is ≥ 1720 px wide, else in
 the bottom-left corner above the footer; hidden while the row is in view (IntersectionObserver); a click scrolls to it.
@@ -224,7 +224,8 @@ sentence, closing text included, is `[mat]` or `[calc]` (test).
   tu» (`.pas-final`, `opcions.nomFinal`): clicking it, or ▶ from the last step, opens that screen.
 - **Invitation to go on**: once the current step has finished and something follows (another step or the «Ara tu» /
   «Prova-ho tu» row), two thin arrows appear under its box, pointing down to the next row (`.convida`: after 1.2 s they appear at full
-  opacity and 1.4× size for 4 s, then settle at 55 % and normal size, and bob gently; no bob under `prefers-reduced-motion`; red velvet in the error zone). The 22 px
+  opacity inside yellow circles for `--convida-fort` seconds — 4, 3.5, 2.5, 1.5, 0.5 on the 1st…5th visit, none from
+  the 6th (`CONVIT_FORT_S` in motor.js, `.sense-convida-fort`) — then settle at 55 % without circles and bob gently; no bob under `prefers-reduced-motion`; red velvet in the error zone). The 22 px
   gap for them (`.te-seguent`) is there from the start of the step, so the list never jumps.
 - **Error zone**: while the current step has `error: true`, `body.zona-error` turns every border red velvet (`--vellut`)
   and tints the page background 20 %. The first error step after a result starts with AC (test).

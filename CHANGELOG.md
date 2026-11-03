@@ -4,6 +4,14 @@ Què ha canviat a cada versió del web, de la més nova a la més antiga. El fun
 `README.md` i `ARCHITECTURE.md`; aquí només hi ha la història. El número de versió és `VERSIO` a
 `js/nucli/models.js` i surt al peu de les pàgines.
 
+## Versió 81 (3/11/2026)
+
+- Les fletxes que conviden a passar al pas següent surten primer dins de dos cercles grocs. Aquesta fase ben visible
+  s'escurça a cada visita: 4 s la primera, 3,5, 2,5, 1,5, 0,5 i, a partir de la sisena visita, ja no hi és (només les
+  fletxes discretes).
+- Les visites es compten de nou: una per sessió del navegador, tant si s'entra per la portada com per una fitxa
+  (recarregar la pàgina o canviar de fitxa no en suma). El botó «↓ Envia-les a baix» també compta així.
+
 ## Versió 80 (3/11/2026)
 
 - Les dues fletxes que conviden a passar al pas següent surten ben visibles (més grans i del tot opaques) durant 4 s;

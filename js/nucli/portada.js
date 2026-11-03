@@ -101,12 +101,12 @@ const VISITES_PER_MOURE = 10;
 
 /**
  * Les bombolles, a dalt dels blocs numerats (es veuen sense desplaçar la pàgina). A partir de la VISITES_PER_MOURE-a
- * visita en aquest navegador, un botó discret al final de la fila les envia a baix: l'alumne ja les coneix. A baix,
+ * visita al web en aquest navegador (Preferencies.visita), un botó discret al final de la fila les envia a baix: l'alumne ja les coneix. A baix,
  * un botó les torna a dalt i unes fletxes conviden a baixar-hi (al marge esquerre si n'hi ha; si no, al racó de baix a
  * l'esquerra). Les fletxes s'amaguen quan les bombolles ja es veuen; en clicar-les, la pàgina hi baixa.
  */
 function posaBombolles(contenidor, bombolles) {
-  const visites = Preferencies.sumaVisita();
+  const visites = Preferencies.visita();
   const mou = document.createElement('button');
   mou.type = 'button';
   mou.className = 'bombolles-mou';

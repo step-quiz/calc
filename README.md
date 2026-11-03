@@ -16,13 +16,14 @@ Web no oficial, sense relació amb el fabricant de la calculadora.
   dels menús (castellà o català). El navegador ho recorda. La calculadora triada surt al títol de la portada (abans de triar-ne cap, «La teva calculadora, pas a pas», i el botó «Escollir calculadora» en groc); a la fitxa, la capçalera diu el bloc (T1…) i la fitxa.
 - A la fitxa: ▶ o ↓ / → passen al pas següent (animat); ◀ o ↑ / ← tornen enrere; ↻ o la tecla R tornen a fer el pas
   actual. La velocitat es pot posar «lenta», «normal» o «ràpida»; les xifres sempre van 3 vegades més de pressa que la resta de tecles. Abans de les tecles de cada pas, la vora de la calculadora s'il·lumina en groc perquè l'alumne hi miri; després s'apaguen les tecles que no són del pas i, encara 0,8 s més tard, el cursor comença a prémer.
-- Quan s'acaba un pas, al cap d'un moment surten dues fletxes discretes a sota que apunten al pas següent: conviden a
-  avançar quan l'alumne estigui a punt. L'últim element de la llista és «Prova-ho tu» (o «Ara tu»): s'hi va amb ▶ o
+- Quan s'acaba un pas, al cap d'un moment surten dues fletxes a sota que apunten al pas següent: conviden a avançar
+  quan l'alumne estigui a punt. Les primeres visites surten uns segons dins de cercles grocs (4 s la primera, cada
+  cop menys, i gens a partir de la sisena); després, discretes. L'últim element de la llista és «Prova-ho tu» (o «Ara tu»): s'hi va amb ▶ o
   clicant-lo.
 - Al ⚙ de dalt a la dreta de la fitxa: «Escollir calculadora», l'idioma i el **color del cursor** (16 colors; el navegador
   el recorda).
 - A dalt de la portada, abans dels blocs numerats, tres bombolles a totes dues etapes, d'una sola línia: «Interpretar els indicadors de pantalla»,
-  «Configurar-ho tot abans d'un examen» i «Correcció d'errors d'escriptura» (què vol dir cada símbol que pot sortir a la pantalla: D, R, FIX, SCI, S, ▲…). A partir de la 10a visita, un botó
+  «Configurar-ho tot abans d'un examen» i «Correcció d'errors d'escriptura». La primera explica què vol dir cada símbol que pot sortir a la pantalla (D, R, FIX, SCI, S, ▲…). A partir de la 10a visita (una per sessió del navegador), un botó
   discret les pot enviar a baix; llavors unes fletxes conviden a baixar-hi, i un altre botó les torna a dalt.
 - El peu de la fitxa surt sencer 5 segons i després només hi queda l'autor; a la portada, sempre sencer a baix.
 - Els passos que ensenyen un error típic tenyeixen la pàgina de vermell («zona d'error»). Si la fitxa acaba amb un

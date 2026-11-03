@@ -347,21 +347,37 @@ a{color:inherit}
 /* L'«Ara tu» / «Prova-ho tu» com a darrer pas de la llista (D2): el nom en lletra de la frase [calc], sense resum */
 .pas.pas-final .resum{font-family:var(--mono); font-size:13.5px; letter-spacing:.02em; color:var(--cat)}
 /* Convit a avançar: dues fletxes primes surten de sota del pas acabat i apunten cap al següent. L'espai hi és
-   des que comença el pas (.te-seguent); les fletxes apareixen al cap d'1,2 s, suaus, i es mouen una mica. */
-.pas.actual.te-seguent{position:relative; margin-bottom:22px}
+   des que comença el pas (.te-seguent). Al cap d'1,2 s surten ben visibles, opaques i dins de cercles grocs, durant
+   --convida-fort (motor.js: 4 s a la primera visita, menys a cada visita, 0 a partir de la sisena); després es queden
+   suaus (55 %, sense cercles) i es mouen una mica. Els centres dels cercles coincideixen amb els de les fletxes
+   (màscara de 12 px al 30 % i al 70 %: centre a 30 % + 2,4 px i a 70 % − 2,4 px). */
+.pas.actual.te-seguent{position:relative; margin-bottom:26px}
+.pas.actual.convida::before{
+  content:''; position:absolute; left:0; right:0; top:calc(100% - 4px); height:30px; pointer-events:none; opacity:0;
+  background:radial-gradient(circle at calc(30% + 2.4px) 50%, #ffff00 0 13px, rgba(0,0,0,.5) 13.5px 15px, transparent 15.5px),
+             radial-gradient(circle at calc(70% - 2.4px) 50%, #ffff00 0 13px, rgba(0,0,0,.5) 13.5px 15px, transparent 15.5px);
+  animation:convida-cercles-entra .4s ease-out 1.2s both, convida-cercles-surt .6s ease-in calc(1.6s + var(--convida-fort, 4s)) forwards}
 .pas.actual.convida::after{
   --fletxa:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 14 18'%3E%3Cpath d='M7 1v15M2 11l5 5 5-5' fill='none' stroke='%23000' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
   content:''; position:absolute; left:0; right:0; top:calc(100% + 2px); height:18px; pointer-events:none; opacity:0;
   background:var(--cat);
   -webkit-mask:var(--fletxa) 30% 0 / 12px 16px no-repeat, var(--fletxa) 70% 0 / 12px 16px no-repeat;
   mask:var(--fletxa) 30% 0 / 12px 16px no-repeat, var(--fletxa) 70% 0 / 12px 16px no-repeat;
-  animation:convida-surt 4.7s ease-out 1.2s forwards, convida-balla 2s ease-in-out 1.9s infinite}
+  animation:convida-fort-entra .4s ease-out 1.2s both, convida-fort-surt .6s ease-in calc(1.6s + var(--convida-fort, 4s)) forwards,
+    convida-balla 2s ease-in-out 1.9s infinite}
+.sense-convida-fort .pas.actual.convida::after{animation:convida-suau .7s ease-out 1.2s both, convida-balla 2s ease-in-out 1.9s infinite}
+.sense-convida-fort .pas.actual.convida::before{display:none}
 body.zona-error .pas.actual.convida::after, body.error-suau .pas.actual.convida::after{background:var(--vellut)}
-/* Surten ben visibles (opacitat plena i un 40 % més grans) durant 4 s; després es queden suaus (55 %, mida normal).
-   «scale» va a part de «transform», que fa servir el balanceig. */
-@keyframes convida-surt{0%{opacity:0; scale:1.4} 6%{opacity:1; scale:1.4} 85%{opacity:1; scale:1.4} 100%{opacity:.55; scale:1}}
+@keyframes convida-fort-entra{from{opacity:0} to{opacity:1}}
+@keyframes convida-fort-surt{from{opacity:1} to{opacity:.55}}
+@keyframes convida-cercles-entra{from{opacity:0} to{opacity:1}}
+@keyframes convida-cercles-surt{from{opacity:1} to{opacity:0}}
+@keyframes convida-suau{from{opacity:0} to{opacity:.55}}
 @keyframes convida-balla{0%, 100%{transform:none} 50%{transform:translateY(3px)}}
-@media (prefers-reduced-motion: reduce){ .pas.actual.convida::after{animation:convida-surt 4.7s ease-out 1.2s forwards} }
+@media (prefers-reduced-motion: reduce){
+  .pas.actual.convida::after{animation:convida-fort-entra .4s ease-out 1.2s both, convida-fort-surt .6s ease-in calc(1.6s + var(--convida-fort, 4s)) forwards}
+  .sense-convida-fort .pas.actual.convida::after{animation:convida-suau .7s ease-out 1.2s both}
+}
 .pas.zero{display:none}
 .pas.zero.actual{display:block}
 .pas.zero .frase{padding:10px 14px}
