@@ -4,6 +4,11 @@ Què ha canviat a cada versió del web, de la més nova a la més antiga. El fun
 `README.md` i `ARCHITECTURE.md`; aquí només hi ha la història. El número de versió és `VERSIO` a
 `js/nucli/models.js` i surt al peu de les pàgines.
 
+## Versió 76 (3/11/2026)
+
+- Portada: les tres bombolles («Abans de començar», «Abans de l'examen», «Interpretem els símbols a la pantalla») surten
+  a dalt, en una fila abans de les targetes T1, T2…: es veuen sense desplaçar la pàgina.
+
 ## Versió 75 (3/11/2026)
 
 - Bombolla nova, a ESO i a Batxillerat: **«Interpretem els símbols a la pantalla»**, amb la fitxa «Què vol dir cada

@@ -72,7 +72,7 @@ fitxa (what the player plays) = exercici (shared)        +  model fitxa (per cal
 | `js/nucli/reproductor.js` | `Reproductor` | The step player: step list, key outlines and order badges, animated cursor, `salta` / `seguent` / `repeteix`, error-zone class, ARIA live announcement, `?pas=` in the URL, the UX-lab hooks (B4, C1, C2, D1, D2, sentence copy for C4/E2). |
 | `js/nucli/ux.js` | `UX` | UX-lab levers from `?ux=` (classes on `<html>`, `UX.te`, `postMessage` to the lab). |
 | `js/nucli/motor.js` | `Motor` | The fitxa page: header (← Fitxes, «T<n> · block title» as on the home page, «<n>. fitxa title», «Escollir calculadora», language), statement (source bubble, figure dialog; SVG figures get an explicit width there, since the shrink-to-fit `<dialog>` would collapse them to 0), player buttons, speed, «Ara tu» mode, «Prova-ho tu», closing step, keyboard shortcuts, keyboard-arrows notice. Exposes the main player as global `fitxa`. |
-| `js/nucli/portada.js` | `Portada` | Home page: stage selector, «Escollir calculadora», language selector, title with the chosen calculator, one card per block of the stage, small blocks as bubbles. |
+| `js/nucli/portada.js` | `Portada` | Home page: stage selector, «Escollir calculadora», language selector, title with the chosen calculator, one card per block of the stage, small blocks as a row of bubbles above the cards. |
 | `models/cataleg.js` | — | `Models.cataleg([...])` (calculators; first = default), `Models.etapes([...])` (stages; first = default), `Models.exercicis([...])` (exercise files, in load order). |
 | `exercicis/blocs.js` | — | `Models.defineixBlocs([...])` and the documented format of an exercise. |
 | `exercicis/<bloc>.js`, `exercicis/eso/<bloc>.js` | — | `Models.afegeixExercicis({…}, …)`: data only. |
@@ -184,7 +184,7 @@ highlights that layer's legends). The calculator's proportion comes from `TECLAT
 (optional `{enunciat, solucio}`; required for fitxes in non-small ESO blocks).
 
 Blocks: `{id, titol, color, etapes, petit}`. `etapes` is always an array of catalogue stage ids. `petit: true` renders as a
-small bubble below the numbered blocks. There are three, all in both stages, side by side in this order: `eso-inici`
+small bubble in one row **above** the numbered blocks (so they are seen without scrolling). There are three, all in both stages, side by side in this order: `eso-inici`
 «Abans de començar», `examen` «Abans de l'examen» and `simbols` «Interpretem els símbols a la pantalla».
 
 ### 6.2 Model fitxa (`models/<id>/fitxes/`)

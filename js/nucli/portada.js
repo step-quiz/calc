@@ -4,7 +4,7 @@
    Tot surt de les dades del model (M.dades): una fitxa nova apareix
    sola a la portada. Un bloc sense fitxes diu «Properament». Només els
    blocs de l'etapa triada (Batxillerat o ESO); els blocs petits, com a
-   bombolles a sota. A dalt, els selectors «Etapa» (només si n'hi ha més
+   bombolles a dalt, abans dels blocs. A dalt, els selectors «Etapa» (només si n'hi ha més
    d'una amb fitxes), «La teva calculadora» i «Calculadora en» (si el
    model té idiomes); el navegador els recorda. El peu porta la versió.
 
@@ -71,7 +71,8 @@ function dibuixa(M, models) {
   bombolles.innerHTML = petits.map(b => FITXES.filter(f => f.bloc === b.id).map((f, k) =>
     `<a class="bombolla"${k ? '' : ` id="${b.id}"`} style="--cat:${b.color}" href="${enllac(f)}">`
     + `<span class="bombolla-bloc">${escapa(b.titol)}</span><span>${escapa(f.titol)}</span></a>`).join('')).join('');
-  contenidor.after(bombolles);
+  // A dalt, abans dels blocs numerats: així es veuen sense desplaçar la pàgina
+  contenidor.before(bombolles);
 
   const versio = document.querySelector('.peu .versio');
   if (versio) versio.textContent = 'Versió ' + Models.VERSIO;

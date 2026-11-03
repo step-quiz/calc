@@ -470,8 +470,8 @@ body.mode-ara-tu .ara-tu{border-style:solid; border-color:var(--oliva); backgrou
 body.mode-ara-tu .ara-tu-titol{color:var(--oliva)}
 body.mode-ara-tu.zona-error{background:color-mix(in srgb, var(--oliva-fons) 80%, var(--vellut))}
 
-/* Portada: les bombolles petites, a part dels blocs (p. ex. «Abans de l'examen») */
-.bombolles{display:flex; flex-wrap:wrap; gap:10px; margin-top:16px}
+/* Portada: les bombolles petites, en una fila a dalt, abans dels blocs numerats (p. ex. «Abans de l'examen») */
+.bombolles{display:flex; flex-wrap:wrap; gap:10px; margin-bottom:16px}
 .bombolla{display:inline-flex; flex-direction:column; gap:2px; padding:10px 16px; border:2px solid var(--cat); border-radius:999px; background:#fdfdfb; text-decoration:none; font-size:.85rem; transition:background-color .15s, color .15s}
 .bombolla:hover, .bombolla:focus-visible{background:var(--cat); color:var(--surface)}
 .bombolla-bloc{font-family:var(--mono); font-size:.65rem; letter-spacing:.06em; text-transform:uppercase; opacity:.75}
