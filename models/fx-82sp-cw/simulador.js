@@ -344,8 +344,8 @@ function tecla(estat, id) {
     return null;
   }
   if (p.tipus === 'definicio') {                        // escriure l'expressió de f(x)
-    const tros = shift ? ESCRIU_SHIFT[id] : ESCRIU[id];
-    const pl = plantilla(id, shift);
+    const tros = shift ? ESCRIU_SHIFT[id] : alpha ? ESCRIU_ALPHA[id] : ESCRIU[id];   // ALPHA: p. ex. la e de la X II
+    const pl = alpha ? null : plantilla(id, shift);
     if (pl) insereixPlantilla(estat.ed, pl);
     else if (tros !== undefined) insereix(estat.ed, {t: 'tex', v: tros});
     else if (!(['down', 'up', 'left', 'right'].includes(id) && mou(estat.ed, id))) return null;

@@ -17,9 +17,33 @@ const X2 = M.x2;
 /** CALC: les expressions amb x (s'escriuen un sol cop). */
 const F_BOLZANO = '-2+10(x-1)\\ln(x)';
 const F_LIMITS = '\\frac{x^{2}-2x}{x-1}';
+const F_E = '-3x+e^{2x}-1';
+const F_ESPORT = '7-x+\\ln(2x-1)';
+const F_DERIVADA = '\\frac{5(1-x^{2})}{(x^{2}+1)^{2}}';
+const F_FUNCIO = '\\frac{5x}{x^{2}+1}';
 
 M.fitxes.push(
 
+{
+  id: 'pau-ana-23s-q4',
+  inici: calc(D),
+  passos: [
+    {tecles: ['neg', '3', 'x', 'mes', 'alpha', 'exp', 'pot', '2', 'x', 'right', 'menys', '1'], pantalla: calc(D, F_E),
+      text: '[calc]Escriu $f$ un sol cop, amb la $x$ (tecla [[x]]): $-3x+e^{2x}-1$. El signe del principi és [[neg]]; la $e$ és [[alpha]] [[exp]]; l\'exponent, amb [[pot]]: escriu $2x$ i surt de l\'exponent amb [[right]] abans del $-1$.[/calc]'},
+    {tecles: ['calcula'], pantalla: X2.demana(D),
+      text: '[calc]Prem [[calcula]]: la calculadora demana el valor de $x$.[/calc]'},
+    {tecles: ['neg', '1', 'exe'], pantalla: marca(calc(D, F_E, '2.135335283'), 'resultat'),
+      parcials: {1: calc(D, 'x=-1', '', {hist: true})},
+      text: '[calc]Escriu $-1$ (amb [[neg]]) i prem [[exe]].[/calc] [mat]$f(-1)\\approx 2{,}135>2$.[/mat]'},
+    {tecles: ['calcula', '0', 'exe'], pantalla: marca(calc(D, F_E, '0'), 'resultat'),
+      parcials: {1: calc(D, 'x=0', '', {hist: true})},
+      text: '[calc]Ara $f(0)$: [[calcula]], 0 i [[exe]].[/calc] [mat]$f(0)=0<2$. La funció $g(x)=f(x)-2$ és contínua, $g(-1)>0$ i $g(0)<0$: pel teorema de Bolzano, hi ha un $c\\in(-1,\\,0)$ amb $f(c)=2$. ✓[/mat]'},
+    {error: true, tecles: ['ac', 'neg', '3', 'lpar', 'neg', '1', 'rpar', 'mes', 'alpha', 'exp', 'pot', '2', 'right', 'lpar', 'neg', '1', 'rpar', 'menys', '1', 'exe'],
+      pantalla: marca(calc(D, '-3(-1)+e^{2}(-1)-1', '-5.389056099'), 'resultat'),
+      text: '[calc]!!Error típic!!: esborra amb [[ac]] i calcula $f(-1)$ sortint de l\'exponent amb [[right]] abans de la $x$: la calculadora fa $e^2\\cdot(-1)$ en lloc d\'$e^{-2}$.[/calc] [mat]No pot ser: $e^{-2}$ és positiu i petit, i $f(-1)$ ha de ser una mica més gran que 2.[/mat]'},
+  ],
+  relacionades: ['pau-ana-24i-q1'],
+},
 {
   id: 'pau-ana-24i-q1',
   inici: calc(D),
@@ -148,6 +172,72 @@ M.fitxes.push(
   },
   */
   relacionades: ['canvia-radians', 'exacte-decimal', 'ans', 'barrow', 'mode-decimal'],
+},
+{
+  id: 'pau-ana-26j-q4a',
+  inici: calc(D),
+  passos: [
+    {tecles: ['frac', '1', '0', 'shift', 'exp', 'down', 'shift', 'exp', 'mes', '4'], pantalla: calc(D, '\\frac{10\\pi}{\\pi+4}'),
+      text: '[calc]Escriu $x$ amb [[frac]]: a dalt $10\\pi$ (π és [[shift]] [[exp]]), [[down]] i, a baix, $\\pi+4$.[/calc]'},
+    {tecles: ['shift', 'exe'], pantalla: marca(calc(D, '\\frac{10\\pi}{\\pi+4}', '4.399008465'), 'resultat'),
+      text: '[calc]És una longitud: demana el decimal amb [[shift]] [[exe]] (≈).[/calc] [mat]La barana del cercle fa 4,40 m.[/mat] [calc]La calculadora la desa a [[ans]] amb tots els decimals.[/calc]'},
+    {tecles: ['1', '0', 'menys', 'ans', 'exe'], pantalla: marca(calc(D, '10-\\mathrm{Ans}', '5.600991535'), 'resultat'),
+      text: '[calc]La del quadrat és $10-\\mathrm{Ans}$: escriu 10, [[menys]], [[ans]] i prem [[exe]].[/calc] [mat]La barana del quadrat fa 5,60 m.[/mat]'},
+    {tecles: ['frac', 'lpar', '1', '0', 'menys', 'ans', 'rpar', 'x2', 'down', '4', 'shift', 'exp', 'right', 'mes', 'lpar', 'frac', 'ans', 'down', '4', 'right', 'rpar', 'x2'],
+      pantalla: calc(D, '\\frac{(10-\\mathrm{Ans})^{2}}{4\\pi}+(\\frac{\\mathrm{Ans}}{4})^{2}', '', {hist: true}),
+      text: '[mat]Ara [[ans]] és la barana del quadrat, i la del cercle és $10-\\mathrm{Ans}$.[/mat] [calc]Escriu $S$ amb [[ans]], sense copiar cap decimal: $\\frac{(10-\\mathrm{Ans})^2}{4\\pi}+\\left(\\frac{\\mathrm{Ans}}{4}\\right)^2$.[/calc]'},
+    {tecles: ['shift', 'exe'], pantalla: marca(calc(D, '\\frac{(10-\\mathrm{Ans})^{2}}{4\\pi}+(\\frac{\\mathrm{Ans}}{4})^{2}', '3.500619709'), 'resultat'),
+      text: '[calc]Prem [[shift]] [[exe]] (≈).[/calc] [mat]La superfície mínima és $S\\approx 3{,}50\\,\\text{m}^2$.[/mat]'},
+  ],
+  relacionades: ['ans', 'pau-ana-25i-q4a'],
+},
+{
+  id: 'pau-pro-26j2-q3',
+  inici: calc(D),
+  passos: [
+    {tecles: ['7', 'menys', 'x', 'mes', 'ln', '2', 'x', 'menys', '1', 'rpar'], pantalla: calc(D, F_ESPORT),
+      text: '[calc]Calcularàs $y$ en tres punts: escriu-la un sol cop, amb la $x$ (tecla [[x]]): $7-x+\\ln(2x-1)$. ln és la tecla [[ln]].[/calc]'},
+    {tecles: ['calcula'], pantalla: X2.demana(D),
+      text: '[calc]Prem [[calcula]]: la calculadora demana el valor de $x$.[/calc]'},
+    {tecles: ['1', 'exe'], pantalla: marca(calc(D, F_ESPORT, '6'), 'resultat'),
+      parcials: {0: calc(D, 'x=1', '', {hist: true})},
+      text: '[mat]En un interval tancat, el màxim i el mínim absoluts són al punt crític o als extrems de l\'interval: cal $y(1)$, $y(1{,}5)$ i $y(6)$.[/mat] [calc]Escriu l\'1 i prem [[exe]]: $y(1)=6$.[/calc]'},
+    {tecles: ['calcula', '1', 'punt', '5', 'exe'], pantalla: marca(calc(D, F_ESPORT, '6.193147181'), 'resultat'),
+      parcials: {3: calc(D, 'x=1.5', '', {hist: true})},
+      text: '[calc]Ara $y(1{,}5)$: [[calcula]], 1.5 i [[exe]].[/calc] [mat]$y(1{,}5)\\approx 6{,}193$.[/mat]'},
+    {tecles: ['calcula', '6', 'exe'], pantalla: marca(calc(D, F_ESPORT, '3.397895273'), 'resultat'),
+      parcials: {1: calc(D, 'x=6', '', {hist: true})},
+      text: '[mat]$y(6)\\approx 3{,}398$. El màxim és de 6,19 h d\'esport (amb $x=1{,}5$), i el mínim, de 3,40 h (amb $x=6$).[/mat]'},
+    {error: true, tecles: ['ac', '7', 'menys', '6', 'mes', 'shift', 'neg', '1', '1', 'rpar', 'exe'], pantalla: marca(calc(D, '7-6+\\log(11)', '2.041392685'), 'resultat'),
+      text: '[calc]!!Error típic!!: esborra amb [[ac]] i calcula $y(6)$ escrivint ln amb la tecla log ([[shift]] [[neg]]): surt 2.041392685 i no 3.397895273.[/calc] [mat]log és el logaritme en base 10, no el neperià.[/mat]'},
+  ],
+  relacionades: ['logaritmes'],
+},
+{
+  id: 'pau-ana-26s-q1',
+  inici: calc(D),
+  passos: [
+    {tecles: ['frac', '5', 'lpar', '1', 'menys', 'x', 'x2', 'rpar', 'down', 'lpar', 'x', 'x2', 'mes', '1', 'rpar', 'x2'], pantalla: calc(D, F_DERIVADA),
+      text: '[mat]Per saber el signe de $f\'$ a cada interval, n\'hi ha prou amb un punt de l\'interval.[/mat] [calc]Escriu la derivada un sol cop, amb la $x$ (tecla [[x]]): la fracció $\\frac{5(1-x^2)}{(x^2+1)^2}$ amb [[frac]].[/calc]'},
+    {tecles: ['calcula', 'neg', '2', 'exe'], pantalla: marca(calc(D, F_DERIVADA, '-\\frac{3}{5}'), 'resultat'),
+      parcials: {0: X2.demana(D), 2: calc(D, 'x=-2', '', {hist: true})},
+      text: '[calc][[calcula]], $-2$ (amb [[neg]]) i [[exe]].[/calc] [mat]$f\'(-2)=-\\frac{3}{5}<0$: $f$ decreix a $(-\\infty,-1)$.[/mat] [calc]Surt una fracció perquè la calculadora és en mode {{E Mat/S Mat}}; en mode {{E Mat/S Decimal}} sortiria −0.6.[/calc]'},
+    {tecles: ['calcula', '0', 'exe'], pantalla: marca(calc(D, F_DERIVADA, '5'), 'resultat'),
+      parcials: {1: calc(D, 'x=0', '', {hist: true})},
+      text: '[mat]$f\'(0)=5>0$: $f$ creix a $(-1,\\,1)$.[/mat]'},
+    {tecles: ['calcula', '2', 'exe'], pantalla: marca(calc(D, F_DERIVADA, '-\\frac{3}{5}'), 'resultat'),
+      parcials: {1: calc(D, 'x=2', '', {hist: true})},
+      text: '[mat]$f\'(2)=-\\frac{3}{5}<0$: $f$ decreix a $(1,+\\infty)$.[/mat]'},
+    {tecles: ['ac', 'frac', '5', 'x', 'down', 'x', 'x2', 'mes', '1'], pantalla: calc(D, F_FUNCIO),
+      text: '[calc]Ara els valors de $f$ als extrems: esborra amb [[ac]] i escriu $\\frac{5x}{x^2+1}$.[/calc]'},
+    {tecles: ['calcula', 'neg', '1', 'exe'], pantalla: marca(calc(D, F_FUNCIO, '-\\frac{5}{2}'), 'resultat'),
+      parcials: {0: X2.demana(D, '2'), 2: calc(D, 'x=-1', '', {hist: true})},
+      text: '[mat]A $x=-1$, $f$ passa de decréixer a créixer: hi ha un mínim relatiu a $\\left(-1,-\\frac{5}{2}\\right)$.[/mat]'},
+    {tecles: ['calcula', '1', 'exe'], pantalla: marca(calc(D, F_FUNCIO, '\\frac{5}{2}'), 'resultat'),
+      parcials: {1: calc(D, 'x=1', '', {hist: true})},
+      text: '[mat]A $x=1$, passa de créixer a decréixer: hi ha un màxim relatiu a $\\left(1,\\frac{5}{2}\\right)$.[/mat]'},
+  ],
+  relacionades: [],
 },
 {
   id: 'pau-pro-24i-q4',

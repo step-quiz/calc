@@ -2,6 +2,13 @@
 Models.afegeixExercicis(
 
 {
+  id: 'pau-ana-23s-q4', bloc: 'pau-ap', grup: 'Anàlisi',
+  titol: '(2023). Bolzano amb la e',
+  font: 'PAU setembre 2023, qüestió 4 a)',
+  enunciat: 'Sigui $f(x)=-3x+e^{2x}-1$.\nJustifiqueu que l\'equació $f(x)=2$ té una solució a l\'interval $(-1,\\,0)$.',
+  tancament: '[mat]Recorda: tot l\'exponent, $2x$, ha d\'anar a l\'exponent: $e^{2x}$. Així, $f(-1)\\approx 2{,}135>2$ i $f(0)=0<2$.[/mat]',
+},
+{
   id: 'pau-ana-24i-q1', bloc: 'pau-ap', grup: 'Anàlisi',
   titol: '(2024). Bolzano amb la calculadora',
   font: 'PAU juny 2024 (incidències), qüestió 1 a)',
@@ -24,6 +31,25 @@ Models.afegeixExercicis(
   titol: '(2025). Un vitrall en radians',
   font: 'PAU setembre 2025, exercici 4 A',
   enunciat: 'Un vitrall de la Sagrada Família està limitat per:\n- les gràfiques de $y=3\\sin\\frac{x}{4}$ i $y=3\\cos\\frac{x}{4}$\n- des de l\'eix d\'ordenades fins al primer punt de tall $C$, que té $x=\\pi$.\n[a]a) Calculeu les coordenades del punt $C$.\n[/a] [b]b) Calculeu el preu del vitrall, a 750 € el m²\n\nNota: l\'àrea és $\\left[12\\sin\\frac{x}{4}+12\\cos\\frac{x}{4}\\right]_0^{\\pi}$.[/b]',
+},
+{
+  id: 'pau-ana-26j-q4a', bloc: 'pau-ap', grup: 'Anàlisi',
+  titol: '(2026). Dues baranes: π, ≈ i Ans',
+  font: 'PAU juny 2026, exercici 4 A',
+  enunciat: 'Dues baranes fan 10 m en total: la d\'un espai circular i la d\'un espai quadrat.\nSi la barana del cercle fa $x$ metres, la suma de les dues superfícies és $S(x)=\\frac{x^2}{4\\pi}+\\left(\\frac{10-x}{4}\\right)^2$.\nAmb la derivada has trobat $x=\\frac{10\\pi}{\\pi+4}$.\n\nCalcula la longitud de cada barana i la superfície mínima.',
+},
+{
+  id: 'pau-pro-26j2-q3', bloc: 'pau-ap', grup: 'Anàlisi',
+  titol: '(2026). Màxim i mínim absoluts en un interval',
+  font: 'PAU juny 2026 (sèrie 5), exercici 3.3',
+  enunciat: 'L\'Alba dedica cada setmana $x$ hores a llegir, entre 1 i 6, i $y$ hores a fer esport, amb $y=7-x+\\ln(2x-1)$.\nAmb la derivada has trobat que l\'únic punt crític és $x=1{,}5$.\n\nCalcula el màxim i el mínim d\'hores d\'esport.',
+  tancament: '[mat]Recorda: $\\ln$ és el logaritme neperià, i log és el logaritme en base 10. El màxim és de 6,19 h i el mínim, de 3,40 h.[/mat]',
+},
+{
+  id: 'pau-ana-26s-q1', bloc: 'pau-ap', grup: 'Anàlisi',
+  titol: '(2026). Creixement i extrems amb f(x) i g(x)',
+  font: 'PAU setembre 2026, exercici 1.1',
+  enunciat: 'Considereu la funció $f(x)=\\dfrac{5x}{x^2+1}$.\nHas trobat la derivada, $f\'(x)=\\dfrac{5(1-x^2)}{(x^2+1)^2}$, que s\'anul·la a $x=-1$ i a $x=1$.\n\nEstudia el creixement i els extrems relatius de $f$.',
 },
 {
   id: 'pau-pro-24i-q4', bloc: 'pau-ap', grup: 'Probabilitat',

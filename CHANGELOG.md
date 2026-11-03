@@ -4,6 +4,23 @@ Què ha canviat a cada versió del web, de la més nova a la més antiga. El fun
 `README.md` i `ARCHITECTURE.md`; aquí només hi ha la història. El número de versió és `VERSIO` a
 `js/nucli/models.js` i surt al peu de les pàgines.
 
+## Versió 90 (3/11/2026)
+
+- Quatre fitxes noves al bloc «Exercicis PAU. Anàlisi i Probabilitat», grup Anàlisi, triades per David a l'artifact
+  de propostes:
+  - «(2023). Bolzano amb la e» (PAU setembre 2023, qüestió 4 a): la e i l'exponent amb la plantilla; zona d'error si
+    se surt de l'exponent abans de la x.
+  - «(2026). Dues baranes: π, ≈ i Ans» (PAU juny 2026, exercici 4 A).
+  - «(2026). Màxim i mínim absoluts en un interval» (PAU juny 2026, sèrie 5, exercici 3.3); zona d'error amb log en
+    lloc de ln.
+  - «(2026). Creixement i extrems amb f(x) i g(x)» (PAU setembre 2026, exercici 1.1): la funció a f(x) i la derivada
+    a g(x); a la fx-82/85SP X II, una sola taula amb f i g. No surt a la fx-82MS (massa llarga sense f(x) ni g(x)).
+- Norma nova (David): quan una fitxa fa servir f(x) i g(x), la funció sempre és f(x) i la derivada, g(x).
+- Portada: un bloc amb més de 8 fitxes ja no fa la targeta més alta que la dels altres blocs; la llista es desplaça per
+  dins de la targeta, amb una ombra a baix que diu que n'hi ha més. Ara passa al bloc T6 de Batxillerat.
+- Simulador CW: ALPHA també funciona mentre s'escriu una funció (la e de les X II a la Taula). A la fx-82/85SP X II,
+  MENU funciona des de la taula.
+
 ## Versió 89 (3/11/2026)
 
 - Documentació repassada sencera (HANDOUT, ARCHITECTURE, CLAUDE, README, VERIFICAR): l'estat actual del web en una

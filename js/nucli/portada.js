@@ -76,6 +76,7 @@ function dibuixa(M, models) {
     + `${escapa(fs.length > 1 ? f.titol : b.titol)}</a>`).join(''); }).join('');
   ajustaAmplada(contenidor);
   posaBombolles(contenidor, bombolles);
+  limitaLlistes(contenidor);
 
   const versio = document.querySelector('.peu .versio');
   if (versio) versio.textContent = 'Versió ' + Models.VERSIO;
@@ -94,6 +95,46 @@ function ajustaAmplada(contenidor) {
   const text = Math.max(...[...contenidor.querySelectorAll('.bloc h2')].map(h => ctx.measureText(h.textContent).width));
   const vores = parseFloat(b.paddingLeft) + parseFloat(b.paddingRight) + parseFloat(b.borderLeftWidth) + parseFloat(b.borderRightWidth);
   document.documentElement.style.setProperty('--ample-bloc', Math.ceil(text + vores + 6) + 'px');
+}
+
+/** Un bloc amb més fitxes que aquestes es pot desplaçar per dins (sempre se'n veuen almenys MIN_VISIBLES). */
+const FITXES_VISIBLES = 8, MIN_VISIBLES = 4;
+
+/**
+ * Un bloc amb moltes fitxes (p. ex. «Exercicis PAU. Anàlisi i Probabilitat») no fa la targeta cada cop més alta: la
+ * targeta fa com a molt l'alçada de la targeta més alta dels altres blocs, i la resta de la llista es veu desplaçant-la
+ * per dins (.desplacable). Les alçades es mesuren amb les targetes sense estirar (la graella les iguala per files), i
+ * es tornen a mesurar quan canvia l'amplada de la finestra i quan han carregat les lletres.
+ */
+function limitaLlistes(contenidor) {
+  const mesura = () => {
+    const llistes = [...contenidor.querySelectorAll('.llista')];
+    llistes.forEach(l => { l.style.maxHeight = ''; l.classList.remove('desplacable'); });
+    contenidor.classList.add('mesurant');                   // align-items:start: cada targeta, la seva alçada
+    const llargues = llistes.filter(l => l.querySelectorAll('li:not(.separa-grup)').length > FITXES_VISIBLES);
+    const altes = [...contenidor.querySelectorAll('.bloc')].filter(b => !llargues.some(l => b.contains(l)));
+    const sostre = Math.max(0, ...altes.map(b => b.getBoundingClientRect().height));
+    const limits = llargues.map(llista => {
+      const bloc = llista.closest('.bloc'), fitxes = llista.querySelectorAll('li:not(.separa-grup)');
+      const resta = bloc.getBoundingClientRect().height - llista.getBoundingClientRect().height;   // títol, vores, farcit
+      const minim = fitxes[MIN_VISIBLES - 1].getBoundingClientRect().bottom - llista.getBoundingClientRect().top;
+      return sostre ? Math.max(minim, sostre - resta) : null;
+    });
+    contenidor.classList.remove('mesurant');
+    llargues.forEach((llista, k) => {
+      if (limits[k] === null) return;                       // cap altre bloc amb què comparar-lo
+      llista.classList.add('desplacable');
+      llista.style.maxHeight = Math.floor(limits[k]) + 'px';
+    });
+  };
+  mesura();
+  let pendent = false;
+  addEventListener('resize', () => {
+    if (pendent) return;
+    pendent = true;
+    requestAnimationFrame(() => { pendent = false; mesura(); });
+  });
+  if (document.fonts && document.fonts.ready) document.fonts.ready.then(mesura);
 }
 
 /** A partir de quantes visites a la portada se suggereix enviar les bombolles a baix. */

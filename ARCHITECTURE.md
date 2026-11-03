@@ -72,7 +72,7 @@ fitxa (what the player plays) = exercici (shared)        +  model fitxa (per cal
 | `js/nucli/reproductor.js` | `Reproductor` | The step player: step list (with the final «Prova-ho tu»/«Ara tu» row, `.pas-final`), key outlines and order badges, animated cursor, attention cue (`ATENCIO`), `salta` / `seguent` / `repeteix`, invitation arrows (`.te-seguent`, `.convida`), `body.en-marxa` (step 0 vs started), error-zone class, the active `[a]` statement part (scrolled into view), ARIA live announcement, `?pas=` in the URL, the UX-lab hooks (B4, C1, C2, D1, D2, sentence copy for C4/E2). |
 | `js/nucli/ux.js` | `UX` | UX-lab levers from `?ux=` (classes on `<html>`, `UX.te`, `postMessage` to the lab). |
 | `js/nucli/motor.js` | `Motor` | The fitxa page: header (← Fitxes, «T<n> · block title» and «<n>. fitxa title» as on the home page, ⚙ with «Escollir calculadora», language and cursor colour `COLORS_CURSOR`), statement (source bubble, figure dialog — SVG figures get an explicit width there, since the shrink-to-fit `<dialog>` would collapse them to 0 —, fold button and fold logic, one-line detection), player buttons, speed (`VELOCITATS`), «Ara tu» mode, «Prova-ho tu», closing step, keyboard shortcuts, keyboard-arrows notice, invitation strength by visit (`CONVIT_FORT_S`). Exposes the main player as global `fitxa`. |
-| `js/nucli/portada.js` | `Portada` | Home page: stage selector, «Escollir calculadora», language selector, title with the chosen calculator, one card per block of the stage, small blocks as a row of bubbles above the cards. Cards are as narrow as the longest block title of the stage on one line (`ajustaAmplada` measures it and sets `--ample-bloc`; the page is at most 3 cards wide, centred); a thin rule (80 % wide) separates consecutive fitxes of different `grup`. |
+| `js/nucli/portada.js` | `Portada` | Home page: stage selector, «Escollir calculadora», language selector, title with the chosen calculator, one card per block of the stage, small blocks as a row of bubbles above the cards. Cards are as narrow as the longest block title of the stage on one line (`ajustaAmplada` measures it and sets `--ample-bloc`; the page is at most 3 cards wide, centred); a thin rule (80 % wide) separates consecutive fitxes of different `grup`. A block with more than 8 fitxes (`FITXES_VISIBLES`) gets an internally scrolling list (`limitaLlistes`, `.llista.desplacable`): its card is no taller than the tallest other card of the stage (measured unstretched with `.blocs.mesurant`, at least 4 fitxes visible), re-measured on resize and after the fonts load; a bottom shadow (scroll-shadow backgrounds) shows there is more. |
 | `models/cataleg.js` | — | `Models.cataleg([...])` (calculators; first = default), `Models.etapes([...])` (stages; first = default), `Models.exercicis([...])` (exercise files, in load order). |
 | `exercicis/blocs.js` | — | `Models.defineixBlocs([...])` and the documented format of an exercise. |
 | `exercicis/<bloc>.js`, `exercicis/eso/<bloc>.js` | — | `Models.afegeixExercicis({…}, …)`: data only. |
@@ -313,6 +313,10 @@ such as storing values in variables (on the fx-82MS, re-evaluate with replay ◀
 
 **Size.** ≤ 10 steps per fitxa (5–8 ideal); statements of about 2–3 lines (ESO: situation, then one datum per line with
 `\n• `, then the question); step sentences of 1–2 lines; every step must fit 1366×657 without scroll (`encaix.js`).
+
+**f(x) and g(x) (David).** When a fitxa uses both, the function is always `f(x)` and its derivative always `g(x)`
+(e.g. `pau-ana-26s-q1`: signs of f′ from g, values of f from f). On the X II with CALC (no f/g memory) the derivative
+is typed first, then AC and the function; on the fx-82/85SP X II both go into one table (columns f and g).
 
 **Both calculators.** The same id, statement and source on both; the fx-82MS has no fraction template (sums in
 parentheses), gives decimals directly and uses the (−) key (`neg`) for negatives (test). On the CW, negatives use the

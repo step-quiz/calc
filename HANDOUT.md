@@ -34,12 +34,12 @@ code and docs disagree, fix the docs. §5 below is a version log (what changed a
 - **Stack**: vanilla JS (IIFE modules exporting globals), CSS with container queries (`cqw`), KaTeX 0.16.9 (vendored),
   self-hosted fonts (Libre Baskerville, Source Code Pro). Tests in Node + Playwright.
 
-## 1a. The site as it is now (v89), in one screen
+## 1a. The site as it is now (v90), in one screen
 
 - **Home** (`index.html`, `portada.js`): header (title «La calculadora <model>, pas a pas» — «La teva calculadora…»
   until one is chosen —, «Escollir/Canviar de calculadora», Etapa, Calculadora en). A row of three one-line bubbles
   (small blocks `simbols`, `examen`, `eso-inici`), then cards T1…T6 as narrow as the longest block title; a black rule
-  separates topics (`grup`) inside the PAU cards. From the 10th visit a button can send the bubbles below the cards.
+  separates topics (`grup`) inside the PAU cards. A card with more than 8 fitxes (T6 now) scrolls inside, no taller than the tallest other card. From the 10th visit a button can send the bubbles below the cards.
 - **Fitxa** (`fitxa.html`, `motor.js` + `reproductor.js`): header «← Fitxes» · «T<n> · bloc  <n>. fitxa» · ⚙ (calculator,
   language, cursor colour). Left column: statement (always whole; the student folds it with the button on its left or
   by clicking it; capped at 34vh on desktop), ◀ ↻ ▶ + speed, step list ending with «Prova-ho tu»/«Ara tu». Right: the
@@ -86,7 +86,7 @@ visits — one per browser session —, bubbles up/down), `tria.js`
 - Error-zone steps (`error: true`); if a fitxa ends in error, a closing step (`tancament`) is appended.
 - Barrow «Ara tu» is **disabled** (commented block «Ara tu» DESACTIVAT in each model's `pau.js`).
 
-## 5. Work done in recent conversations (versions 56 → 89)
+## 5. Work done in recent conversations (versions 56 → 90)
 
 - **v56–57**: fx-570/991SP X II complete (drawing from 626×1333 photo, numbered menus, CALC, Verificar app). Speed «lenta»
   slowed twice (3.01); in v74 «normal» and «lenta» were made 15 % slower (1.65 → 1.90, 3.01 → 3.46).
@@ -157,6 +157,13 @@ visits — one per browser session —, bubbles up/down), `tria.js`
   stylesheets: `body.pagina-fitxa:not(.en-marxa) .lcd-cursor/.cursor-tex/.ms-cursor`).
 - **v89**: one-line statements cannot fold (`.enunciat-curt`: button `visibility:hidden`, click ignored); lines counted
   from the text's client rects (`linies()` in motor.js), re-checked by a ResizeObserver (deferred to rAF).
+- **v90**: from the proposals artifact «calc · Propostes d'activitats per a 2n de Batxillerat»
+  (https://claude.ai/artifact/DEQecumDg77JTy8Km4hzXe, slug `630ce82a-a990-45fb-ae73-5fa6469dd2e5`; db `respostes/<id>`
+  = David's decision/comment, `claude/<id>` = Claude's reply): four new T6 fitxes (grup Anàlisi) `pau-ana-23s-q4`,
+  `pau-ana-26j-q4a`, `pau-pro-26j2-q3`, `pau-ana-26s-q1` on every model (not 26s-q1 on the MS); rule f = function,
+  g = derivative; T6 internal scroll (`limitaLlistes`); CW simulator: ALPHA inside `definicio`; fx-82SP X II: MENU from
+  the table. David's decisions there: no new blocks (techniques go to T4), no «Ara tu» on new fitxes, no fx-570 extras
+  block, no time-budget rules.
 - David's standing UI rule: every clickable control reacts on hover with a thick pure-black border and a light-grey
   background (prefer a 1–1.5 px `box-shadow` on top of the border, so nothing moves).
 - David's standing preference: ask him questions with the AskUserQuestion multiple-choice dialog, never as free text.
@@ -220,7 +227,7 @@ visits — one per browser session —, bubbles up/down), `tria.js`
 ## 8. Versioning & delivery protocol
 
 - Any served `.js`/`.css` change → bump `VERSIO` (`js/nucli/models.js`), every `?v=` in `index.html`/`fitxa.html`, and
-  the «Versió N» footer of `index.html` (test enforces). Current: **89**.
+  the «Versió N» footer of `index.html` (test enforces). Current: **90**.
 - Delivery = a ZIP with the files changed since the version David already has, repo-root paths, excluding `_uploads/`:
   commit the version locally, then `git diff --name-only --diff-filter=AMR HEAD~1 HEAD | zip -@ calc-versio-NN.zip`
   (use `HEAD~2` etc. if several local commits make up one delivery). The repo usually arrives as a ZIP without `.git`:
@@ -239,6 +246,14 @@ visits — one per browser session —, bubbles up/down), `tria.js`
 - Do not remind David to delete `mostra.js`, `HANDOFF-ESO.md` or `BLOCS-PENDENTS.md` (he did; he asked not to be told again).
 
 ## 9. Open items
+
+- **Taula (Tabla) on the fx-82SP CW** (approved by David, O3b): not in the simulator yet. Manual (online, Spanish):
+  HOME → Tabla icon → OK; TOOLS opens the app menu («Tipo de tabla», «Def f(x)/g(x)», «Rango tabla» with Inic./Final/
+  Paso, «Ejecutar», «Editar», «Recalcular»); f and g can also be defined with FUNCTION; max 45 rows (30 with f and g);
+  leaving the app clears the table, not f/g. The manual screen images could not be downloaded: confirm the TOOLS menu
+  order and the range screen with David before drawing them (VERIFICAR.md rows). Then a T4 fitxa «Taula de valors:
+  Bolzano d'una passada» (f(x) = −2 + 10(x − 1) ln x, 1 to 1.5, step 0.1).
+- **Scalar and cross product** fitxa (David, instead of N3): proposed in the artifact, waiting for his OK.
 
 - **VERIFICAR.md**: rows for X II (15), fx-82/85SP X II (11), MS (1–16) and MS aliases pending checks on real
   calculators (David doesn't have them at hand); CW rows 30–31 (SCI 3 result, Verificar with ½ = 0.5) are new.

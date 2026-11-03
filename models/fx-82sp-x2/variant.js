@@ -157,6 +157,7 @@ M.variant = Object.freeze({
       const mou = {down: [1, 0], up: [-1, 0], right: [0, 1], left: [0, -1]}[id];
       if (mou) return Object.freeze(Object.assign({}, p, {fila: Math.max(0, Math.min(n - 1, p.fila + mou[0])), col: Math.max(0, Math.min(c - 1, p.col + mou[1])), marca: null}));
       if (id === 'ac') { estat.ed = null; return G.definicio('f', (estat.taula && estat.taula.f) || '', false); }
+      if (id === 'menu' && !shift && !alpha) return apps(0);   // MENU: des de la taula es pot tornar a Calcular (MENU 1)
       return null;
     }
     return undefined;

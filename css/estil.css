@@ -474,6 +474,18 @@ body.zona-error .pas.actual.convida::after, body.error-suau .pas.actual.convida:
 /* En passar-hi el ratolí: un fons suau del color del bloc i una vora negra gruixuda (l'ombra la fa més gruixuda sense moure res) */
 .llista a:hover, .llista a:focus-visible{background:color-mix(in srgb, var(--cat) 12%, #fff); border-color:#000; box-shadow:0 0 0 1.5px #000; transform:translateX(3px)}
 .llista .n{font-family:var(--mono); font-size:.68rem; opacity:.7; min-width:1.6em}
+/* Un bloc amb més de 8 fitxes (nucli/portada.js, limitaLlistes): la llista es desplaça per dins de la targeta, que no
+   és més alta que la targeta més alta dels altres blocs. .mesurant: un instant, sense estirar, per mesurar-les. El farcit deixa lloc a la vora negra i al lliscament de 3 px del :hover, perquè no quedin retallats; el
+   marge negatiu ho compensa i les fitxes queden alineades amb les dels altres blocs. A baix, una ombra suau diu que
+   n'hi ha més (desapareix en arribar al final: és fixa al contingut, background-attachment:local). */
+.blocs.mesurant{align-items:start}
+.llista.desplacable{
+  overflow-y:auto; overscroll-behavior:contain; scrollbar-width:thin; scrollbar-color:var(--cat) transparent;
+  padding:2px 8px 2px 2px; margin-left:-2px; margin-right:-8px;
+  background:
+    linear-gradient(#fdfdfb, #fdfdfb) bottom / 100% 14px no-repeat local,
+    radial-gradient(farthest-side at 50% 100%, rgba(0,0,0,.18), transparent) bottom / 100% 10px no-repeat scroll;
+}
 .properament{margin-top:6px; align-self:flex-start; font-family:var(--mono); font-size:.68rem; letter-spacing:.06em; text-transform:uppercase; color:var(--muted); border:1px dashed var(--border); border-radius:4px; padding:4px 8px}
 @media (any-pointer:coarse){ .llista a{padding-block:12px} }
 /* Una etapa sense cap bloc: només es veu amb ?etapa=…, perquè el selector no l'ofereix */

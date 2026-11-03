@@ -20,9 +20,39 @@ const F_LIMITS = '\\frac{x^{2}-2x}{x-1}';
 const TAULA_BOLZANO = [['1', '-2'], ['1.1', '-1.90468982'], ['1.2', '-1.635356886'], ['1.3', '-1.212907207'], ['1.4', '-0.6541110535'], ['1.5', '0.02732554054']];
 const TAULA_PROP = [['0.98', '49.98'], ['0.99', '99.99'], ['1', 'ERROR'], ['1.01', '-99.99'], ['1.02', '-49.98']];
 const TAULA_LLUNY = [['-200', '-200.9950249'], ['-100', '-100.990099'], ['0', '0'], ['100', '98.98989899'], ['200', '198.9949749']];
+const F_E = '-3x+e^{2x}-1';
+const F_ESPORT = '7-x+\\ln(2x-1)';
+const F_DERIVADA = '\\frac{5(1-x^{2})}{(x^{2}+1)^{2}}';
+const F_FUNCIO = '\\frac{5x}{x^{2}+1}';
+const TAULA_E = [['-1', '2.135335283'], ['0', '0']];
+const TAULA_ESPORT = [['1', '6'], ['1.5', '6.193147181'], ['2', '6.098612289'], ['2.5', '5.886294361'], ['3', '5.609437912'], ['3.5', '5.291759469'], ['4', '4.945910149'], ['4.5', '4.579441542'], ['5', '4.197224577'], ['5.5', '3.802585093'], ['6', '3.397895273']];
+const TAULA_EXTREMS = [['-2', '-2', '-0.6'], ['-1', '-2.5', '0'], ['0', '0', '5'], ['1', '2.5', '0'], ['2', '2', '-0.6']];
 
 M.fitxes.push(
 
+{
+  id: 'pau-ana-23s-q4',
+  inici: calc(D),
+  passos: [
+    {tecles: ['menu', '3'], pantalla: definicio('f'),
+      text: '[calc]Calcularàs $f$ en dos punts: fes-ne una taula. [[menu]] i 3 ({{Tabla}}): la calculadora demana $f(x)$.[/calc]'},
+    {tecles: ['neg', '3', 'x', 'mes', 'alpha', 'exp', 'pot', '2', 'x', 'right', 'menys', '1'], pantalla: definicio('f', F_E),
+      text: '[calc]Escriu $-3x+e^{2x}-1$. El signe del principi és [[neg]]; la $e$ és [[alpha]] [[exp]]; l\'exponent, amb [[pot]]: escriu $2x$ i surt de l\'exponent amb [[right]] abans del $-1$.[/calc]'},
+    {tecles: ['exe', 'exe'], pantalla: X2.rang(['1', '5', '1']),
+      text: '[calc]Prem [[exe]]: demana $g(x)$. No en cal cap: torna a prémer [[exe]] i surt el rang.[/calc]'},
+    {tecles: ['neg', '1', 'exe', '0', 'exe', '1', 'exe'], pantalla: X2.taula(TAULA_E, 0, 0, false),
+      parcials: {5: X2.rang(['-1', '0', '1'], 2, '1')},
+      text: '[calc]{{Inic.}} $-1$ (amb [[neg]]), {{Final}} 0 i {{Paso}} 1, cada un amb [[exe]]: surt la taula.[/calc]'},
+    {tecles: ['right'], pantalla: X2.taula(TAULA_E, 0, 1, false),
+      text: '[calc]Passa a la columna de $f$ amb [[right]]: a baix hi ha el valor sencer.[/calc] [mat]$f(-1)\\approx 2{,}135>2$.[/mat]'},
+    {tecles: ['down'], pantalla: X2.taula(TAULA_E, 1, 1, false),
+      text: '[mat]$f(0)=0<2$. La funció $g(x)=f(x)-2$ és contínua, $g(-1)>0$ i $g(0)<0$: pel teorema de Bolzano, hi ha un $c\\in(-1,\\,0)$ amb $f(c)=2$. ✓[/mat]'},
+    {error: true, tecles: ['menu', '1', 'neg', '3', 'lpar', 'neg', '1', 'rpar', 'mes', 'alpha', 'exp', 'pot', '2', 'right', 'lpar', 'neg', '1', 'rpar', 'menys', '1', 'exe'],
+      pantalla: marca(calc(D, '-3(-1)+e^{2}(-1)-1', '-5.389056099'), 'resultat'),
+      text: '[calc]!!Error típic!!: torna a {{Calcular}} ([[menu]] i 1) i calcula $f(-1)$ sortint de l\'exponent amb [[right]] abans de la $x$: la calculadora fa $e^2\\cdot(-1)$ en lloc d\'$e^{-2}$.[/calc] [mat]No pot ser: $e^{-2}$ és positiu i petit, i $f(-1)$ ha de ser una mica més gran que 2.[/mat]'},
+  ],
+  relacionades: ['pau-ana-24i-q1'],
+},
 {
   id: 'pau-ana-24i-q1',
   inici: calc(D),
@@ -153,6 +183,75 @@ M.fitxes.push(
   },
   */
   relacionades: ['canvia-radians', 'exacte-decimal', 'ans', 'barrow', 'mode-decimal'],
+},
+{
+  id: 'pau-ana-26j-q4a',
+  inici: calc(D),
+  passos: [
+    {tecles: ['frac', '1', '0', 'shift', 'exp', 'down', 'shift', 'exp', 'mes', '4'], pantalla: calc(D, '\\frac{10\\pi}{\\pi+4}'),
+      text: '[calc]Escriu $x$ amb [[frac]]: a dalt $10\\pi$ (π és [[shift]] [[exp]]), [[down]] i, a baix, $\\pi+4$.[/calc]'},
+    {tecles: ['shift', 'exe'], pantalla: marca(calc(D, '\\frac{10\\pi}{\\pi+4}', '4.399008465'), 'resultat'),
+      text: '[calc]És una longitud: demana el decimal amb [[shift]] [[exe]] (≈).[/calc] [mat]La barana del cercle fa 4,40 m.[/mat] [calc]La calculadora la desa a [[ans]] amb tots els decimals.[/calc]'},
+    {tecles: ['1', '0', 'menys', 'ans', 'exe'], pantalla: marca(calc(D, '10-\\mathrm{Ans}', '5.600991535'), 'resultat'),
+      text: '[calc]La del quadrat és $10-\\mathrm{Ans}$: escriu 10, [[menys]], [[ans]] i prem [[exe]].[/calc] [mat]La barana del quadrat fa 5,60 m.[/mat]'},
+    {tecles: ['frac', 'lpar', '1', '0', 'menys', 'ans', 'rpar', 'x2', 'down', '4', 'shift', 'exp', 'right', 'mes', 'lpar', 'frac', 'ans', 'down', '4', 'right', 'rpar', 'x2'],
+      pantalla: calc(D, '\\frac{(10-\\mathrm{Ans})^{2}}{4\\pi}+(\\frac{\\mathrm{Ans}}{4})^{2}', '', {hist: true}),
+      text: '[mat]Ara [[ans]] és la barana del quadrat, i la del cercle és $10-\\mathrm{Ans}$.[/mat] [calc]Escriu $S$ amb [[ans]], sense copiar cap decimal: $\\frac{(10-\\mathrm{Ans})^2}{4\\pi}+\\left(\\frac{\\mathrm{Ans}}{4}\\right)^2$.[/calc]'},
+    {tecles: ['shift', 'exe'], pantalla: marca(calc(D, '\\frac{(10-\\mathrm{Ans})^{2}}{4\\pi}+(\\frac{\\mathrm{Ans}}{4})^{2}', '3.500619709'), 'resultat'),
+      text: '[calc]Prem [[shift]] [[exe]] (≈).[/calc] [mat]La superfície mínima és $S\\approx 3{,}50\\,\\text{m}^2$.[/mat]'},
+  ],
+  relacionades: ['ans', 'pau-ana-25i-q4a'],
+},
+{
+  id: 'pau-pro-26j2-q3',
+  inici: calc(D),
+  passos: [
+    {tecles: ['menu', '3'], pantalla: definicio('f'),
+      text: '[calc]Calcularàs $y$ en diversos punts: fes-ne una taula. [[menu]] i 3 ({{Tabla}}): la calculadora demana $f(x)$.[/calc]'},
+    {tecles: ['7', 'menys', 'x', 'mes', 'ln', '2', 'x', 'menys', '1', 'rpar'], pantalla: definicio('f', F_ESPORT),
+      text: '[calc]Escriu $7-x+\\ln(2x-1)$. La $x$ és la tecla [[x]], i ln és la tecla [[ln]].[/calc]'},
+    {tecles: ['exe', 'exe'], pantalla: X2.rang(['1', '5', '1']),
+      text: '[calc]Prem [[exe]]: demana $g(x)$. No en cal cap: torna a prémer [[exe]] i surt el rang.[/calc]'},
+    {tecles: ['1', 'exe', '6', 'exe', '0', 'punt', '5', 'exe'], pantalla: X2.taula(TAULA_ESPORT, 0, 0, false),
+      parcials: {7: X2.rang(['1', '6', '0.5'], 2, '0.5')},
+      text: '[mat]En un interval tancat, el màxim i el mínim absoluts són al punt crític o als extrems de l\'interval: cal $y(1)$, $y(1{,}5)$ i $y(6)$.[/mat] [calc]{{Inic.}} 1, {{Final}} 6 i {{Paso}} 0.5, cada un amb [[exe]]: surt la taula.[/calc]'},
+    {tecles: ['right'], pantalla: X2.taula(TAULA_ESPORT, 0, 1, false),
+      text: '[calc]Passa a la columna de $f$ amb [[right]].[/calc] [mat]$y(1)=6$.[/mat]'},
+    {tecles: ['down'], pantalla: X2.taula(TAULA_ESPORT, 1, 1, false),
+      text: '[mat]$y(1{,}5)\\approx 6{,}193$. A partir d\'aquí, els valors baixen.[/mat]'},
+    {tecles: ['down', 'down', 'down', 'down', 'down', 'down', 'down', 'down', 'down'], pantalla: X2.taula(TAULA_ESPORT, 10, 1, false),
+      text: '[calc]Baixa fins a l\'última fila, $x=6$.[/calc] [mat]$y(6)\\approx 3{,}398$. El màxim és de 6,19 h d\'esport (amb $x=1{,}5$), i el mínim, de 3,40 h (amb $x=6$).[/mat]'},
+    {error: true, tecles: ['menu', '1', '7', 'menys', '6', 'mes', 'shift', 'neg', '1', '1', 'rpar', 'exe'], pantalla: marca(calc(D, '7-6+\\log(11)', '2.041392685'), 'resultat'),
+      text: '[calc]!!Error típic!!: torna a {{Calcular}} ([[menu]] i 1) i calcula $y(6)$ escrivint ln amb la tecla log ([[shift]] [[neg]]): surt 2.041392685 i no 3.397895273.[/calc] [mat]log és el logaritme en base 10, no el neperià.[/mat]'},
+  ],
+  relacionades: ['logaritmes'],
+},
+{
+  id: 'pau-ana-26s-q1',
+  inici: calc(D),
+  passos: [
+    {tecles: ['menu', '3'], pantalla: definicio('f'),
+      text: '[calc]Una sola taula et dona els signes de $f\'$ i els valors de $f$. [[menu]] i 3 ({{Tabla}}).[/calc]'},
+    {tecles: ['frac', '5', 'x', 'down', 'x', 'x2', 'mes', '1'], pantalla: definicio('f', F_FUNCIO),
+      text: '[calc]La funció, sempre a $f(x)$: la fracció $\\frac{5x}{x^2+1}$ amb [[frac]].[/calc]'},
+    {tecles: ['exe', 'frac', '5', 'lpar', '1', 'menys', 'x', 'x2', 'rpar', 'down', 'lpar', 'x', 'x2', 'mes', '1', 'rpar', 'x2'], pantalla: definicio('g', F_DERIVADA),
+      parcials: {0: definicio('g', '', true)},
+      text: '[calc]Prem [[exe]]. La derivada, sempre a $g(x)$: $\\frac{5(1-x^2)}{(x^2+1)^2}$.[/calc]'},
+    {tecles: ['exe', 'neg', '2', 'exe', '2', 'exe', '1', 'exe'], pantalla: X2.taula(TAULA_EXTREMS, 0, 0, true),
+      parcials: {0: X2.rang(['1', '5', '1']), 6: X2.rang(['-2', '2', '1'], 2, '1')},
+      text: '[calc]Prem [[exe]] i, al rang, {{Inic.}} $-2$ (amb [[neg]]), {{Final}} 2 i {{Paso}} 1, cada un amb [[exe]]: surt la taula.[/calc]'},
+    {tecles: ['right', 'right'], pantalla: X2.taula(TAULA_EXTREMS, 0, 2, true),
+      text: '[mat]Per saber el signe de $f\'$ a cada interval, n\'hi ha prou amb un punt.[/mat] [calc]Ves a la columna de $g$ amb dos cops [[right]].[/calc] [mat]$f\'(-2)=-0{,}6<0$: $f$ decreix a $(-\\infty,-1)$.[/mat]'},
+    {tecles: ['down', 'down'], pantalla: X2.taula(TAULA_EXTREMS, 2, 2, true),
+      text: '[mat]$f\'(0)=5>0$: $f$ creix a $(-1,\\,1)$.[/mat]'},
+    {tecles: ['down', 'down'], pantalla: X2.taula(TAULA_EXTREMS, 4, 2, true),
+      text: '[mat]$f\'(2)=-0{,}6<0$: $f$ decreix a $(1,+\\infty)$.[/mat]'},
+    {tecles: ['left', 'up'], pantalla: X2.taula(TAULA_EXTREMS, 3, 1, true),
+      text: '[calc]A la columna de $f$, la fila $x=1$.[/calc] [mat]A $x=1$, $f$ passa de créixer a decréixer: hi ha un màxim relatiu a $\\left(1,\\frac{5}{2}\\right)$.[/mat]'},
+    {tecles: ['up', 'up'], pantalla: X2.taula(TAULA_EXTREMS, 1, 1, true),
+      text: '[mat]A $x=-1$, $f$ passa de decréixer a créixer: hi ha un mínim relatiu a $\\left(-1,-\\frac{5}{2}\\right)$.[/mat]'},
+  ],
+  relacionades: [],
 },
 {
   id: 'pau-pro-24i-q4',

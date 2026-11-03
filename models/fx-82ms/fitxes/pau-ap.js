@@ -3,7 +3,8 @@
    ───────────────────────────────────────────────────────────────────
    NOMÉS DADES. Els mateixos exercicis, enunciats i ids que a la CW,
    menys pau-ana-25j-q1 (calcular f en deu punts sense f(x) és massa
-   llarg). Sense f(x), una funció en diversos punts es calcula amb la
+   llarg) i pau-ana-26s-q1 (cinc avaluacions de f i de f′ sense f(x) ni
+   g(x), també massa llarg). Sense f(x), una funció en diversos punts es calcula amb la
    repetició: ◀ torna a l'expressió i només es canvia el nombre (sense
    desar res en variables).
    ═══════════════════════════════════════════════════════════════════ */
@@ -15,6 +16,21 @@ const {D, R} = M.comu;
 
 M.fitxes.push(
 
+{
+  id: 'pau-ana-23s-q4',
+  inici: calc(D),
+  passos: [
+    {tecles: ['neg', '3', 'lpar', 'neg', '1', 'rpar', 'mes', 'shift', 'ln', 'lpar', '2', 'lpar', 'neg', '1', 'rpar', 'rpar', 'menys', '1'],
+      pantalla: calc(D, '-3(-1)+e^(2(-1))-1'),
+      text: '[calc]La fx-82MS no pot desar una funció: escriu directament $f(-1)=-3(-1)+e^{2(-1)}-1$. Els signes negatius són [[neg]]; $e^x$ és [[shift]] [[ln]], i tot l\'exponent va entre parèntesis.[/calc]'},
+    {tecles: ['igual'], pantalla: marca(calc(D, '-3(-1)+e^(2(-1))-1', '2.135335283'), 'resultat'),
+      text: '[calc]Prem [[igual]]: $f(-1)\\approx 2{,}135>2$.[/calc] [mat]I $f(0)=0+1-1=0<2$, de cap. La funció $g(x)=f(x)-2$ és contínua, $g(-1)>0$ i $g(0)<0$: pel teorema de Bolzano, hi ha un $c\\in(-1,\\,0)$ amb $f(c)=2$. ✓[/mat]'},
+    {error: true, tecles: ['ac', 'neg', '3', 'lpar', 'neg', '1', 'rpar', 'mes', 'shift', 'ln', '2', 'lpar', 'neg', '1', 'rpar', 'menys', '1', 'igual'],
+      pantalla: marca(calc(D, '-3(-1)+e^2(-1)-1', '-5.389056099'), 'resultat'),
+      text: '[calc]!!Error típic!!: esborra amb [[ac]] i escriu l\'exponent sense parèntesis: la calculadora fa $e^2\\cdot(-1)$ en lloc d\'$e^{-2}$.[/calc] [mat]No pot ser: $e^{-2}$ és positiu i petit, i $f(-1)$ ha de ser una mica més gran que 2.[/mat]'},
+  ],
+  relacionades: ['pau-ana-24i-q1'],
+},
 {
   id: 'pau-ana-24i-q1',
   inici: calc(D),
@@ -69,6 +85,39 @@ M.fitxes.push(
       text: '[calc]Ara [[per]] 750: després d\'un resultat, el càlcul comença amb Ans, sense arrodonir.[/calc] [mat]El preu del vitrall és de $3\\,727{,}92$ €.[/mat]'},
   ],
   relacionades: ['canvia-radians', 'ans'],
+},
+{
+  id: 'pau-ana-26j-q4a',
+  inici: calc(D),
+  passos: [
+    {tecles: ['1', '0', 'shift', 'exp', 'entre', 'lpar', 'shift', 'exp', 'mes', '4', 'rpar'], pantalla: calc(D, '10π÷(π+4)'),
+      text: '[calc]Escriu $x=10\\pi\\div(\\pi+4)$: π és [[shift]] [[exp]], i el denominador va entre parèntesis.[/calc]'},
+    {tecles: ['igual'], pantalla: marca(calc(D, '10π÷(π+4)', '4.399008465'), 'resultat'),
+      text: '[calc]Prem [[igual]].[/calc] [mat]La barana del cercle fa 4,40 m.[/mat] [calc]La calculadora la desa a [[ans]] amb tots els decimals.[/calc]'},
+    {tecles: ['1', '0', 'menys', 'ans', 'igual'], pantalla: marca(calc(D, '10-Ans', '5.600991535'), 'resultat'),
+      text: '[calc]La del quadrat és $10-\\mathrm{Ans}$: escriu 10, [[menys]], [[ans]] i prem [[igual]].[/calc] [mat]La barana del quadrat fa 5,60 m.[/mat]'},
+    {tecles: ['lpar', '1', '0', 'menys', 'ans', 'rpar', 'x2', 'entre', 'lpar', '4', 'shift', 'exp', 'rpar', 'mes', 'lpar', 'ans', 'entre', '4', 'rpar', 'x2'],
+      pantalla: calc(D, '(10-Ans)²÷(4π)+(Ans÷4)²'),
+      text: '[mat]Ara [[ans]] és la barana del quadrat, i la del cercle és $10-\\mathrm{Ans}$.[/mat] [calc]Escriu $S$ amb [[ans]], sense copiar cap decimal: $(10-\\mathrm{Ans})^2\\div(4\\pi)+(\\mathrm{Ans}\\div 4)^2$.[/calc]'},
+    {tecles: ['igual'], pantalla: marca(calc(D, '(10-Ans)²÷(4π)+(Ans÷4)²', '3.500619709'), 'resultat'),
+      text: '[calc]Prem [[igual]].[/calc] [mat]La superfície mínima és $S\\approx 3{,}50\\,\\text{m}^2$.[/mat]'},
+  ],
+  relacionades: ['ans', 'pau-ana-25i-q4a'],
+},
+{
+  id: 'pau-pro-26j2-q3',
+  inici: calc(D),
+  passos: [
+    {tecles: ['7', 'menys', '1', 'punt', '5', 'mes', 'ln', 'lpar', '2', 'per', '1', 'punt', '5', 'menys', '1', 'rpar'], pantalla: calc(D, '7-1.5+ln (2×1.5-1)'),
+      text: '[mat]En un interval tancat, el màxim i el mínim absoluts són al punt crític o als extrems de l\'interval: cal $y(1)$, $y(1{,}5)$ i $y(6)$. De cap, $y(1)=7-1+\\ln 1=6$.[/mat] [calc]La fx-82MS no pot desar una funció: escriu directament $y(1{,}5)$. ln és la tecla [[ln]].[/calc]'},
+    {tecles: ['igual'], pantalla: marca(calc(D, '7-1.5+ln (2×1.5-1)', '6.193147181'), 'resultat'),
+      text: '[calc]Prem [[igual]].[/calc] [mat]$y(1{,}5)\\approx 6{,}193$.[/mat]'},
+    {tecles: ['7', 'menys', '6', 'mes', 'ln', 'lpar', '2', 'per', '6', 'menys', '1', 'rpar', 'igual'], pantalla: marca(calc(D, '7-6+ln (2×6-1)', '3.397895273'), 'resultat'),
+      text: '[calc]Ara $y(6)$, igual.[/calc] [mat]$y(6)\\approx 3{,}398$. El màxim és de 6,19 h d\'esport (amb $x=1{,}5$), i el mínim, de 3,40 h (amb $x=6$).[/mat]'},
+    {error: true, tecles: ['ac', '7', 'menys', '6', 'mes', 'log', 'lpar', '2', 'per', '6', 'menys', '1', 'rpar', 'igual'], pantalla: marca(calc(D, '7-6+log (2×6-1)', '2.041392685'), 'resultat'),
+      text: '[calc]!!Error típic!!: esborra amb [[ac]] i calcula $y(6)$ amb la tecla [[log]] en lloc de [[ln]]: surt 2.041392685 i no 3.397895273.[/calc] [mat]log és el logaritme en base 10, no el neperià.[/mat]'},
+  ],
+  relacionades: [],
 },
 {
   id: 'pau-pro-24i-q4',
