@@ -193,6 +193,11 @@ a{color:inherit}
    motor.js: l'alçada dividida per l'amplada). Així les tecles mantenen la forma a qualsevol mida. L'amplada surt
    de l'alçada de la finestra (vegeu DISPOSICIÓ). Colors, cantonades i formes, a models/<id>/estil.css. */
 .calculadora{position:relative; container-type:inline-size; flex-shrink:0; width:min(100%, 340px)}
+/* Abans de començar (pas 0, body sense .en-marxa, reproductor.js): la calculadora encara és inactiva, al 30 %
+   d'opacitat, i els passos no es veuen (només «Prem ▶ per començar»). En prémer ▶ tot apareix. */
+.pagina-fitxa .calculadora{transition:opacity .4s ease-out}
+body.pagina-fitxa:not(.en-marxa) .calculadora{opacity:.3}
+body.pagina-fitxa:not(.en-marxa) .passos:not(.passos-ara-tu) > .pas:not(.zero){display:none}
 /* La pantalla: un contenidor; dins, cqw és el percentatge de l'amplada de la pantalla */
 .lcd{position:absolute; container-type:inline-size; overflow:hidden}
 .lcd-pantalla{position:absolute; inset:0}

@@ -20,6 +20,8 @@ Web no oficial, sense relació amb el fabricant de la calculadora.
   quan l'alumne estigui a punt. Les primeres visites surten uns segons dins de cercles grocs (4 s la primera, cada
   cop menys, i gens a partir de la sisena); després, discretes. L'últim element de la llista és «Prova-ho tu» (o «Ara tu»): s'hi va amb ▶ o
   clicant-lo.
+- En obrir una fitxa només es veu l'enunciat: els passos no hi són i la calculadora surt esvaïda (encara inactiva).
+  En prémer ▶, tot apareix.
 - Al ⚙ de dalt a la dreta de la fitxa: «Escollir calculadora», l'idioma i el **color del cursor** (16 colors; el navegador
   el recorda).
 - A dalt de la portada, abans dels blocs numerats, tres bombolles a totes dues etapes, d'una sola línia: «Interpretar els indicadors de pantalla»,

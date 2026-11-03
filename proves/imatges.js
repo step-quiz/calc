@@ -52,12 +52,15 @@ function cataleg() {
     await pagina.waitForTimeout(400);
     // Sense el ressaltat del reproductor (tecles del pas, ordre, cursor) ni cap marca de la pantalla
     await pagina.evaluate(() => {
+      // Al pas 0 la calculadora surt esvaïda (inactiva): per a la foto, sencera
+      document.body.classList.add('en-marxa');
       for (const e of document.querySelectorAll('.calculadora *')) {
         e.classList.remove('del-pas', 'pendent', 'premuda', 'marcat');
         e.removeAttribute('data-ordre');
       }
       for (const e of document.querySelectorAll('.cursor-ma, .ma, .lcd-cursor, .cursor-tex')) e.style.visibility = 'hidden';
     });
+    await pagina.waitForTimeout(500);   // la transició d'opacitat
     const desti = path.join(ARREL, 'models', d.id, d.imatge);
     await (await pagina.$('.calculadora')).screenshot({path: desti, omitBackground: true});
     console.log(`${d.id}: ${path.relative(ARREL, desti)} (${Math.round(fs.statSync(desti).size / 1024)} kB)`);

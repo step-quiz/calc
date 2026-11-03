@@ -4,6 +4,11 @@ Què ha canviat a cada versió del web, de la més nova a la més antiga. El fun
 `README.md` i `ARCHITECTURE.md`; aquí només hi ha la història. El número de versió és `VERSIO` a
 `js/nucli/models.js` i surt al peu de les pàgines.
 
+## Versió 83 (3/11/2026)
+
+- En obrir una fitxa, abans de començar, només es veu l'enunciat: la llista de passos no hi és i la calculadora surt
+  esvaïda (al 30 %), perquè es vegi que encara és inactiva. En prémer ▶, apareixen els passos i la calculadora sencera.
+
 ## Versió 82 (3/11/2026)
 
 - Textos revisats per David amb l'editor d'enunciats: 41 fitxes (enunciats, títols, tancaments i «Prova-ho tu»; també
