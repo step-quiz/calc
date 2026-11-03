@@ -223,8 +223,8 @@ sentence, closing text included, is `[mat]` or `[calc]` (test).
   the sentence. Done steps are faded. With D2 (default) the list ends with one more numbered row, «Ara tu» or «Prova-ho
   tu» (`.pas-final`, `opcions.nomFinal`): clicking it, or ▶ from the last step, opens that screen.
 - **Invitation to go on**: once the current step has finished and something follows (another step or the «Ara tu» /
-  «Prova-ho tu» row), two thin arrows appear under its box, pointing down to the next row (`.convida`: they fade in after
-  1.2 s at 55 % opacity and bob gently; no bob under `prefers-reduced-motion`; red velvet in the error zone). The 22 px
+  «Prova-ho tu» row), two thin arrows appear under its box, pointing down to the next row (`.convida`: after 1.2 s they appear at full
+  opacity and 1.4× size for 4 s, then settle at 55 % and normal size, and bob gently; no bob under `prefers-reduced-motion`; red velvet in the error zone). The 22 px
   gap for them (`.te-seguent`) is there from the start of the step, so the list never jumps.
 - **Error zone**: while the current step has `error: true`, `body.zona-error` turns every border red velvet (`--vellut`)
   and tints the page background 20 %. The first error step after a result starts with AC (test).

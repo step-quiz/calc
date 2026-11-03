@@ -53,7 +53,7 @@ Extra screen types from variants: `x2-apps`, `x2-rang`, `x2-taula`.
 - Error-zone steps (`error: true`); if a fitxa ends in error, a closing step (`tancament`) is appended.
 - Barrow «Ara tu» is **disabled** (commented block «Ara tu» DESACTIVAT in each model's `pau.js`).
 
-## 5. Work done in recent conversations (versions 56 → 79)
+## 5. Work done in recent conversations (versions 56 → 80)
 
 - **v56–57**: fx-570/991SP X II complete (drawing from 626×1333 photo, numbered menus, CALC, Verificar app). Speed «lenta»
   slowed twice (3.01); in v74 «normal» and «lenta» were made 15 % slower (1.65 → 1.90, 3.01 → 3.46).
@@ -104,6 +104,8 @@ Extra screen types from variants: `x2-apps`, `x2-rang`, `x2-taula`.
   field → separating rule in T5/T6 (Batx).
 - **v79**: separating rule pure black, 30 % more space; «Arrels quadrades, cúbiques, ...»; `grau-puntual` replaced by
   `graus-radians` «Convertir de graus a radiants» (conversion factor, error zone with the factor upside down).
+- **v80**: invitation arrows strong (opacity 1, scale 1.4) for 4 s, then 55 %; home list hover = soft tint of the block
+  colour + thick black border (`box-shadow` 1.5 px, no layout shift); `proves/editor/` tooling (§6b).
 - David's standing preference: ask him questions with the AskUserQuestion multiple-choice dialog, never as free text.
 
 ## 6. UX Laboratory (the big item of this session)
@@ -132,6 +134,21 @@ Extra screen types from variants: `x2-apps`, `x2-rang`, `x2-taula`.
 - Older artifacts: «Calculadores noves» https://claude.ai/artifact/XeQzzHmcv2H4w1RUe5p4XJ, «Revisió de calc-main»
   https://claude.ai/artifact/FWxCJbjpR6jjS2SmD6SbTz.
 
+## 6b. «Editor d'enunciats» artifact (for David)
+
+- https://claude.ai/artifact/VzPYJxLHm7KbkkhjGGiJWf (slug `eac32b03-d4f9-46df-b39b-e8151b0aaa54`, owner David). David
+  edits titles, statements, `tancament`, «Prova-ho tu» and per-model text overrides with a live KaTeX preview.
+- Built from `proves/editor/plantilla.html` + `node proves/editor/extreu.js . > dades.json` injected at `/*DADES*/`, plus
+  `vendor/katex` and `vendor/lletres` copied as `katex/…` and `lletres/…`; published with publish_files; capability
+  `db` with rules `[{path:"", read:"view", write:"owner"}]`.
+- Edits live in `canvis/<exercise id>` = `{id, camps: {key: new text}, actualitzat, versio}`; keys: `titol`,
+  `enunciat`, `tancament`, `provaTu.enunciat`, `provaTu.solucio`, `variants.<model>[+<model>].<camp>` (a per-model
+  override; the model list says which `models/<id>/fitxes/` file holds it; `fx-570sp-cw` shares the CW files). Values are
+  runtime strings: re-escape for single-quoted JS (`\\`, `\'`, real newline → `\n`).
+- Workflow: David says «Aplica els canvis de l'editor d'enunciats» → `db_list canvis`, apply to `exercicis/*.js` /
+  model files, run the tests, deliver, then rebuild + republish the editor (new `versio`) and delete the applied docs.
+  Fallback: the page's «Copia tots els canvis» JSON, pasted in chat.
+
 ## 7. Tests (report results every delivery)
 
 - `KATEX=<katex 0.16.9 dist> node proves/comprova.js` → «Tot correcte» (~123 k checks, 251 fitxes, 1355 steps).
@@ -144,7 +161,7 @@ Extra screen types from variants: `x2-apps`, `x2-rang`, `x2-taula`.
 ## 8. Versioning & delivery protocol
 
 - Any served `.js`/`.css` change → bump `VERSIO` (`js/nucli/models.js`), every `?v=` in `index.html`/`fitxa.html`, and
-  the «Versió N» footer of `index.html` (test enforces). Current: **79**.
+  the «Versió N» footer of `index.html` (test enforces). Current: **80**.
 - Delivery = cumulative ZIP from the base commit, repo-root paths, excluding `_uploads/`. If David uploads the repo as a
   ZIP (no `.git`), `git init` it, commit it as the base and diff from that commit instead of `076cc6c`:
   `(git diff --name-only --diff-filter=AMR 076cc6c; git ls-files --others --exclude-standard) | sort -u | grep -v '^_uploads/' | zip -@ calc-versio-NN.zip`

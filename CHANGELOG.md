@@ -4,6 +4,14 @@ Què ha canviat a cada versió del web, de la més nova a la més antiga. El fun
 `README.md` i `ARCHITECTURE.md`; aquí només hi ha la història. El número de versió és `VERSIO` a
 `js/nucli/models.js` i surt al peu de les pàgines.
 
+## Versió 80 (3/11/2026)
+
+- Les dues fletxes que conviden a passar al pas següent surten ben visibles (més grans i del tot opaques) durant 4 s;
+  després es queden suaus, com fins ara.
+- Portada: en passar el ratolí per una fitxa de les targetes T1…T6, un fons suau del color del bloc (abans, el color
+  sencer) i una vora negra gruixuda.
+- Eina nova (no es publica a la web): `proves/editor/`, per a l'artifact «Editor d'enunciats».
+
 ## Versió 79 (3/11/2026)
 
 - Portada: la ratlla que separa els temes del T5 i del T6, negra i amb un 30 % més d'espai.

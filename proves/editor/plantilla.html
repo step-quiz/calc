@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="ca">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Editor d'enunciats — La calculadora, pas a pas</title>
+<link rel="stylesheet" href="lletres/lletres.css">
+<link rel="stylesheet" href="katex/katex.min.css">
+<script src="katex/katex.min.js"></script>
+<style>
+:root{--bg:#f2f0eb; --surface:#faf8f4; --border:#d3cec4; --txt:#1e293b; --muted:#64748b; --accent:#5b2a86; --hd:#4a4f57; --ok:#2f6b2f; --canvi:#b45309}
+*{box-sizing:border-box}
+html,body{margin:0; height:100%}
+body{font:15px/1.5 system-ui, sans-serif; color:var(--txt); background:var(--bg); display:grid; grid-template-rows:auto 1fr; min-height:100vh}
+header{background:var(--hd); color:#f1f5f9; padding:10px 16px; display:flex; flex-wrap:wrap; align-items:center; gap:10px 18px}
+header h1{margin:0; font:700 1.05rem 'Libre Baskerville', serif}
+header .estat{font:.78rem 'Source Code Pro', monospace; opacity:.85}
+header .dreta{margin-left:auto; display:flex; gap:8px; align-items:center}
+button{font:600 .8rem 'Source Code Pro', monospace; padding:6px 12px; border:1px solid #cbd5e1; border-radius:7px; background:var(--surface); color:var(--txt); cursor:pointer;
+  box-shadow:0 3px 0 #94a3b8; transition:transform .08s, box-shadow .08s}
+button:active{transform:translateY(3px); box-shadow:none}
+button:disabled{opacity:.45; cursor:default; transform:none; box-shadow:0 3px 0 #94a3b8}
+button.secundari{box-shadow:none; background:none; border-style:dashed; font-weight:400}
+header button.secundari{color:#f1f5f9; border-color:#94a3b8}
+main{display:grid; grid-template-columns:minmax(260px, 340px) 1fr; min-height:0}
+@media (max-width:820px){ main{grid-template-columns:1fr} nav{max-height:40vh} }
+nav{border-right:1px solid var(--border); overflow:auto; padding:10px; background:#efece6}
+nav input[type=search]{width:100%; padding:7px 10px; border:1px solid var(--border); border-radius:8px; font:inherit; background:var(--surface)}
+nav .filtres{display:flex; gap:12px; margin:8px 2px 4px; font-size:.78rem; color:var(--muted)}
+nav h2{font:600 .7rem 'Source Code Pro', monospace; letter-spacing:.06em; text-transform:uppercase; color:var(--muted); margin:14px 4px 4px}
+nav h3{font:700 .82rem 'Libre Baskerville', serif; margin:10px 4px 4px; color:var(--bloc, var(--txt))}
+nav ol{list-style:none; margin:0; padding:0}
+nav li a{display:flex; gap:8px; align-items:baseline; padding:5px 8px; border-radius:7px; color:inherit; text-decoration:none; font-size:.86rem}
+nav li a:hover{background:#e4e0d8}
+nav li a.actiu{background:var(--surface); box-shadow:inset 0 0 0 1.5px var(--accent)}
+nav li .n{font:.7rem 'Source Code Pro', monospace; color:var(--muted); min-width:1.6em; text-align:right}
+nav li .marca{margin-left:auto; color:var(--canvi); font-size:.8rem}
+section#editor{overflow:auto; padding:18px 22px 60px}
+.buit{color:var(--muted); margin-top:40px; text-align:center}
+.cap-fitxa{display:flex; flex-wrap:wrap; align-items:baseline; gap:6px 14px; margin-bottom:6px}
+.cap-fitxa h2{margin:0; font:700 1.15rem 'Libre Baskerville', serif}
+.cap-fitxa .id{font:.75rem 'Source Code Pro', monospace; color:var(--muted)}
+.cap-fitxa .on{font-size:.8rem; color:var(--muted)}
+.camp{margin:16px 0 22px; padding:14px; border:1px solid var(--border); border-radius:12px; background:#f7f5f0}
+.camp.canviat{border-color:var(--canvi); box-shadow:0 0 0 1px var(--canvi)}
+.camp-cap{display:flex; flex-wrap:wrap; align-items:center; gap:6px 10px; margin-bottom:8px}
+.camp-cap label{font:600 .78rem 'Source Code Pro', monospace; text-transform:uppercase; letter-spacing:.05em}
+.camp-cap .nota{font-size:.78rem; color:var(--muted)}
+.camp-cap .accions{margin-left:auto; display:flex; gap:6px}
+.camp-cap .accions button{padding:3px 8px; font-size:.72rem; box-shadow:0 2px 0 #94a3b8}
+textarea{width:100%; min-height:3.2em; resize:vertical; padding:9px 11px; border:1px solid var(--border); border-radius:8px; font:14px/1.55 'Source Code Pro', monospace; background:#fff; color:var(--txt)}
+textarea:focus{outline:2px solid var(--accent); outline-offset:1px}
+.vista{margin-top:8px; padding:12px 16px; border:1.5px solid var(--border); border-radius:12px; background:var(--surface); font:1.05rem/1.6 'Libre Baskerville', serif}
+.vista.titol{font-weight:700}
+.vista .frase-mat, .vista .frase-calc, .vista .frase-nota{display:block}
+.vista .frase-calc{font-family:system-ui, sans-serif; font-size:.95rem; margin-top:4px}
+.vista .frase-nota{font-style:italic; font-size:.95em; margin-top:4px}
+.vista .apartat{background:#fff3c4; border-radius:3px}
+.vista kbd{font:600 .78em system-ui, sans-serif; padding:1px 6px; border-radius:5px; background:#2b3138; color:#fff}
+.vista .opcio-menu{font-family:'Source Code Pro', monospace; font-size:.85em; padding:0 4px; border:1px solid var(--border); border-radius:4px; background:#fff}
+.vista .avis-error{font-weight:700; color:#9e1b32}
+.vista .err{color:#9e1b32}
+.original{margin-top:6px; font-size:.78rem; color:var(--muted)}
+.original summary{cursor:pointer}
+.original pre{white-space:pre-wrap; font:12.5px/1.5 'Source Code Pro', monospace; background:#fff; border:1px dashed var(--border); border-radius:6px; padding:6px 8px; margin:6px 0 0}
+.ajuda{font-size:.82rem; color:var(--muted); background:#efece6; border-radius:10px; padding:10px 14px; margin:8px 0 18px}
+.ajuda code{font:12.5px 'Source Code Pro', monospace; background:#fff; padding:0 4px; border-radius:4px; color:var(--txt)}
+dialog{border:0; border-radius:12px; padding:18px; width:min(760px, 94vw); box-shadow:0 20px 50px rgba(0,0,0,.35)}
+dialog::backdrop{background:rgba(15,23,42,.45)}
+dialog textarea{min-height:40vh; font-size:12px}
+dialog .botons{display:flex; gap:8px; justify-content:flex-end; margin-top:10px}
+</style>
+</head>
+<body>
+<header>
+  <h1>Editor d'enunciats</h1>
+  <span class="estat" id="estat">Carregant…</span>
+  <div class="dreta">
+    <span class="estat" id="recompte"></span>
+    <button type="button" id="exporta" class="secundari">Copia tots els canvis</button>
+  </div>
+</header>
+<main>
+  <nav>
+    <input type="search" id="cerca" placeholder="Cerca (títol, enunciat, id)…" aria-label="Cerca">
+    <div class="filtres"><label><input type="checkbox" id="nomesCanvis"> Només les que he canviat</label></div>
+    <div id="llista"></div>
+  </nav>
+  <section id="editor"><p class="buit">Tria una fitxa de la llista.</p></section>
+</main>
+<dialog id="dlg">
+  <p style="margin-top:0">Tots els canvis, per si Claude no els pot llegir de l'artifact: copia aquest text i enganxa'l al xat.</p>
+  <textarea id="dlgText" readonly></textarea>
+  <div class="botons"><button type="button" id="dlgCopia">Copia</button><button type="button" id="dlgTanca" class="secundari">Tanca</button></div>
+</dialog>
+<script id="dades" type="application/json">/*DADES*/</script>
+<script>
+'use strict';
+const D = JSON.parse(document.getElementById('dades').textContent);
+const $ = s => document.querySelector(s);
+const escapa = s => String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+
+/* ── Com es veu un text a la web (la mateixa mini-sintaxi que js/nucli/text.js) ── */
+function formula(t, display) {
+  try { return katex.renderToString(t, {throwOnError: true, displayMode: display}); }
+  catch (e) { return `<span class="err" title="${escapa(e.message)}">${escapa(display ? '$$' + t + '$$' : '$' + t + '$')} ⚠</span>`; }
+}
+function textSimple(t) {
+  return String(t || '').split(/(\$\$[^$]+\$\$|\$[^$]+\$|\[\[[^\]]+\]\]|\{\{[^}]+\}\}|!![^!]+!!)/).map(tros => {
+    if (/^\$\$[^$]+\$\$$/.test(tros)) return formula(tros.slice(2, -2), true);
+    if (/^\$[^$]+\$$/.test(tros)) return formula(tros.slice(1, -1), false);
+    if (/^\[\[[^\]]+\]\]$/.test(tros)) return `<kbd>${escapa(tros.slice(2, -2))}</kbd>`;
+    if (/^\{\{[^}]+\}\}$/.test(tros)) return `<span class="opcio-menu">${escapa(tros.slice(2, -2))}</span>`;
+    if (/^!![^!]+!!$/.test(tros)) return `<span class="avis-error">${escapa(tros.slice(2, -2))}</span>`;
+    return escapa(tros).replace(/\n/g, '<br>');
+  }).join('');
+}
+function ambApartats(t) {
+  return String(t || '').split(/((?<!\[)\[[a-z]\](?!\])[\s\S]*?\[\/[a-z]\])/).map(tros => {
+    const m = /^\[([a-z])\]([\s\S]*)\[\/\1\]$/.exec(tros);
+    return m ? `<span class="apartat">${textSimple(m[2])}</span>` : textSimple(tros);
+  }).join('');
+}
+function html(t) {
+  const trossos = String(t || '').split(/(\[(?:mat|calc|nota)\][\s\S]*?\[\/(?:mat|calc|nota)\])/);
+  const ambFrases = trossos.length > 1;
+  return trossos.map(tros => {
+    const m = /^\[(mat|calc|nota)\]([\s\S]*)\[\/\1\]$/.exec(tros);
+    if (m) return `<span class="frase-${m[1]}">${ambApartats(m[2])}</span>`;
+    return ambFrases && !tros.trim() ? '' : ambApartats(tros);
+  }).join('');
+}
+
+/* ── Els camps de cada fitxa: clau → {etiqueta, valor original} ── */
+const EX = new Map(D.exercicis.map(e => [e.id, e]));
+const curt = id => D.models[id] || id;
+function camps(e) {
+  const c = [];
+  c.push({clau: 'titol', etiqueta: 'Títol', nota: 'portada i capçalera', original: e.titol, titol: true});
+  c.push({clau: 'enunciat', etiqueta: 'Enunciat', nota: 'el pas 0', original: e.enunciat});
+  if (e.tancament !== undefined) c.push({clau: 'tancament', etiqueta: 'Tancament', nota: 'el pas que torna a la manera correcta', original: e.tancament});
+  if (e.provaTu) {
+    c.push({clau: 'provaTu.enunciat', etiqueta: 'Prova-ho tu · enunciat', nota: '', original: e.provaTu.enunciat});
+    c.push({clau: 'provaTu.solucio', etiqueta: 'Prova-ho tu · solució', nota: '', original: e.provaTu.solucio});
+  }
+  // Textos propis d'una calculadora (substitueixen el comú): els iguals s'agrupen (p. ex. les dues CW)
+  for (const camp of ['titol', 'enunciat', 'tancament']) {
+    const grups = new Map();
+    for (const [m, v] of Object.entries(e.variants || {})) if (v[camp] !== undefined) {
+      grups.set(v[camp], (grups.get(v[camp]) || []).concat(m));
+    }
+    for (const [valor, ms] of grups) c.push({clau: `variants.${ms.join('+')}.${camp}`, etiqueta: `${{titol: 'Títol', enunciat: 'Enunciat', tancament: 'Tancament'}[camp]} · només ${ms.map(curt).join(', ')}`,
+      nota: 'substitueix el text comú en aquesta calculadora', original: valor, titol: camp === 'titol'});
+  }
+  return c;
+}
+
+/* ── Els canvis: a la base de dades de l'artifact (Claude els llegeix) i, de reserva, al navegador ── */
+let db = null;
+const canvis = {};                      // id → {clau: valor}
+function llegeixLocal() { try { return JSON.parse(localStorage.getItem('editor-enunciats') || '{}'); } catch (e) { return {}; } }
+function desaLocal() { try { localStorage.setItem('editor-enunciats', JSON.stringify(canvis)); } catch (e) { /* sense memòria */ } }
+Object.assign(canvis, llegeixLocal());
+const pendents = new Map();             // id → temporitzador
+function estat(t) { $('#estat').textContent = t; }
+function desa(id) {
+  clearTimeout(pendents.get(id));
+  pendents.set(id, setTimeout(async () => {
+    pendents.delete(id);
+    desaLocal();
+    if (!db) { estat('Desat només en aquest navegador (fes servir «Copia tots els canvis»)'); return; }
+    try {
+      const c = canvis[id];
+      if (c && Object.keys(c).length) await db.doc('canvis/' + id).set({id, camps: c, actualitzat: new Date().toISOString(), versio: D.versio});
+      else await db.doc('canvis/' + id).delete();
+      estat('Desat ✓ ' + new Date().toLocaleTimeString('ca'));
+    } catch (e) { estat('No s\'ha pogut desar a l\'artifact: ' + (e && e.message || e)); }
+  }, 700));
+  estat('Desant…');
+  pinta();
+}
+
+/* ── La llista de l'esquerra ── */
+let triat = null;
+function pinta() {
+  const q = $('#cerca').value.trim().toLowerCase();
+  const nomes = $('#nomesCanvis').checked;
+  const etapes = [['batx', 'Batxillerat'], ['eso', 'ESO']];
+  const fets = new Set();
+  let out = '';
+  const petits = D.blocs.filter(b => b.petit);
+  const seccio = (nom, blocs) => {
+    let s = '';
+    for (const b of blocs) {
+      const fs = D.exercicis.filter(e => e.bloc === b.id).filter(e => !q || [e.id, e.titol, e.enunciat].join(' ').toLowerCase().includes(q))
+        .filter(e => !nomes || canvis[e.id]);
+      if (!fs.length) continue;
+      s += `<h3 style="--bloc:${b.color}">${escapa(b.titol)}</h3><ol>` + fs.map(e => {
+        const n = D.exercicis.filter(x => x.bloc === b.id).indexOf(e) + 1;
+        return `<li><a href="#${e.id}" data-id="${e.id}" class="${e.id === triat ? 'actiu' : ''}"><span class="n">${n}</span><span>${escapa(canvis[e.id] && canvis[e.id].titol !== undefined ? canvis[e.id].titol : e.titol)}</span>${canvis[e.id] ? '<span class="marca" title="Hi has fet canvis">●</span>' : ''}</a></li>`;
+      }).join('') + '</ol>';
+    }
+    return s ? `<h2>${nom}</h2>` + s : '';
+  };
+  out += seccio('Bombolles (totes dues etapes)', petits);
+  for (const [et, nom] of etapes) out += seccio(nom, D.blocs.filter(b => !b.petit && b.etapes.includes(et)));
+  $('#llista').innerHTML = out || '<p class="buit">Cap fitxa.</p>';
+  const n = Object.keys(canvis).length;
+  $('#recompte').textContent = n ? `${n} fitxa${n > 1 ? 'es' : ''} amb canvis` : '';
+}
+$('#llista').addEventListener('click', ev => {
+  const a = ev.target.closest('a[data-id]');
+  if (!a) return;
+  ev.preventDefault();
+  obre(a.dataset.id);
+});
+$('#cerca').addEventListener('input', pinta);
+$('#nomesCanvis').addEventListener('change', pinta);
+
+/* ── L'editor d'una fitxa ── */
+function obre(id) {
+  const e = EX.get(id);
+  if (!e) return;
+  triat = id;
+  try { history.replaceState(null, '', '#' + id); } catch (er) { /* sense history */ }
+  const bloc = D.blocs.find(b => b.id === e.bloc);
+  const ed = $('#editor');
+  ed.innerHTML = `<div class="cap-fitxa"><h2>${escapa(e.titol)}</h2><span class="id">${e.id}</span>`
+    + `<span class="on">${escapa(bloc ? bloc.titol : e.bloc)} · ${escapa(e.fitxer)} · ${(e.calculadores || []).map(curt).join(', ')}</span></div>`
+    + `<div class="ajuda">Edita el text i mira com queda a sota. <code>$…$</code> fórmula (LaTeX), <code>$$…$$</code> fórmula en línia pròpia, `
+    + `un salt de línia de veritat = salt de línia a la web, <code>• </code> per a les dades una per línia, <code>[nota]…[/nota]</code> fórmula donada, en cursiva, `
+    + `<code>[a]…[/a]</code> apartat, <code>[mat]…[/mat]</code> / <code>[calc]…[/calc]</code> frases, <code>[[exe]]</code> tecla, <code>{{Menú}}</code> opció d'un menú. `
+    + `Es desa sol. Quan acabis, digues a Claude «Aplica els canvis de l'editor d'enunciats».</div>`;
+  for (const c of camps(e)) {
+    const actual = canvis[id] && canvis[id][c.clau] !== undefined ? canvis[id][c.clau] : c.original;
+    const div = document.createElement('div');
+    div.className = 'camp';
+    div.innerHTML = `<div class="camp-cap"><label>${escapa(c.etiqueta)}</label>${c.nota ? `<span class="nota">${escapa(c.nota)}</span>` : ''}`
+      + `<span class="accions"><button type="button" data-fes="$">$ $</button><button type="button" data-fes="•">• dada</button>`
+      + `<button type="button" data-fes="nota">[nota]</button><button type="button" data-fes="desfes" class="secundari">Torna a l'original</button></span></div>`
+      + `<textarea spellcheck="true" lang="ca"></textarea><div class="vista${c.titol ? ' titol' : ''}"></div>`
+      + `<details class="original"><summary>Text original</summary><pre></pre></details>`;
+    const ta = div.querySelector('textarea'), vista = div.querySelector('.vista');
+    ta.value = actual;
+    div.querySelector('pre').textContent = c.original;
+    const ajusta = () => { ta.style.height = 'auto'; ta.style.height = (ta.scrollHeight + 2) + 'px'; };
+    const refresca = () => {
+      vista.innerHTML = html(ta.value);
+      div.classList.toggle('canviat', ta.value !== c.original);
+      ajusta();
+    };
+    ta.addEventListener('input', () => {
+      canvis[id] = canvis[id] || {};
+      if (ta.value === c.original) delete canvis[id][c.clau]; else canvis[id][c.clau] = ta.value;
+      if (!Object.keys(canvis[id]).length) delete canvis[id];
+      refresca();
+      desa(id);
+    });
+    div.querySelector('.accions').addEventListener('click', ev => {
+      const b = ev.target.closest('button');
+      if (!b) return;
+      const f = b.dataset.fes;
+      if (f === 'desfes') { ta.value = c.original; ta.dispatchEvent(new Event('input')); return; }
+      const [ini, fi] = [ta.selectionStart, ta.selectionEnd], sel = ta.value.slice(ini, fi);
+      const nou = f === '$' ? `$${sel}$` : f === 'nota' ? `[nota]${sel}[/nota]` : `\n• ${sel}`;
+      ta.setRangeText(nou, ini, fi, 'end');
+      if (f === '$' && !sel) ta.setSelectionRange(ini + 1, ini + 1);
+      if (f === 'nota' && !sel) ta.setSelectionRange(ini + 6, ini + 6);
+      ta.focus();
+      ta.dispatchEvent(new Event('input'));
+    });
+    ed.append(div);
+    requestAnimationFrame(refresca);
+  }
+  pinta();
+}
+
+/* ── Copia tots els canvis (per enganxar-los al xat si cal) ── */
+$('#exporta').addEventListener('click', () => {
+  $('#dlgText').value = JSON.stringify({versio: D.versio, canvis}, null, 1);
+  $('#dlg').showModal();
+});
+$('#dlgTanca').addEventListener('click', () => $('#dlg').close());
+$('#dlgCopia').addEventListener('click', async () => {
+  try { await navigator.clipboard.writeText($('#dlgText').value); $('#dlgCopia').textContent = 'Copiat ✓'; }
+  catch (e) { $('#dlgText').select(); $('#dlgCopia').textContent = 'Selecciona i copia amb Ctrl+C'; }
+});
+
+/* ── En obrir: la llista, la fitxa de l'adreça i, quan arriba, la base de dades de l'artifact ── */
+pinta();
+obre(location.hash.slice(1) || D.exercicis[0].id);
+estat(`Textos de la versió ${D.versio} · connectant…`);
+(async () => {
+  const temps = setTimeout(() => estat(`Textos de la versió ${D.versio} · sense connexió amb l'artifact: els canvis es desen en aquest navegador`), 10000);
+  try {
+    db = window.claude ? await window.claude.use('db') : null;
+    clearTimeout(temps);
+    if (!db) { estat(`Textos de la versió ${D.versio} · els canvis es desen en aquest navegador`); return; }
+    const snap = await db.collection('canvis').get();
+    const docs = snap && snap.docs ? snap.docs : (Array.isArray(snap) ? snap : []);
+    for (const d of docs) {
+      const v = typeof d.data === 'function' ? d.data() : d.data || d;
+      if (v && v.id && v.camps && v.versio === D.versio) canvis[v.id] = Object.assign({}, canvis[v.id] || {}, v.camps);
+    }
+    desaLocal();
+    estat(`Textos de la versió ${D.versio} · connectat: els canvis es desen a l'artifact`);
+    pinta();
+    if (triat) obre(triat);
+  } catch (e) {
+    clearTimeout(temps);
+    estat('No s\'ha pogut llegir l\'artifact: ' + (e && e.message || e));
+  }
+})();
+</script>
+</body>
+</html>
