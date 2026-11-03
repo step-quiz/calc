@@ -4,6 +4,11 @@ Què ha canviat a cada versió del web, de la més nova a la més antiga. El fun
 `README.md` i `ARCHITECTURE.md`; aquí només hi ha la història. El número de versió és `VERSIO` a
 `js/nucli/models.js` i surt al peu de les pàgines.
 
+## Versió 84 (3/11/2026)
+
+- L'enunciat es plega amb una animació de 0,9 s, com una cortina que puja, i la part de baix s'esvaeix a poc a poc.
+  En clicar-lo, es desplega també animat.
+
 ## Versió 83 (3/11/2026)
 
 - En obrir una fitxa, abans de començar, només es veu l'enunciat: la llista de passos no hi és i la calculadora surt

@@ -270,8 +270,16 @@ function construeixPagina(fitxa, bloc, germanes, contenidor) {
   if (ux('a2')) r.enunciat.title = 'Clica per veure o plegar l\'enunciat';
   if (ux('a2')) r.enunciat.addEventListener('click', e => {
     if (e.target.closest('button, a, dialog')) return;
+    mesuraEnunciat();
     r.enunciat.classList.toggle('desplegat');
   });
+  // L'alçada sencera de l'enunciat, perquè el plec (estil.css, A2) es pugui animar com una cortina
+  function mesuraEnunciat() { r.enunciat.style.setProperty('--alt-enunciat', r.enunciat.scrollHeight + 'px'); }
+  if (ux('a2')) {
+    requestAnimationFrame(mesuraEnunciat);
+    if (document.fonts) document.fonts.ready.then(mesuraEnunciat);
+    addEventListener('resize', mesuraEnunciat);
+  }
   // Palanques C4 i E2: la frase del pas actual surt fora de la llista, en gran (sota la calculadora o a la dreta)
   if (ux('c4') || ux('e2')) {
     r.fraseGran = element('div', {class: 'frase-gran', 'aria-hidden': 'true'});

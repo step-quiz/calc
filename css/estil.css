@@ -561,12 +561,15 @@ body, .capcalera{transition:background-color .25s}
 .ux-tots{font-family:var(--mono); font-size:12px; padding:5px 11px; border:1px solid var(--border); border-radius:999px; background:var(--surface); color:var(--muted); cursor:pointer}
 .ux-tots:hover, .ux-tots[aria-pressed="true"]{border-color:var(--cat); color:var(--cat)}
 
-/* A2 · Un cop començada la fitxa, l'enunciat es plega a una línia (en clicar-lo, es desplega) */
-.ux-a2 .enunciat{cursor:pointer}
-.ux-a2 body.en-marxa .enunciat:not(.desplegat){
-  max-height:calc(1.55em + 24px); overflow:hidden;
-  -webkit-mask-image:linear-gradient(#000 50%, transparent); mask-image:linear-gradient(#000 50%, transparent);
-}
+/* A2 · Un cop començada la fitxa, l'enunciat es plega a una línia (en clicar-lo, es desplega). El plec és una cortina
+   que puja en 0,9 s: max-height va de l'alçada sencera (--alt-enunciat, que mesura motor.js) a una línia, i la part de
+   baix s'esvaeix a poc a poc (--plec-fos, de 100 % a 50 %; @property perquè es pugui animar). */
+@property --plec-fos{syntax:'<percentage>'; inherits:false; initial-value:100%}
+.ux-a2 .enunciat{cursor:pointer; overflow:hidden; --plec-fos:100%; max-height:calc(var(--alt-enunciat, 40em) + 4px);
+  -webkit-mask-image:linear-gradient(#000 var(--plec-fos), transparent); mask-image:linear-gradient(#000 var(--plec-fos), transparent);
+  transition:max-height .9s cubic-bezier(.45,.05,.25,1), --plec-fos .9s ease-in-out}
+.ux-a2 body.en-marxa .enunciat:not(.desplegat){max-height:calc(1.55em + 24px); --plec-fos:50%}
+@media (prefers-reduced-motion: reduce){ .ux-a2 .enunciat{transition:none} }
 
 /* A3 · Capçalera mínima: «Escollir calculadora» i l'idioma, dins d'un ⚙ a la dreta */
 .ux-ajustos{position:relative; margin-left:auto}
