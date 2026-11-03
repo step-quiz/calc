@@ -237,7 +237,8 @@ sentence, closing text included, is `[mat]` or `[calc]` (test).
   D2 off it would appear below the step list). «Prova-ho tu» has
   only «Mostra la solució». «Ara tu» adds «Comprova-ho pas a pas» (olive background, its own ◀ ▶ player on the same
   calculator; touching the main player leaves it).
-- ◀ ↻ ▶ are the same size and style (▶ has no fill and never blinks).
+- ◀ ↻ ▶ are the same size and style (▶ has no fill and never blinks); on hover, a thicker border (1.5 px `box-shadow`)
+  and a light grey background. In «Prem ▶ …» the ▶ is drawn inside a small circle like the button (`.boto-inline`).
 - `?pas=N` opens step N; the URL is updated at every step. After 5 mouse
   clicks on ◀ ▶ with no arrow key ever used, a bubble reminds about the arrows (touch taps do not count). Keyboard
   shortcuts are ignored while a `<dialog>` (the enlarged figure) is open or a form control has focus.

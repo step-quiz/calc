@@ -286,9 +286,10 @@ body.pagina-fitxa:not(.en-marxa) .passos:not(.passos-ara-tu) > .pas:not(.zero){d
 .boto{
   width:40px; height:40px; padding:0; border-radius:50%;
   border:1px solid var(--border); background:var(--surface);
-  display:grid; place-items:center; cursor:pointer; transition:border-color .15s;
+  display:grid; place-items:center; cursor:pointer; transition:border-color .15s, background-color .15s, box-shadow .15s;
 }
-.boto:hover:not(:disabled){border-color:var(--cat)}
+/* En passar-hi el ratolí: vora més gruixuda (l'ombra la fa gruixuda sense moure res) i fons gris clar (◀ ↻ ▶ iguals) */
+.boto:hover:not(:disabled){border-color:var(--cat); box-shadow:0 0 0 1.5px var(--cat); background:#e7e5e0}
 .boto:disabled{opacity:.4; cursor:default}
 .boto svg{width:17px; height:17px; fill:currentColor}
 .velocitat{display:flex; align-items:center; gap:6px; margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted)}
@@ -387,6 +388,10 @@ body.zona-error .pas.actual.convida::after, body.error-suau .pas.actual.convida:
 .pas.zero.actual{display:block}
 .pas.zero .frase{padding:10px 14px}
 .icona-inline{width:1em; height:1em; vertical-align:-.12em; fill:currentColor}
+/* El ▶ de «Prem ▶ … per començar», dins d'un cercle, com el botó */
+.boto-inline{display:inline-grid; place-items:center; width:1.6em; height:1.6em; margin:0 .2em; vertical-align:middle; position:relative; top:-.08em;
+  border:1px solid var(--border); border-radius:50%; background:var(--surface)}
+.boto-inline .icona-inline{width:.8em; height:.8em; vertical-align:0}
 @media (hover:hover){ .pas:not(.actual):hover{border-color:var(--border); opacity:1} }
 
 /* ── DISPOSICIÓ DE LA FITXA ────────────────────────────────────────── */

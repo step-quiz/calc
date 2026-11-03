@@ -4,6 +4,11 @@ Què ha canviat a cada versió del web, de la més nova a la més antiga. El fun
 `README.md` i `ARCHITECTURE.md`; aquí només hi ha la història. El número de versió és `VERSIO` a
 `js/nucli/models.js` i surt al peu de les pàgines.
 
+## Versió 85 (3/11/2026)
+
+- Botons ◀ ↻ ▶: en passar-hi el ratolí, la vora es fa més gruixuda i el fons es torna gris clar.
+- A «Prem ▶ o la fletxa ↓ del teclat per començar», el ▶ surt dins d'un cercle, com el botó.
+
 ## Versió 84 (3/11/2026)
 
 - L'enunciat es plega amb una animació de 0,9 s, com una cortina que puja, i la part de baix s'esvaeix a poc a poc.

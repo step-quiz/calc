@@ -167,7 +167,7 @@ function creaCursor(r) {
  */
 function omplPassos(ctx, r, passos, enClicar, nomFinal, enClicarFinal) {
   const zero = element('li', {class: 'pas zero'}, [element('div', {class: 'frase', html:
-    'Prem ' + icona(ICONES.seguent).replace('<svg', '<svg class="icona-inline"') + ' o la fletxa ↓ del teclat per començar.'})]);
+    'Prem <span class="boto-inline">' + icona(ICONES.seguent).replace('<svg', '<svg class="icona-inline"') + '</span> o la fletxa ↓ del teclat per començar.'})]);
   const files = passos.map((pas, i) => {
     const html = ctx.text(pas.text);
     const boto = element('button', {class: 'cap', type: 'button', title: `Ves al pas ${i + 1}`},
