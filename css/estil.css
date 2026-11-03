@@ -585,9 +585,9 @@ body, .capcalera{transition:background-color .25s}
 .enunciat-caixa > .enunciat{flex:1; min-width:0}
 .plega-enunciat{display:none}
 @media (min-width:1000px){
-  /* La columna s'eixampla 46 px cap al marge de l'esquerra (el botó i l'espai): l'enunciat conserva la seva amplada i
-     la resta de la columna no es mou; només la caixa de l'enunciat ocupa aquests 46 px */
-  .ux-a2 .pagina-fitxa .columna{margin-left:-46px; padding-left:46px}
+  /* La columna s'eixampla 52 px cap al marge de l'esquerra (el botó i l'espai): l'enunciat conserva la seva amplada i
+     la resta de la columna no es mou; la caixa de l'enunciat n'ocupa 46 (el botó i l'espai) i en queden 6 per a la vora del hover */
+  .ux-a2 .pagina-fitxa .columna{margin-left:-52px; padding-left:52px}   /* 6 px més: la vora del hover no es retalla */
   .ux-a2 .enunciat-caixa{display:flex; align-items:center; gap:10px; margin-left:-46px}
   .ux-a2 .plega-enunciat{display:grid; place-items:center; flex:none; order:-1;
     width:36px; height:36px; padding:0; border:1px solid var(--border); border-radius:8px; background:transparent; color:var(--muted);

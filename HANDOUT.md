@@ -53,7 +53,7 @@ Extra screen types from variants: `x2-apps`, `x2-rang`, `x2-taula`.
 - Error-zone steps (`error: true`); if a fitxa ends in error, a closing step (`tancament`) is appended.
 - Barrow «Ara tu» is **disabled** (commented block «Ara tu» DESACTIVAT in each model's `pau.js`).
 
-## 5. Work done in recent conversations (versions 56 → 87)
+## 5. Work done in recent conversations (versions 56 → 88)
 
 - **v56–57**: fx-570/991SP X II complete (drawing from 626×1333 photo, numbered menus, CALC, Verificar app). Speed «lenta»
   slowed twice (3.01); in v74 «normal» and «lenta» were made 15 % slower (1.65 → 1.90, 3.01 → 3.46).
@@ -120,6 +120,8 @@ Extra screen types from variants: `x2-apps`, `x2-rang`, `x2-taula`.
 - **v87**: fold button left of the statement, in the page margin: the column widens 46 px to the left (`margin-left:-46px;
   padding-left:46px`) so the statement keeps its width (David: never narrow the statement); `.enunciat-caixa`,
   `.plega-enunciat`, compress/expand icons; ≥ 1000 px only.
+- **v88**: column widened 52 px (6 px spare for the hover outline); no blinking LCD text cursor at step 0 (model
+  stylesheets: `body.pagina-fitxa:not(.en-marxa) .lcd-cursor/.cursor-tex/.ms-cursor`).
 - David's standing UI rule: every clickable control reacts on hover with a thick pure-black border and a light-grey
   background (prefer a 1–1.5 px `box-shadow` on top of the border, so nothing moves).
 - David's standing preference: ask him questions with the AskUserQuestion multiple-choice dialog, never as free text.
@@ -177,7 +179,7 @@ Extra screen types from variants: `x2-apps`, `x2-rang`, `x2-taula`.
 ## 8. Versioning & delivery protocol
 
 - Any served `.js`/`.css` change → bump `VERSIO` (`js/nucli/models.js`), every `?v=` in `index.html`/`fitxa.html`, and
-  the «Versió N» footer of `index.html` (test enforces). Current: **87**.
+  the «Versió N» footer of `index.html` (test enforces). Current: **88**.
 - Delivery = cumulative ZIP from the base commit, repo-root paths, excluding `_uploads/`. If David uploads the repo as a
   ZIP (no `.git`), `git init` it, commit it as the base and diff from that commit instead of `076cc6c`:
   `(git diff --name-only --diff-filter=AMR 076cc6c; git ls-files --others --exclude-standard) | sort -u | grep -v '^_uploads/' | zip -@ calc-versio-NN.zip`

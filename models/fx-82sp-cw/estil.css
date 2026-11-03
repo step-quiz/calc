@@ -92,6 +92,8 @@
 .lcd-cursor{display:inline-block; width:.7cqw; height:1.05em; margin-left:.5cqw; vertical-align:-.15em; background:var(--lcd-tinta); animation:parpelleja 1s steps(1) infinite}
 @keyframes parpelleja{50%{opacity:0}}
 .cursor-tex{animation:parpelleja 1s steps(1) infinite}   /* el cursor dins d'una fórmula (simulador.js) */
+/* Abans de començar la fitxa (calculadora inactiva, sense .en-marxa), el cursor de text no surt */
+body.pagina-fitxa:not(.en-marxa) .lcd-cursor, body.pagina-fitxa:not(.en-marxa) .cursor-tex{visibility:hidden; animation:none}
 
 /* Menús: 4 files; la triada, en negatiu */
 .lcd-menu{position:absolute; inset:1.6cqw 7cqw 1.6cqw 2.5cqw; display:grid; grid-template-rows:repeat(4, 1fr)}

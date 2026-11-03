@@ -101,6 +101,9 @@
 .ms-linia{position:absolute; left:7.4cqw; top:6.2cqw; font:600 9cqw/1 var(--mono); letter-spacing:1.45cqw; white-space:pre; padding:0 .5cqw; margin-left:-.5cqw}
 .ms-cursor{animation:parpelleja 1s steps(1) infinite}
 .ms-cursor-sobre{text-decoration:underline; text-decoration-thickness:.6cqw; text-underline-offset:.8cqw; animation:parpelleja 1s steps(1) infinite}
+/* Abans de començar la fitxa (calculadora inactiva, sense .en-marxa), el cursor de text no surt */
+body.pagina-fitxa:not(.en-marxa) .ms-cursor{visibility:hidden; animation:none}
+body.pagina-fitxa:not(.en-marxa) .ms-cursor-sobre{text-decoration:none; animation:none}
 .ms-fletxa{position:absolute; top:8cqw; font-size:4.6cqw}
 .ms-fletxa-esq{left:1.8cqw}
 .ms-fletxa-dre{right:2.2cqw}
