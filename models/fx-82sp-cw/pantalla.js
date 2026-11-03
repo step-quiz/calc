@@ -20,6 +20,8 @@
    · Missatge (text centrat i, opcionalment, opcions a triar)
        {tipus:'missatge', linies:[…], opcions:[…], sel}
    · Definir f(x) (tecla FUNCTION): {tipus:'definicio', nom:'f', entrada, cursor}
+   · L'app Taula: {tipus:'taula', cols, files, fila, col} (la taula; sense files, l'app acabada d'obrir)
+     i {tipus:'rang-taula', valors:[Inic., Final, Paso], sel, escrivint} («Rango tabla», amb «Ejecutar»)
    · Els tipus propis d'una altra calculadora (M.variant.pantalles), p. ex. el menú d'aplicacions de la X II.
    · Llista de variables (tecla VARIABLE; manual, p. 38): 5 files,
        A/B, C/D, E/F, x/y i z, amb els valors en decimal
@@ -155,9 +157,39 @@ function definicio(estat) {
   return `<div class="lcd-definicio${marca(estat, 'entrada')}" data-marca="entrada">${texLcd(estat.nom + '(x)=' + (estat.entrada || ''))}${cursor}</div>`;
 }
 
+/** El text curt d'una cel·la de la taula: com a molt 6 xifres significatives (el valor sencer surt a baix: VERIFICAR.md). */
+function curt(v) {
+  const n = Number(v);
+  if (!/^-?[\d.]+$/.test(String(v)) || !isFinite(n)) return String(v);
+  return String(Number(n.toPrecision(6)));
+}
+/** La taula de valors: 4 files visibles (la triada, sempre a la vista) i, a baix, el valor sencer de la cel·la triada. */
+function taula(estat) {
+  const files = estat.files, n = files.length, VIS = 4;
+  const de = Math.max(0, Math.min(estat.fila - VIS + 1, n - VIS));
+  const cap = `<tr><th></th>${estat.cols.map(c => `<th>${texLcd(c)}</th>`).join('')}</tr>`;
+  const cos = files.slice(de, de + VIS).map((f, j) => {
+    const i = de + j;
+    return `<tr><td class="n">${i + 1}</td>${f.map((v, k) => `<td class="${i === estat.fila && k === estat.col ? 'sel' : ''}">${escapa(curt(v))}</td>`).join('')}</tr>`;
+  }).join('');
+  const buides = Array.from({length: Math.max(0, VIS - Math.min(VIS, n))}, () => `<tr><td class="n"></td>${estat.cols.map(() => '<td></td>').join('')}</tr>`).join('');
+  const valor = n ? files[estat.fila][estat.col] : '';
+  return `<table class="lcd-taula">${cap}${cos}${buides}</table><div class="lcd-taula-valor${marca(estat, 'valor')}" data-marca="valor">${escapa(valor)}</div>`;
+}
+/** «Rango tabla»: Inic., Final, Paso i «Ejecutar»; la fila triada, en vídeo invers. */
+function rangTaula(estat) {
+  const noms = ['Inic.', 'Final', 'Paso'];
+  const fila = k => {
+    const v = k === estat.sel && estat.escrivint !== null && estat.escrivint !== undefined ? estat.escrivint : estat.valors[k];
+    return `<div class="lcd-rang-fila${k === estat.sel ? ' sel' : ''}"><span>${escapa(tr(noms[k]))}:</span><span>${escapa(v)}</span></div>`;
+  };
+  return `<div class="lcd-rang">${[0, 1, 2].map(fila).join('')}`
+    + `<div class="lcd-rang-fila executa${estat.sel === 3 ? ' sel' : ''}"><span>${escapa(tr('Ejecutar'))}</span></div></div>`;
+}
+
 /** Una altra calculadora (M.variant.pantalles) pot afegir tipus de pantalla propis: {tipus: estat => HTML}, amb aquestes eines. */
 const PROPIES = (M.variant && M.variant.pantalles) ? M.variant.pantalles({escapa, tr: t => tr(t), marca, texLcd}) : {};
-const DIBUIXA = Object.freeze(Object.assign({calc, menu, home, missatge, variables, definicio}, PROPIES));
+const DIBUIXA = Object.freeze(Object.assign({calc, menu, home, missatge, variables, definicio, taula, 'rang-taula': rangTaula}, PROPIES));
 
 /** HTML del contingut de la pantalla per a un estat. idioma: 'es' (per defecte) o 'ca', la calculadora en català. */
 function html(estat, llengua = 'es') {

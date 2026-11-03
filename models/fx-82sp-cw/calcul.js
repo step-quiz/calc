@@ -222,10 +222,12 @@ function comprova(Dades) {
       const p = pas.pantalla;
       if (p.tipus === 'definicio' && p.entrada) ctx.funcions[p.nom] = p.entrada;
       for (const k of Object.keys(pas.parcials || {}).map(Number).sort((a, b) => a - b)) valorX(pas.parcials[k], i);
-      // La taula de Tabla (fx-82/85SP X II): cada f(x) i g(x) de la taula, amb les funcions escrites abans (f(x)=, g(x)=)
-      if (p.tipus === 'x2-taula') {
+      // La taula de Tabla (fx-82/85SP X II) o de l'app Taula (CW): cada f(x) i g(x) de la taula, amb les funcions escrites
+      // abans (f(x)=, g(x)=). A la CW, la columna d'una funció sense definir és buida ('').
+      if (p.tipus === 'x2-taula' || p.tipus === 'taula') {
         p.files.forEach((fila, r) => p.cols.slice(1).forEach((col, k) => {
           const nom = col[0], fn = ctx.funcions[nom], cel = fila[k + 1];
+          if (!fn && p.tipus === 'taula' && cel === '') return;
           if (!fn) { errors.push(`fitxa ${f.id} · pas ${i + 1}: la taula té ${col}, però no s'ha escrit`); return; }
           comprovats++;
           let v;

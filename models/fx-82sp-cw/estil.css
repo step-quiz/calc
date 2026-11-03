@@ -112,6 +112,18 @@ body.pagina-fitxa:not(.en-marxa) .lcd-cursor, body.pagina-fitxa:not(.en-marxa) .
 .app{display:flex; flex-direction:column; align-items:center; justify-content:center; gap:.7cqw; border-radius:.7cqw; font:600 4.1cqw/1.1 var(--mono)}
 .app .i{font-size:4.5cqw; line-height:1; text-align:center}
 .app.sel{background:var(--lcd-tinta); color:var(--lcd-fons)}
+/* L'app Taula: la taula de valors (4 files, el valor sencer de la cel·la a baix) i «Rango tabla» */
+.lcd-taula{position:absolute; left:2cqw; right:2cqw; top:1.2cqw; width:calc(100% - 4cqw); border-collapse:collapse; table-layout:fixed; font:600 4.4cqw/1.15 var(--mono)}
+.lcd-taula th{font-weight:600; font-size:.9em; padding:.2em 0; border-bottom:.3cqw solid var(--lcd-tinta)}
+.lcd-taula th .katex{font-size:1em}
+.lcd-taula td{text-align:right; padding:.12em .3em; border-left:.3cqw solid var(--lcd-tinta); white-space:nowrap; overflow:hidden; height:1.15em}
+.lcd-taula td.n, .lcd-taula th:first-child{width:7%; border-left:0; font-size:.75em; text-align:center}
+.lcd-taula td.sel{background:var(--lcd-tinta); color:var(--lcd-fons)}
+.lcd-taula-valor{position:absolute; right:3cqw; bottom:1.2cqw; font:600 5cqw/1 var(--mono)}
+.lcd-rang{position:absolute; inset:1.6cqw 3cqw; display:grid; grid-template-rows:repeat(4, 1fr); font:600 6.2cqw/1 var(--mono)}
+.lcd-rang-fila{display:flex; align-items:center; gap:.4em; padding:0 .3em; white-space:nowrap}
+.lcd-rang-fila.executa{justify-content:center}
+.lcd-rang-fila.sel{background:var(--lcd-tinta); color:var(--lcd-fons)}
 
 /* Missatge */
 .lcd-missatge{position:absolute; inset:0; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:1.4cqw; font:600 6cqw/1.2 var(--mono)}

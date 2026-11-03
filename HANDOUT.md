@@ -34,7 +34,7 @@ code and docs disagree, fix the docs. §5 below is a version log (what changed a
 - **Stack**: vanilla JS (IIFE modules exporting globals), CSS with container queries (`cqw`), KaTeX 0.16.9 (vendored),
   self-hosted fonts (Libre Baskerville, Source Code Pro). Tests in Node + Playwright.
 
-## 1a. The site as it is now (v90), in one screen
+## 1a. The site as it is now (v91), in one screen
 
 - **Home** (`index.html`, `portada.js`): header (title «La calculadora <model>, pas a pas» — «La teva calculadora…»
   until one is chosen —, «Escollir/Canviar de calculadora», Etapa, Calculadora en). A row of three one-line bubbles
@@ -86,7 +86,7 @@ visits — one per browser session —, bubbles up/down), `tria.js`
 - Error-zone steps (`error: true`); if a fitxa ends in error, a closing step (`tancament`) is appended.
 - Barrow «Ara tu» is **disabled** (commented block «Ara tu» DESACTIVAT in each model's `pau.js`).
 
-## 5. Work done in recent conversations (versions 56 → 90)
+## 5. Work done in recent conversations (versions 56 → 91)
 
 - **v56–57**: fx-570/991SP X II complete (drawing from 626×1333 photo, numbered menus, CALC, Verificar app). Speed «lenta»
   slowed twice (3.01); in v74 «normal» and «lenta» were made 15 % slower (1.65 → 1.90, 3.01 → 3.46).
@@ -164,6 +164,14 @@ visits — one per browser session —, bubbles up/down), `tria.js`
   g = derivative; T6 internal scroll (`limitaLlistes`); CW simulator: ALPHA inside `definicio`; fx-82SP X II: MENU from
   the table. David's decisions there: no new blocks (techniques go to T4), no «Ara tu» on new fitxes, no fx-570 extras
   block, no time-budget rules.
+- **v91**: T4 fitxes `producte-escalar-vectorial` (all models) and `taula-bolzano` (fx-82SP CW only: file
+  `models/fx-82sp-cw/fitxes/taula.js`, listed only in the CW `model.js`, not in the fx-570 CW one). CW simulator: the
+  Tabla app (`estat.app = 'taula'`, `estat.taula.rang`): HOME grid navigation (3 columns), OK on Tabla → `G.taula()`
+  (empty), FUNCTION → Definir f(x) → EXE back to the table, TOOLS → `taula-tools` → «Rango tabla» (`G.rangTaula`, rows
+  Inic./Final/Paso/Ejecutar; EXE stores and moves down; EXE on Ejecutar → the table, given by the fitxa), arrows move
+  the cell. Screen types `taula` and `rang-taula` in the CW `pantalla.js`; `calcul.js` checks every f/g cell (an
+  undefined function's column is ''). Screens deduced from the manual's text (images could not be fetched):
+  VERIFICAR.md rows 32–35.
 - David's standing UI rule: every clickable control reacts on hover with a thick pure-black border and a light-grey
   background (prefer a 1–1.5 px `box-shadow` on top of the border, so nothing moves).
 - David's standing preference: ask him questions with the AskUserQuestion multiple-choice dialog, never as free text.
@@ -227,7 +235,7 @@ visits — one per browser session —, bubbles up/down), `tria.js`
 ## 8. Versioning & delivery protocol
 
 - Any served `.js`/`.css` change → bump `VERSIO` (`js/nucli/models.js`), every `?v=` in `index.html`/`fitxa.html`, and
-  the «Versió N» footer of `index.html` (test enforces). Current: **90**.
+  the «Versió N» footer of `index.html` (test enforces). Current: **91**.
 - Delivery = a ZIP with the files changed since the version David already has, repo-root paths, excluding `_uploads/`:
   commit the version locally, then `git diff --name-only --diff-filter=AMR HEAD~1 HEAD | zip -@ calc-versio-NN.zip`
   (use `HEAD~2` etc. if several local commits make up one delivery). The repo usually arrives as a ZIP without `.git`:
@@ -247,13 +255,8 @@ visits — one per browser session —, bubbles up/down), `tria.js`
 
 ## 9. Open items
 
-- **Taula (Tabla) on the fx-82SP CW** (approved by David, O3b): not in the simulator yet. Manual (online, Spanish):
-  HOME → Tabla icon → OK; TOOLS opens the app menu («Tipo de tabla», «Def f(x)/g(x)», «Rango tabla» with Inic./Final/
-  Paso, «Ejecutar», «Editar», «Recalcular»); f and g can also be defined with FUNCTION; max 45 rows (30 with f and g);
-  leaving the app clears the table, not f/g. The manual screen images could not be downloaded: confirm the TOOLS menu
-  order and the range screen with David before drawing them (VERIFICAR.md rows). Then a T4 fitxa «Taula de valors:
-  Bolzano d'una passada» (f(x) = −2 + 10(x − 1) ln x, 1 to 1.5, step 0.1).
-- **Scalar and cross product** fitxa (David, instead of N3): proposed in the artifact, waiting for his OK.
+- **CW Tabla**: done in v91 from the manual's text; VERIFICAR.md rows 32–35 wait for David's check on the real
+  calculator (the HOME layout, the TOOLS order, the range screen, the empty g(x) column).
 
 - **VERIFICAR.md**: rows for X II (15), fx-82/85SP X II (11), MS (1–16) and MS aliases pending checks on real
   calculators (David doesn't have them at hand); CW rows 30–31 (SCI 3 result, Verificar with ½ = 0.5) are new.

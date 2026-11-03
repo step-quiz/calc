@@ -318,6 +318,12 @@ such as storing values in variables (on the fx-82MS, re-evaluate with replay ◀
 (e.g. `pau-ana-26s-q1`: signs of f′ from g, values of f from f). On the X II with CALC (no f/g memory) the derivative
 is typed first, then AC and the function; on the fx-82/85SP X II both go into one table (columns f and g).
 
+**CW Tabla app** (`taula-bolzano`): the fx-82SP CW simulator knows HOME (3-column grid: right/left ±1, down/up ±3;
+OK on Calcular or Tabla), the Tabla screens (`G.taula(files, fila, col)`, columns x/f(x)/g(x), `''` for an undefined
+function; `G.rangTaula(valors, sel, escrivint)`, sel 3 = «Ejecutar») and the menu `taula-tools`. The final table is given
+by the fitxa (EXE on «Ejecutar» returns null in the simulator, as on the X II). The fx-570/991SP CW does not list the
+fitxa file (its HOME has more apps). Deduced screens: VERIFICAR.md 32–35.
+
 **Both calculators.** The same id, statement and source on both; the fx-82MS has no fraction template (sums in
 parentheses), gives decimals directly and uses the (−) key (`neg`) for negatives (test). On the CW, negatives use the
 ordinary − key (`menys`), never SHIFT (−). Every displayed value is computed with the model's `calcul.js`, never by hand.

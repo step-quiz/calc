@@ -88,6 +88,9 @@ const MENUS = Object.freeze(Object.assign({
   'menu-variable': [['guardar', 'Guardar'], ['recuperar', 'Recuperar'], ['editar', 'Editar']],
   /** El menú de la tecla FUNCTION (manual, p. 60). */
   funcio: [['f', 'f(x)'], ['g', 'g(x)'], ['definir-f', 'Definir f(x)'], ['definir-g', 'Definir g(x)']],
+  /** TOOLS a l'app Taula. Les opcions surten al text del manual («Crear una tabla numérica»); l'ordre és deduït: VERIFICAR.md. */
+  'taula-tools': [['tipus', 'Tipo de tabla', {sub: true}], ['definir', 'Def f(x)/g(x)', {sub: true}], ['rang', 'Rango tabla'],
+    ['editar', 'Editar', {sub: true}], ['recalcular', 'Recalcular']],
 }, V.menus || {}));
 
 /**
@@ -113,6 +116,9 @@ const CATALA = Object.freeze(Object.assign({
   'Deshacer': 'Desfer', 'Simplificar': 'Simplificar', 'Verificar ON': 'Verificar ON', 'Verificar OFF': 'Verificar OFF',
   '=': '=', '≠': '≠', '>': '>', '<': '<', '≥': '≥', '≤': '≤',
   'Guardar': 'Desar', 'Recuperar': 'Recuperar', 'Editar': 'Editar',
+  // L'app Taula (sense foto en català: VERIFICAR.md; les de la X II, del seu manual en català)
+  'Tipo de tabla': 'Tipus de taula', 'Def f(x)/g(x)': 'Def f(x)/g(x)', 'Rango tabla': 'Rang taula', 'Recalcular': 'Recalcular',
+  'Inic.': 'Inici', 'Final': 'Fi', 'Paso': 'Pas', 'Ejecutar': 'Executar',
   'f(x)': 'f(x)', 'g(x)': 'g(x)', 'Definir f(x)': 'Definir f(x)', 'Definir g(x)': 'Definir g(x)',
   'Verdadero': 'Vardader', 'Falso': 'Fals',   // «Vardader», amb l'errada que té la calculadora
   'Norm1:1.23×10⁻³': 'Norm1:1.23×10⁻³', 'Norm2:0.00123': 'Norm2:0.00123', 'Idioma': 'Idioma',
@@ -168,12 +174,25 @@ const definicio = (nom = 'f', entrada = '', cursor = true) => Object.freeze({tip
 /* ── Altres pantalles ───────────────────────────────────────────── */
 const home = (sel = 0) => Object.freeze({tipus: 'home', sel, marca: null});
 const missatge = (linies, opcions = [], sel = 0) => Object.freeze({tipus: 'missatge', linies, opcions, sel, marca: null});
+/* ── L'app Taula (manual en línia, «Crear una tabla numérica») ──── */
+/** Els valors per defecte del rang (com a la fx-82SP X II): Inic. 1, Final 5, Paso 1. */
+const RANG_TAULA = Object.freeze(['1', '5', '1']);
+/**
+ * La taula de valors, amb el tipus per defecte «f(x)/g(x)»: columnes x, f(x) i g(x). files: [[x, f(x), g(x)], …] en text
+ * (el valor sencer; la cel·la el mostra curt; '' si la funció no està definida); fila i col: la cel·la triada.
+ * Sense files: l'app acabada d'obrir, abans d'«Ejecutar».
+ */
+const taula = (files = [], fila = 0, col = 0) => Object.freeze({tipus: 'taula', cols: Object.freeze(['x', 'f(x)', 'g(x)']),
+  files: Object.freeze(files.map(f => Object.freeze(f.slice()))), fila, col, marca: null});
+/** «Rango tabla»: valors [Inic., Final, Paso], la fila triada (3 = «Ejecutar») i el que s'hi està escrivint (null: res). */
+const rangTaula = (valors = RANG_TAULA, sel = 0, escrivint = null) =>
+  Object.freeze({tipus: 'rang-taula', valors: Object.freeze(valors.slice()), sel, escrivint, marca: null});
 
 M.guions = Object.freeze({
   IND, ind, calc, marca, menu, fila, MENUS, deMenus, textos, posicio, CATALA, textCalc,
   config, configCalcul, entradaSortida, unitatAngular, formatNumero, normal, reiniciar, format,
   catalog, catalogVerificar, angCoordSexag, probabilidad, tools, toolsVerificar, verificar, menuVariable, menuFuncio,
-  VARIABLES, variables, definicio, home, missatge,
+  VARIABLES, variables, definicio, home, missatge, RANG_TAULA, taula, rangTaula,
 });
 
 })(Models.obre());

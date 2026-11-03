@@ -252,6 +252,23 @@ M.fitxes.push(
   relacionades: ['exacte-decimal', 'definir-fx'],
 },
 
+{
+  id: 'producte-escalar-vectorial',
+  inici: calc(D),
+  passos: [
+    {tecles: ['2', 'per', '1', 'mes', 'lpar', 'neg', '1', 'rpar', 'per', '4', 'mes', '3', 'per', 'lpar', 'neg', '2', 'rpar'], pantalla: calc(D, '2\\times 1+(-1)\\times 4+3\\times(-2)'),
+      text: '[mat]$\\vec u\\cdot\\vec v=u_1v_1+u_2v_2+u_3v_3$.[/mat] [calc]Escriu-ho en una sola línia. Els nombres negatius, entre parèntesis; el signe és [[neg]].[/calc]'},
+    {tecles: ['exe'], pantalla: marca(calc(D, '2\\times 1+(-1)\\times 4+3\\times(-2)', '-8'), 'resultat'),
+      text: '[calc]Prem [[exe]].[/calc] [mat]$\\vec u\\cdot\\vec v=-8$.[/mat]'},
+    {tecles: ['lpar', 'neg', '1', 'rpar', 'per', 'lpar', 'neg', '2', 'rpar', 'menys', '3', 'per', '4', 'exe'], pantalla: marca(calc(D, '(-1)\\times(-2)-3\\times 4', '-10'), 'resultat'),
+      text: '[mat]Al producte vectorial, cada component és un determinant 2×2. La primera és $u_2v_3-u_3v_2=-10$.[/mat] [calc]Escriu-la i prem [[exe]]: després d\'un resultat, un número nou comença un càlcul nou.[/calc]'},
+    {tecles: ['3', 'per', '1', 'menys', '2', 'per', 'lpar', 'neg', '2', 'rpar', 'exe'], pantalla: marca(calc(D, '3\\times 1-2\\times(-2)', '7'), 'resultat'),
+      text: '[mat]La segona, $u_3v_1-u_1v_3=7$.[/mat]'},
+    {tecles: ['2', 'per', '4', 'menys', 'lpar', 'neg', '1', 'rpar', 'per', '1', 'exe'], pantalla: marca(calc(D, '2\\times 4-(-1)\\times 1', '9'), 'resultat'),
+      text: '[mat]La tercera, $u_1v_2-u_2v_1=9$. Per tant, $\\vec u\\times\\vec v=(-10,\\,7,\\,9)$.[/mat]'},
+  ],
+},
+
 );
 
 })(Models.obre());

@@ -34,4 +34,17 @@ Models.afegeixExercicis(
   enunciat: 'Comprova que es compleix aquesta igualtat: $\\dfrac{1}{\\sqrt{2}}=\\dfrac{\\sqrt{2}}{2}$.',
 },
 
+{
+  id: 'producte-escalar-vectorial', bloc: 'pau',
+  titol: 'Producte escalar i producte vectorial',
+  enunciat: 'Siguin $\\vec u=(2,-1,3)$ i $\\vec v=(1,4,-2)$.\nCalcula el producte escalar $\\vec u\\cdot\\vec v$ i el producte vectorial $\\vec u\\times\\vec v$.',
+},
+
+{
+  id: 'taula-bolzano', bloc: 'pau',
+  titol: 'Taula de valors: Bolzano d\'una passada',
+  font: 'PAU juny 2024 (incidències), qüestió 1 a)',
+  enunciat: 'Considereu $f(x)=-2+10(x-1)\\ln x$, per a $x>0$.\nComproveu que $f$ té una arrel a l\'interval $[1;\\,1{,}5]$ i busqueu un interval d\'una dècima de longitud que la contingui, tot amb una sola taula de valors.',
+},
+
 );

@@ -204,6 +204,7 @@ const EN_TRIAR = Object.freeze({
     menor: e => escriuDelMenu(e, '<'), 'major-igual': e => escriuDelMenu(e, '\\geq '), 'menor-igual': e => escriuDelMenu(e, '\\leq ')},
   tools: {'verificar-on': e => canviaVerificar(e, true)},
   'tools-verificar': {'verificar-off': e => canviaVerificar(e, false)},
+  'taula-tools': {rang: e => G.rangTaula(e.taula.rang, 0, null)},
   funcio: {
     f: e => escriuFuncio(e, 'f('), g: e => escriuFuncio(e, 'g('),
     'definir-f': e => definir(e, 'f'), 'definir-g': e => definir(e, 'g'),
@@ -344,6 +345,7 @@ function tecla(estat, id) {
     return null;
   }
   if (p.tipus === 'definicio') {                        // escriure l'expressió de f(x)
+    if (id === 'exe' && !shift && estat.app === 'taula') return G.taula([], 0, 0);   // a l'app Taula, EXE hi torna (sense taula encara)
     const tros = shift ? ESCRIU_SHIFT[id] : alpha ? ESCRIU_ALPHA[id] : ESCRIU[id];   // ALPHA: p. ex. la e de la X II
     const pl = alpha ? null : plantilla(id, shift);
     if (pl) insereixPlantilla(estat.ed, pl);
@@ -355,8 +357,38 @@ function tecla(estat, id) {
     if (id === 'ok') return G.menuVariable(0);
     return mouVariables(p, id);
   }
-  if (p.tipus === 'home') {
-    if (id === 'ok' && p.sel === 0) { estat.ed = editorBuit(); estat.resultat = false; return pantallaCalc(estat); }
+  if (p.tipus === 'home') {                             // les apps, en una graella de 3 columnes (pantalla.js)
+    const mou = {right: 1, left: -1, down: 3, up: -3}[id];
+    if (mou) { const sel = p.sel + mou; return sel >= 0 && sel < 4 ? G.home(sel) : p; }
+    if (id === 'ok' && p.sel === 0) { estat.app = undefined; estat.ed = editorBuit(); estat.resultat = false; return pantallaCalc(estat); }
+    if (id === 'ok' && p.sel === 2) {                   // l'app Taula: la pantalla de la taula, encara buida
+      estat.app = 'taula';
+      estat.taula = estat.taula || {rang: G.RANG_TAULA.slice()};
+      return G.taula([], 0, 0);
+    }
+    return null;
+  }
+  if (p.tipus === 'taula') {                            // l'app Taula (manual en línia, «Crear una tabla numérica»)
+    if (id === 'funcio') return G.menuFuncio(0);
+    if (id === 'tools') return G.deMenus('taula-tools', 0);
+    if (id === 'home') return G.home(2);
+    const mou = {down: [1, 0], up: [-1, 0], right: [0, 1], left: [0, -1]}[id];
+    if (mou && p.files.length) {
+      return Object.freeze(Object.assign({}, p, {fila: Math.max(0, Math.min(p.files.length - 1, p.fila + mou[0])),
+        col: Math.max(0, Math.min(p.cols.length - 1, p.col + mou[1])), marca: null}));
+    }
+    return null;
+  }
+  if (p.tipus === 'rang-taula') {                       // Inic., Final, Paso i «Ejecutar»: EXE desa el valor i baixa
+    const r = estat.taula.rang, xifra = {0: '0', 1: '1', 2: '2', 3: '3', 4: '4', 5: '5', 6: '6', 7: '7', 8: '8', 9: '9', punt: '.', menys: '-'}[id];
+    if (xifra !== undefined && !shift && p.sel < 3) return G.rangTaula(r, p.sel, (p.escrivint || '') + xifra);
+    if (id === 'del' && p.sel < 3) return G.rangTaula(r, p.sel, (p.escrivint || '').slice(0, -1));
+    if (id === 'exe' || id === 'ok') {
+      if (p.sel === 3) return null;                     // «Ejecutar»: la taula (la dona la fitxa)
+      if (p.escrivint) r[p.sel] = p.escrivint;
+      return G.rangTaula(r, p.sel + 1, null);
+    }
+    if (id === 'down' || id === 'up') return G.rangTaula(r, Math.max(0, Math.min(3, p.sel + (id === 'down' ? 1 : -1))), null);
     return null;
   }
   if (p.tipus !== 'calc') return null;
@@ -370,6 +402,7 @@ function tecla(estat, id) {
   if (id === 'variable') return G.variables(estat.vars, 'A');
   if (id === 'format') return estat.resultat ? G.format(0) : null;
   if (id === 'funcio') return G.menuFuncio(0);
+  if (id === 'home') return G.home(0);
 
   // Escriure
   const tros = shift ? ESCRIU_SHIFT[id] : alpha ? ESCRIU_ALPHA[id] : ESCRIU[id];
@@ -409,6 +442,7 @@ function adopta(estat, p, edSimulat) {
     estat.vars = Object.fromEntries(p.valors);
   }
   if (p.tipus !== 'calc') return;
+  estat.app = undefined;                                // una pantalla de càlcul: l'app Calcular
   estat.ind = Object.assign({}, p.ind);
   delete estat.ind.shift;
   delete estat.ind.alpha;

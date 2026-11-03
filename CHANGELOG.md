@@ -4,6 +4,17 @@ Què ha canviat a cada versió del web, de la més nova a la més antiga. El fun
 `README.md` i `ARCHITECTURE.md`; aquí només hi ha la història. El número de versió és `VERSIO` a
 `js/nucli/models.js` i surt al peu de les pàgines.
 
+## Versió 91 (3/11/2026)
+
+- Dues fitxes noves al bloc «Funcions útils per a la PAU», triades per David a l'artifact de propostes:
+  - «Producte escalar i producte vectorial»: u·v en una línia i cada component de u × v com un determinant 2×2, amb
+    els negatius entre parèntesis. A totes les calculadores.
+  - «Taula de valors: Bolzano d'una passada» (PAU juny 2024, incidències, qüestió 1 a): l'app Taula de la fx-82SP CW,
+    de 1 a 1,5 amb pas 0,1. Només a la fx-82SP CW (la fx-570/991SP CW té una altra pantalla HOME).
+- fx-82SP CW: l'app Taula al simulador. HOME (moure's per les apps), la Taula buida, FUNCTION per definir f(x), TOOLS
+  amb «Rango tabla» (Inic., Final, Paso i «Ejecutar») i la taula amb les columnes x, f(x) i g(x). Les pantalles són
+  deduïdes del text del manual en línia: VERIFICAR.md, files 32–35.
+
 ## Versió 90 (3/11/2026)
 
 - Quatre fitxes noves al bloc «Exercicis PAU. Anàlisi i Probabilitat», grup Anàlisi, triades per David a l'artifact
