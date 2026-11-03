@@ -4,6 +4,13 @@ Què ha canviat a cada versió del web, de la més nova a la més antiga. El fun
 `README.md` i `ARCHITECTURE.md`; aquí només hi ha la història. El número de versió és `VERSIO` a
 `js/nucli/models.js` i surt al peu de les pàgines.
 
+## Versió 77 (3/11/2026)
+
+- Portada: a partir de la 10a visita en un navegador, al final de la fila de bombolles surt un botó discret, «↓ Envia-les
+  a baix». Si l'alumne el prem, les bombolles passen a sota de les targetes (el navegador ho recorda) i unes fletxes ↓
+  conviden a baixar-hi: al marge esquerre en les pantalles amples, al racó de baix a l'esquerra en les altres. Les
+  fletxes s'amaguen quan les bombolles ja es veuen, i en clicar-les la pàgina hi baixa. A baix, «↑ Torna-les a dalt».
+
 ## Versió 76 (3/11/2026)
 
 - Portada: les tres bombolles («Abans de començar», «Abans de l'examen», «Interpretem els símbols a la pantalla») surten

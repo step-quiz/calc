@@ -22,7 +22,8 @@ Web no oficial, sense relació amb el fabricant de la calculadora.
 - Al ⚙ de dalt a la dreta de la fitxa: «Escollir calculadora», l'idioma i el **color del cursor** (16 colors; el navegador
   el recorda).
 - A dalt de la portada, abans dels blocs numerats, tres bombolles a totes dues etapes: «Abans de començar», «Abans de l'examen» i «Interpretem
-  els símbols a la pantalla» (què vol dir cada símbol que pot sortir a la pantalla: D, R, FIX, SCI, S, ▲…).
+  els símbols a la pantalla» (què vol dir cada símbol que pot sortir a la pantalla: D, R, FIX, SCI, S, ▲…). A partir de la 10a visita, un botó
+  discret les pot enviar a baix; llavors unes fletxes conviden a baixar-hi, i un altre botó les torna a dalt.
 - El peu de la fitxa surt sencer 5 segons i després només hi queda l'autor; a la portada, sempre sencer a baix.
 - Els passos que ensenyen un error típic tenyeixen la pàgina de vermell («zona d'error»). Si la fitxa acaba amb un
   error, l'últim pas torna a la manera correcta.

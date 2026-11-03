@@ -470,8 +470,27 @@ body.mode-ara-tu .ara-tu{border-style:solid; border-color:var(--oliva); backgrou
 body.mode-ara-tu .ara-tu-titol{color:var(--oliva)}
 body.mode-ara-tu.zona-error{background:color-mix(in srgb, var(--oliva-fons) 80%, var(--vellut))}
 
-/* Portada: les bombolles petites, en una fila a dalt, abans dels blocs numerats (p. ex. «Abans de l'examen») */
-.bombolles{display:flex; flex-wrap:wrap; gap:10px; margin-bottom:16px}
+/* Portada: les bombolles petites, en una fila a dalt, abans dels blocs numerats (p. ex. «Abans de l'examen»); si
+   l'alumne les envia a baix (nucli/portada.js, posaBombolles), després dels blocs */
+.bombolles{display:flex; flex-wrap:wrap; align-items:center; gap:10px; margin-bottom:16px}
+.blocs + .bombolles{margin:16px 0 0; scroll-margin-bottom:56px}   /* que el peu enganxat a baix no les tapi */
+/* El botó per moure-les: discret, al final de la fila */
+.bombolles-mou{margin-left:6px; padding:4px 10px; border:1px dashed var(--border); border-radius:999px; background:none; cursor:pointer;
+  font-family:var(--mono); font-size:.7rem; color:var(--muted); transition:color .15s, border-color .15s}
+.bombolles-mou:hover, .bombolles-mou:focus-visible{color:var(--txt); border-color:var(--txt); border-style:solid}
+/* Amb les bombolles a baix: fletxes que conviden a baixar-hi. Al marge esquerre buit (pantalles de més de 1720 px,
+   la portada en fa 1600) o, si no n'hi ha, al racó de baix a l'esquerra, damunt del peu. S'amaguen quan les bombolles
+   ja es veuen (.a-la-vista). */
+.fletxes-baix{position:fixed; z-index:11; left:12px; bottom:44px; width:38px; height:50px; padding:6px 7px; display:grid; place-items:center;
+  border:1px solid var(--border); border-radius:999px; background:color-mix(in srgb, var(--surface) 88%, transparent); color:var(--muted);
+  cursor:pointer; box-shadow:0 2px 8px rgba(15,23,42,.12); transition:opacity .3s, color .15s;
+  animation:fletxes-baix-balla 2.2s ease-in-out infinite}
+.fletxes-baix svg{width:100%; height:100%}
+.fletxes-baix:hover, .fletxes-baix:focus-visible{color:var(--txt)}
+.fletxes-baix.a-la-vista{opacity:0; pointer-events:none}
+@media (min-width:1720px){ .fletxes-baix{left:calc((100vw - 1600px) / 4 - 19px); bottom:auto; top:calc(50vh - 25px); border-color:transparent; background:none; box-shadow:none} }
+@keyframes fletxes-baix-balla{0%, 100%{transform:none} 50%{transform:translateY(5px)}}
+@media (prefers-reduced-motion: reduce){ .fletxes-baix{animation:none} }
 .bombolla{display:inline-flex; flex-direction:column; gap:2px; padding:10px 16px; border:2px solid var(--cat); border-radius:999px; background:#fdfdfb; text-decoration:none; font-size:.85rem; transition:background-color .15s, color .15s}
 .bombolla:hover, .bombolla:focus-visible{background:var(--cat); color:var(--surface)}
 .bombolla-bloc{font-family:var(--mono); font-size:.65rem; letter-spacing:.06em; text-transform:uppercase; opacity:.75}
