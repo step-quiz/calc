@@ -3,8 +3,8 @@ Models.afegeixExercicis(
 
 {
   id: 'eso-corregeix', bloc: 'eso-inici',
-  titol: 'M\'he equivocat en escriure: corregeix-ho',
-  enunciat: 'Vols calcular $26\\cdot 4$, però en teclejar t\'equivoques dues vegades i escrius 25 × 44. Corregeix-ho sense esborrar-ho tot.',
+  titol: 'T\'has equivocat en teclejar: com corregir-ho',
+  enunciat: 'Vols calcular "$26\\cdot 4$", però en teclejar t\'equivoques totalment i escrius "25 × 44". T\'expliquem com corregir-ho.',
 },
 
 );

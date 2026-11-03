@@ -4,7 +4,7 @@ Models.afegeixExercicis(
 {
   id: 'abans-examen', bloc: 'examen',
   titol: 'Comprova la calculadora en 30 segons',
-  enunciat: 'Abans de començar l\'examen, comprova que la calculadora està ben configurada. Són quatre coses i triges mig minut.',
+  enunciat: 'Abans de començar l\'examen, comprova que la calculadora està ben configurada.',
 },
 
 );

@@ -14,7 +14,7 @@ Models.afegeixExercicis(
 {
   id: 'pot-negativa', bloc: 'fraccions',
   titol: 'Potències de negatius',
-  enunciat: 'Calcula $(-2)^4$. Si t\'oblides dels parèntesis, el resultat és un altre.',
+  enunciat: 'Calcula $(-2)^4$. Si t\'oblides dels parèntesis, el resultat és diferent del que tu esperaves.',
   tancament: '[mat]Recorda: per elevar un nombre negatiu, posa\'l entre parèntesis: $(-2)^4=16$.[/mat]',
 },
 {

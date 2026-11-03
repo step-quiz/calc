@@ -13,7 +13,7 @@ M.fitxes.push(
 
 {
   id: 'exacte-decimal',
-  enunciat: 'Calcula $\\sin 45^\\circ$. La fx-82MS dona el valor decimal: el valor exacte, $\\frac{\\sqrt{2}}{2}$, l\'has de saber tu.',
+  enunciat: 'Calcula $\\sin 45^\\circ$. La fx-82MS sempre dona el valor decimal: el valor exacte, $\\frac{\\sqrt{2}}{2}$, l\'has de conèixer tu.',
   inici: calc(D),
   passos: [
     {tecles: ['sin', '4', '5'], pantalla: calc(D, 'sin 45'),
@@ -33,7 +33,7 @@ M.fitxes.push(
 },
 {
   id: 'mode-decimal',
-  enunciat: 'Calcules $1\\div 2$ i la calculadora dona 0.5. A la fx-82MS és normal: per veure la fracció, fes servir la tecla [[abc]].',
+  enunciat: 'Calcules $1\\div 2$ i la calculadora dona 0.5. A la fx-82MS, si vols veure-ho en forma de fracció, fes servir la tecla [[abc]].',
   inici: calc(D),
   passos: [
     {tecles: ['1', 'entre', '2', 'igual'], pantalla: marca(calc(D, '1÷2', '0.5'), 'resultat'),
@@ -49,7 +49,7 @@ M.fitxes.push(
 },
 {
   id: 'fix',
-  enunciat: 'Vols el decimal d\'$\\frac{1}{6}$ i surt 0.17. A dalt hi ha FIX: algú hi va fixar 2 decimals.',
+  enunciat: 'Tens la fracció d\'$\\frac{1}{6}$ i, quan la passes a decimal, et surt 0.17.\nEl motiu és que tens activat el "FIX" a la barra de dalt, i algú va fixar 2 decimals.',
   inici: calc(FIX),
   passos: [
     {tecles: ['1', 'entre', '6', 'igual'], pantalla: marca(calc(FIX, '1÷6', '0.17'), 'fix'),

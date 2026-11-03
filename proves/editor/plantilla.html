@@ -158,8 +158,10 @@ function camps(e) {
 /* ── Els canvis: a la base de dades de l'artifact (Claude els llegeix) i, de reserva, al navegador ── */
 let db = null;
 const canvis = {};                      // id → {clau: valor}
-function llegeixLocal() { try { return JSON.parse(localStorage.getItem('editor-enunciats') || '{}'); } catch (e) { return {}; } }
-function desaLocal() { try { localStorage.setItem('editor-enunciats', JSON.stringify(canvis)); } catch (e) { /* sense memòria */ } }
+// Els esborranys del navegador són d'una versió dels textos: en una altra versió (canvis ja aplicats) no valen
+const CLAU_LOCAL = 'editor-enunciats-' + D.versio;
+function llegeixLocal() { try { return JSON.parse(localStorage.getItem(CLAU_LOCAL) || '{}'); } catch (e) { return {}; } }
+function desaLocal() { try { localStorage.setItem(CLAU_LOCAL, JSON.stringify(canvis)); localStorage.removeItem('editor-enunciats'); } catch (e) { /* sense memòria */ } }
 Object.assign(canvis, llegeixLocal());
 const pendents = new Map();             // id → temporitzador
 function estat(t) { $('#estat').textContent = t; }

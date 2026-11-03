@@ -13,7 +13,7 @@ M.fitxes.push(
 
 {
   id: 'abans-examen',
-  enunciat: 'Abans de començar l\'examen, comprova que la calculadora està ben configurada. Triges mig minut.',
+  enunciat: 'Abans de començar l\'examen, comprova que la calculadora està ben configurada.',
   inici: calc(D),
   passos: [
     {tecles: ['sin', '3', '0', 'igual'], pantalla: marca(calc(D, 'sin 30', '0.5'), 'resultat'),

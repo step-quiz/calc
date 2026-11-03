@@ -18,7 +18,7 @@ Models.afegeixExercicis(
   enunciat: 'Calcula el quadrat de −3, és a dir, $(-3)^2$.',
   tancament: '[mat]Recorda: per elevar un nombre negatiu, posa\'l entre parèntesis: $(-3)^2=9$.[/mat]',
   provaTu: {
-    enunciat: 'Calcula $(-5)^2$ i $-5^2$. Són iguals?',
+    enunciat: 'Calcula $(-5)^2$ i $-5^2$. Obtens el mateix resultat?',
     solucio: '$(-5)^2=25$ i $-5^2=-25$: no són iguals.',
   },
 },
@@ -30,7 +30,7 @@ Models.afegeixExercicis(
   tancament: '[mat]Recorda: la suma, entre parèntesis: $0{,}6\\cdot(8+2)\\div 80\\cdot 100=7{,}5$. Representen el 7,5 % de les valoracions.[/mat]',
   provaTu: {
     enunciat: 'Una botiga ha rebut 120 valoracions. Entre elles:\n• 9 clients li han donat 2 estrelles;\n• 6 clients li han donat 1 estrella.\nEl 40 % de les valoracions d\'1 o 2 estrelles es queixen del preu. Quin percentatge representen sobre les 120?',
-    solucio: '$0{,}4\\cdot(9+6)\\div 120\\cdot 100=5$: el 5 % de les valoracions.',
+    solucio: '$0{,}4\\cdot(9+6)\\div 120\\cdot 100=5$\nR) El 5 % de les valoracions.',
   },
 },
 

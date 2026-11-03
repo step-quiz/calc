@@ -19,7 +19,7 @@ M.fitxes.push(
 
 {
   id: 'cb4-26-q7',
-  tancament: '[calc]Recorda: a la fx-82MS, el que va dins de l\'arrel s\'escriu entre parèntesis.[/calc] [mat]$\\sqrt{3^2+5^2}\\approx 5{,}83$ m.[/mat]',
+  tancament: '[calc]Recorda: a la fx-82MS, el que va dins de l\'arrel cal escriure-ho entre parèntesis.[/calc] [mat]$\\sqrt{3^2+5^2}\\approx 5{,}83$ m.[/mat]',
   inici: calc(D),
   passos: [
     {tecles: ['arrel', 'lpar', '3', 'x2', 'mes', '5', 'x2', 'rpar'], pantalla: calc(D, ESCALA),

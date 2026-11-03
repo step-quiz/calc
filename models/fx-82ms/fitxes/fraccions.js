@@ -50,7 +50,7 @@ M.fitxes.push(
 },
 {
   id: 'pot-negativa',
-  enunciat: 'Calcula $(-2)^4$. A la fx-82MS, el signe negatiu té una tecla pròpia, [[neg]]. Si t\'oblides dels parèntesis, el resultat és un altre.',
+  enunciat: 'Calcula $(-2)^4$. A la fx-82MS, el signe negatiu té una tecla pròpia, [[neg]]. Si t\'oblides dels parèntesis, el resultat no és el que tu esperaves.',
   inici: calc(D),
   passos: [
     {tecles: ['lpar', 'neg', '2', 'rpar'], pantalla: calc(D, '(-2)'),

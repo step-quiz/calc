@@ -6,9 +6,9 @@ Models.afegeixExercicis(
   titol: 'El tram d\'escala: Pitàgores',
   font: 'CB 4ESO (2026), pregunta 7',
   figura: {src: 'img/eso/cb4eso2026p7-figura.png', alt: 'El tram d\'escala: un triangle rectangle d\'altura 3 m i llargada 5 m; el tram, la hipotenusa, és la incògnita'},
-  enunciat: 'Una escala uneix dues plantes d\'un edifici. Cada tram d\'escala:\n• puja una altura de 3 m;\n• avança una llargada de 5 m.\nQuant mesura cada tram d\'escala?',
+  enunciat: 'Una escala uneix dues plantes d\'un edifici. Cada tram d\'escala:\n• puja una altura de 3 m;\n• avança una longitud de 5 m.\nQuant mesura cada tram d\'escala?',
   provaTu: {
-    enunciat: 'Una rampa puja una altura d\'1,2 m i avança una llargada de 5 m. Quant mesura la rampa?',
+    enunciat: 'Una rampa puja una altura d\'1,2 m i avança una longitud de 5 m. Quant mesura la rampa?',
     solucio: '$\\sqrt{1{,}2^2+5^2}=\\sqrt{26{,}44}\\approx 5{,}14$ m.',
   },
 },
@@ -31,7 +31,7 @@ Models.afegeixExercicis(
   enunciat: 'Per saber quanta tela té un para-sol, se n\'aproxima la superfície per la d\'un cercle:\n• radi del cercle: 0,75 m.\nQuina superfície de tela té el para-sol?[nota](Àrea del cercle $=\\pi\\cdot r^2$, amb $\\pi=3{,}14$.)[/nota]',
   provaTu: {
     enunciat: 'Una pizza rodona fa 15 cm de radi. Quina superfície té?',
-    solucio: '$\\pi\\cdot 15^2=225\\pi\\approx 706{,}86$ cm² (amb $\\pi=3{,}14$, 706,5 cm²).',
+    solucio: '$\\pi\\cdot 15^2=225\\pi\\approx 706{,}86$ cm²',
   },
 },
 

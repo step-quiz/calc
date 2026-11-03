@@ -23,7 +23,7 @@ M.fitxes.push(
 
 {
   id: 'definir-fx',
-  titol: 'Calcula valors d\'una funció amb CALC',
+  titol: 'Calcula valors d\'una funció amb "CALC"',
   inici: calc(D),
   passos: [
     {tecles: ['x', 'pot', '3', 'right', 'menys', '3', 'x', 'mes', '2'], pantalla: calc(D, F_DEF),
@@ -67,7 +67,7 @@ M.fitxes.push(
 },
 {
   id: 'barrow',
-  titol: 'Regla de Barrow amb CALC',
+  titol: 'Regla de Barrow amb "CALC"',
   inici: calc(D),
   passos: [
     {tecles: ['neg', 'frac', 'x', 'pot', '4', 'right', 'down', '4', 'right'], pantalla: calc(D, '-\\frac{x^{4}}{4}'),
@@ -193,12 +193,14 @@ M.fitxes.push(
       text: '[calc]Escriu el 6 i prem [[shift]] [[entre]]: a sobre de ÷ hi ha nCr, el nombre combinatori. S\'escriu una C darrere del 6.[/calc]'},
     {tecles: ['4'], pantalla: calc(D, '6\\mathrm{C}4'),
       text: '[calc]Escriu el 4: «6C4» és $\\binom{6}{4}$.[/calc]'},
-    {tecles: ['per', 'lpar', 'frac', '1', 'down', '2'], pantalla: calc(D, '6\\mathrm{C}4\\times (\\frac{1}{2}'),
-      text: '[calc]Continua amb la probabilitat: [[per]], un parèntesi i la fracció $\\frac{1}{2}$ amb [[frac]].[/calc]'},
-    {tecles: ['right', 'rpar', 'pot', '6'], pantalla: calc(D, '6\\mathrm{C}4\\times (\\frac{1}{2})^{6}'),
-      text: '[calc]Surt de la fracció amb [[right]], tanca amb [[rpar]] i escriu l\'exponent amb [[pot]] i el 6.[/calc]'},
-    {tecles: ['exe'], pantalla: marca(calc(D, '6\\mathrm{C}4\\times (\\frac{1}{2})^{6}', '\\frac{15}{64}'), 'resultat'),
-      text: '[calc]Prem [[exe]]: $P(X=4)=\\frac{15}{64}$, perquè $\\binom{6}{4}=15$. Surt exacte perquè la calculadora és en mode {{E Mat/S Mat}}; en mode {{E Mat/S Decimal}} sortiria 0.234375. A sobre de × hi ha nPr (permutacions) i, a sobre de [[inv]], el factorial, $x!$.[/calc]'},
+    {tecles: ['per', 'lpar', 'frac', '1', 'down', '3'], pantalla: calc(D, '6\\mathrm{C}4\\times (\\frac{1}{3}'),
+      text: '[mat]Ara $p^4=\\left(\\frac{1}{3}\\right)^4$.[/mat] [calc]Prem [[per]], obre un parèntesi i escriu la fracció $\\frac{1}{3}$ amb [[frac]].[/calc]'},
+    {tecles: ['right', 'rpar', 'pot', '4'], pantalla: calc(D, '6\\mathrm{C}4\\times (\\frac{1}{3})^{4}'),
+      text: '[calc]Surt de la fracció amb [[right]], tanca amb [[rpar]] i escriu l\'exponent amb [[pot]] i el 4.[/calc]'},
+    {tecles: ['right', 'per', 'lpar', 'frac', '2', 'down', '3', 'right', 'rpar', 'pot', '2'], pantalla: calc(D, '6\\mathrm{C}4\\times (\\frac{1}{3})^{4}\\times (\\frac{2}{3})^{2}'),
+      text: '[mat]I $(1-p)^2=\\left(\\frac{2}{3}\\right)^2$.[/mat] [calc]Surt de l\'exponent amb [[right]] i fes el mateix: [[per]], $\\left(\\frac{2}{3}\\right)$ i l\'exponent 2.[/calc]'},
+    {tecles: ['exe'], pantalla: marca(calc(D, '6\\mathrm{C}4\\times (\\frac{1}{3})^{4}\\times (\\frac{2}{3})^{2}', '\\frac{20}{243}'), 'resultat'),
+      text: '[calc]Prem [[exe]]: $P(X=4)=\\frac{20}{243}$, perquè $\\binom{6}{4}=15$. Surt exacte perquè la calculadora és en mode {{E Mat/S Mat}}; en mode {{E Mat/S Decimal}} sortiria 0.08230452675. A sobre de × hi ha nPr (permutacions) i, a sobre de [[inv]], el factorial, $x!$.[/calc]'},
   ],
   araTu: {
     enunciat: 'Amb $n=8$ i $p=\\frac{1}{2}$, calcula $P(X=3)=\\binom{8}{3}\\left(\\frac{1}{2}\\right)^{8}$.',

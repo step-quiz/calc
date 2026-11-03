@@ -4,6 +4,13 @@ Què ha canviat a cada versió del web, de la més nova a la més antiga. El fun
 `README.md` i `ARCHITECTURE.md`; aquí només hi ha la història. El número de versió és `VERSIO` a
 `js/nucli/models.js` i surt al peu de les pàgines.
 
+## Versió 82 (3/11/2026)
+
+- Textos revisats per David amb l'editor d'enunciats: 41 fitxes (enunciats, títols, tancaments i «Prova-ho tu»; també
+  els textos propis de la fx-82MS i de les X II).
+- «Nombres combinatoris» amb l'enunciat nou, $p=\frac{1}{3}$: els passos calculen ara
+  $\binom{6}{4}\left(\frac{1}{3}\right)^4\left(\frac{2}{3}\right)^2=\frac{20}{243}$ a totes les calculadores.
+
 ## Versió 81 (3/11/2026)
 
 - Les fletxes que conviden a passar al pas següent surten primer dins de dos cercles grocs. Aquesta fase ben visible

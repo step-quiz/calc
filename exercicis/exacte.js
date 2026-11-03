@@ -4,7 +4,7 @@ Models.afegeixExercicis(
 {
   id: 'exacte-decimal', bloc: 'exacte',
   titol: 'Valor exacte i valor decimal',
-  enunciat: 'Calcula $\\sin 45^\\circ$ en forma exacta i en forma decimal.',
+  enunciat: 'Calcula $\\sin 45^\\circ$ en forma exacta i també en forma decimal.',
 },
 {
   id: 'mode-decimal', bloc: 'exacte',
@@ -14,7 +14,7 @@ Models.afegeixExercicis(
 {
   id: 'fix', bloc: 'exacte',
   titol: 'Tot em surt arrodonit (FIX)',
-  enunciat: 'Vols el decimal d\'$\\frac{1}{6}$ i surt 0.17. A la barra hi ha FIX: algú hi va fixar 2 decimals.',
+  enunciat: 'Tens la fracció d\'$\\frac{1}{6}$ i, quan la passes a decimal, et surt 0.17.\nEl motiu és que tens activat el "FIX" a la barra de dalt, i algú va fixar 2 decimals.',
 },
 
 );

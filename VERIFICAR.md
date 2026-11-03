@@ -118,6 +118,7 @@ la CW, es retalla la franja del logotip de dalt. La creu del cursor és un oval 
 | 12 | Com es veu nCr | fitxa `combinatoria` | «6C4». |
 | 13 | El producte sense signe davant d'un parèntesi i d'una funció | fitxa `pau-ana-24i-q1` | `-2+10(1.5-1)ln 1.5` es calcula sense escriure ×. |
 | 14 | DEL i el cursor | fitxa d'ESO `eso-corregeix` | Amb el cursor al final, DEL esborra l'última xifra; amb ◀ el cursor es posa a sota d'una xifra, i escriure la substitueix. Comprovar-ho a la calculadora. |
+| 16 | Un resultat petit a fracció amb a b/c | fitxa `combinatoria`, pas 5 | 0.082304527 passa a 20┘243 amb [a b/c] (el denominador hi cap). |
 | 15 | Els símbols de la pantalla | fitxa `indicadors` (bombolla «Interpretar els indicadors de pantalla») | La A d'ALPHA a l'esquerra, al costat de la S; amb SCI 3, $1\div 6$ surt «1.67» i, a la dreta, en petit, «×10» i «−01»; els rètols d'ALPHA, en vermell. |
 
 ---

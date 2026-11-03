@@ -9,7 +9,7 @@ Models.afegeixExercicis(
   enunciat: 'Un hotel apunta quantes places ha ocupat cada setmana:\n• 1a setmana: 168 places\n• 2a setmana: 154 places\n• 3a setmana: 210 places\n• 4a setmana: 260 places\nQuina ha estat la mitjana de places ocupades en aquestes 4 setmanes?',
   tancament: '[mat]Recorda: primer la suma, entre parèntesis, i després la divisió: $(168+154+210+260)\\div 4=198$ places.[/mat]',
   provaTu: {
-    enunciat: 'Un bar ven aquests entrepans de dilluns a divendres:\n• 35, 42, 28, 50 i 45.\nQuina és la mitjana d\'entrepans per dia?',
+    enunciat: 'Aquesta setmana, en un bar s\'han venut aquest entrepans, de dilluns a divendres:\n• 35, 42, 28, 50 i 45.\nQuina és la mitjana d\'entrepans venuts per dia?',
     solucio: '$(35+42+28+50+45)\\div 5=40$ entrepans per dia.',
   },
 },

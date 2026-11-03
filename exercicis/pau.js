@@ -3,8 +3,8 @@ Models.afegeixExercicis(
 
 {
   id: 'definir-fx', bloc: 'pau',
-  titol: 'Defineix f(x) i g(x) i calcula\'n valors',
-  enunciat: 'Siguin $f(x)=x^3-3x+2$ i $g(x)=f\'(x)=3x^2-3$. Resolent $g(x)=0$ a mà has obtingut $x=-1$ i $x=1$. Amb la calculadora, troba les coordenades del mínim relatiu R i del màxim relatiu S de $f$.',
+  titol: 'Defineix les funcions f(x) i g(x), i calcula\'n valors',
+  enunciat: 'Sigui $f(x)=x^3-3x+2$. La funció derivada és $f\'(x)=3x^2-3$.\nResolent l\'equació $f\'(x)=0$ has obtingut els punts crítics: $x=-1$ i $x=1$.\n\nTroba les coordenades del mínim relatiu R(x,y) i del màxim relatiu S(x,y).',
 },
 {
   id: 'barrow', bloc: 'pau',
@@ -16,7 +16,7 @@ Models.afegeixExercicis(
   id: 'ans', bloc: 'pau',
   titol: 'Reutilitza l\'últim resultat (Ans)',
   enunciat: 'Calcula $\\dfrac{8}{\\sin 35^\\circ}$ amb la calculadora en graus, sense copiar cap decimal intermedi.',
-  tancament: '[calc]Recorda: per fer servir un resultat en el càlcul següent, prem [[ans]]. No en copiïs els decimals.[/calc]',
+  tancament: '[calc]Recorda: per fer servir un resultat en el càlcul següent, prem [[ans]]. Així t\'estalvies copiar tots els decimals.[/calc]',
 },
 {
   id: 'logaritmes', bloc: 'pau',
@@ -26,12 +26,12 @@ Models.afegeixExercicis(
 {
   id: 'combinatoria', bloc: 'pau',
   titol: 'Nombres combinatoris',
-  enunciat: 'Una variable $X$ segueix una binomial amb $n=6$ i $p=\\frac{1}{2}$. Calcula $P(X=4)=\\binom{6}{4}\\left(\\frac{1}{2}\\right)^{6}$ sense calcular el nombre combinatori a mà.',
+  enunciat: 'Una variable $X$ segueix una binomial amb $n=6$ i $p=\\frac{1}{3}$.\nCalcula $P(X=4)=\\binom{6}{4}\\left(\\frac{1}{3}\\right)^{4}\\left(\\frac{2}{3}\\right)^{2}$.',
 },
 {
   id: 'verificar', bloc: 'pau',
   titol: 'Comprova una igualtat',
-  enunciat: 'Comprova amb la calculadora que $\\dfrac{1}{\\sqrt{2}}=\\dfrac{\\sqrt{2}}{2}$.',
+  enunciat: 'Comprova que es compleix aquesta igualtat: $\\dfrac{1}{\\sqrt{2}}=\\dfrac{\\sqrt{2}}{2}$.',
 },
 
 );
