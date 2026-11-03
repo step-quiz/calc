@@ -24,7 +24,7 @@ module.exports = function (M, {ok, error, compta, comprovaTeX}) {
       ok(!p.ind.ang || ['D', 'R', 'G'].includes(p.ind.ang), on, `unitat d'angle desconeguda (${p.ind.ang})`);
       ok(!(p.ind.fix && p.ind.sci), on, 'FIX i SCI alhora');
       if (!p.linia) { TeX(p.entrada, on + ' (entrada)'); TeX(p.resultat, on + ' (resultat)'); }
-      ok(!p.marca || ['mat', 'ang', 'fix', 'sci', 'shift', 'hist', 'simp', 'verif', 'entrada', 'resultat'].includes(p.marca), on, `marca desconeguda (${p.marca})`);
+      ok(!p.marca || ['mat', 'ang', 'fix', 'sci', 'shift', 'alpha', 'hist', 'simp', 'verif', 'entrada', 'resultat'].includes(p.marca), on, `marca desconeguda (${p.marca})`);
       if (p.marca && Pantalla.INDICADORS.includes(p.marca)) ok(p.ind[p.marca], on, `es marca l'indicador ${p.marca}, però no hi és`);
       if (p.marca === 'hist') ok(p.ind.hist, on, 'es marca ▲, però no hi és');
     } else if (p.tipus === 'menu') {

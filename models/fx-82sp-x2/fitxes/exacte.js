@@ -18,38 +18,6 @@ const {SEN45, ARREL2_2, D, R, FIX} = M.comu;
 M.fitxes.push(
 
 {
-  id: 'indicadors',
-  inici: calc(D, SEN45, ARREL2_2),
-  passos: [
-    {tecles: [], pantalla: marca(calc(D, SEN45, ARREL2_2), 'mat'),
-      text: '[calc]Aquesta icona vol dir que escrius en format matemàtic, com al llibre: les fraccions i les arrels es veuen tal com les escrius. Aquí el resultat surt exacte perquè la calculadora és en mode {{E Mat/S Mat}}; en mode {{E Mat/S Decimal}} sortiria 0.7071067812.[/calc]'},
-    {tecles: [], pantalla: marca(calc(D, SEN45, ARREL2_2), 'ang'),
-      text: '[calc]La lletra amb fons fosc és la unitat dels angles: D = graus, R = radians, G = graus centesimals (aquests, no els facis servir mai).[/calc]'},
-    {tecles: [], pantalla: marca(calc(D, SEN45, ARREL2_2), 'hist'),
-      text: '[calc]El triangle ▲ vol dir que hi ha càlculs anteriors: amb [[up]] els tornes a veure.[/calc]'},
-    {tecles: [], pantalla: marca(calc(FIX, '1\\div 6', '0.17', {}), 'fix'),
-      text: '[calc]Si hi veus FIX, la calculadora arrodoneix tots els decimals (aquí, a 2 decimals). SCI és semblant: fixa les xifres significatives. Si no ho has triat tu, treu-ho.[/calc]'},
-    {tecles: ['shift'], pantalla: marca(calc(ind(D, {shift: true}), '', '', {hist: true}), 'shift'),
-      text: '[calc]Si prems [[shift]], surt una S: la tecla següent farà el que hi ha escrit a sobre seu (per exemple, [[shift]] [[exp]] escriu π). La S desapareix sola.[/calc]'},
-  ],
-  araTu: {
-    enunciat: 'Calcula $2\\pi$ i dona\'n el decimal. Mira la barra mentre escrius la π.',
-    resultat: '2\\pi\\approx 6{,}283185307',
-    error: 'Escriure 3.14 en lloc de π: $2\\cdot 3{,}14=6{,}28$, i ja falla el tercer decimal.',
-    inici: calc(D),
-    passos: [
-      {tecles: ['2', 'shift'], pantalla: marca(calc(ind(D, {shift: true}), '2'), 'shift'),
-        text: '[calc]Escriu el 2 i prem [[shift]]: a la barra surt la S.[/calc]'},
-      {tecles: ['exp'], pantalla: calc(D, '2\\pi'),
-        text: '[calc]Prem [[exp]]: s\'escriu π (el que hi ha a sobre de la tecla) i la S desapareix.[/calc]'},
-      {tecles: ['exe', 'sd'], pantalla: marca(calc(D, '2\\pi', '6.283185307'), 'resultat'),
-        parcials: {0: marca(calc(D, '2\\pi', '2\\pi'), 'resultat')},
-        text: '[calc][[exe]] dona $2\\pi$; amb [[sd]], el decimal: 6.283185307.[/calc]'},
-    ],
-  },
-  relacionades: ['fix', 'mode-decimal'],
-},
-{
   id: 'exacte-decimal',
   inici: calc(D),
   passos: [

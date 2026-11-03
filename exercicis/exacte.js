@@ -2,11 +2,6 @@
 Models.afegeixExercicis(
 
 {
-  id: 'indicadors', bloc: 'exacte',
-  titol: 'Llegeix la barra de dalt',
-  enunciat: 'Abans de calcular, mira la barra d\'indicadors de dalt de la pantalla: diu com està configurada la calculadora.',
-},
-{
   id: 'exacte-decimal', bloc: 'exacte',
   titol: 'Valor exacte i valor decimal',
   enunciat: 'Calcula $\\sin 45^\\circ$ en forma exacta i en forma decimal.',

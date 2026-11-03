@@ -190,6 +190,12 @@ function comprovaPantalla(p, ctx) {
   ctx.preans = ctx.ans;
   ctx.ans = v;
   if (p.ind && p.ind.fix) return v.toFixed(2) === resultat ? null : `amb FIX 2 hauria de sortir ${v.toFixed(2)}`;
+  // SCI 3: notació científica amb 3 xifres significatives (mantissa amb 2 decimals), com «1.67×10⁻¹»
+  if (p.ind && p.ind.sci) {
+    const [m, e] = v.toExponential(2).split('e');
+    const esperat = `${m}\\times10^{${Number(e)}}`;
+    return esperat === resultat ? null : `amb SCI 3 hauria de sortir ${esperat}`;
+  }
   if (/^-?\d+\.\d+$/.test(resultat)) return normal2(v) === resultat ? null : `hauria de sortir ${normal2(v)}`;
   const mostrat = avalua(resultat, ctx);
   return iguals(v, mostrat) ? null : `val ${normal2(v)}, però la pantalla diu ${resultat} (= ${normal2(mostrat)})`;

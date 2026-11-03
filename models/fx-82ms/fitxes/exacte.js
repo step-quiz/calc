@@ -12,24 +12,6 @@ const {D, FIX} = M.comu;
 M.fitxes.push(
 
 {
-  id: 'indicadors',
-  enunciat: 'Abans de calcular, mira la fila d\'indicadors de dalt de la pantalla: diu com està configurada la calculadora.',
-  inici: calc(D, 'sin 45', '0.707106781'),
-  passos: [
-    {tecles: [], pantalla: marca(calc(D, 'sin 45', '0.707106781'), 'ang'),
-      text: '[calc]La lletra amb fons fosc és la unitat dels angles: D = graus, R = radians, G = graus centesimals (aquests, no els facis servir mai). Aquí, en graus, $\\sin 45^\\circ$ surt 0.707106781.[/calc]'},
-    {tecles: ['ac', 'shift'], pantalla: marca(calc(ind(D, {shift: true})), 'shift'),
-      text: '[calc]Esborra amb [[ac]] i prem [[shift]]: a dalt surt una S. La tecla següent farà el que hi ha escrit en groc a sobre seu.[/calc]'},
-    {tecles: ['exp'], pantalla: calc(D, 'π'),
-      text: '[calc]Prem [[exp]]: com que abans has premut [[shift]], s\'escriu π, el que hi ha en groc a sobre. La S desapareix.[/calc]'},
-    {tecles: ['igual'], pantalla: marca(calc(D, 'π', '3.141592654'), 'resultat'),
-      text: '[calc]Prem [[igual]]: π = 3.141592654. La línia de baix té deu xifres, i als enters hi posa un punt al darrere.[/calc]'},
-    {tecles: [], pantalla: marca(calc(FIX, '1÷6', '0.17'), 'fix'),
-      text: '[calc]Si a dalt hi veus FIX, la calculadora arrodoneix tots els resultats (aquí, a 2 decimals: $1\\div 6$ surt 0.17). SCI és semblant. Si no ho has triat tu, treu-ho: fitxa «Tot em surt arrodonit».[/calc]'},
-  ],
-  relacionades: ['fix', 'mode-decimal'],
-},
-{
   id: 'exacte-decimal',
   enunciat: 'Calcula $\\sin 45^\\circ$. La fx-82MS dona el valor decimal: el valor exacte, $\\frac{\\sqrt{2}}{2}$, l\'has de saber tu.',
   inici: calc(D),

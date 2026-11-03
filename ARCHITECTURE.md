@@ -184,7 +184,8 @@ highlights that layer's legends). The calculator's proportion comes from `TECLAT
 (optional `{enunciat, solucio}`; required for fitxes in non-small ESO blocks).
 
 Blocks: `{id, titol, color, etapes, petit}`. `etapes` is always an array of catalogue stage ids. `petit: true` renders as a
-small bubble below the numbered blocks (`examen` «Abans de l'examen» in Batxillerat, `eso-inici` «Abans de començar» in ESO).
+small bubble below the numbered blocks. There are three, all in both stages, side by side in this order: `eso-inici`
+«Abans de començar», `examen` «Abans de l'examen» and `simbols` «Interpretem els símbols a la pantalla».
 
 ### 6.2 Model fitxa (`models/<id>/fitxes/`)
 
@@ -258,8 +259,16 @@ sentence, closing text included, is `[mat]` or `[calc]` (test).
 
 **Configuration problems in ESO.** No fitxa teaches an ESO student to fix the calculator's settings: David tells the
 student to reset it. Do not add such fitxes. The one exception is the small block «Abans de l'examen» (`abans-examen`),
-which, like «Abans de començar» (`eso-inici`), is in both stages (David): two small bubbles side by side on both home
-pages. Their texts must satisfy both stages' rules (e.g. «E Mat/S Mat» and «resultats exactes»).
+which, like «Abans de començar» (`eso-inici`) and «Interpretem els símbols a la pantalla» (`simbols`), is in both
+stages (David): three small bubbles side by side on both home pages. Their texts must satisfy both stages' rules (e.g.
+«E Mat/S Mat» and «resultats exactes»).
+
+**Symbols fitxa.** `indicadors` («Què vol dir cada símbol de la pantalla?», block `simbols`; it used to be the first
+fitxa of Batxillerat T1, same id so old links work): ≤ 10 steps, almost all keyless, each marking one symbol and only
+explaining it (David: no advice such as «reset it»). CW: √▫/, D, ▲, S (SHIFT pressed), R/G, FIX, SCI, ✔, ◀ ▶ on the
+entry line, ×10 with a small exponent. X II: the same with the A of ALPHA instead of ✔ (Verificar is an app there).
+fx-82MS: D, S, A, R/G, FIX, SCI, ┘, the small exponent, the arrow of an overlong top line. «Prova-ho tu» in the
+exercise (R and FIX). The CW `calcul.js` checks SCI results as SCI 3 (`1.67\times10^{-1}`).
 
 **Process.** Propose before implementing: send David (in Catalan) the candidate fitxes of a block — title, one-line goal,
 key sequence, step sentences — and wait for his OK. Deliver block by block. Sources are ground truth: competència bàsica

@@ -51,6 +51,7 @@ Models.defineixBlocs([
   // Les bombolles petites, a totes dues etapes (en aquest ordre, una al costat de l'altra)
   {id: 'eso-inici', titol: 'Abans de començar', color: '#3d4f1f', etapes: ['batx', 'eso'], petit: true},
   {id: 'examen', titol: 'Abans de l\'examen', color: '#3d4f1f', etapes: ['batx', 'eso'], petit: true},
+  {id: 'simbols', titol: 'Interpretem els símbols a la pantalla', color: '#3d4f1f', etapes: ['batx', 'eso'], petit: true},
   // ESO: verds i morats
   {id: 'eso-pantalla', titol: 'Fracció o decimal. Arrodonir. Notació científica', color: '#0b4a40', etapes: ['eso']},
   {id: 'eso-parentesis', titol: 'Ús dels parèntesis', color: '#0d5c4f', etapes: ['eso']},

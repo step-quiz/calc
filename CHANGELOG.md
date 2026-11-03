@@ -4,6 +4,16 @@ Què ha canviat a cada versió del web, de la més nova a la més antiga. El fun
 `README.md` i `ARCHITECTURE.md`; aquí només hi ha la història. El número de versió és `VERSIO` a
 `js/nucli/models.js` i surt al peu de les pàgines.
 
+## Versió 75 (3/11/2026)
+
+- Bombolla nova, a ESO i a Batxillerat: **«Interpretem els símbols a la pantalla»**, amb la fitxa «Què vol dir cada
+  símbol de la pantalla?». En 9 o 10 passos explica tot el que surt a la pantalla a part dels nombres: la icona de
+  format matemàtic, D, R i G, ▲, la S de SHIFT (i la A d'ALPHA a les X II i a la MS), FIX, SCI, el ✔ de Verificar (CW),
+  les fletxes quan l'expressió no hi cap, la notació científica i, a la MS, la fracció amb ┘. Acaba amb un «Prova-ho tu».
+- La fitxa «Llegeix la barra de dalt» del T1 de Batxillerat s'hi ha traslladat (ampliada): el T1 comença ara per «Valor
+  exacte i valor decimal». Els enllaços antics (`fitxa.html?id=indicadors`) continuen funcionant.
+- Les proves recalculen també els resultats amb SCI.
+
 ## Versió 74 (3/11/2026)
 
 - Les velocitats «normal» (la de per defecte) i «lenta», un 15 % més lentes: totes les durades de l'animació de les
