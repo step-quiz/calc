@@ -4,6 +4,14 @@ Què ha canviat a cada versió del web, de la més nova a la més antiga. El fun
 `README.md` i `ARCHITECTURE.md`; aquí només hi ha la història. El número de versió és `VERSIO` a
 `js/nucli/models.js` i surt al peu de les pàgines.
 
+## Versió 86 (3/11/2026)
+
+- L'enunciat ja no es plega sol en començar: sempre es veu sencer, perquè no es perdi la part que ressalta cada pas.
+  L'alumne el plega clicant-lo (amb la cortina de 0,9 s) i el desplega igual.
+- A l'ordinador, un enunciat molt llarg ocupa com a molt el 34 % de la finestra i es desplaça per dins; la part que
+  ressalta el pas es posa a la vista sola.
+- «El punt simètric respecte d'un pla»: l'últim pas, massa llarg, es divideix en dos (el pla $\pi_2$ va a un pas nou).
+
 ## Versió 85 (3/11/2026)
 
 - Botons ◀ ↻ ▶: en passar-hi el ratolí, la vora es fa més gruixuda i el fons es torna gris clar.

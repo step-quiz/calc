@@ -310,6 +310,12 @@ function crea(ctx, r, fitxa, temps, opcions = {}) {
     // L'apartat de l'enunciat que es resol en aquest pas, ressaltat
     const apartat = idx >= 0 ? passos[idx].apartat : null;
     r.enunciat.querySelectorAll('.apartat').forEach(e => e.classList.toggle('actiu', e.dataset.apartat === apartat));
+    // Si l'enunciat és tan llarg que es desplaça per dins, la part ressaltada es posa a la vista
+    const ressaltat = r.enunciat.querySelector('.apartat.actiu');
+    if (ressaltat && r.enunciat.scrollHeight > r.enunciat.clientHeight + 1) {
+      const dalt = ressaltat.offsetTop - 8, baix = ressaltat.offsetTop + ressaltat.offsetHeight + 8;
+      if (dalt < r.enunciat.scrollTop || baix > r.enunciat.scrollTop + r.enunciat.clientHeight) r.enunciat.scrollTop = Math.max(0, dalt);
+    }
     // Zona d'error: si el pas ensenya un ús erroni, la pàgina es tenyeix de vermell (estil.css)
     const error = idx >= 0 && Boolean(passos[idx].error);
     document.body.classList.toggle(ux('d1') ? 'error-suau' : 'zona-error', error);

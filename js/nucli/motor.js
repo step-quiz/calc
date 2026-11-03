@@ -266,20 +266,28 @@ function construeixPagina(fitxa, bloc, germanes, contenidor) {
     totsElsPassos,
     element('label', {class: 'velocitat', for: 'velocitat', text: 'Velocitat '}, [r.velocitat]),
   ].filter(Boolean));
-  // Palanca A2: un cop començada, l'enunciat es plega a una línia; en clicar-lo, es desplega (i es torna a plegar)
-  if (ux('a2')) r.enunciat.title = 'Clica per veure o plegar l\'enunciat';
+  // Palanca A2: l'enunciat sempre es veu sencer; en clicar-lo, es plega a una línia (i es torna a desplegar)
+  if (ux('a2')) r.enunciat.title = 'Clica per plegar o desplegar l\'enunciat';
   if (ux('a2')) r.enunciat.addEventListener('click', e => {
     if (e.target.closest('button, a, dialog')) return;
-    mesuraEnunciat();
-    r.enunciat.classList.toggle('desplegat');
+    // L'alçada sencera, mesurada ara, fa d'origen o de destí de la cortina (estil.css, A2). En acabar de desplegar-se,
+    // l'enunciat torna a no tenir cap alçada màxima (.mesurat fora).
+    const en = r.enunciat;
+    // (a l'ordinador, com a molt el 34 % de la finestra: estil.css hi limita l'enunciat desplegat)
+    const sostre = matchMedia('(min-width: 1000px)').matches ? 0.34 * innerHeight : Infinity;
+    en.style.setProperty('--alt-enunciat', Math.min(en.scrollHeight, sostre) + 'px');
+    if (en.classList.contains('plegat')) {
+      en.classList.add('mesurat');
+      en.classList.remove('plegat');
+    } else {
+      en.classList.add('mesurat');
+      void en.offsetHeight;                         // que la cortina comenci de l'alçada sencera
+      en.classList.add('plegat');
+    }
   });
-  // L'alçada sencera de l'enunciat, perquè el plec (estil.css, A2) es pugui animar com una cortina
-  function mesuraEnunciat() { r.enunciat.style.setProperty('--alt-enunciat', r.enunciat.scrollHeight + 'px'); }
-  if (ux('a2')) {
-    requestAnimationFrame(mesuraEnunciat);
-    if (document.fonts) document.fonts.ready.then(mesuraEnunciat);
-    addEventListener('resize', mesuraEnunciat);
-  }
+  if (ux('a2')) r.enunciat.addEventListener('transitionend', ev => {
+    if (ev.propertyName === 'max-height' && !r.enunciat.classList.contains('plegat')) r.enunciat.classList.remove('mesurat');
+  });
   // Palanques C4 i E2: la frase del pas actual surt fora de la llista, en gran (sota la calculadora o a la dreta)
   if (ux('c4') || ux('e2')) {
     r.fraseGran = element('div', {class: 'frase-gran', 'aria-hidden': 'true'});

@@ -142,7 +142,9 @@ M.fitxes.push(
       pantalla: calc(D, '\\frac{3}{\\sqrt{2^{2}+(-1)^{2}+1^{2}}}', '', {hist: true}),
       text: '[calc]Ara la fracció: el 3 a dalt i, a baix, l\'arrel de $2^2+(-1)^2+1^2$, com a l\'apartat a).[/calc]'},
     {tecles: ['exe'], pantalla: marca(calc(D, '\\frac{3}{\\sqrt{2^{2}+(-1)^{2}+1^{2}}}', '\\frac{\\sqrt{6}}{2}'), 'resultat'),
-      text: '[calc]Prem [[exe]]: $\\frac{\\sqrt{6}}{2}$. ✓ El punt $P\'$ és a la mateixa distància del pla que $P$, a l\'altra banda.[/calc] [mat]El pla $\\pi_2$ és $2x-y+z=E$ amb $E=2\\cdot 2-0+4=8$: $\\pi_2: 2x-y+z=8$.[/mat] [calc](Surt exacte perquè la calculadora és en mode {{E Mat/S Mat}}; en mode {{E Mat/S Decimal}} sortiria 1.224744871.)[/calc]'},
+      text: '[calc]Prem [[exe]]: $\\frac{\\sqrt{6}}{2}$. ✓ El punt $P\'$ és a la mateixa distància del pla que $P$, a l\'altra banda.[/calc] [calc](Surt exacte perquè la calculadora és en mode {{E Mat/S Mat}}; en mode {{E Mat/S Decimal}} sortiria 1.224744871.)[/calc]'},
+    {tecles: [], pantalla: marca(calc(D, '\\frac{3}{\\sqrt{2^{2}+(-1)^{2}+1^{2}}}', '\\frac{\\sqrt{6}}{2}'), 'resultat'),
+      text: '[mat]El pla $\\pi_2$ és $2x-y+z=E$ amb $E=2\\cdot 2-0+4=8$: $\\pi_2: 2x-y+z=8$.[/mat]'},
   ],
   /* «Ara tu» DESACTIVAT: de moment no surt als exercicis PAU reals. Per tornar-lo a activar,
      treu aquest comentari (ARCHITECTURE.md, «Disabled “Ara tu”»).

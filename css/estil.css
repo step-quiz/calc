@@ -566,14 +566,20 @@ body, .capcalera{transition:background-color .25s}
 .ux-tots{font-family:var(--mono); font-size:12px; padding:5px 11px; border:1px solid var(--border); border-radius:999px; background:var(--surface); color:var(--muted); cursor:pointer}
 .ux-tots:hover, .ux-tots[aria-pressed="true"]{border-color:var(--cat); color:var(--cat)}
 
-/* A2 · Un cop començada la fitxa, l'enunciat es plega a una línia (en clicar-lo, es desplega). El plec és una cortina
-   que puja en 0,9 s: max-height va de l'alçada sencera (--alt-enunciat, que mesura motor.js) a una línia, i la part de
+/* A2 · L'enunciat sempre es veu sencer; l'alumne el plega a una línia clicant-lo (.plegat), i el desplega igual: així
+   no es perd mai la part que ressalta un pas ([a]…[/a]). El plec és una cortina
+   que puja en 0,9 s: max-height va de l'alçada sencera (--alt-enunciat, que motor.js mesura en clicar) a una línia, i la part de
    baix s'esvaeix a poc a poc (--plec-fos, de 100 % a 50 %; @property perquè es pugui animar). */
 @property --plec-fos{syntax:'<percentage>'; inherits:false; initial-value:100%}
-.ux-a2 .enunciat{cursor:pointer; overflow:hidden; --plec-fos:100%; max-height:calc(var(--alt-enunciat, 40em) + 4px);
+.ux-a2 .enunciat{cursor:pointer; overflow:hidden; --plec-fos:100%;
   -webkit-mask-image:linear-gradient(#000 var(--plec-fos), transparent); mask-image:linear-gradient(#000 var(--plec-fos), transparent);
   transition:max-height .9s cubic-bezier(.45,.05,.25,1), --plec-fos .9s ease-in-out}
-.ux-a2 body.en-marxa .enunciat:not(.desplegat){max-height:calc(1.55em + 24px); --plec-fos:50%}
+/* A l'ordinador (dues columnes), un enunciat molt llarg ocupa com a molt el 34 % de la finestra i es desplaça per dins
+   (reproductor.js hi posa a la vista la part ressaltada del pas), perquè el pas actual sempre hi càpiga */
+@media (min-width:1000px){ .ux-a2 .enunciat:not(.plegat):not(.mesurat){max-height:34vh; overflow-y:auto; overscroll-behavior:contain} }
+/* Només mentre s'anima té una alçada màxima (la mesurada just abans); sense plegar ni animar, cap límit */
+.ux-a2 .enunciat.mesurat{max-height:calc(var(--alt-enunciat) + 4px)}
+.ux-a2 .enunciat.plegat{max-height:calc(1.55em + 24px); --plec-fos:50%}
 @media (prefers-reduced-motion: reduce){ .ux-a2 .enunciat{transition:none} }
 
 /* A3 · Capçalera mínima: «Escollir calculadora» i l'idioma, dins d'un ⚙ a la dreta */

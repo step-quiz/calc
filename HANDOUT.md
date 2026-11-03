@@ -53,7 +53,7 @@ Extra screen types from variants: `x2-apps`, `x2-rang`, `x2-taula`.
 - Error-zone steps (`error: true`); if a fitxa ends in error, a closing step (`tancament`) is appended.
 - Barrow «Ara tu» is **disabled** (commented block «Ara tu» DESACTIVAT in each model's `pau.js`).
 
-## 5. Work done in recent conversations (versions 56 → 85)
+## 5. Work done in recent conversations (versions 56 → 86)
 
 - **v56–57**: fx-570/991SP X II complete (drawing from 626×1333 photo, numbered menus, CALC, Verificar app). Speed «lenta»
   slowed twice (3.01); in v74 «normal» and «lenta» were made 15 % slower (1.65 → 1.90, 3.01 → 3.46).
@@ -114,6 +114,9 @@ Extra screen types from variants: `x2-apps`, `x2-rang`, `x2-taula`.
 - **v83**: step 0 = statement only: other steps hidden, calculator at 30 % opacity (`body.pagina-fitxa:not(.en-marxa)`).
 - **v84**: statement fold animated as a 0.9 s curtain (`--alt-enunciat` measured in motor.js, `@property --plec-fos`).
 - **v85**: player buttons hover = thicker border + light grey; ▶ in the step-0 sentence inside a circle (`.boto-inline`).
+- **v86**: statement never auto-folds (highlighted parts must stay visible); the student folds/unfolds it by clicking;
+  on desktop it is capped at 34vh with internal scroll (reproductor.js scrolls the active `[a]` part into view);
+  `pau-geo-25s-q4b-c` last step split in two (CW/X II).
 - David's standing preference: ask him questions with the AskUserQuestion multiple-choice dialog, never as free text.
 
 ## 6. UX Laboratory (the big item of this session)
@@ -169,7 +172,7 @@ Extra screen types from variants: `x2-apps`, `x2-rang`, `x2-taula`.
 ## 8. Versioning & delivery protocol
 
 - Any served `.js`/`.css` change → bump `VERSIO` (`js/nucli/models.js`), every `?v=` in `index.html`/`fitxa.html`, and
-  the «Versió N» footer of `index.html` (test enforces). Current: **85**.
+  the «Versió N» footer of `index.html` (test enforces). Current: **86**.
 - Delivery = cumulative ZIP from the base commit, repo-root paths, excluding `_uploads/`. If David uploads the repo as a
   ZIP (no `.git`), `git init` it, commit it as the base and diff from that commit instead of `076cc6c`:
   `(git diff --name-only --diff-filter=AMR 076cc6c; git ls-files --others --exclude-standard) | sort -u | grep -v '^_uploads/' | zip -@ calc-versio-NN.zip`
