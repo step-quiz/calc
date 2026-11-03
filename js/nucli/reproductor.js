@@ -38,20 +38,19 @@ const {element, icona, ICONES} = Dom;
 
 /** Durades de l'animació d'una tecla, en mil·lisegons, abans d'aplicar la velocitat triada. */
 const TEMPS = Object.freeze({
-  cursor: 430,         // el cursor va fins a la tecla
+  cursor: 700,         // el cursor recorre l'amplada de la calculadora (la durada és proporcional a la distància)
   clic: 150,           // la tecla està premuda
   entreTecles: 170,    // pausa després de la tecla (la pantalla ja ha canviat)
   pantalla: 220,       // la pantalla del final del pas apareix
 });
-/** Les xifres i el punt (tecles de tipus 'num') van 3 vegades més de pressa: l'alumne ja sap com s'escriu un nombre. */
-const RAPIDESA_XIFRES = 3;
+/* Velocitat uniforme (David): el cursor va sempre a la mateixa velocitat, de manera que tarda més a anar a una tecla
+   llunyana que a una del costat, i totes les tecles (també les xifres) tenen els mateixos temps. */
 /**
  * Abans d'animar un pas amb tecles (ms, sempre els mateixos, no depenen de la velocitat): repòs, vora groga de la
  * calculadora que s'esvaeix, les altres tecles que s'apaguen (la transició d'opacitat de .ux-b1 a estil.css) i, amb
  * les tecles ja apagades, un temps perquè la mirada es fixi a la calculadora abans que el cursor es mogui.
  */
 const ATENCIO = Object.freeze({repos: 300, vora: 600, apaga: 250, fixacio: 800});
-/** Fins a quantes tecles per pas es numeren al teclat (en una seqüència més llarga, els números fan soroll). */
 const CORBA = 'cubic-bezier(.45,.05,.25,1)';
 /** C1: temps de lectura abans de les tecles, per paraula i entre un mínim i un màxim (ms, abans d'aplicar la velocitat). */
 const LECTURA = Object.freeze({perParaula: 170, min: 600, max: 4200});
@@ -123,6 +122,12 @@ function creaCursor(r) {
   const transforma = (escala = 1) => `translate(${x}px, ${y}px) scale(${escala})`;
   const el = r.cursor;
   return {
+    /** Quants px hi ha des d'on és el cursor (o d'on sortirà, la primera vegada) fins a (nx, ny). */
+    distancia(nx, ny) {
+      const x0 = x === null ? r.calculadora.offsetLeft + r.calculadora.offsetWidth - 20 : x;
+      const y0 = y === null ? r.calculadora.offsetTop + r.calculadora.offsetHeight + 10 : y;
+      return Math.hypot(nx - x0, ny - y0);
+    },
     /** Va fins a (nx, ny) en «durada» ms. La primera vegada surt de sota la calculadora, a la dreta. */
     async va(nx, ny, durada) {
       if (x === null) {
@@ -233,7 +238,6 @@ function crea(ctx, r, fitxa, temps, opcions = {}) {
   /** La pantalla del final del pas i: la del simulador (amb el cursor de text al seu lloc) o, si el pas no té tecles, la de la fitxa. */
   const final = i => (i < 0 ? fitxa.inici : (parcials[i].length ? parcials[i][parcials[i].length - 1] : passos[i].pantalla));
   const prefix = id => (id && M.tecles.TECLES[id] && M.tecles.TECLES[id].prefix) || null;
-  const esXifra = id => M.tecles.TECLES[id] && M.tecles.TECLES[id].tipus === 'num';
   /** Els elements que només surten en acabar l'últim pas («Ara tu», «Prova-ho tu»): {el, reinicia()}. */
   const alFinal = r.alFinal || [];
   let idx = -1;                 // -1 = el pas 0 (abans de començar)
@@ -422,9 +426,11 @@ function crea(ctx, r, fitxa, temps, opcions = {}) {
     for (let j = 0; j < pas.tecles.length; j++) {
       const id = pas.tecles[j];
       const t = r.teclat.querySelector(`[data-tecla="${id}"]`);
-      const ms = d => temps(d) / (esXifra(id) ? RAPIDESA_XIFRES : 1);
+      const ms = d => temps(d);
       const q = rectangle(t, r.escenari);
-      await cursor.va(q.cx - 2, q.cy - 2, ms(TEMPS.cursor));
+      // Velocitat constant: TEMPS.cursor ms per cada amplada de la calculadora recorreguda
+      const recorregut = cursor.distancia(q.cx - 2, q.cy - 2) / Math.max(1, r.calculadora.offsetWidth);
+      await cursor.va(q.cx - 2, q.cy - 2, ms(TEMPS.cursor * recorregut));
       if (!viu()) return;
       cursor.prem(true, ms(90));
       t.classList.add('premuda');
@@ -476,6 +482,6 @@ function crea(ctx, r, fitxa, temps, opcions = {}) {
     get pas() { return idx; }, get total() { return passos.length; }, get ocupat() { return ocupat; }};
 }
 
-arrel.Reproductor = Object.freeze({crea, TEMPS, RAPIDESA_XIFRES});
+arrel.Reproductor = Object.freeze({crea, TEMPS});
 
 })(globalThis);

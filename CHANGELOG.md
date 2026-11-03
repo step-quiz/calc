@@ -4,6 +4,12 @@ Què ha canviat a cada versió del web, de la més nova a la més antiga. El fun
 `README.md` i `ARCHITECTURE.md`; aquí només hi ha la història. El número de versió és `VERSIO` a
 `js/nucli/models.js` i surt al peu de les pàgines.
 
+## Versió 95 (3/11/2026)
+
+- El cursor de la calculadora es mou sempre a la mateixa velocitat: tarda més a anar a una tecla llunyana que a una del
+  costat. Abans, cada moviment durava el mateix fos quina fos la distància, i les xifres i el punt anaven 3 vegades més
+  de pressa que les altres tecles; ara totes les tecles tenen els mateixos temps (David).
+
 ## Versió 94 (3/11/2026)
 
 - Les tecles del simulador ja no porten mai números d'ordre (abans en sortien als passos de 2 a 6 tecles). La palanca B2
