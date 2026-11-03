@@ -250,6 +250,12 @@ function construeixPagina(fitxa, bloc, germanes, contenidor) {
     alFinal: [],
   };
   const font = botoFont(fitxa);
+  // L'enunciat dins d'una caixa amb el botó per plegar-lo (A2): icona de comprimir en vertical o, plegat, d'expandir
+  const ICONA_PLEC = (classe, d) => `<svg class="${classe}" viewBox="0 0 24 24" aria-hidden="true"><path d="${d}" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>`;
+  r.plegaEnunciat = element('button', {class: 'plega-enunciat', type: 'button', title: 'Plega o desplega l\'enunciat',
+    'aria-label': 'Plega o desplega l\'enunciat', 'aria-expanded': 'true',
+    html: ICONA_PLEC('comprimeix', 'M12 3v6M9 6l3 3 3-3M12 21v-6M9 18l3-3 3 3M4 12h16') + ICONA_PLEC('expandeix', 'M12 9V3M9 6l3-3 3 3M12 15v6M9 18l3 3 3-3M4 12h16')});
+  r.caixaEnunciat = element('div', {class: 'enunciat-caixa'}, [r.enunciat, r.plegaEnunciat]);
   if (font) r.enunciat.prepend(font, ' ');
   const figura = botoFigura(fitxa);
   if (figura) r.enunciat.prepend(figura);
@@ -268,8 +274,7 @@ function construeixPagina(fitxa, bloc, germanes, contenidor) {
   ].filter(Boolean));
   // Palanca A2: l'enunciat sempre es veu sencer; en clicar-lo, es plega a una línia (i es torna a desplegar)
   if (ux('a2')) r.enunciat.title = 'Clica per plegar o desplegar l\'enunciat';
-  if (ux('a2')) r.enunciat.addEventListener('click', e => {
-    if (e.target.closest('button, a, dialog')) return;
+  function plegaEnunciat() {
     // L'alçada sencera, mesurada ara, fa d'origen o de destí de la cortina (estil.css, A2). En acabar de desplegar-se,
     // l'enunciat torna a no tenir cap alçada màxima (.mesurat fora).
     const en = r.enunciat;
@@ -284,7 +289,10 @@ function construeixPagina(fitxa, bloc, germanes, contenidor) {
       void en.offsetHeight;                         // que la cortina comenci de l'alçada sencera
       en.classList.add('plegat');
     }
-  });
+    if (r.plegaEnunciat) r.plegaEnunciat.setAttribute('aria-expanded', String(!en.classList.contains('plegat')));
+  }
+  if (ux('a2')) r.enunciat.addEventListener('click', e => { if (!e.target.closest('button, a, dialog')) plegaEnunciat(); });
+  if (ux('a2')) r.plegaEnunciat.addEventListener('click', plegaEnunciat);
   if (ux('a2')) r.enunciat.addEventListener('transitionend', ev => {
     if (ev.propertyName === 'max-height' && !r.enunciat.classList.contains('plegat')) r.enunciat.classList.remove('mesurat');
   });
@@ -333,7 +341,7 @@ function construeixPagina(fitxa, bloc, germanes, contenidor) {
       element('div', {class: 'columna'}, [
         element('h1', {class: 'nomes-lectors', text: fitxa.titol}),
         r.tornaPassos,
-        r.enunciat,
+        r.caixaEnunciat,
         costat ? null : r.reproductor,
         r.passos,
         ...r.alFinal.map(a => a.el),

@@ -4,6 +4,12 @@ Què ha canviat a cada versió del web, de la més nova a la més antiga. El fun
 `README.md` i `ARCHITECTURE.md`; aquí només hi ha la història. El número de versió és `VERSIO` a
 `js/nucli/models.js` i surt al peu de les pàgines.
 
+## Versió 87 (3/11/2026)
+
+- A l'esquerra de l'enunciat, centrada, una icona per plegar-lo (fletxes cap a una ratlla) o desplegar-lo (fletxes cap
+  a fora). En passar-hi el ratolí, vora negra gruixuda i fons gris clar. A les pantalles estretes no surt: l'enunciat
+  es plega clicant-lo.
+
 ## Versió 86 (3/11/2026)
 
 - L'enunciat ja no es plega sol en començar: sempre es veu sencer, perquè no es perdi la part que ressalta cada pas.

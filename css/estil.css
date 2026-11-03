@@ -398,7 +398,7 @@ body.zona-error .pas.actual.convida::after, body.error-suau .pas.actual.convida:
 /* Una columna (pantalles estretes): enunciat, reproductor, calculadora, passos
 .contingut{flex:1; width:100%; max-width:640px; margin:0 auto; padding:14px; display:flex; flex-direction:column; gap:14px}
 .columna{display:contents}
-.enunciat{order:1}
+.enunciat, .enunciat-caixa{order:1}
 .reproductor{order:2}
 .contingut > .escenari{order:3}
 .passos{order:4}
@@ -577,6 +577,27 @@ body, .capcalera{transition:background-color .25s}
 /* A l'ordinador (dues columnes), un enunciat molt llarg ocupa com a molt el 34 % de la finestra i es desplaça per dins
    (reproductor.js hi posa a la vista la part ressaltada del pas), perquè el pas actual sempre hi càpiga */
 @media (min-width:1000px){ .ux-a2 .enunciat:not(.plegat):not(.mesurat){max-height:34vh; overflow-y:auto; overscroll-behavior:contain} }
+/* El botó per plegar / desplegar l'enunciat: a l'esquerra de la caixa, al marge de la pàgina (la columna s'hi eixampla),
+   centrat en alçada. Icona de comprimir en vertical (fletxes cap a la ratlla); plegat, d'expandir (fletxes cap a fora).
+   Discret (vora fina, gris) però prou gran; en passar-hi el ratolí, vora negra gruixuda i fons gris clar. En una sola
+   columna (pantalles estretes) no surt, per no robar amplada: l'enunciat es plega clicant-lo. */
+.enunciat-caixa{position:relative}
+.enunciat-caixa > .enunciat{flex:1; min-width:0}
+.plega-enunciat{display:none}
+@media (min-width:1000px){
+  /* La columna s'eixampla 46 px cap al marge de l'esquerra (el botó i l'espai): l'enunciat conserva la seva amplada i
+     la resta de la columna no es mou; només la caixa de l'enunciat ocupa aquests 46 px */
+  .ux-a2 .pagina-fitxa .columna{margin-left:-46px; padding-left:46px}
+  .ux-a2 .enunciat-caixa{display:flex; align-items:center; gap:10px; margin-left:-46px}
+  .ux-a2 .plega-enunciat{display:grid; place-items:center; flex:none; order:-1;
+    width:36px; height:36px; padding:0; border:1px solid var(--border); border-radius:8px; background:transparent; color:var(--muted);
+    cursor:pointer; transition:background-color .15s, color .15s, border-color .15s, box-shadow .15s}
+  .ux-a2 .plega-enunciat svg{width:22px; height:22px}
+  .ux-a2 .plega-enunciat:hover, .ux-a2 .plega-enunciat:focus-visible{border-color:#000; box-shadow:0 0 0 1px #000; background:#e7e5e0; color:#000}
+  .ux-a2 .plega-enunciat .expandeix{display:none}
+  .ux-a2 .enunciat-caixa:has(.enunciat.plegat) .plega-enunciat .comprimeix{display:none}
+  .ux-a2 .enunciat-caixa:has(.enunciat.plegat) .plega-enunciat .expandeix{display:block}
+}
 /* Només mentre s'anima té una alçada màxima (la mesurada just abans); sense plegar ni animar, cap límit */
 .ux-a2 .enunciat.mesurat{max-height:calc(var(--alt-enunciat) + 4px)}
 .ux-a2 .enunciat.plegat{max-height:calc(1.55em + 24px); --plec-fos:50%}
@@ -687,7 +708,7 @@ body.error-suau .pas.actual, body.error-suau .frase-gran{border-color:var(--vell
   .ux-e3 .pagina-fitxa .contingut{display:flex; flex-direction:column; max-width:720px; padding:14px; gap:14px}
   .ux-e3 .pagina-fitxa .columna{display:contents}
   .ux-e3 .pagina-fitxa .passos{flex:none; overflow:visible}
-  .ux-e3 .pagina-fitxa .enunciat{order:1}
+  .ux-e3 .pagina-fitxa .enunciat, .ux-e3 .pagina-fitxa .enunciat-caixa{order:1}
   .ux-e3 .pagina-fitxa .reproductor{order:2}
   .ux-e3 .pagina-fitxa .passos{order:3}
   .ux-e3 .pagina-fitxa .ara-tu{order:4}
