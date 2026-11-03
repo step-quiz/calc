@@ -43,7 +43,7 @@ de CASIO) es veuen diferents, el que s'ha de corregir és la fitxa: la majoria s
 | 27 | Les funcions inverses (SHIFT sen, cos, tan: Arcsen, Arccos, Arctan) a la pantalla | fitxa d'ESO `ll4-7-39` | **Confirmat (David, 1/11/2026).** La CW escriu «Arccos(» (i «Arcsen(», «Arctan(»), no «cos⁻¹(»: el simulador ho dibuixa així des de la versió 49. El resultat surt en graus amb la D a la barra. (La fx-82MS escriu «cos⁻¹».) |
 | 28 | La plantilla de fracció just després d'un resultat | fitxes `frac-prioritat` 3, `pau-alg-24j-q2` 3, `pau-geo-25s-q4b` 3, `pau-geo-25s-q4b-c` 5, `pau-geo-26j2-q4b` 5, `pau-ana-25i-q4a` 3 | **Confirmat (David, 2/11/2026).** Després de 1÷2 EXE, la tecla de fracció comença un càlcul nou: surt □/□, no Ans/□. És el que fa el simulador. |
 | 29 | DEL a la CW | fitxa d'ESO `eso-corregeix` | **Confirmat (David, 2/11/2026).** Esborra el que hi ha just abans del cursor (la CW sempre insereix). |
-| 30 | Un resultat amb SCI | fitxa `indicadors` (bombolla «Interpretem els símbols a la pantalla»), pas 7 | Amb SCI 3, $1\div 6$ surt «1.67» a mida normal i «×10» i «−1» petits, com qualsevol notació científica (fila 26). Falta comprovar quantes xifres posa la calculadora per defecte en triar SCI. |
+| 30 | Un resultat amb SCI | fitxa `indicadors` (bombolla «Interpretar els indicadors de pantalla»), pas 7 | Amb SCI 3, $1\div 6$ surt «1.67» a mida normal i «×10» i «−1» petits, com qualsevol notació científica (fila 26). Falta comprovar quantes xifres posa la calculadora per defecte en triar SCI. |
 | 31 | Verificar amb una igualtat certa | fitxa `indicadors`, pas 8 | $\frac{1}{2}=0.5$ dona «Verdadero» (el ✔ a la barra, fila 24 de la versió 24). |
 
 La llista de variables (tecla VARIABLE, `G.variables`) i el menú que surt en prémer OK sobre una variable (`G.menuVariable`: Guardar, Recuperar, Editar) estan fets però cap fitxa no els fa servir ara: abans de fer-los servir, cal comprovar-ne l'ordre i l'aspecte.
@@ -118,7 +118,7 @@ la CW, es retalla la franja del logotip de dalt. La creu del cursor és un oval 
 | 12 | Com es veu nCr | fitxa `combinatoria` | «6C4». |
 | 13 | El producte sense signe davant d'un parèntesi i d'una funció | fitxa `pau-ana-24i-q1` | `-2+10(1.5-1)ln 1.5` es calcula sense escriure ×. |
 | 14 | DEL i el cursor | fitxa d'ESO `eso-corregeix` | Amb el cursor al final, DEL esborra l'última xifra; amb ◀ el cursor es posa a sota d'una xifra, i escriure la substitueix. Comprovar-ho a la calculadora. |
-| 15 | Els símbols de la pantalla | fitxa `indicadors` (bombolla «Interpretem els símbols a la pantalla») | La A d'ALPHA a l'esquerra, al costat de la S; amb SCI 3, $1\div 6$ surt «1.67» i, a la dreta, en petit, «×10» i «−01»; els rètols d'ALPHA, en vermell. |
+| 15 | Els símbols de la pantalla | fitxa `indicadors` (bombolla «Interpretar els indicadors de pantalla») | La A d'ALPHA a l'esquerra, al costat de la S; amb SCI 3, $1\div 6$ surt «1.67» i, a la dreta, en petit, «×10» i «−01»; els rètols d'ALPHA, en vermell. |
 
 ---
 
@@ -157,7 +157,7 @@ suposat: el manual no dibuixa les pantalles dels menús.
 | 11 | Els textos en català | `variant.js` (`catala`) | Els de la fx-82SP CW amb el número davant (1:Entrada/Sortida, 2:Unitat angular, 3:Format nombre, 4:Símb enginyeria, 1:Graus sexag (D), 2:Radian…) i els noms de les aplicacions (Complexos, Matriu, Full de càlcul, Equació/Func…). |
 | 12 | La barra d'indicadors i la pantalla de càlcul | `models/fx-82sp-cw/pantalla.js` | Les de la fx-82SP CW (√▫ i D en negatiu; l'entrada a dalt, el resultat a baix a la dreta); ALPHA posa una A, com SHIFT una S. |
 | 13 | (−), x² i S⇔D | fitxes `eso-quadrat-negatiu`, `cb4-24-q8`, `exacte-decimal` | (−) escriu «−»; `(−3)²` = 9 i `−3²` = −9. S⇔D passa de 19/5 a 3.8 i de √2/2 a 0.7071067812, i una altra vegada torna a l'exacte. Amb Dec periódico activat (és el de fàbrica), potser una fracció com 2/3 surt amb període: les fitxes fan servir SHIFT = (≈) en aquests casos. |
-| 15 | La A d'ALPHA i SCI | fitxa `indicadors` (bombolla «Interpretem els símbols a la pantalla») | Després d'ALPHA, una A en negatiu a l'esquerra de la barra (com la S); amb SCI 3, $1\div 6$ surt $1.67\times 10^{-1}$. També a la fx-82/85SP X II. |
+| 15 | La A d'ALPHA i SCI | fitxa `indicadors` (bombolla «Interpretar els indicadors de pantalla») | Després d'ALPHA, una A en negatiu a l'esquerra de la barra (com la S); amb SCI 3, $1\div 6$ surt $1.67\times 10^{-1}$. També a la fx-82/85SP X II. |
 | 14 | Els colors i les mides | `models/fx-570sp-x2/estil.css`, `tecles.js` | Mesurats i aproximats a partir de la foto: cos negre amb vora clara, quatre tecles rodones platejades, tecles negres a dalt, blanques a baix, DEL i AC blaves; SHIFT en groc daurat i ALPHA en rosa. |
 
 ---

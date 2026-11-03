@@ -72,7 +72,7 @@ fitxa (what the player plays) = exercici (shared)        +  model fitxa (per cal
 | `js/nucli/reproductor.js` | `Reproductor` | The step player: step list, key outlines and order badges, animated cursor, `salta` / `seguent` / `repeteix`, error-zone class, ARIA live announcement, `?pas=` in the URL, the UX-lab hooks (B4, C1, C2, D1, D2, sentence copy for C4/E2). |
 | `js/nucli/ux.js` | `UX` | UX-lab levers from `?ux=` (classes on `<html>`, `UX.te`, `postMessage` to the lab). |
 | `js/nucli/motor.js` | `Motor` | The fitxa page: header (← Fitxes, «T<n> · block title» as on the home page, «<n>. fitxa title», «Escollir calculadora», language), statement (source bubble, figure dialog; SVG figures get an explicit width there, since the shrink-to-fit `<dialog>` would collapse them to 0), player buttons, speed, «Ara tu» mode, «Prova-ho tu», closing step, keyboard shortcuts, keyboard-arrows notice. Exposes the main player as global `fitxa`. |
-| `js/nucli/portada.js` | `Portada` | Home page: stage selector, «Escollir calculadora», language selector, title with the chosen calculator, one card per block of the stage, small blocks as a row of bubbles above the cards. |
+| `js/nucli/portada.js` | `Portada` | Home page: stage selector, «Escollir calculadora», language selector, title with the chosen calculator, one card per block of the stage, small blocks as a row of bubbles above the cards. Cards are as narrow as the longest block title of the stage on one line (`ajustaAmplada` measures it and sets `--ample-bloc`; the page is at most 3 cards wide, centred); a thin rule (80 % wide) separates consecutive fitxes of different `grup`. |
 | `models/cataleg.js` | — | `Models.cataleg([...])` (calculators; first = default), `Models.etapes([...])` (stages; first = default), `Models.exercicis([...])` (exercise files, in load order). |
 | `exercicis/blocs.js` | — | `Models.defineixBlocs([...])` and the documented format of an exercise. |
 | `exercicis/<bloc>.js`, `exercicis/eso/<bloc>.js` | — | `Models.afegeixExercicis({…}, …)`: data only. |
@@ -181,7 +181,9 @@ highlights that layer's legends). The calculator's proportion comes from `TECLAT
 `exercicis/blocs.js` documents it in full. Fields: `id` (`[a-z0-9-]`, unique, the URL id), `bloc`, `titol`, `font`
 (optional, plain text, e.g. «CB 4ESO (2026), pregunta 15», shown in a bubble from an icon before the statement),
 `figura` (optional `{src: 'img/…', alt}`), `enunciat`, `tancament` (required iff the last step is an error), `provaTu`
-(optional `{enunciat, solucio}`; required for fitxes in non-small ESO blocks).
+(optional `{enunciat, solucio}`; required for fitxes in non-small ESO blocks), `grup` (optional topic inside the block —
+«Àlgebra», «Geometria», «Anàlisi», «Probabilitat» in the PAU blocks — drawn as a separating rule on the home page).
+Real PAU titles start with the year, «(2024). …» (the block title already says PAU).
 
 Blocks: `{id, titol, color, etapes, petit}`. `etapes` is always an array of catalogue stage ids. `petit: true` renders as a
 small bubble in one row **above** the numbered blocks (so they are seen without scrolling). From the 10th home-page
@@ -190,7 +192,10 @@ cards (stored as `calc-bombolles`), where «↑ Torna-les a dalt» brings it bac
 (two ↓ chevrons, gently bobbing) invite scrolling: in the empty left margin when the window is ≥ 1720 px wide, else in
 the bottom-left corner above the footer; hidden while the row is in view (IntersectionObserver); a click scrolls to it.
 There are three, all in both stages, side by side in this order: `eso-inici`
-«Abans de començar», `examen` «Abans de l'examen» and `simbols` «Interpretem els símbols a la pantalla».
+`simbols` «Interpretar els indicadors de pantalla», `examen` «Configurar-ho tot abans d'un examen» and `eso-inici`
+«Correcció d'errors d'escriptura» (this order). A bubble shows only its block title (one line; the fitxa title is its
+`title` tooltip). The «↓ Envia-les a baix» / «↑ Torna-les a dalt» button is at the start of the row, raised like «← Fitxes»
+but with a 3 px edge.
 
 ### 6.2 Model fitxa (`models/<id>/fitxes/`)
 
@@ -263,8 +268,8 @@ sentence, closing text included, is `[mat]` or `[calc]` (test).
 ## 9. Writing fitxes
 
 **Configuration problems in ESO.** No fitxa teaches an ESO student to fix the calculator's settings: David tells the
-student to reset it. Do not add such fitxes. The one exception is the small block «Abans de l'examen» (`abans-examen`),
-which, like «Abans de començar» (`eso-inici`) and «Interpretem els símbols a la pantalla» (`simbols`), is in both
+student to reset it. Do not add such fitxes. The one exception is the small block «Configurar-ho tot abans d'un examen» (fitxa `abans-examen`),
+which, like «Correcció d'errors d'escriptura» (`eso-inici`) and «Interpretar els indicadors de pantalla» (`simbols`), is in both
 stages (David): three small bubbles side by side on both home pages. Their texts must satisfy both stages' rules (e.g.
 «E Mat/S Mat» and «resultats exactes»).
 

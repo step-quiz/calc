@@ -4,6 +4,18 @@ Què ha canviat a cada versió del web, de la més nova a la més antiga. El fun
 `README.md` i `ARCHITECTURE.md`; aquí només hi ha la història. El número de versió és `VERSIO` a
 `js/nucli/models.js` i surt al peu de les pàgines.
 
+## Versió 78 (3/11/2026)
+
+- Portada, les bombolles: d'una sola línia, només amb el títol, i amb noms nous, en aquest ordre: «Interpretar els
+  indicadors de pantalla», «Configurar-ho tot abans d'un examen» i «Correcció d'errors d'escriptura».
+- El botó «↓ Envia-les a baix» (o «↑ Torna-les a dalt») va a l'esquerra de les bombolles i té relleu, com «← Fitxes»
+  però més suau.
+- Les targetes T1…T6, més estretes: tan amples com el títol de bloc més llarg en una sola línia. La portada queda
+  centrada.
+- Títols dels exercicis PAU sense «PAU» al davant: «(2024). Comprova la solució d'un sistema» (el bloc ja diu PAU).
+- T5 i T6 de Batxillerat: una ratlla separa els exercicis d'Àlgebra dels de Geometria, i els d'Anàlisi dels de
+  Probabilitat (camp nou `grup` dels exercicis).
+
 ## Versió 77 (3/11/2026)
 
 - Portada: a partir de la 10a visita en un navegador, al final de la fila de bombolles surt un botó discret, «↓ Envia-les

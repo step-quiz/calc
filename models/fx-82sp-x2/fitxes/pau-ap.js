@@ -82,7 +82,7 @@ M.fitxes.push(
 },
 {
   id: 'pau-ana-25j-q1',
-  titol: 'PAU (2025). Intueix els límits amb Tabla',
+  titol: '(2025). Intueix els límits amb Tabla',
   inici: calc(D),
   passos: [
     {tecles: ['menu', '3'], pantalla: definicio('f'),

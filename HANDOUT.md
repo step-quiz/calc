@@ -53,7 +53,7 @@ Extra screen types from variants: `x2-apps`, `x2-rang`, `x2-taula`.
 - Error-zone steps (`error: true`); if a fitxa ends in error, a closing step (`tancament`) is appended.
 - Barrow «Ara tu» is **disabled** (commented block «Ara tu» DESACTIVAT in each model's `pau.js`).
 
-## 5. Work done in recent conversations (versions 56 → 77)
+## 5. Work done in recent conversations (versions 56 → 78)
 
 - **v56–57**: fx-570/991SP X II complete (drawing from 626×1333 photo, numbered menus, CALC, Verificar app). Speed «lenta»
   slowed twice (3.01); in v74 «normal» and «lenta» were made 15 % slower (1.65 → 1.90, 3.01 → 3.46).
@@ -99,6 +99,9 @@ Extra screen types from variants: `x2-apps`, `x2-rang`, `x2-taula`.
 - **v77**: from the 10th home visit, «↓ Envia-les a baix» moves the bubbles below the cards (`posaBombolles` in
   portada.js, `calc-visites`/`calc-bombolles`); then `.fletxes-baix` invite scrolling (left margin ≥ 1720 px, else
   bottom-left corner) and «↑ Torna-les a dalt» undoes it.
+- **v78**: one-line bubbles with new block titles (order: simbols, examen, eso-inici); move button first in the row,
+  raised; cards as narrow as the longest block title (`ajustaAmplada`, `--ample-bloc`); PAU titles «(2024). …»; `grup`
+  field → separating rule in T5/T6 (Batx).
 - David's standing preference: ask him questions with the AskUserQuestion multiple-choice dialog, never as free text.
 
 ## 6. UX Laboratory (the big item of this session)
@@ -139,7 +142,7 @@ Extra screen types from variants: `x2-apps`, `x2-rang`, `x2-taula`.
 ## 8. Versioning & delivery protocol
 
 - Any served `.js`/`.css` change → bump `VERSIO` (`js/nucli/models.js`), every `?v=` in `index.html`/`fitxa.html`, and
-  the «Versió N» footer of `index.html` (test enforces). Current: **77**.
+  the «Versió N» footer of `index.html` (test enforces). Current: **78**.
 - Delivery = cumulative ZIP from the base commit, repo-root paths, excluding `_uploads/`. If David uploads the repo as a
   ZIP (no `.git`), `git init` it, commit it as the base and diff from that commit instead of `076cc6c`:
   `(git diff --name-only --diff-filter=AMR 076cc6c; git ls-files --others --exclude-standard) | sort -u | grep -v '^_uploads/' | zip -@ calc-versio-NN.zip`
