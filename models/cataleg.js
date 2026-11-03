@@ -31,5 +31,5 @@ Models.etapes([
 Models.exercicis([
   'blocs.js',
   'exacte.js', 'fraccions.js', 'angles.js', 'pau.js', 'pau-ag.js', 'pau-ap.js', 'examen.js', 'simbols.js',
-  'eso/inici.js', 'eso/pantalla.js', 'eso/parentesis.js', 'eso/percentatges.js', 'eso/mitjanes.js', 'eso/geometria.js', 'eso/trigonometria.js',
+  'eso/inici.js', 'eso/pantalla.js', 'eso/parentesis.js', 'eso/proporcionalitat.js', 'eso/percentatges.js', 'eso/mitjanes.js', 'eso/geometria.js', 'eso/trigonometria.js',
 ]);

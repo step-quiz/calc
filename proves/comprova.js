@@ -190,7 +190,10 @@ for (const id of Models.ids) {
         `el pas acaba amb la tecla de prefix «${darrera && darrera.prefix}» (falta la tecla de després)`);
       comprovaPantalla(p.pantalla, onPas);
       comprovaText(p.text, onPas);
-      ok(p.tecles.length > 0 || p.pantalla.marca, onPas, 'un pas sense tecles ha de ressaltar alguna cosa (marca)');
+      // Excepció: el primer pas d'una fitxa d'ESO pot ser només una estimació, «Abans de calcular, …», sense tecles ni marca
+      const estimacio = i === 0 && /^\[mat\]Abans de calcular/.test(p.text);
+      ok(p.tecles.length > 0 || p.pantalla.marca || estimacio, onPas, 'un pas sense tecles ha de ressaltar alguna cosa (marca)');
+      ok(!estimacio || p.tecles.length === 0, onPas, 'el pas d\'estimació no porta tecles');
       ok(p.error === undefined || p.error === true, onPas, 'error ha de ser true (o no posar-lo)');
       ok((p.text.match(/!!/g) || []).length % 2 === 0, onPas, '!! sense tancar');
       ok(!/!!/.test(p.text) || p.error, onPas, 'l\'avís !!…!! només va en un pas amb error: true');

@@ -59,7 +59,8 @@ Models.defineixBlocs([
   // ESO: verds i morats
   {id: 'eso-pantalla', titol: 'Fracció o decimal. Arrodonir. Notació científica', color: '#0b4a40', etapes: ['eso']},
   {id: 'eso-parentesis', titol: 'Ús dels parèntesis', color: '#0d5c4f', etapes: ['eso']},
-  {id: 'eso-percentatges', titol: 'Percentatges i proporcions', color: '#14532d', etapes: ['eso']},
+  {id: 'eso-proporcionalitat', titol: 'Proporcionalitat', color: '#1b5e3b', etapes: ['eso']},
+  {id: 'eso-percentatges', titol: 'Percentatges', color: '#14532d', etapes: ['eso']},
   {id: 'eso-mitjanes', titol: 'Mitjanes', color: '#3b2a6b', etapes: ['eso']},
   {id: 'eso-geometria', titol: 'Pitàgores, àrees i volums', color: '#4f2a73', etapes: ['eso']},
   {id: 'eso-trigonometria', titol: 'Trigonometria', color: '#602f6a', etapes: ['eso']},

@@ -344,6 +344,18 @@ centèsimes, la resposta correcta és que …». Never an option letter; distrac
 A formula given by the statement goes at its end as `[nota](…)[/nota]`. Statement figures: only the statement images of the
 source (`e<N>.png`), never question images that show the a–d options.
 
+**Calculator with judgement (v92, David).** The fitxes of `eso-proporcionalitat` and the v92 ones in other ESO blocks
+teach that the calculator computes correctly a wrongly posed problem. (1) First step without keys or mark, one `[mat]`
+sentence that starts «Abans de calcular, estima: …» (or «Abans de calcular, pensa: …» when there is nothing to
+estimate): the test accepts a keyless, markless step only there. Later sentences refer back to it («…, com havíem
+estimat»). (2) A rule of three always goes through the unit (1 ml, one egg, one gardener) with `Ans`. (3) A wrong
+set-up error zone ends with the fixed sentence `FRASE_ERROR` («La calculadora ha seguit bé les instruccions. El problema
+és que s'han plantejat malament els càlculs.») and then «No pot ser: …», reasoned without the calculator. Not in
+keying-error zones. (4) Not every fitxa gets an error zone: David wants to avoid saturating students (`cb4-22-q26`,
+`ll4a-3-14`, `ll4-2-16`, `ll4a-8-56` have none). (5) «Prova-ho tu» keeps the same kind of problem (no traps). (6) No
+«check backwards» step. Source ids: `ll4a-<unit>-<exercise>` (book 4t ESO A, `step-quiz/llibre` `4eso-apl`),
+`ll3-…` (3r ESO), `recu-<item id>` (recovery bank, `step-quiz/recu`).
+
 **Error zones** only where they teach something. The first step starts with `!!Error típic!!: esborra amb [[ac]] i …`, the
 next shows the wrong result with a `[mat]` sentence saying why it cannot be right («No pot ser: …»). If the fitxa ends
 with the error, write `tancament`: «Recorda: …» with the correct way and the answer.

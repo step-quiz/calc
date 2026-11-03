@@ -10,6 +10,9 @@
 'use strict';
 const {calc, marca} = M.guions;
 const {D} = M.comu;
+const FRASE_ERROR = '[mat]La calculadora ha seguit bé les instruccions. El problema és que s\'han plantejat malament els càlculs.[/mat]';
+const PARET = '√(5²-4²)', PARET_ERROR = '√(5²+4²)';
+const TORRE = '1.5×12÷2';
 
 const ESCALA = '√(3²+5²)', ESCALA_ERROR = '√3²+5²';
 const GOT = 'π×3²×15';
@@ -33,6 +36,22 @@ M.fitxes.push(
   ],
 },
 {
+  id: 'll4a-4-34',
+  inici: calc(D),
+  passos: [
+    {tecles: [], pantalla: calc(D),
+      text: '[mat]Abans de calcular, estima: l\'escala és la hipotenusa, el costat més llarg. L\'altura ha de ser menys de 5 m.[/mat]'},
+    {tecles: ['arrel', 'lpar', '5', 'x2', 'menys', '4', 'x2', 'rpar'], pantalla: calc(D, PARET),
+      text: '[mat]L\'escala (5 m) és la hipotenusa; el terra (4 m) i l\'altura són els catets. Per Pitàgores, l\'altura és $\\sqrt{5^2-4^2}$.[/mat] [calc]Prem [[arrel]] i escriu, entre parèntesis, 5 [[x2]] − 4 [[x2]].[/calc]'},
+    {tecles: ['igual'], pantalla: marca(calc(D, PARET, '3'), 'resultat'),
+      text: '[calc]Prem [[igual]]: obtens el resultat, que és 3.[/calc] [mat]La resposta correcta és que l\'escala arriba a 3 m d\'altura.[/mat]'},
+    {error: true, tecles: ['ac', 'arrel', 'lpar', '5', 'x2', 'mes', '4', 'x2', 'rpar'], pantalla: calc(D, PARET_ERROR),
+      text: '[calc]!!Error típic!!: esborra amb [[ac]] i suma els quadrats en lloc de restar-los: [[arrel]] [[lpar]] 5 [[x2]] + 4 [[x2]] [[rpar]].[/calc]'},
+    {error: true, tecles: ['igual'], pantalla: marca(calc(D, PARET_ERROR, '6.403124237'), 'resultat'),
+      text: '[calc]Prem [[igual]]: obtens 6.403124237.[/calc] ' + FRASE_ERROR + ' [mat]No pot ser: una escala de 5 m no pot arribar a 6,4 m d\'altura.[/mat]'},
+  ],
+},
+{
   id: 'cb4-22-q8',
   inici: calc(D),
   passos: [
@@ -53,6 +72,26 @@ M.fitxes.push(
   ],
 },
 
+{
+  id: 'll4a-4-8',
+  inici: calc(D),
+  passos: [
+    {tecles: [], pantalla: calc(D),
+      text: '[mat]Abans de calcular, estima: el pal és més alt que la seva ombra, i la torre també ho ha de ser. Ha de fer més de 12 m.[/mat]'},
+    {tecles: ['1', '2', 'entre', '1', 'punt', '5'], pantalla: calc(D, '12÷1.5'),
+      text: '[mat]El pal i la torre, amb les seves ombres, formen triangles semblants. La raó de semblança és l\'ombra de la torre entre la del pal.[/mat] [calc]Escriu 12 [[entre]] 1.5.[/calc]'},
+    {tecles: ['igual'], pantalla: marca(calc(D, '12÷1.5', '8'), 'resultat'),
+      text: '[calc]Prem [[igual]]: obtens 8.[/calc] [mat]L\'ombra de la torre és 8 vegades la del pal; la torre també és 8 vegades més alta.[/mat]'},
+    {tecles: ['per', '2'], pantalla: calc(D, 'Ans×2'),
+      text: '[calc]Fes l\'operació [[per]] 2: la calculadora continua amb el resultat d\'abans (Ans).[/calc]'},
+    {tecles: ['igual'], pantalla: marca(calc(D, 'Ans×2', '16'), 'resultat'),
+      text: '[calc]Prem [[igual]]: obtens el resultat, que és 16.[/calc] [mat]La resposta correcta és que la torre fa 16 m: més de 12 m, com havíem estimat.[/mat]'},
+    {error: true, tecles: ['ac', '1', 'punt', '5', 'per', '1', '2', 'entre', '2'], pantalla: calc(D, TORRE),
+      text: '[calc]!!Error típic!!: esborra amb [[ac]] i inverteix la raó (ombra entre altura): 1.5 [[per]] 12 [[entre]] 2.[/calc]'},
+    {error: true, tecles: ['igual'], pantalla: marca(calc(D, TORRE, '9'), 'resultat'),
+      text: '[calc]Prem [[igual]]: obtens 9.[/calc] ' + FRASE_ERROR + ' [mat]No pot ser: la torre sortiria més baixa que la seva ombra, i el pal és més alt que la seva.[/mat]'},
+  ],
+},
 );
 
 })(Models.obre());

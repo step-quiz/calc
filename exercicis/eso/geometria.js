@@ -13,6 +13,17 @@ Models.afegeixExercicis(
   },
 },
 {
+  id: 'll4a-4-34', bloc: 'eso-geometria',
+  titol: 'L\'escala recolzada: fins on arriba?',
+  font: 'Llibre 4t ESO A, unitat 4, exercici 34',
+  enunciat: 'Una escala de 5 m està recolzada en una paret.\n• El peu de l\'escala és a 4 m de la paret.\nA quina altura de la paret arriba l\'escala?',
+  tancament: '[mat]Recorda: si coneixes la hipotenusa, per trobar un catet els quadrats es resten: $\\sqrt{5^2-4^2}=3$ m.[/mat]',
+  provaTu: {
+    enunciat: 'Una escala de 6,5 m està recolzada en una paret.\n• El peu de l\'escala és a 2,5 m de la paret.\nA quina altura arriba?',
+    solucio: '$\\sqrt{6{,}5^2-2{,}5^2}=6$ m.',
+  },
+},
+{
   id: 'cb4-22-q8', bloc: 'eso-geometria',
   titol: 'El volum d\'un got cilíndric',
   font: 'CB 4ESO (2022), pregunta 8',
@@ -35,4 +46,15 @@ Models.afegeixExercicis(
   },
 },
 
+{
+  id: 'll4a-4-8', bloc: 'eso-geometria',
+  titol: 'L\'altura d\'una torre per la seva ombra',
+  font: 'Llibre 4t ESO A, unitat 4, exercicis 8 i 11',
+  enunciat: 'A la mateixa hora del dia:\n• un pal de 2 m fa una ombra d\'1,5 m;\n• una torre fa una ombra de 12 m.\nQuant fa d\'alta la torre?',
+  tancament: '[mat]Recorda: l\'ombra de la torre és $12\\div 1{,}5=8$ vegades la del pal, i l\'altura també: $2\\cdot 8=16$ m.[/mat]',
+  provaTu: {
+    enunciat: 'Un fanal de 6 m fa una ombra de 9 m.\nA la mateixa hora, quina ombra fa una persona d\'1,8 m?',
+    solucio: '$9\\div 6=1{,}5$: l\'ombra és 1,5 vegades l\'altura. $1{,}8\\cdot 1{,}5=2{,}7$ m.',
+  },
+},
 );

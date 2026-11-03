@@ -17,7 +17,7 @@ Models.descriu({
   idiomes: {es: 'Castellano', ca: 'Català'},
   fitxers: ['variant.js', 'tecles.js', '../fx-82sp-cw/pantalla.js', '../fx-82sp-cw/guions.js', '../fx-82sp-cw/simulador.js',
     '../fx-82sp-cw/fitxes/blocs.js', 'fitxes/exacte.js', 'fitxes/fraccions.js', 'fitxes/angles.js', 'fitxes/pau.js',
-    'fitxes/pau-ag.js', 'fitxes/pau-ap.js', 'fitxes/examen.js', 'fitxes/simbols.js', 'fitxes/eso/inici.js', 'fitxes/eso/pantalla.js', 'fitxes/eso/parentesis.js',
+    'fitxes/pau-ag.js', 'fitxes/pau-ap.js', 'fitxes/examen.js', 'fitxes/simbols.js', 'fitxes/eso/inici.js', 'fitxes/eso/pantalla.js', 'fitxes/eso/parentesis.js', 'fitxes/eso/proporcionalitat.js',
     'fitxes/eso/percentatges.js', 'fitxes/eso/mitjanes.js', 'fitxes/eso/geometria.js', 'fitxes/eso/trigonometria.js'],
   estils: ['../fx-82sp-cw/estil.css', 'estil.css'],
   proves: ['../fx-82sp-cw/proves.js'],

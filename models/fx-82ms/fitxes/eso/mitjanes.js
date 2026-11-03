@@ -13,6 +13,8 @@
 const {calc, marca} = M.guions;
 const {D} = M.comu;
 
+const NOTA = '0.3×5+0.3×6+0.4×9';
+
 const HOTEL = '(168+154+210+260)÷4';
 const HOTEL_ERROR = '168+154+210+260÷4';
 const ESTRELLES_NUM = '(5×22+4×32+3×16+2×8+1×2)';
@@ -71,6 +73,18 @@ M.fitxes.push(
   ],
 },
 
+{
+  id: 'll4a-8-56',
+  inici: calc(D),
+  passos: [
+    {tecles: [], pantalla: calc(D),
+      text: '[mat]Abans de calcular, estima: la nota final ha d\'estar entre la nota més baixa (5) i la més alta (9).[/mat]'},
+    {tecles: ['0', 'punt', '3', 'per', '5', 'mes', '0', 'punt', '3', 'per', '6', 'mes', '0', 'punt', '4', 'per', '9'], pantalla: calc(D, NOTA),
+      text: '[mat]Cada nota es multiplica pel seu pes (30 % és 0,3) i se sumen. No cal dividir: els pesos ja sumen 1, el 100 %.[/mat] [calc]Escriu 0.3 [[per]] 5 + 0.3 [[per]] 6 + 0.4 [[per]] 9.[/calc]'},
+    {tecles: ['igual'], pantalla: marca(calc(D, NOTA, '6.9'), 'resultat'),
+      text: '[calc]Prem [[igual]]: obtens el resultat, que és 6.9.[/calc] [mat]La resposta correcta és que la nota final és un 6,9: entre 5 i 9, com havíem estimat.[/mat]'},
+  ],
+},
 );
 
 })(Models.obre());

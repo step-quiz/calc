@@ -37,4 +37,14 @@ Models.afegeixExercicis(
   },
 },
 
+{
+  id: 'll4a-8-56', bloc: 'eso-mitjanes',
+  titol: 'La nota final: una mitjana ponderada',
+  font: 'Llibre 4t ESO A, unitat 8, exercici 56',
+  enunciat: 'La nota final d\'una matèria es calcula així:\n• l\'examen hi compta un 30 %, i hi has tret un 5;\n• les pràctiques hi compten un 30 %, i hi has tret un 6;\n• el projecte hi compta un 40 %, i hi has tret un 9.\nQuina és la nota final?',
+  provaTu: {
+    enunciat: 'Una nota es calcula amb un 60 % de l\'examen i un 40 % dels treballs.\n• A l\'examen has tret un 4.\n• Als treballs, un 8.\nQuina és la nota final?',
+    solucio: '$0{,}6\\cdot 4+0{,}4\\cdot 8=5{,}6$.',
+  },
+},
 );

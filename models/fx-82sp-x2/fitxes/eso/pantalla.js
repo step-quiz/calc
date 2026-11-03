@@ -12,7 +12,7 @@
 const {calc, marca} = M.guions;
 const {D} = M.comu;
 
-const LLUM = '3\\times 10^{8}\\times 86400';
+const LLUM = '3\\times 10^{8}\\times 86400', LLUM_ERROR = '3^{8}\\times 86400';
 
 M.fitxes.push(
 
@@ -41,6 +41,20 @@ M.fitxes.push(
   ],
 },
 {
+  id: 'll4-1-exemple2',
+  inici: calc(D),
+  passos: [
+    {tecles: [], pantalla: calc(D),
+      text: '[mat]Abans de calcular, estima: $7^2=49$ i $8^2=64$. Com que 50 és una mica més que 49, $\\sqrt{50}$ és entre 7 i 8, una mica més que 7.[/mat]'},
+    {tecles: ['arrel', '5', '0'], pantalla: calc(D, '\\sqrt{50}'),
+      text: '[calc]Prem [[arrel]] i escriu a dins 50.[/calc]'},
+    {tecles: ['exe'], pantalla: marca(calc(D, '\\sqrt{50}', '5\\sqrt{2}'), 'resultat'),
+      text: '[calc]Prem [[exe]]: obtens $5\\sqrt{2}$. Surt així perquè la calculadora està configurada per donar resultats exactes; si estigués configurada per donar decimals, sortiria 7.071067812.[/calc] [mat]És el mateix nombre: $\\sqrt{50}=\\sqrt{25\\cdot 2}=5\\sqrt{2}$.[/mat]'},
+    {tecles: ['sd'], pantalla: marca(calc(D, '\\sqrt{50}', '7.071067812'), 'resultat'),
+      text: '[calc]Per tenir-lo en decimal, prem [[sd]]: obtens 7.071067812.[/calc] [mat]La resposta correcta és que $\\sqrt{50}$ és entre 7 i 8: val 7,07 aproximadament, com havíem estimat.[/mat]'},
+  ],
+},
+{
   id: 'eso-notacio-cientifica',
   inici: calc(D),
   passos: [
@@ -50,6 +64,10 @@ M.fitxes.push(
       text: '[mat]En un dia, la llum recorre 86 400 vegades el que recorre en un segon.[/mat] [calc]Ara fes l\'operació [[per]] 86400.[/calc]'},
     {tecles: ['exe'], pantalla: marca(calc(D, LLUM, '2.592\\times 10^{13}'), 'resultat'),
       text: '[calc]Prem [[exe]]: obtens el resultat, que és $2.592\\times 10^{13}$. El nombre és massa llarg i la calculadora el dona en notació científica.[/calc] [mat]La resposta correcta és $2{,}592\\cdot 10^{13}$ metres, és a dir, 25 920 000 000 000 m.[/mat]'},
+    {error: true, tecles: ['ac', '3', 'pot', '8', 'right', 'per', '8', '6', '4', '0', '0'], pantalla: calc(D, LLUM_ERROR, '', {hist: true}),
+      text: '[calc]!!Error típic!!: esborra amb [[ac]] i, en lloc de [[exp]], fes servir la tecla de potència: 3 [[pot]] 8, [[right]] i [[per]] 86400.[/calc]'},
+    {error: true, tecles: ['exe'], pantalla: marca(calc(D, LLUM_ERROR, '566870400'), 'resultat'),
+      text: '[calc]Prem [[exe]]: obtens 566870400.[/calc] [mat]No pot ser: la llum fa 300 milions de metres cada segon, i en un dia en faria només 567 milions. Has calculat $3^8=6\\,561$, no $3\\cdot 10^8$.[/mat]'},
   ],
 },
 

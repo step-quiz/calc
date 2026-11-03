@@ -24,15 +24,35 @@ Models.afegeixExercicis(
   },
 },
 {
-  id: 'cb4-23-q26', bloc: 'eso-percentatges',
-  titol: 'Una foto més petita, sense deformar-la',
-  font: 'CB 4ESO (2023), pregunta 26',
-  figura: {src: 'img/eso/cb4eso2023p26-figura.png', alt: 'La fotografia de 62 cm × 34 cm i la impresa, de 42 cm d\'amplada i alçada desconeguda'},
-  enunciat: 'L\'Anna té una fotografia de 62 cm d\'amplada i 34 cm d\'alçada. La vol imprimir més petita, sense deformar-la:\n• la fotografia impresa ha de fer 42 cm d\'amplada;\n• s\'ha de mantenir la proporció entre els costats.\nQuina alçada tindrà?',
+  id: 'll4-2-25', bloc: 'eso-percentatges',
+  titol: 'Treure l\'IVA d\'un sopar',
+  font: 'Llibre 4t ESO, unitat 2, exercici 25',
+  enunciat: 'Al restaurant, el sopar costa 110 euros, amb l\'IVA inclòs.\n• L\'IVA dels restaurants és del 10 %.\nQuin és el preu del sopar sense IVA?',
+  tancament: '[mat]Recorda: per treure l\'IVA, es divideix entre el factor: $110\\div 1{,}10=100$ euros.[/mat]',
   provaTu: {
-    enunciat: 'Una foto fa 45 cm d\'amplada i 30 cm d\'alçada. La vols imprimir amb 20 cm d\'amplada, sense deformar-la. Quina alçada tindrà?',
-    solucio: '$30\\cdot 20\\div 45=13{,}33\\ldots$: uns 13,3 cm.',
+    enunciat: 'Una bicicleta costa 363 euros, amb l\'IVA del 21 % inclòs.\nQuin és el preu sense IVA?',
+    solucio: '$363\\div 1{,}21=300$ euros.',
   },
 },
-
+{
+  id: 'll4a-2-17', bloc: 'eso-percentatges',
+  titol: '«Un 50 % de descompte!»: descomptes encadenats',
+  font: 'Llibre 4t ESO A, unitat 2, exercici 17',
+  enunciat: 'Un anunci diu: «Rebaixa del 40 % i, a més, un 10 % extra: un 50 % de descompte!».\n• Un abric costa 200 euros.\n• Primer s\'hi aplica el 40 % i després, sobre el preu rebaixat, el 10 %.\nQuin és el preu final? És un 50 % de descompte?',
+  tancament: '[mat]Recorda: els descomptes encadenats es multipliquen: $200\\cdot 0{,}6\\cdot 0{,}9=108$ euros. És un descompte del 46 %.[/mat]',
+  provaTu: {
+    enunciat: 'Una tauleta costa 300 euros.\n• Primer la rebaixen un 20 %.\n• Després, un 10 % més.\nQuin és el preu final?',
+    solucio: '$300\\cdot 0{,}8\\cdot 0{,}9=216$ euros (un descompte del 28 %).',
+  },
+},
+{
+  id: 'll4-2-16', bloc: 'eso-percentatges',
+  titol: 'Puja un 50 % i baixa un 50 %',
+  font: 'Llibre 4t ESO, unitat 2, exercici 16',
+  enunciat: 'Un producte costa 300 euros.\n• Primer, el preu puja un 50 %.\n• Després, el preu nou baixa un 50 %.\nQuin és el preu final? Torna a ser 300 euros?',
+  provaTu: {
+    enunciat: 'Una samarreta costa 40 euros.\n• Primer, el preu puja un 25 %.\n• Després, baixa un 25 %.\nQuin és el preu final?',
+    solucio: '$40\\cdot 1{,}25\\cdot 0{,}75=37{,}50$ euros.',
+  },
+},
 );

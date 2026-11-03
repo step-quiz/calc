@@ -4,6 +4,23 @@ Què ha canviat a cada versió del web, de la més nova a la més antiga. El fun
 `README.md` i `ARCHITECTURE.md`; aquí només hi ha la història. El número de versió és `VERSIO` a
 `js/nucli/models.js` i surt al peu de les pàgines.
 
+## Versió 92 (3/11/2026)
+
+- 17 fitxes noves d'ESO per fer servir la calculadora amb criteri: la calculadora calcula bé, però l'alumne ha de saber
+  si el plantejament té sentit. Triades per David a l'artifact de revisió «calc · Propostes d'activitats per a 3r i 4t
+  d'ESO». Fonts: CB, el llibre de 4t ESO, el de 4t ESO A i el banc de recuperació.
+- Bloc nou «Proporcionalitat» (T3), amb tres grups: directa (el pastís, l'aixeta, el xarop, la foto de CB 2023 —que
+  era a percentatges—, els esglaons, els botons, l'escala d'un plànol), inversa (els jardiners, els pots de pintura) i
+  «Quan no és proporcional» (el taxi). El bloc «Percentatges i proporcions» es diu ara «Percentatges» i hi ha tres
+  fitxes noves: treure l'IVA, descomptes encadenats i +50 % −50 %.
+- Geometria: l'escala recolzada (Pitàgores, sumar en lloc de restar) i l'altura d'una torre per la seva ombra
+  (triangles semblants). Mitjanes: la nota ponderada. Pantalla: l'arrel de 50 (5√2 i 7,07). La fitxa de notació
+  científica té ara una zona d'error (la tecla de potència en lloc de ×10ˣ) i el pas «Recorda» del final.
+- Les fitxes noves comencen amb un pas sense tecles per estimar el resultat («Abans de calcular, estima: …»), la regla
+  de tres sempre passa per la unitat i, a les zones d'error de plantejament, una frase fixa: «La calculadora ha seguit
+  bé les instruccions. El problema és que s'han plantejat malament els càlculs.» Algunes fitxes no tenen zona d'error,
+  perquè no n'hi hagi massa (David).
+- Proves: el primer pas d'una fitxa pot ser una estimació sense tecles ni marca.
 ## Versió 91 (3/11/2026)
 
 - Dues fitxes noves al bloc «Funcions útils per a la PAU», triades per David a l'artifact de propostes:

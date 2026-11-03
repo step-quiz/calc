@@ -34,7 +34,7 @@ code and docs disagree, fix the docs. §5 below is a version log (what changed a
 - **Stack**: vanilla JS (IIFE modules exporting globals), CSS with container queries (`cqw`), KaTeX 0.16.9 (vendored),
   self-hosted fonts (Libre Baskerville, Source Code Pro). Tests in Node + Playwright.
 
-## 1a. The site as it is now (v91), in one screen
+## 1a. The site as it is now (v92), in one screen
 
 - **Home** (`index.html`, `portada.js`): header (title «La calculadora <model>, pas a pas» — «La teva calculadora…»
   until one is chosen —, «Escollir/Canviar de calculadora», Etapa, Calculadora en). A row of three one-line bubbles
@@ -86,7 +86,7 @@ visits — one per browser session —, bubbles up/down), `tria.js`
 - Error-zone steps (`error: true`); if a fitxa ends in error, a closing step (`tancament`) is appended.
 - Barrow «Ara tu» is **disabled** (commented block «Ara tu» DESACTIVAT in each model's `pau.js`).
 
-## 5. Work done in recent conversations (versions 56 → 91)
+## 5. Work done in recent conversations (versions 56 → 92)
 
 - **v56–57**: fx-570/991SP X II complete (drawing from 626×1333 photo, numbered menus, CALC, Verificar app). Speed «lenta»
   slowed twice (3.01); in v74 «normal» and «lenta» were made 15 % slower (1.65 → 1.90, 3.01 → 3.46).
@@ -172,6 +172,15 @@ visits — one per browser session —, bubbles up/down), `tria.js`
   the cell. Screen types `taula` and `rang-taula` in the CW `pantalla.js`; `calcul.js` checks every f/g cell (an
   undefined function's column is ''). Screens deduced from the manual's text (images could not be fetched):
   VERIFICAR.md rows 32–35.
+- **v92** (in parallel with v90–91, which only touched Batxillerat): 17 new ESO fitxes chosen by David in the review artifact «calc · Propostes d'activitats per a 3r i 4t d'ESO»
+  (https://claude.ai/artifact/3JPSwrp28ufYddg3VZKfNm, slug `129fc14c-aa28-4671-983d-7d1fcf094c96`; db `respostes/<id>`
+  = David's {decisio, comentari}, `claude/<id>` = {text}, Claude's replies). Theme: the calculator computes correctly a
+  wrongly posed problem. New block `eso-proporcionalitat` «Proporcionalitat» (groups: directa / inversa / «Quan no és
+  proporcional»; `cb4-23-q26` moved there); `eso-percentatges` renamed «Percentatges» (+ IVA, chained discounts,
+  +50 % −50 %); geometry (`ll4a-4-34` ladder, `ll4a-4-8` tower shadow), mitjanes (`ll4a-8-56` weighted mean), pantalla
+  (`ll4-1-exemple2` √50 = 5√2); error zone + `tancament` added to `eso-notacio-cientifica`. New authoring rules
+  (ARCHITECTURE §9 «Calculator with judgement»). Rejected by David: «Prova-ho tu» with a trap, a «check backwards»
+  final step, more error zones than needed.
 - David's standing UI rule: every clickable control reacts on hover with a thick pure-black border and a light-grey
   background (prefer a 1–1.5 px `box-shadow` on top of the border, so nothing moves).
 - David's standing preference: ask him questions with the AskUserQuestion multiple-choice dialog, never as free text.
@@ -222,9 +231,9 @@ visits — one per browser session —, bubbles up/down), `tria.js`
 
 ## 7. Tests (report results every delivery)
 
-- `KATEX=<katex 0.16.9 dist> node proves/comprova.js` → «Tot correcte» (~125 k checks, 251 fitxes, 1387 steps). KaTeX:
+- `KATEX=<katex 0.16.9 dist> node proves/comprova.js` → «Tot correcte» (~168 k checks, 356 fitxes, 1986 steps). KaTeX:
   `npm install katex@0.16.9` in any folder outside the repo.
-- `node proves/encaix.js` → «Tot hi cap» (~25 min; 1975 steps per viewport × 3 viewports 1366×657, 1280×559, 1280×632
+- `node proves/encaix.js` → «Tot hi cap» (~28 min; ~2 300 steps per viewport × 3 viewports 1366×657, 1280×559, 1280×632
   touch; plus footers and no scroll during animation). `MODEL=`, `FITXES=a,b`, `VP='[[1280,559]]'`, `UNCOP=1` restrict;
   one viewport takes ~8 min (1280×559 is the tightest). Changes to the statement or step list → run it on all fitxes
   at least at 1280×559.
@@ -235,7 +244,7 @@ visits — one per browser session —, bubbles up/down), `tria.js`
 ## 8. Versioning & delivery protocol
 
 - Any served `.js`/`.css` change → bump `VERSIO` (`js/nucli/models.js`), every `?v=` in `index.html`/`fitxa.html`, and
-  the «Versió N» footer of `index.html` (test enforces). Current: **91**.
+  the «Versió N» footer of `index.html` (test enforces). Current: **92**.
 - Delivery = a ZIP with the files changed since the version David already has, repo-root paths, excluding `_uploads/`:
   commit the version locally, then `git diff --name-only --diff-filter=AMR HEAD~1 HEAD | zip -@ calc-versio-NN.zip`
   (use `HEAD~2` etc. if several local commits make up one delivery). The repo usually arrives as a ZIP without `.git`:
