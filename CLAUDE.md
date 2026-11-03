@@ -41,6 +41,10 @@ items). `VERIFICAR.md` when you touch a screen. `CHANGELOG.md` only for history.
 
 - **Process:** propose before implementing (title, goal, key sequence, sentences), wait for David's OK, deliver block by
   block. When David leaves many open points, put them in a review artifact (see his preferences).
+- **Questions to David:** always with the multiple-choice dialog (AskUserQuestion), 2–4 short options, the recommended
+  one first with «(Recomanat)»; never as free text he has to type.
+- **Hover (UI rule):** every clickable control reacts on hover with a thick pure-black border and a light-grey
+  background, without moving anything (a 1–1.5 px `box-shadow` over the border).
 - **Content:** Catalan for students; CW menu labels in Spanish as in the manual (`{{…}}`); sources are ground truth;
   realistic, short key sequences; no detours through variables; every step sentence `[mat]` or `[calc]`.
 - **Code comments:** say what the code does and why, for a cold-start reader. No version numbers, dates or names; the

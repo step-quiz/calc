@@ -69,9 +69,9 @@ fitxa (what the player plays) = exercici (shared)        +  model fitxa (per cal
 | `js/nucli/tria.js` | `TriaCalculadora` | «Escollir calculadora»: `boto(descriptors, actual, adreca)` gives the header button; it opens a `<dialog>` with a 3-column grid (2 below 640 px, 1 below 380 px) of every calculator (the image, as tall as the cell allows, and the short name; the current one has a green border; hover/focus highlights). A click stores the choice and opens `adreca(id)`; clicking the calculator already shown also stores it (and reloads the page if nothing was stored yet, so the title and the button update). `titol(el, id)` fills the home-page title «La calculadora <name>, pas a pas» («La teva calculadora, pas a pas» while no calculator has been chosen in this browser and the URL has no `?model=`); hovering (or focusing) the name shows the calculator's picture. Until a choice is made, the button reads «Escollir calculadora», blinks 1.5 s and then stays pure yellow (`.sense-triar`); afterwards it reads «Canviar de calculadora». No `Dom` (the home page does not load it). |
 | `js/nucli/text.js` | `Text` | Text mini-syntax → HTML (§6.3). |
 | `js/nucli/dom.js` | `Dom` | `element()`, `icona()`, the player icons. |
-| `js/nucli/reproductor.js` | `Reproductor` | The step player: step list, key outlines and order badges, animated cursor, `salta` / `seguent` / `repeteix`, error-zone class, ARIA live announcement, `?pas=` in the URL, the UX-lab hooks (B4, C1, C2, D1, D2, sentence copy for C4/E2). |
+| `js/nucli/reproductor.js` | `Reproductor` | The step player: step list (with the final «Prova-ho tu»/«Ara tu» row, `.pas-final`), key outlines and order badges, animated cursor, attention cue (`ATENCIO`), `salta` / `seguent` / `repeteix`, invitation arrows (`.te-seguent`, `.convida`), `body.en-marxa` (step 0 vs started), error-zone class, the active `[a]` statement part (scrolled into view), ARIA live announcement, `?pas=` in the URL, the UX-lab hooks (B4, C1, C2, D1, D2, sentence copy for C4/E2). |
 | `js/nucli/ux.js` | `UX` | UX-lab levers from `?ux=` (classes on `<html>`, `UX.te`, `postMessage` to the lab). |
-| `js/nucli/motor.js` | `Motor` | The fitxa page: header (← Fitxes, «T<n> · block title» as on the home page, «<n>. fitxa title», «Escollir calculadora», language), statement (source bubble, figure dialog; SVG figures get an explicit width there, since the shrink-to-fit `<dialog>` would collapse them to 0), player buttons, speed, «Ara tu» mode, «Prova-ho tu», closing step, keyboard shortcuts, keyboard-arrows notice. Exposes the main player as global `fitxa`. |
+| `js/nucli/motor.js` | `Motor` | The fitxa page: header (← Fitxes, «T<n> · block title» and «<n>. fitxa title» as on the home page, ⚙ with «Escollir calculadora», language and cursor colour `COLORS_CURSOR`), statement (source bubble, figure dialog — SVG figures get an explicit width there, since the shrink-to-fit `<dialog>` would collapse them to 0 —, fold button and fold logic, one-line detection), player buttons, speed (`VELOCITATS`), «Ara tu» mode, «Prova-ho tu», closing step, keyboard shortcuts, keyboard-arrows notice, invitation strength by visit (`CONVIT_FORT_S`). Exposes the main player as global `fitxa`. |
 | `js/nucli/portada.js` | `Portada` | Home page: stage selector, «Escollir calculadora», language selector, title with the chosen calculator, one card per block of the stage, small blocks as a row of bubbles above the cards. Cards are as narrow as the longest block title of the stage on one line (`ajustaAmplada` measures it and sets `--ample-bloc`; the page is at most 3 cards wide, centred); a thin rule (80 % wide) separates consecutive fitxes of different `grup`. |
 | `models/cataleg.js` | — | `Models.cataleg([...])` (calculators; first = default), `Models.etapes([...])` (stages; first = default), `Models.exercicis([...])` (exercise files, in load order). |
 | `exercicis/blocs.js` | — | `Models.defineixBlocs([...])` and the documented format of an exercise. |
@@ -228,7 +228,7 @@ sentence, closing text included, is `[mat]` or `[calc]` (test).
   «Prova-ho tu» row), two thin arrows appear under its box, pointing down to the next row (`.convida`: after 1.2 s they appear at full
   opacity inside yellow circles for `--convida-fort` seconds — 4, 3.5, 2.5, 1.5, 0.5 on the 1st…5th visit, none from
   the 6th (`CONVIT_FORT_S` in motor.js, `.sense-convida-fort`) — then settle at 55 % without circles and bob gently; no bob under `prefers-reduced-motion`; red velvet in the error zone). The 22 px
-  gap for them (`.te-seguent`) is there from the start of the step, so the list never jumps.
+  gap for them (`.te-seguent`, 26 px) is there from the start of the step, so the list never jumps.
 - **Error zone**: while the current step has `error: true`, `body.zona-error` turns every border red velvet (`--vellut`)
   and tints the page background 20 %. The first error step after a result starts with AC (test).
 - **Closing step**: if the last step is an error, the player appends a keyless step whose screen is the last non-error
@@ -256,8 +256,17 @@ sentence, closing text included, is `[mat]` or `[calc]` (test).
   header selectors in a ⚙ · A4 no footer · B1 dim other keys · B2 no order badges · B3 no cursor · B4 zoom on the keys ·
   C1 reading time · C2 [calc] appears with the keys · C3 icons instead of tinted sentences · C4 sentence under the
   calculator · D1 error without page tint · D2 «Ara tu» on its own screen via ▶ · E2 three columns, sentence right of
-  the calculator · E3 one column. David's choice (A2 — the statement is always shown whole; a click folds it to one line (`.plegat`) and back, as a 0.9 s curtain: `max-height` from `--alt-enunciat`, measured at the click, only while animating (`.mesurat`), plus an animated `@property --plec-fos` mask; on desktop an unfolded statement is capped at 34vh and scrolls inside, the active `[a]` part scrolled into view; ≥ 1000 px a button on its left, vertically centred (`.enunciat-caixa`, `.plega-enunciat`), folds/unfolds it too; a one-line statement cannot fold (`.enunciat-curt`) —, A3, B1 at 40 %, C3 with a rule between [mat] and [calc], D2) is
-  `UX.PER_DEFECTE`: always on, with or without `?ux=`. The ⚙ panel (at least 360 px wide, so it clearly overlaps the
+  the calculator · E3 one column. David's choice (A2, A3, B1 at 40 %, C3 with a rule between [mat] and [calc], D2) is
+  `UX.PER_DEFECTE`: always on, with or without `?ux=`.
+- **Statement (A2 as it is now)**: always shown whole — David: highlighted parts (`[a]…[/a]`) must never be hidden, and the
+  statement must never be made narrower. The student folds it to one line (`.plegat`) and back by clicking it or, ≥ 1000 px,
+  with the button on its left, vertically centred (`.enunciat-caixa` flex wrapper, `.plega-enunciat`, compress/expand
+  icons). That button sits in the page margin: the column widens 52 px to the left (`margin-left:-52px; padding-left:52px`;
+  the wrapper takes 46 px, 6 px spare for the hover outline). The fold is a 0.9 s curtain: `max-height` from
+  `--alt-enunciat`, measured at the click, only while animating (`.mesurat`), plus an animated `@property --plec-fos` mask.
+  On desktop an unfolded statement is capped at 34vh and scrolls inside (the active `[a]` part is scrolled into view). A
+  one-line statement (lines counted from the text's client rects, `linies()`; re-checked by a ResizeObserver) cannot fold:
+  `.enunciat-curt`, the button `visibility:hidden` so nothing moves. The ⚙ panel (at least 360 px wide, so it clearly overlaps the
   calculator) holds «Escollir calculadora», the language and «Color del cursor»: 16 swatches (`COLORS_CURSOR` in
   `motor.js`, white first = default, no black), stored as `calc-cursor`; the colour goes to `--cursor-fons` on `<html>`
   and `--cursor-vora` is dark or white by luminance (`CURSOR_HTML` reads both). Fitxa header (`.capcalera-de-fitxa`, 3-column grid): «← Fitxes» is a raised button on the left (a thick 6 px bottom edge that disappears when pressed); «T<n> · block» and «<n>. fitxa» are plain centred text separated only by a two-space gap, no sign between them (same size, block dimmed, no box, so they do not look clickable); ⚙ on the right.
@@ -363,8 +372,10 @@ closing `*/`, bump the version, run the tests. Never put `*/` inside a commented
 
 - Any change to a served `.js` or `.css` file bumps `VERSIO` in `js/nucli/models.js`, every `?v=` in `index.html` and
   `fitxa.html`, and the static footer of `index.html` (the test checks all three). Files in `proves/` are not served.
-- Deliver a ZIP whose root is the repo root, with only the changed and new files. David uploads it to `_uploads/`; the
-  workflow unpacks and commits it. Deleted files cannot travel in a ZIP: give David the exact steps to delete them.
+- Deliver a ZIP whose root is the repo root, with only the changed and new files (`git diff --name-only --diff-filter=AMR
+  HEAD~1 HEAD | zip -@ calc-versio-NN.zip`). David uploads it to `_uploads/`; the workflow unpacks and commits it;
+  Cloudflare Pages publishes it (check the footer; if it stays on the old version, see HANDOUT §8). Deleted files cannot
+  travel in a ZIP: give David the exact steps to delete them.
 - Commit messages like `Versió 50: …`; never `[skip ci]`, `[ci skip]` or `[cf-pages-skip]` (Cloudflare would not publish).
 - Update `CHANGELOG.md`, and `README.md`/`ARCHITECTURE.md` if behaviour changed, in the same delivery.
 
@@ -374,5 +385,8 @@ closing `*/`, bump the version, run the tests. Never put `*/` inside a commented
   «6C4», implicit × before a parenthesis or function, DEL and the cursor); how the fx-82MS draws an EXP entry.
 - fx-570/991SP X II: all of its `VERIFICAR.md` section (menu labels and behaviour, CALC screens, Ans/PreAns after
   CALC, Verificar app, OPTN, colours) is unconfirmed; the CW-menu fitxes and the CALC ones wait for David's review.
+- New rows awaiting a real calculator: CW 30–31 (SCI 3, Verificar ½ = 0.5), X II 15 (ALPHA indicator, SCI), MS 15–16
+  (symbols, 0.082304527 → 20┘243 with a b/c).
+- Galaxy Tab S10 Lite blank page: waiting for a `vigia.js` screenshot from David.
 - More fitxes per ESO block (sources in the order of §9).
 - Larger text for projection (`clamp()` or `?projector=1`): postponed, David does not project.

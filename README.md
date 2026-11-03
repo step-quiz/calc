@@ -27,7 +27,7 @@ Web no oficial, sense relació amb el fabricant de la calculadora.
   el recorda).
 - A dalt de la portada, abans dels blocs numerats, tres bombolles a totes dues etapes, d'una sola línia: «Interpretar els indicadors de pantalla»,
   «Configurar-ho tot abans d'un examen» i «Correcció d'errors d'escriptura». La primera explica què vol dir cada símbol que pot sortir a la pantalla (D, R, FIX, SCI, S, ▲…). A partir de la 10a visita (una per sessió del navegador), un botó
-  discret les pot enviar a baix; llavors unes fletxes conviden a baixar-hi, i un altre botó les torna a dalt.
+  a l'esquerra de la fila les pot enviar a baix; llavors unes fletxes conviden a baixar-hi, i un altre botó les torna a dalt.
 - El peu de la fitxa surt sencer 5 segons i després només hi queda l'autor; a la portada, sempre sencer a baix.
 - Els passos que ensenyen un error típic tenyeixen la pàgina de vermell («zona d'error»). Si la fitxa acaba amb un
   error, l'últim pas torna a la manera correcta.
@@ -70,6 +70,13 @@ columna.
 
 Un bloc nou: una línia a `exercicis/blocs.js` i el seu fitxer a `models/cataleg.js` (exercicis) i al `model.js` de cada
 calculadora (tecles). Les normes per escriure les fitxes (sobretot les d'ESO) són a `ARCHITECTURE.md`, apartat 9.
+
+## Editar els textos
+
+Els títols, els enunciats, els tancaments i els «Prova-ho tu» es poden retocar a l'artifact **«Editor d'enunciats»**
+(https://claude.ai/artifact/VzPYJxLHm7KbkkhjGGiJWf), amb la vista prèvia de les fórmules. Quan s'acaba, es demana a
+Claude «Aplica els canvis de l'editor d'enunciats» i ell els porta als fitxers. L'eina que el construeix és a
+`proves/editor/`.
 
 ## Proves
 

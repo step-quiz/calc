@@ -1,7 +1,24 @@
 # HANDOUT.md — cold-start briefing for the next Claude
 
-Read this first, then `CLAUDE.md` (rules), `ARCHITECTURE.md` (technical reference, authoritative), `VERIFICAR.md`
-(screens pending checks on real calculators). `CHANGELOG.md` is history only. When code and docs disagree, fix the docs.
+Read this first, then `CLAUDE.md` (rules), `ARCHITECTURE.md` (technical reference, authoritative: §7 player, §8 layout,
+§9 authoring rules), `VERIFICAR.md` (screens pending checks on real calculators). `CHANGELOG.md` is history only. When
+code and docs disagree, fix the docs. §5 below is a version log (what changed and why); for how things work *now*, read
+§1a and ARCHITECTURE.
+
+## 0. How to work with David (read before anything else)
+
+- Speak **Catalan** to him; documents for an AI in **English**. He is a maths teacher, ~4/10 on web/Git: every action
+  he must do (upload a ZIP, check Cloudflare…) as numbered copy-paste steps.
+- **Questions**: always with the multiple-choice dialog (AskUserQuestion), 2–4 options, recommended one first with
+  «(Recomanat)»; never as free text he must type.
+- **Propose before implementing** new fitxes (title, goal, key sequence, sentences) and wait for his OK. Small UI
+  requests: just do them, then report.
+- **UI rule (always)**: every clickable control reacts on hover with a thick pure-black border and a light-grey
+  background, without layout shift (1–1.5 px `box-shadow` over the border).
+- He is time- and token-sensitive: no long test loops when a targeted run suffices; deliver promptly; say what you
+  did not test.
+- Every delivery: bump the version, run the tests, update CHANGELOG/HANDOUT (+README/ARCHITECTURE if behaviour
+  changed), commit locally, send the ZIP with the upload steps and the commit message (§8).
 
 ## 1. What the project is
 
@@ -16,6 +33,21 @@ Read this first, then `CLAUDE.md` (rules), `ARCHITECTURE.md` (technical referenc
   Speak **Catalan** to him. Documents addressed to an AI: **English, highly technical**.
 - **Stack**: vanilla JS (IIFE modules exporting globals), CSS with container queries (`cqw`), KaTeX 0.16.9 (vendored),
   self-hosted fonts (Libre Baskerville, Source Code Pro). Tests in Node + Playwright.
+
+## 1a. The site as it is now (v89), in one screen
+
+- **Home** (`index.html`, `portada.js`): header (title «La calculadora <model>, pas a pas» — «La teva calculadora…»
+  until one is chosen —, «Escollir/Canviar de calculadora», Etapa, Calculadora en). A row of three one-line bubbles
+  (small blocks `simbols`, `examen`, `eso-inici`), then cards T1…T6 as narrow as the longest block title; a black rule
+  separates topics (`grup`) inside the PAU cards. From the 10th visit a button can send the bubbles below the cards.
+- **Fitxa** (`fitxa.html`, `motor.js` + `reproductor.js`): header «← Fitxes» · «T<n> · bloc  <n>. fitxa» · ⚙ (calculator,
+  language, cursor colour). Left column: statement (always whole; the student folds it with the button on its left or
+  by clicking it; capped at 34vh on desktop), ◀ ↻ ▶ + speed, step list ending with «Prova-ho tu»/«Ara tu». Right: the
+  drawn calculator. Step 0 shows only the statement: steps hidden, calculator at 30 % opacity, no LCD cursor.
+- **A step**: attention cue (0.3 s, yellow border 0.6 s), step keys outlined and others dimmed to 40 %, 0.8 s still,
+  then the cursor presses the keys (speed factor 1.90 normal); when it ends, two arrows under the step invite going on
+  (in yellow circles for a few seconds on the first five visits).
+- **Tools for David**: the «Editor d'enunciats» artifact (§6b) to edit texts; the old «Laboratori d'UX» artifact (§6).
 
 ## 2. Calculators in the catalogue (`models/cataleg.js`, order matters: first = default; it is also the order of the
    «Escollir calculadora» grid, chosen by David: row 1 the three CW/570 ones, row 2 fx-82/85SP X II and MS)
@@ -38,7 +70,8 @@ Extra screen types from variants: `x2-apps`, `x2-rang`, `x2-taula`.
 
 ## 3. Core (`js/nucli/`) — never names a key or a menu
 
-`models.js` (VERSIO, contract, loader, `adreca`), `preferencies.js` (localStorage: model, etapa, idioma), `tria.js`
+`models.js` (VERSIO, contract, loader, `adreca`), `preferencies.js` (localStorage: model, etapa, idioma, cursor colour,
+visits — one per browser session —, bubbles up/down), `tria.js`
 («Escollir/Canviar de calculadora» dialog with photo grid; hover photo on the home title), `text.js` (`$TeX$`, `[[key]]`,
 `{{menu}}`, `!!error!!`, `[a]…[/a]`, `[mat]/[calc]/[nota]`), `dom.js`, `reproductor.js` (player), `motor.js` (fitxa page),
 `portada.js` (home), `ux.js` (UX levers, §6).
@@ -128,7 +161,7 @@ Extra screen types from variants: `x2-apps`, `x2-rang`, `x2-taula`.
   background (prefer a 1–1.5 px `box-shadow` on top of the border, so nothing moves).
 - David's standing preference: ask him questions with the AskUserQuestion multiple-choice dialog, never as free text.
 
-## 6. UX Laboratory (the big item of this session)
+## 6. UX Laboratory (v66–v67; the levers are still in the code)
 
 - **Problem stated by David**: the fitxa page overloads students (too many panes, colours, texts, the moving cursor,
   error tint, «Ara tu»); risk of hypnotic fixation on the cursor instead of reading.
@@ -141,12 +174,15 @@ Extra screen types from variants: `x2-apps`, `x2-rang`, `x2-taula`.
   error without page tint · D2 «Ara tu» on its own screen via ▶ · E2 three columns (sentence right of calculator) · E3
   one column.
 - **David's choice (v67)**: `UX.PER_DEFECTE = ['a2','a3','b1','c3','d2']`, always on; B1 at 40 % opacity; C3 with a
-  horizontal rule between consecutive [mat]/[calc]. Remaining levers stay available via `?ux=`. Long-term clean-up
+  horizontal rule between consecutive [mat]/[calc]. A2 has since changed meaning (v86): the statement no longer folds
+  by itself; it is the student's fold/unfold control. Remaining levers stay available via `?ux=`. Long-term clean-up
   (optional, ask first): fold the defaults into plain CSS/JS and delete unused levers.
 - **Artifact «Laboratori d'UX»**: https://claude.ai/artifact/NLD3b9HMfuDK99sYKefBjD (owned by David). Multi-file:
   main page = `scratchpad/lab/laboratori.html` (built from `laboratori.src.html` + `index.json` injected at
   `/*INDEX*/null`, generated by `scratchpad/lab/index.js <repo>`); the site is published under `web/<path>` from the
-  repo. Republish changed site files with `files: {"web/<p>": "<p>"}`. Capability `db`:
+  repo. Republish changed site files with `files: {"web/<p>": "<p>"}`. **The `scratchpad/lab/` sources are not in the
+  repository** (they lived in an earlier session's scratchpad): to change the lab, read the published artifact first.
+  Capability `db`:
   - `bitacola/<lever>` = `{vot: 'si'|'dubte'|'no', comentari, context:{model,fitxa,pas,palanques}, actualitzat}`;
     `bitacola/general` = `{comentari}` (general notes);
   - `combinacions/<auto>` = `{nom, palanques, model, fitxa, creat}`.
@@ -171,9 +207,12 @@ Extra screen types from variants: `x2-apps`, `x2-rang`, `x2-taula`.
 
 ## 7. Tests (report results every delivery)
 
-- `KATEX=<katex 0.16.9 dist> node proves/comprova.js` → «Tot correcte» (~123 k checks, 251 fitxes, 1355 steps).
-- `node proves/encaix.js` → «Tot hi cap» (~25 min; 5880 steps × 3 viewports 1366×657, 1280×559, 1280×632 touch; plus
-  footers and no scroll during animation). `MODEL=`, `FITXES=`, `VP=`, `UNCOP=1` restrict.
+- `KATEX=<katex 0.16.9 dist> node proves/comprova.js` → «Tot correcte» (~125 k checks, 251 fitxes, 1387 steps). KaTeX:
+  `npm install katex@0.16.9` in any folder outside the repo.
+- `node proves/encaix.js` → «Tot hi cap» (~25 min; 1975 steps per viewport × 3 viewports 1366×657, 1280×559, 1280×632
+  touch; plus footers and no scroll during animation). `MODEL=`, `FITXES=a,b`, `VP='[[1280,559]]'`, `UNCOP=1` restrict;
+  one viewport takes ~8 min (1280×559 is the tightest). Changes to the statement or step list → run it on all fitxes
+  at least at 1280×559.
 - `node proves/ux.js` → «Palanques correctes» (~1 min, 28 runs, 4 in parallel).
 - Never `pgrep -f "proves/encaix.js"` in watcher scripts (matches itself). Do not edit served files while encaix runs
   (it serves the live working tree); work in a copy if needed.
@@ -182,9 +221,17 @@ Extra screen types from variants: `x2-apps`, `x2-rang`, `x2-taula`.
 
 - Any served `.js`/`.css` change → bump `VERSIO` (`js/nucli/models.js`), every `?v=` in `index.html`/`fitxa.html`, and
   the «Versió N» footer of `index.html` (test enforces). Current: **89**.
-- Delivery = cumulative ZIP from the base commit, repo-root paths, excluding `_uploads/`. If David uploads the repo as a
-  ZIP (no `.git`), `git init` it, commit it as the base and diff from that commit instead of `076cc6c`:
-  `(git diff --name-only --diff-filter=AMR 076cc6c; git ls-files --others --exclude-standard) | sort -u | grep -v '^_uploads/' | zip -@ calc-versio-NN.zip`
+- Delivery = a ZIP with the files changed since the version David already has, repo-root paths, excluding `_uploads/`:
+  commit the version locally, then `git diff --name-only --diff-filter=AMR HEAD~1 HEAD | zip -@ calc-versio-NN.zip`
+  (use `HEAD~2` etc. if several local commits make up one delivery). The repo usually arrives as a ZIP without `.git`:
+  `git init`, commit it as the base, work on top. Deleted files cannot travel in a ZIP: give David the steps to delete
+  them on GitHub.
+- After he uploads, Cloudflare Pages publishes in 1–2 min. If the footer still shows the old version (v87 once stayed
+  unpublished), the repo is fine: send him to dash.cloudflare.com → Workers & Pages → the project → Deployments, and
+  «Retry deployment» on a failed/missing one. To check what is live: WebFetch `https://calc.step-quiz.net/js/nucli/models.js`
+  and read `VERSIO` (cached 15 min).
+- Cloudflare Web Analytics is not enabled on the Pages project, but a zone-level setting may inject
+  `static.cloudflareinsights.com/beacon.min.js`; `vigia.js` ignores its failures (Brave blocks it).
 - David uploads it to `_uploads/` on GitHub; workflow `unzip-upload.yml` unzips at root and commits. Give him numbered
   copy-paste steps and the commit message. **Never** put «[skip ci]», «[ci skip]» or «[cf-pages-skip]» in any commit
   message (Cloudflare would skip the deploy).
@@ -193,8 +240,9 @@ Extra screen types from variants: `x2-apps`, `x2-rang`, `x2-taula`.
 
 ## 9. Open items
 
-- **VERIFICAR.md**: rows for X II (14), fx-82/85SP X II (11) and MS aliases pending checks on real calculators (David
-  doesn't have them at hand).
+- **VERIFICAR.md**: rows for X II (15), fx-82/85SP X II (11), MS (1–16) and MS aliases pending checks on real
+  calculators (David doesn't have them at hand); CW rows 30–31 (SCI 3 result, Verificar with ½ = 0.5) are new.
+- **Editor d'enunciats**: empty after the v82 batch; when David edits again, apply with the §6b workflow.
 - **Galaxy Tab S10 Lite blank page**: waiting for David's `js/vigia.js` screenshot.
 - No more ESO fitxes for now; no projector mode.
 - Optional: fx-85SP CW alias; clean-up of lever code after the choice settles.

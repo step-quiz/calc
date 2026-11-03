@@ -6,6 +6,8 @@ Què ha canviat a cada versió del web, de la més nova a la més antiga. El fun
 
 ## Versió 89 (3/11/2026)
 
+- Documentació repassada sencera (HANDOUT, ARCHITECTURE, CLAUDE, README, VERIFICAR): l'estat actual del web en una
+  pantalla, com treballar amb David, com lliurar i comprovar la publicació, i l'editor d'enunciats.
 - Un enunciat que ocupa una sola línia ja no es pot plegar: no hi surt la icona (el seu lloc es queda buit, perquè
   l'enunciat no es mogui) i clicar-lo no fa res.
 
