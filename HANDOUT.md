@@ -34,7 +34,7 @@ code and docs disagree, fix the docs. §5 below is a version log (what changed a
 - **Stack**: vanilla JS (IIFE modules exporting globals), CSS with container queries (`cqw`), KaTeX 0.16.9 (vendored),
   self-hosted fonts (Libre Baskerville, Source Code Pro). Tests in Node + Playwright.
 
-## 1a. The site as it is now (v92), in one screen
+## 1a. The site as it is now (v93), in one screen
 
 - **Home** (`index.html`, `portada.js`): header (title «La calculadora <model>, pas a pas» — «La teva calculadora…»
   until one is chosen —, «Escollir/Canviar de calculadora», Etapa, Calculadora en). A row of three one-line bubbles
@@ -86,7 +86,7 @@ visits — one per browser session —, bubbles up/down), `tria.js`
 - Error-zone steps (`error: true`); if a fitxa ends in error, a closing step (`tancament`) is appended.
 - Barrow «Ara tu» is **disabled** (commented block «Ara tu» DESACTIVAT in each model's `pau.js`).
 
-## 5. Work done in recent conversations (versions 56 → 92)
+## 5. Work done in recent conversations (versions 56 → 93)
 
 - **v56–57**: fx-570/991SP X II complete (drawing from 626×1333 photo, numbered menus, CALC, Verificar app). Speed «lenta»
   slowed twice (3.01); in v74 «normal» and «lenta» were made 15 % slower (1.65 → 1.90, 3.01 → 3.46).
@@ -181,6 +181,8 @@ visits — one per browser session —, bubbles up/down), `tria.js`
   (`ll4-1-exemple2` √50 = 5√2); error zone + `tancament` added to `eso-notacio-cientifica`. New authoring rules
   (ARCHITECTURE §9 «Calculator with judgement»). Rejected by David: «Prova-ho tu» with a trap, a «check backwards»
   final step, more error zones than needed.
+- **v93**: home grid always 3 columns from 1000 px (`repeat(3, minmax(0,1fr))`, titles may wrap); bubbles sent
+  below fill the empty cells of the last card row (`.bombolles.al-forat`, `colocaABaix` in portada.js), else go below.
 - David's standing UI rule: every clickable control reacts on hover with a thick pure-black border and a light-grey
   background (prefer a 1–1.5 px `box-shadow` on top of the border, so nothing moves).
 - David's standing preference: ask him questions with the AskUserQuestion multiple-choice dialog, never as free text.
@@ -244,7 +246,7 @@ visits — one per browser session —, bubbles up/down), `tria.js`
 ## 8. Versioning & delivery protocol
 
 - Any served `.js`/`.css` change → bump `VERSIO` (`js/nucli/models.js`), every `?v=` in `index.html`/`fitxa.html`, and
-  the «Versió N» footer of `index.html` (test enforces). Current: **92**.
+  the «Versió N» footer of `index.html` (test enforces). Current: **93**.
 - Delivery = a ZIP with the files changed since the version David already has, repo-root paths, excluding `_uploads/`:
   commit the version locally, then `git diff --name-only --diff-filter=AMR HEAD~1 HEAD | zip -@ calc-versio-NN.zip`
   (use `HEAD~2` etc. if several local commits make up one delivery). The repo usually arrives as a ZIP without `.git`:

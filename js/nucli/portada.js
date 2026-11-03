@@ -180,8 +180,26 @@ function posaBombolles(contenidor, bombolles) {
   }
 
   let aBaix = Preferencies.bombollesABaix();
+  /* A baix, si l'última fila de targetes té forats (p. ex. 7 blocs en 3 columnes), les bombolles ocupen els forats,
+     dins de la graella (.al-forat, grid-column: span <forats>); si no, van a sota dels blocs. Es torna a mirar quan
+     canvia l'amplada de la finestra, perquè el nombre de columnes depèn de l'amplada. */
+  function colocaABaix() {
+    const blocs = contenidor.querySelectorAll(':scope > .bloc').length;
+    const columnes = getComputedStyle(contenidor).gridTemplateColumns.split(' ').filter(Boolean).length;
+    const forats = columnes > 1 && blocs % columnes ? columnes - blocs % columnes : 0;
+    bombolles.classList.toggle('al-forat', forats > 0);
+    bombolles.style.gridColumn = forats ? `span ${forats}` : '';
+    if (forats) contenidor.append(bombolles); else contenidor.after(bombolles);
+  }
+  let pendent = false;
+  addEventListener('resize', () => {
+    if (!aBaix || pendent) return;
+    pendent = true;
+    requestAnimationFrame(() => { pendent = false; colocaABaix(); });
+  });
   function posa() {
-    if (aBaix) contenidor.after(bombolles); else contenidor.before(bombolles);
+    if (aBaix) colocaABaix();
+    else { bombolles.classList.remove('al-forat'); bombolles.style.gridColumn = ''; contenidor.before(bombolles); }
     mou.textContent = aBaix ? '↑ Torna-les a dalt' : '↓ Envia-les a baix';
     mou.title = aBaix ? 'Posa aquestes fitxes a dalt de la portada' : 'Ja les coneixes? Posa aquestes fitxes a baix de la portada';
     mou.hidden = !aBaix && visites < VISITES_PER_MOURE;

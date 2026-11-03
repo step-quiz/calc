@@ -28,6 +28,8 @@ Web no oficial, sense relació amb el fabricant de la calculadora.
 - A dalt de la portada, abans dels blocs numerats, tres bombolles a totes dues etapes, d'una sola línia: «Interpretar els indicadors de pantalla»,
   «Configurar-ho tot abans d'un examen» i «Correcció d'errors d'escriptura». La primera explica què vol dir cada símbol que pot sortir a la pantalla (D, R, FIX, SCI, S, ▲…). A partir de la 10a visita (una per sessió del navegador), un botó
   a l'esquerra de la fila les pot enviar a baix; llavors unes fletxes conviden a baixar-hi, i un altre botó les torna a dalt.
+  A baix, si l'última fila de targetes té llocs buits (a l'ESO, 7 blocs en 3 columnes), les bombolles els ocupen.
+- En una pantalla d'ordinador (1000 px d'ample o més), les targetes sempre van en 3 columnes.
 - Un bloc amb moltes fitxes (més de 8) no fa la targeta més alta que les altres: la llista es desplaça per dins, i una
   ombra a baix avisa que n'hi ha més.
 - El peu de la fitxa surt sencer 5 segons i després només hi queda l'autor; a la portada, sempre sencer a baix.

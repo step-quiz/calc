@@ -188,7 +188,12 @@ Real PAU titles start with the year, «(2024). …» (the block title already sa
 Blocks: `{id, titol, color, etapes, petit}`. `etapes` is always an array of catalogue stage ids. `petit: true` renders as a
 small bubble in one row **above** the numbered blocks (so they are seen without scrolling). From the 10th visit in a
 browser (`VISITES_PER_MOURE`, `Preferencies.visita()`), a discreet «↓ Envia-les a baix» button ends the row; it moves the row below the
-cards (stored as `calc-bombolles`), where «↑ Torna-les a dalt» brings it back. With the row below, `.fletxes-baix`
+cards (stored as `calc-bombolles`), where «↑ Torna-les a dalt» brings it back. Below, if the last row of cards has empty
+cells (ESO: 7 blocks in 3 columns), the bubbles go **inside the grid**, into those cells (`.bombolles.al-forat`,
+`grid-column: span <empty cells>`, a centred column of bubbles; `colocaABaix` in portada.js, re-run on resize); with no
+empty cell (Batxillerat: 6 blocks) they go below the grid as a row. From 1000 px wide the grid always has 3 columns
+(`repeat(3, minmax(0,1fr))`, David): if three cards as wide as the longest title do not fit, cards shrink and titles may
+wrap; below 1000 px, `auto-fill` as before. With the row below, `.fletxes-baix`
 (two ↓ chevrons, gently bobbing) invite scrolling: in the empty left margin when the window is ≥ 1720 px wide, else in
 the bottom-left corner above the footer; hidden while the row is in view (IntersectionObserver); a click scrolls to it.
 There are three, all in both stages, side by side in this order: `eso-inici`

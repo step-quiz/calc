@@ -457,6 +457,12 @@ body.zona-error .pas.actual.convida::after, body.error-suau .pas.actual.convida:
 .blocs{display:grid; grid-template-columns:repeat(auto-fill, minmax(min(var(--ample-bloc, 400px), 100%), 1fr)); gap:16px}
 .bloc h2{white-space:nowrap}
 @media (max-width:500px){ .bloc h2{white-space:normal} }
+/* En una pantalla d'ordinador o de tauleta apaïsada, sempre 3 columnes (David): si no hi caben tres targetes tan amples
+   com el títol més llarg, les targetes s'estrenyen i el títol passa a dues línies */
+@media (min-width:1000px){
+  .blocs{grid-template-columns:repeat(3, minmax(0, 1fr))}
+  .bloc h2{white-space:normal}
+}
 /* Una ratlla entre dues fitxes de temes diferents (grup): el 80 % de l'amplada de la targeta, centrada */
 .llista .separa-grup{width:80%; margin:7px auto; border-top:1.5px solid #000}   /* negre pur; amb els dos gaps de la llista, ≈ 28 px entre fitxes */
 .bloc{
@@ -521,6 +527,9 @@ body.mode-ara-tu.zona-error{background:color-mix(in srgb, var(--oliva-fons) 80%,
    l'alumne les envia a baix (nucli/portada.js, posaBombolles), després dels blocs */
 .bombolles{display:flex; flex-wrap:wrap; align-items:center; gap:10px; margin-bottom:16px}
 .blocs + .bombolles{margin:16px 0 0; scroll-margin-bottom:56px}   /* que el peu enganxat a baix no les tapi */
+/* A baix, als forats de l'última fila de targetes (.al-forat): una columna de bombolles, centrada en l'espai buit */
+.bombolles.al-forat{margin:0; flex-direction:column; flex-wrap:nowrap; justify-content:center; gap:16px; padding:16px 0;
+  scroll-margin-bottom:56px}
 /* El botó per moure-les, a l'esquerra de la fila: un botó amb relleu, com «← Fitxes» però amb menys efecte 3D */
 .bombolles-mou{padding:6px 12px; margin-bottom:3px; border:1px solid #cbd5e1; border-radius:7px; background:var(--surface); cursor:pointer;
   font-family:var(--mono); font-size:.74rem; font-weight:600; color:var(--txt); white-space:nowrap;

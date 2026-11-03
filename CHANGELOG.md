@@ -4,6 +4,13 @@ Què ha canviat a cada versió del web, de la més nova a la més antiga. El fun
 `README.md` i `ARCHITECTURE.md`; aquí només hi ha la història. El número de versió és `VERSIO` a
 `js/nucli/models.js` i surt al peu de les pàgines.
 
+## Versió 93 (3/11/2026)
+
+- Portada: en una pantalla d'ordinador (1000 px d'ample o més), les targetes sempre van en 3 columnes. Si no hi caben
+  tres targetes tan amples com el títol més llarg, s'estrenyen i el títol pot passar a dues línies.
+- Quan l'alumne envia les bombolles a baix i l'última fila té llocs buits (a l'ESO, 7 blocs: el T7 queda sol), les
+  bombolles ocupen aquests llocs, una sota l'altra. Si no n'hi ha (Batxillerat, 6 blocs), van a sota, com abans.
+
 ## Versió 92 (3/11/2026)
 
 - 17 fitxes noves d'ESO per fer servir la calculadora amb criteri: la calculadora calcula bé, però l'alumne ha de saber
