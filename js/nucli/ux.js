@@ -15,7 +15,7 @@
      A3 capçalera mínima: «Escollir calculadora» i l'idioma, dins d'un ⚙
      A4 sense el peu
      B1 les tecles que no són del pas, apagades
-     B2 sense els números d'ordre de les tecles
+     B2 (ja no fa res: les tecles mai no porten números d'ordre)
      B3 sense el cursor: les tecles s'il·luminen quan es premen
      B4 lupa: s'amplia la zona de les tecles mentre es premen
      C1 l'animació espera el temps de lectura de la frase

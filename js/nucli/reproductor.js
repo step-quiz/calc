@@ -5,8 +5,8 @@
    {tecles, pantalla, text}. El reproductor:
      · dibuixa la llista de passos: el pas actual mostra la frase
        sencera; els altres, el número i el començament de la frase;
-     · anima el pas següent: emmarca les tecles del pas al teclat (amb
-       el número d'ordre si n'hi ha de 2 a MAX_ORDRE), el cursor les
+     · anima el pas següent: emmarca les tecles del pas al teclat (sense
+       cap número d'ordre: David no els vol), el cursor les
        prem una a una i la pantalla canvia després de cada tecla (les
        pantalles intermèdies les calcula el simulador del model);
      · salta a qualsevol pas sense animació, i torna a animar el pas
@@ -52,7 +52,6 @@ const RAPIDESA_XIFRES = 3;
  */
 const ATENCIO = Object.freeze({repos: 300, vora: 600, apaga: 250, fixacio: 800});
 /** Fins a quantes tecles per pas es numeren al teclat (en una seqüència més llarga, els números fan soroll). */
-const MAX_ORDRE = 6;
 const CORBA = 'cubic-bezier(.45,.05,.25,1)';
 /** C1: temps de lectura abans de les tecles, per paraula i entre un mínim i un màxim (ms, abans d'aplicar la velocitat). */
 const LECTURA = Object.freeze({perParaula: 170, min: 600, max: 4200});
@@ -211,18 +210,14 @@ function marcaPassos(llista, pas) {
   }
 }
 
-/** Emmarca al teclat les tecles del pas i, si n'hi ha de 2 a MAX_ORDRE, l'ordre en què es premen («2·3» si es prem dues vegades). */
+/** Emmarca al teclat les tecles del pas, sense numerar-les: David no vol números d'ordre sobre les tecles, mai
+ *  (abans se'n posaven als passos de 2 a 6 tecles; en altres passos no, i per això semblava que sortien de tant en tant). */
 function marcaTeclat(r, passos, pas) {
-  r.teclat.querySelectorAll('.del-pas').forEach(t => { t.classList.remove('del-pas', 'pendent'); t.removeAttribute('data-ordre'); });
+  r.teclat.querySelectorAll('.del-pas').forEach(t => t.classList.remove('del-pas', 'pendent'));
   if (pas < 0) return;
-  const tecles = passos[pas].tecles;
-  const ordre = new Map();
-  tecles.forEach((id, j) => ordre.set(id, (ordre.get(id) || []).concat(j + 1)));
-  for (const [id, ns] of ordre) {
+  for (const id of new Set(passos[pas].tecles)) {
     const t = r.teclat.querySelector(`[data-tecla="${id}"]`);
-    if (!t) continue;
-    t.classList.add('del-pas');
-    if (tecles.length > 1 && tecles.length <= MAX_ORDRE) t.setAttribute('data-ordre', ns.join('·'));
+    if (t) t.classList.add('del-pas');
   }
 }
 
@@ -383,7 +378,7 @@ function crea(ctx, r, fitxa, temps, opcions = {}) {
     pinta();
     const pas = passos[idx];
     // Les tecles del pas d'abans deixen d'estar marcades: fins que comencin les d'aquest, no n'hi ha cap
-    if (pas.tecles.length) r.teclat.querySelectorAll('.del-pas').forEach(t => { t.classList.remove('del-pas'); t.removeAttribute('data-ordre'); });
+    if (pas.tecles.length) r.teclat.querySelectorAll('.del-pas').forEach(t => t.classList.remove('del-pas'));
     // C2: la frase [calc] s'amaga fins que comencen les tecles
     const ambCalc = ux('c2') && pas.tecles.length > 0;
     if (ambCalc) for (const el of ambLaFrase()) el.classList.add('calc-amagat');

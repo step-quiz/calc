@@ -221,7 +221,7 @@ sentence, closing text included, is `[mat]` or `[calc]` (test).
 - Step 0 shows the start screen and «Prem ▶ o la fletxa ↓ del teclat per començar». Until the first step the other
   steps are hidden and the calculator is at 30 % opacity (inactive): `body.pagina-fitxa:not(.en-marxa)`, a 0.4 s fade
   to full when ▶ is pressed; the LCD text cursor is hidden (model stylesheets). `proves/imatges.js` adds `en-marxa` before photographing a calculator.
-- **Next** (▶, ↓, →): outline the step's keys on the calculator (order badges when the step has 2–6 keys), then the cursor
+- **Next** (▶, ↓, →): outline the step's keys on the calculator (no order badges (removed in v94, David)), then the cursor
   presses each key and the LCD shows the simulator's screen after it. Durations: `Reproductor.TEMPS` × the speed factor
   («lenta» 3.46, «normal» 1.90 default, «ràpida» 0.83; × 0.35 under `prefers-reduced-motion`). Before animating a step with keys, a fixed attention cue (`ATENCIO`, independent of speed): 0.3 s with nothing marked, then the calculator's border flashes pure yellow and fades in 0.6 s (`.atencio`); then the step's keys are outlined and the others dim to 40 % (B1, a 0.25 s opacity transition); once they are dim, 0.8 s more of stillness so the student's eyes settle on the calculator (`ATENCIO = {repos: 300, vora: 600, apaga: 250, fixacio: 800}`); only then does the cursor start pressing keys. Keys of type `'num'` go
   `RAPIDESA_XIFRES` = 3 times faster. Pressing next during an animation finishes it instantly.

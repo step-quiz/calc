@@ -4,6 +4,11 @@ Què ha canviat a cada versió del web, de la més nova a la més antiga. El fun
 `README.md` i `ARCHITECTURE.md`; aquí només hi ha la història. El número de versió és `VERSIO` a
 `js/nucli/models.js` i surt al peu de les pàgines.
 
+## Versió 94 (3/11/2026)
+
+- Les tecles del simulador ja no porten mai números d'ordre (abans en sortien als passos de 2 a 6 tecles). La palanca B2
+  ja no fa res.
+
 ## Versió 93 (3/11/2026)
 
 - Portada: en una pantalla d'ordinador (1000 px d'ample o més), les targetes sempre van en 3 columnes. Si no hi caben
