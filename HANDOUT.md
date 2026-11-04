@@ -194,6 +194,22 @@ visits — one per browser session —, bubbles up/down), `tria.js`
 - **v97**: browser tab title always «Simulador de calculadores» (`TITOL_WEB` in motor.js, portada.js, both HTML
   `<title>`); never the model or the fitxa (David).
 - **v98**: attention border = `--marca-vora` (step-key orange), inset 3.2cqw, 1.2 s (`ATENCIO.vora` 1200).
+- **v99**: ⚙ progress buttons: «Treu la marca 'vista'|'feta' d'aquesta activitat» and «Treu les marques 'vista' i 'feta'
+  de totes les activitats»; no heading/state lines.
+- **v100**: the fitxa ⚙ (`details.ux-ajustos`) also closes with Esc and with a pointerdown outside it (not inside a
+  `<dialog>`).
+- **Editor de textos** (artifact, not served): https://claude.ai/artifact/GMvQzEgtdG3NSTdgX8QcrX (slug
+  `7c64df61-5de7-42fb-a13f-f197f125daac`, owner David). One self-contained page built by
+  `node proves/editor-textos/construeix.js <out.html>` (= `plantilla.html` + `extreu.js` data: every text of every fitxa of
+  every model, key HTML, menu texts); imitates the home and the fitxa left column; right = one textarea per text.
+  KaTeX from cdnjs with `output:'mathml'` (no CSS needed); fonts from Google Fonts. Capability `db`, rules
+  `[{path:"", read:"view", write:"owner"}]`. Docs `canvis/<fitxa id>` = {id, titol, model, camps: {clau: new text},
+  originals: {clau: original}, comentari, actualitzat}; keys `titol`, `enunciat`, `tancament`, `provaTu.enunciat`,
+  `provaTu.solucio`, `araTu.enunciat`, `pas.<n>@<model>` (steps belong to one model: apply the same change to the
+  equivalent step of the other models). Workflow: David says «Aplica els canvis de l'editor de textos» → `db_list canvis`,
+  apply (common fields → `exercicis/`, unless a model overrides them; steps → `models/<id>/fitxes/`), run the tests,
+  deliver, then rebuild + republish the editor (publish_files, same slug) and delete the applied docs. The older
+  «Editor d'enunciats» (§6b) is superseded by this one.
 - David's standing UI rule: every clickable control reacts on hover with a thick pure-black border and a light-grey
   background (prefer a 1–1.5 px `box-shadow` on top of the border, so nothing moves).
 - David's standing preference: ask him questions with the AskUserQuestion multiple-choice dialog, never as free text.
@@ -257,7 +273,7 @@ visits — one per browser session —, bubbles up/down), `tria.js`
 ## 8. Versioning & delivery protocol
 
 - Any served `.js`/`.css` change → bump `VERSIO` (`js/nucli/models.js`), every `?v=` in `index.html`/`fitxa.html`, and
-  the «Versió N» footer of `index.html` (test enforces). Current: **99**.
+  the «Versió N» footer of `index.html` (test enforces). Current: **100**.
 - Delivery = a ZIP with the files changed since the version David already has, repo-root paths, excluding `_uploads/`:
   commit the version locally, then `git diff --name-only --diff-filter=AMR HEAD~1 HEAD | zip -@ calc-versio-NN.zip`
   (use `HEAD~2` etc. if several local commits make up one delivery). The repo usually arrives as a ZIP without `.git`:

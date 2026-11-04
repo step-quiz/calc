@@ -409,6 +409,19 @@ function construeixPagina(fitxa, bloc, germanes, contenidor) {
     ux('a3') ? r.progres.panell : null]);
   if (!ux('a3')) aplicaColorCursor(Preferencies.cursor());
   const ajustos = ux('a3') ? element('details', {class: 'ux-ajustos'}, [element('summary', {title: 'Ajustos', 'aria-label': 'Ajustos', text: '⚙'}), tries]) : tries;
+  // El ⚙ obert es tanca també amb Esc i clicant a qualsevol lloc de fora del menú (David); un diàleg obert des del menú
+  // («Escollir calculadora») es tanca primer ell, i clicar-hi a dins no tanca el menú
+  if (ux('a3')) {
+    document.addEventListener('keydown', e => {
+      if (e.key !== 'Escape' || !ajustos.open || document.querySelector('dialog[open]')) return;
+      ajustos.open = false;
+      ajustos.querySelector('summary').focus();
+    });
+    document.addEventListener('pointerdown', e => {
+      if (!ajustos.open || !(e.target instanceof Element) || ajustos.contains(e.target) || e.target.closest('dialog')) return;
+      ajustos.open = false;
+    });
+  }
 
   contenidor.replaceChildren(
     element('header', {class: 'capcalera capcalera-de-fitxa'}, [

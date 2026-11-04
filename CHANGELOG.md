@@ -4,6 +4,10 @@ Què ha canviat a cada versió del web, de la més nova a la més antiga. El fun
 `README.md` i `ARCHITECTURE.md`; aquí només hi ha la història. El número de versió és `VERSIO` a
 `js/nucli/models.js` i surt al peu de les pàgines.
 
+## Versió 100 (4/11/2026)
+
+- El menú ⚙ de la fitxa es tanca també amb la tecla Esc i clicant a qualsevol lloc de fora del menú.
+
 ## Versió 99 (4/11/2026)
 
 - Ajustos de la fitxa, els dos botons de les marques: «Treu la marca 'vista' d'aquesta activitat» (o 'feta', segons la

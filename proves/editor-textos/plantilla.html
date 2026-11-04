@@ -1,0 +1,421 @@
+<!DOCTYPE html>
+<html lang="ca">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Editor de textos de calc</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Source+Code+Pro:wght@400;600;700&display=swap">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.js"></script>
+<!--
+  Artifact «Editor de textos de calc». Font: proves/editor-textos/ del repositori calc (plantilla.html + extreu.js,
+  muntat per construeix.js). Imita la portada i la columna esquerra de la fitxa del web (mateixes lletres, mides i
+  amplades); a la dreta, en lloc de la calculadora, l'editor. Base de dades (capacitat db): canvis/<id de la fitxa> =
+  {id, titol, model, camps: {clau: text nou}, originals: {clau: text original}, comentari, actualitzat}.
+  Claus: titol, enunciat, tancament, provaTu.enunciat, provaTu.solucio, araTu.enunciat, pas.<n>@<model>.
+-->
+<style>
+:root{
+  --bg:#f2f0eb; --surface:#faf8f4; --border:#d3cec4; --txt:#1e293b; --muted:#64748b; --hd-bg:#4b5059; --hd-txt:#f2f0eb;
+  --cat:#3b82f6; --lcd-fons:#dde3d6; --lcd-tinta:#1b2016; --tecla-vora:#94a3b8; --vellut:#9e1b32; --editada:#c2410c;
+  --lletra:'Libre Baskerville', Georgia, 'Times New Roman', serif;
+  --mono:'Source Code Pro', ui-monospace, Menlo, Consolas, monospace;
+}
+*{box-sizing:border-box}
+[hidden]{display:none !important}
+#app{display:contents}
+html, body{margin:0}
+body{min-height:100vh; display:flex; flex-direction:column; background:var(--bg); color:var(--txt); font:15px/1.55 var(--lletra)}
+button{font:inherit; color:inherit}
+math{font-size:1.08em}
+/* Tot el que es pot clicar: vora negra gruixuda i fons gris clar, sense moure res (David) */
+.clicable:hover, .clicable:focus-visible{background:#e7e5e0 !important; border-color:#000 !important; box-shadow:0 0 0 1.5px #000 !important; outline:none}
+
+/* Capçalera */
+.cap{display:flex; flex-wrap:wrap; align-items:center; gap:8px 16px; padding:8px 12px; background:var(--hd-bg); color:var(--hd-txt)}
+.cap h1{margin:0; font-size:1.1rem}
+.cap label{display:flex; align-items:center; gap:6px; font:.72rem var(--mono); color:color-mix(in srgb, var(--hd-txt) 85%, transparent)}
+.cap select{font:inherit; color:var(--txt); background:var(--surface); border:1px solid var(--surface); border-radius:5px; padding:3px 4px; cursor:pointer}
+.estat{margin-left:auto; font:600 .72rem var(--mono)}
+.estat.mal{color:#fecaca}
+.torna{padding:4px 10px; border:1px solid var(--border); border-radius:6px; background:var(--surface); color:var(--txt); font:.72rem var(--mono); cursor:pointer;
+  box-shadow:0 3px 0 #94a3b8}
+.on-som{flex:1; display:flex; flex-wrap:wrap; justify-content:center; align-items:baseline; column-gap:.5em; text-align:center}
+.on-som p{margin:0; font-size:.95rem; line-height:1.3}
+.on-som .bloc-nom{color:color-mix(in srgb, var(--hd-txt) 70%, transparent)}
+.marca{flex-shrink:0; align-self:center; margin-left:auto; padding:2px 7px; border-radius:999px; background:var(--editada); color:#fff; font:600 .64rem/1.3 var(--mono); white-space:nowrap}
+
+/* Portada */
+.portada{flex:1; width:100%; max-width:1300px; margin:0 auto; padding:24px 10px 40px}
+.avis{margin:0 0 14px; padding:8px 14px; border-radius:8px; background:#fff7ed; border:1px solid #fdba74; font-size:.85rem; color:#7c2d12}
+.bombolles{display:flex; flex-wrap:wrap; gap:10px; margin-bottom:16px}
+.bombolla{position:relative; padding:7px 16px; border:2px solid var(--cat); border-radius:999px; background:#fdfdfb; font-size:.85rem; cursor:pointer}
+.bombolla .marca{position:absolute; top:-9px; right:-4px}
+.blocs{display:grid; grid-template-columns:repeat(3, minmax(0, 1fr)); gap:16px}
+@media (max-width:999px){ .blocs{grid-template-columns:repeat(auto-fill, minmax(min(380px, 100%), 1fr))} }
+.bloc{display:flex; flex-direction:column; gap:8px; background:#fdfdfb; border:2px solid var(--cat); border-radius:10px; padding:16px}
+.bloc .num{font:.78rem var(--mono); color:var(--muted)}
+.bloc h2{margin:0; font-size:.92rem; color:var(--cat)}
+.llista{list-style:none; margin:6px 0 0; padding:0; display:flex; flex-direction:column; gap:6px}
+.llista button{width:100%; display:flex; align-items:center; gap:10px; padding:9px 12px; border:1px solid var(--border); border-radius:6px;
+  background:transparent; font-size:.85rem; text-align:left; cursor:pointer}
+.llista .n{font:.68rem var(--mono); opacity:.7; min-width:1.6em}
+.separa-grup{width:80%; margin:7px auto; border-top:1.5px solid #000}
+
+/* Textos (com text.js i estil.css del web) */
+.opcio-menu{font:600 .86em var(--mono); white-space:nowrap; background:var(--lcd-fons); color:var(--lcd-tinta); border-radius:3px; padding:0 .3em}
+.avis-error{font-weight:700; color:var(--vellut)}
+.frase-mat, .frase-calc{display:block; margin:3px 0; padding:3px 9px; border-radius:6px}
+.frase-mat{background:#faf5e8}
+.frase-calc{background:color-mix(in srgb, var(--lcd-fons) 55%, var(--surface)); font-family:system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif; font-size:.94em}
+.frase-mat:first-child, .frase-calc:first-child{margin-top:0}
+.frase-mat:last-child, .frase-calc:last-child{margin-bottom:0}
+.frase-nota{display:block; font-style:italic; margin-top:.2em}
+.tecla{display:inline-flex; align-items:center; justify-content:center; border:1px solid var(--tecla-vora); background:var(--surface); box-shadow:0 1.5px 0 var(--tecla-vora);
+  font:600 15px/1 var(--mono); color:var(--txt); white-space:nowrap}
+.tecla.petita{min-width:1.85em; height:1.5em; padding:0 .32em; border-radius:.38em; font-size:.8em; vertical-align:middle; position:relative; top:-.08em}
+.tecla .cara{display:inline-flex; align-items:center}
+.tecla svg, .tecla .icona-tecla{width:1.15em; height:1.15em}
+.tecla-exe, .tecla.t-exe{background:#1f2937; color:#fff}
+.tecla-shift{background:#2563eb; color:#fff}
+
+/* Fitxa: la columna esquerra com la del web; a la dreta, l'editor */
+.contingut{flex:1; min-height:0; display:grid; grid-template-columns:minmax(0, 4fr) minmax(0, 3fr); grid-template-rows:minmax(0, 1fr); padding:10px 15%; gap:0}
+body.a-fitxa{height:100vh; height:100dvh; overflow:hidden}
+html:has(body.a-fitxa){overflow:hidden}
+@media (max-width:999px){ .contingut{display:flex; flex-direction:column; padding:14px} body.a-fitxa{height:auto; overflow:visible} html:has(body.a-fitxa){overflow:auto} }
+.columna{display:flex; flex-direction:column; gap:12px; min-height:0; overflow-y:auto; padding-right:2px}
+.enunciat{margin:0; padding:12px 16px; border:1.5px solid var(--border); border-radius:12px; background:var(--surface); font-size:16.5px; line-height:1.55}
+.reproductor{display:flex; gap:6px}
+.boto{width:40px; height:40px; padding:0; border-radius:50%; border:1px solid var(--border); background:var(--surface); display:grid; place-items:center; cursor:pointer}
+.boto:disabled{opacity:.4; cursor:default}
+.passos{list-style:none; margin:0; padding:2px; display:flex; flex-direction:column; gap:3px}
+.pas{border:1.5px solid transparent; border-radius:12px}
+.pas .capr{display:flex; align-items:center; gap:12px; width:100%; min-width:0; text-align:left; padding:5px 10px; min-height:36px; border:1.5px solid transparent; border-radius:10px; background:transparent; cursor:pointer}
+.pas .num{min-width:1.3em; flex:none; font:600 12.5px/1 var(--mono); color:var(--muted); text-align:right}
+.pas .resum{flex:1; min-width:0; overflow:hidden; white-space:nowrap; text-overflow:ellipsis; font-size:14px; color:var(--muted)}
+.pas .resum .frase-mat, .pas .resum .frase-calc{display:inline; margin:0 .4em 0 0; padding:0; background:none; font:inherit}
+.pas .resum br{display:none}
+.pas .frase{display:none; margin:0; font-size:16.5px; line-height:1.6}
+.pas.actual{display:flex; align-items:baseline; background:var(--surface); border-color:var(--cat); box-shadow:0 2px 8px rgba(15,23,42,.07)}
+.pas.actual .capr{width:auto; flex:none; padding-right:12px}
+.pas.actual .resum{display:none}
+.pas.actual .frase{display:block; flex:1; min-width:0; padding:6px 14px 10px 0}
+.pas.actual .num{color:var(--cat)}
+.pas.fet{opacity:.55}
+.pas.error.actual{border-color:var(--vellut)}
+.pas.final .resum{font:13.5px var(--mono); color:var(--cat)}
+.prova{padding:12px 16px; border:1.5px dashed var(--cat); border-radius:12px; background:var(--surface); font-size:16px}
+.prova h3{margin:0 0 6px; font:600 .8rem var(--mono); color:var(--cat)}
+.prova .sol{margin-top:8px; padding-top:8px; border-top:1px solid var(--border)}
+
+.panell{display:flex; flex-direction:column; gap:10px; min-height:0; overflow-y:auto; overscroll-behavior:contain; margin-left:clamp(20px, 2.5vw, 48px);
+  padding:0 12px 40px; background:#fff; border:1px solid var(--border); border-radius:10px; font-size:.9rem}
+.panell-cap{position:sticky; top:0; z-index:2; display:flex; align-items:baseline; gap:10px; margin:0 -12px; padding:10px 12px 8px; background:#fff; border-bottom:1px solid var(--border)}
+.panell-cap b{font-size:.95rem}
+.panell-model{font:600 .72rem var(--mono); color:#475569}
+.ajuda{font-size:.8rem; color:#475569}
+.ajuda summary{width:max-content; padding:2px 8px; border:1px solid #cbd5e1; border-radius:6px; cursor:pointer}
+.ajuda ul{margin:6px 0 0; padding-left:1.2em}
+.ajuda code{background:#f1f5f9; padding:0 3px; border-radius:3px; font-size:.95em}
+.camp{display:flex; flex-direction:column; gap:4px; padding:8px 10px; border:1px solid #e5e7eb; border-left:5px solid #e5e7eb; border-radius:8px}
+.camp.actual{border-color:var(--cat); border-left-color:var(--cat); background:color-mix(in srgb, var(--cat) 5%, #fff)}
+.camp.editat{border-left-color:var(--editada)}
+.camp-cap{display:flex; align-items:center; gap:8px; min-height:24px}
+.camp-nom{font:600 .74rem var(--mono); color:#334155}
+.camp.editat .camp-nom::after{content:' · editat'; color:var(--editada)}
+.camp textarea{width:100%; resize:vertical; overflow:hidden; min-height:2.4em; padding:6px 8px; border:1.5px solid #cbd5e1; border-radius:6px;
+  font:.82rem/1.45 var(--mono); color:#111827; background:#fcfcfa}
+.camp textarea:focus{outline:none; border-color:#000; box-shadow:0 0 0 1.5px #000; background:#fff}
+.camp.comentari{border-style:dashed}
+.camp.comentari textarea{font:.9rem/1.45 system-ui, sans-serif}
+.petit-boto{margin-left:auto; padding:2px 9px; border:1px solid #cbd5e1; border-radius:6px; background:#fff; color:#111827; cursor:pointer; font:600 .7rem var(--mono)}
+.missatge{position:fixed; left:50%; bottom:12px; transform:translateX(-50%); z-index:9; padding:8px 14px; border-radius:8px; background:#fde2e1; border:1px solid #b91c1c; color:#7f1d1d; font-size:.85rem}
+</style>
+</head>
+<body>
+<div id="app"></div>
+<p class="missatge" id="missatge" hidden></p>
+<script>
+const DADES = /*DADES*/null;
+</script>
+<script>
+(function () {
+'use strict';
+const app = document.getElementById('app');
+const esc = s => String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+const guarda = (k, v) => { try { localStorage.setItem(k, v); } catch (e) { /* cap */ } };
+const llegeix = k => { try { return localStorage.getItem(k); } catch (e) { return null; } };
+/** Desplaça només el contenidor (la columna o el panell) perquè «el» es vegi: mai la pàgina sencera. */
+function aLaVista(el, cont) {
+  if (!el || !cont) return;
+  const r = el.getBoundingClientRect(), c = cont.getBoundingClientRect();
+  if (r.top < c.top + 4) cont.scrollTop += r.top - c.top - 50;
+  else if (r.bottom > c.bottom - 4) cont.scrollTop += r.bottom - c.bottom + 12;
+}
+const missatge = t => { const m = document.getElementById('missatge'); m.textContent = t; m.hidden = !t; };
+
+/* ── Estat ─────────────────────────────────────────────────────────── */
+let model = DADES.models.some(m => m.id === llegeix('ed-model')) ? llegeix('ed-model') : DADES.models[0].id;
+let etapa = DADES.etapes.some(e => e.id === llegeix('ed-etapa')) ? llegeix('ed-etapa') : 'eso';
+const docs = {};                 // canvis/<id>
+let db = null, potEscriure = true;
+const editada = d => Boolean(d && ((d.camps && Object.keys(d.camps).length) || (d.comentari && d.comentari.trim())));
+const curt = () => DADES.models.find(m => m.id === model).curt;
+const fitxesDe = () => DADES.fitxes[model];
+
+/* ── Els textos, en HTML (com nucli/text.js del web; fórmules en MathML) ── */
+const formula = (t, display) => { try { return katex.renderToString(t, {throwOnError: false, displayMode: display, output: 'mathml'}); } catch (e) { return esc(t); } };
+function simple(t) {
+  return String(t || '').split(/(\$\$[^$]+\$\$|\$[^$]+\$|\[\[[^\]]+\]\]|\{\{[^}]+\}\}|!![^!]+!!)/).map(x => {
+    if (/^\$\$[^$]+\$\$$/.test(x)) return formula(x.slice(2, -2), true);
+    if (/^\$[^$]+\$$/.test(x)) return formula(x.slice(1, -1), false);
+    if (/^\[\[[^\]]+\]\]$/.test(x)) { const k = x.slice(2, -2); return DADES.tecles[model][k] || `<span class="tecla petita">${esc(k)}</span>`; }
+    if (/^\{\{[^}]+\}\}$/.test(x)) { const k = x.slice(2, -2); return `<span class="opcio-menu">${esc(DADES.menus[model][k] || k)}</span>`; }
+    if (/^!![^!]+!!$/.test(x)) return `<span class="avis-error">${esc(x.slice(2, -2))}</span>`;
+    return esc(x).replace(/\n/g, '<br>');
+  }).join('');
+}
+const apartats = t => String(t || '').split(/((?<!\[)\[[a-z]\](?!\])[\s\S]*?\[\/[a-z]\])/).map(x => {
+  const m = /^\[([a-z])\]([\s\S]*)\[\/\1\]$/.exec(x); return m ? `<span class="apartat">${simple(m[2])}</span>` : simple(x); }).join('');
+function text(t) {
+  const tr = String(t || '').split(/(\[(?:mat|calc|nota)\][\s\S]*?\[\/(?:mat|calc|nota)\])/);
+  return tr.map(x => { const m = /^\[(mat|calc|nota)\]([\s\S]*)\[\/\1\]$/.exec(x); return m ? `<span class="frase-${m[1]}">${apartats(m[2])}</span>` : (tr.length > 1 && !x.trim() ? '' : apartats(x)); }).join('');
+}
+
+/* ── Base de dades ─────────────────────────────────────────────────── */
+const enCurs = {}, pendent = {};
+async function desa(id) {
+  if (!db) { missatge('Sense base de dades: el canvi no s\'ha desat.'); return false; }
+  if (!potEscriure) return false;
+  if (enCurs[id]) { pendent[id] = true; return true; }
+  enCurs[id] = true;
+  let ok = true;
+  try {
+    const d = docs[id];
+    if (!editada(d)) await db.doc('canvis/' + id).delete(); else await db.doc('canvis/' + id).set(JSON.parse(JSON.stringify(d)));
+    missatge('');
+  } catch (e) {
+    ok = false;
+    if (e && e.code === 'invalid_argument') { potEscriure = false; missatge('Només el propietari de l\'artifact pot desar canvis.'); }
+    else missatge('No s\'ha pogut desar (' + ((e && e.code) || 'error') + ').');
+  }
+  enCurs[id] = false;
+  if (pendent[id]) { pendent[id] = false; return desa(id); }
+  return ok;
+}
+
+/* ── Portada ───────────────────────────────────────────────────────── */
+const valorDe = (f, clau, original) => { const d = docs[f.id]; return d && d.camps && clau in d.camps ? d.camps[clau] : original; };
+function capcalera(extra) {
+  return `<header class="cap"><h1>Editor de textos</h1>
+    <label>Etapa <select id="tria-etapa" class="clicable">${DADES.etapes.map(e => `<option value="${e.id}"${e.id === etapa ? ' selected' : ''}>${esc(e.nom)}</option>`).join('')}</select></label>
+    <label>Calculadora <select id="tria-model" class="clicable">${DADES.models.map(m => `<option value="${m.id}"${m.id === model ? ' selected' : ''}>${esc(m.curt)}</option>`).join('')}</select></label>
+    ${extra || ''}<span class="estat" id="estat"></span></header>`;
+}
+function portada() {
+  document.body.classList.remove('a-fitxa');
+  const blocs = DADES.blocs.filter(b => b.etapes.includes(etapa));
+  const grans = blocs.filter(b => !b.petit), petits = blocs.filter(b => b.petit);
+  const fs = fitxesDe();
+  const marca = f => editada(docs[f.id]) ? '<span class="marca">✎ Editada</span>' : '';
+  const titol = f => esc(valorDe(f, 'titol', f.titol));
+  app.innerHTML = capcalera() + `<main class="portada">
+    <p class="avis"><b>Editor de textos.</b> Navega com al web i obre una fitxa per canviar-ne les frases. Els passos són de la calculadora triada a dalt.
+      <span class="marca" style="position:static">✎ Editada</span> = hi has fet canvis o un comentari.</p>
+    <div class="bombolles">${petits.flatMap(b => fs.filter(f => f.bloc === b.id).map(f =>
+      `<button class="bombolla clicable" style="--cat:${b.color}" data-fitxa="${f.id}">${esc(b.titol)}${marca(f)}</button>`)).join('')}</div>
+    <div class="blocs">${grans.map((b, i) => {
+      const ll = fs.filter(f => f.bloc === b.id);
+      return `<section class="bloc" style="--cat:${b.color}"><span class="num">T${i + 1}</span><h2>${esc(b.titol)}</h2><ol class="llista">${ll.map((f, j) =>
+        (j && f.grup && ll[j - 1].grup && f.grup !== ll[j - 1].grup ? '<li class="separa-grup"></li>' : '')
+        + `<li><button class="clicable" data-fitxa="${f.id}"><span class="n">${j + 1}</span><span>${titol(f)}</span>${marca(f)}</button></li>`).join('')}</ol></section>`;
+    }).join('')}</div></main>`;
+  lligaCapcalera();
+  app.querySelectorAll('[data-fitxa]').forEach(b => b.addEventListener('click', () => { location.hash = 'fitxa-' + b.dataset.fitxa; }));
+}
+function lligaCapcalera() {
+  document.getElementById('tria-etapa').addEventListener('change', e => { etapa = e.target.value; guarda('ed-etapa', etapa); location.hash = ''; mostra(); });
+  document.getElementById('tria-model').addEventListener('change', e => { model = e.target.value; guarda('ed-model', model); mostra(); });
+}
+
+/* ── Fitxa ─────────────────────────────────────────────────────────── */
+let netejaFitxa = null;
+function fitxa(id) {
+  const f = fitxesDe().find(x => x.id === id);
+  if (!f) { app.innerHTML = capcalera() + `<main class="portada"><p class="avis">La ${esc(curt())} no té la fitxa «${esc(id)}». Tria una altra calculadora o <a href="#">torna a la portada</a>.</p></main>`; lligaCapcalera(); return; }
+  document.body.classList.add('a-fitxa');
+  const bloc = DADES.blocs.find(b => b.id === f.bloc);
+  const grans = DADES.blocs.filter(b => b.etapes.includes(etapa) && !b.petit);
+  const t = grans.findIndex(b => b.id === bloc.id);
+  const germanes = fitxesDe().filter(x => x.bloc === f.bloc);
+  const n = germanes.findIndex(x => x.id === id) + 1;
+  document.body.style.setProperty('--cat', bloc.color);
+
+  // Els camps editables, en l'ordre de la pàgina
+  const camps = [{clau: 'titol', nom: 'Títol', original: f.titol}, {clau: 'enunciat', nom: 'Enunciat', original: f.enunciat}];
+  f.passos.forEach(([tx, err], i) => camps.push({clau: `pas.${i + 1}@${model}`, nom: `Pas ${i + 1}` + (err ? ' · zona d\'error' : ''), original: tx, pas: i, error: err}));
+  if (f.tancament) camps.push({clau: 'tancament', nom: `Pas ${f.passos.length + 1} · tancament`, original: f.tancament, pas: f.passos.length});
+  const nPassos = f.passos.length + (f.tancament ? 1 : 0);
+  const final = f.araTu ? 'Ara tu' : f.provaTu ? 'Prova-ho tu' : null;
+  if (f.araTu) camps.push({clau: 'araTu.enunciat', nom: 'Ara tu · enunciat', original: f.araTu.enunciat, pas: nPassos});
+  if (f.provaTu) {
+    camps.push({clau: 'provaTu.enunciat', nom: 'Prova-ho tu · enunciat', original: f.provaTu.enunciat, pas: nPassos});
+    camps.push({clau: 'provaTu.solucio', nom: 'Prova-ho tu · solució', original: f.provaTu.solucio, pas: nPassos});
+  }
+  const desat = docs[id];
+  const doc = docs[id] = {id, titol: f.titol, model, camps: Object.assign({}, desat && desat.camps), originals: Object.assign({}, desat && desat.originals),
+    comentari: (desat && desat.comentari) || '', actualitzat: (desat && desat.actualitzat) || ''};
+  const val = c => (c.clau in doc.camps ? doc.camps[c.clau] : c.original);
+
+  app.innerHTML = `<header class="cap"><button class="torna clicable" id="torna">← Fitxes</button>
+      <div class="on-som"><p class="bloc-nom">${t >= 0 ? `T${t + 1} · ` : ''}${esc(bloc.titol)}</p><p id="titol-fitxa"></p><span class="marca" id="xip" hidden>✎ Editada</span></div>
+      <label>Calculadora <select id="tria-model" class="clicable">${DADES.models.map(m => `<option value="${m.id}"${m.id === model ? ' selected' : ''}>${esc(m.curt)}</option>`).join('')}</select></label>
+      <span class="estat" id="estat"></span></header>
+    <main class="contingut"><div class="columna">
+      <p class="enunciat" id="enunciat"></p>
+      <div class="reproductor"><button class="boto clicable" id="ant" title="Pas anterior">◀</button><button class="boto clicable" id="seg" title="Pas següent">▶</button></div>
+      <ol class="passos" id="passos"></ol>
+      <section class="prova" id="prova" hidden></section>
+    </div><aside class="panell" id="panell"></aside></main>`;
+  document.getElementById('torna').addEventListener('click', () => { location.hash = ''; });
+  document.getElementById('tria-model').addEventListener('change', e => { model = e.target.value; guarda('ed-model', model); mostra(); });
+  const estat = document.getElementById('estat');
+
+  // L'esquerra: enunciat, passos i «Prova-ho tu», amb els textos editats
+  const ol = document.getElementById('passos');
+  const files = [];
+  const fila = (i, num, resumHtml, classe) => {
+    const li = document.createElement('li');
+    li.className = 'pas' + (classe ? ' ' + classe : '');
+    li.innerHTML = `<button class="capr clicable" type="button"><span class="num">${num}</span><span class="resum"></span></button><div class="frase"></div>`;
+    li.querySelector('button').addEventListener('click', () => vesA(i));
+    ol.append(li);
+    return li;
+  };
+  const zero = document.createElement('li');
+  zero.className = 'pas';
+  zero.innerHTML = '<div class="capr" style="cursor:default"><span class="resum">Prem ▶ o tria un pas (o un camp de la dreta).</span></div>';
+  ol.append(zero);
+  for (let i = 0; i < nPassos; i++) files.push(fila(i, i + 1, '', (camps.find(c => c.pas === i) || {}).error ? 'error' : ''));
+  const filaFinal = final ? fila(nPassos, nPassos + 1, '', 'final') : null;
+  if (filaFinal) filaFinal.querySelector('.resum').textContent = final;
+  const pinta = c => {
+    const v = val(c);
+    if (c.clau === 'titol') document.getElementById('titol-fitxa').textContent = `${n}. ${v}`;
+    else if (c.clau === 'enunciat') document.getElementById('enunciat').innerHTML = text(v);
+    else if (c.pas !== undefined && c.pas < nPassos) { const h = text(v); files[c.pas].querySelector('.frase').innerHTML = h; files[c.pas].querySelector('.resum').innerHTML = h; }
+    else pintaProva();
+  };
+  function pintaProva() {
+    const p = document.getElementById('prova');
+    const cv = k => { const c = camps.find(x => x.clau === k); return c ? text(val(c)) : ''; };
+    p.innerHTML = f.araTu ? `<h3>Ara tu</h3><div>${cv('araTu.enunciat')}</div>`
+      : f.provaTu ? `<h3>Prova-ho tu</h3><div>${cv('provaTu.enunciat')}</div><div class="sol"><b>Solució:</b> ${cv('provaTu.solucio')}</div>` : '';
+  }
+  // Pas actual: -1 = cap
+  let idx = -1;
+  function vesA(i, desDelPanell) {
+    idx = Math.max(-1, Math.min(nPassos + (final ? 0 : -1), i));
+    files.forEach((li, k) => { li.classList.toggle('actual', k === idx); li.classList.toggle('fet', k < idx); });
+    if (filaFinal) filaFinal.classList.toggle('actual', idx === nPassos);
+    zero.classList.toggle('actual', idx < 0);
+    document.getElementById('prova').hidden = idx !== nPassos;
+    document.getElementById('ant').disabled = idx < 0;
+    document.getElementById('seg').disabled = idx >= nPassos + (final ? 0 : -1);
+    const actualLi = idx < 0 ? zero : idx === nPassos ? filaFinal : files[idx];
+    aLaVista(actualLi, document.querySelector('.columna'));
+    for (const e of elements) e.el.classList.toggle('actual', e.c.pas === idx);
+    if (!desDelPanell) { const e = elements.find(x => x.c.pas === idx); if (e) aLaVista(e.el, panell); }
+  }
+  document.getElementById('ant').addEventListener('click', () => vesA(idx - 1));
+  document.getElementById('seg').addEventListener('click', () => vesA(idx + 1));
+
+  // La dreta: l'editor
+  const panell = document.getElementById('panell');
+  panell.innerHTML = `<div class="panell-cap"><b>Editor de textos</b><span class="panell-model">${esc(curt())}</span></div>
+    <details class="ajuda"><summary class="clicable">Com s'escriu</summary><ul>
+      <li><code>$…$</code> fórmula · <code>$$…$$</code> fórmula en una línia pròpia</li>
+      <li><code>[mat]…[/mat]</code> frase de matemàtiques · <code>[calc]…[/calc]</code> frase de calculadora · <code>[nota]…[/nota]</code> nota</li>
+      <li><code>[[exe]]</code> una tecla · <code>{{Menú}}</code> una opció de menú · <code>!!Error típic!!</code> avís vermell</li>
+      <li>Retorn = línia nova · <code>• </code> davant de cada dada de l'enunciat</li>
+      <li>Els passos són de la calculadora triada (${esc(curt())}): si canvies un pas, Claude farà el mateix canvi a les altres calculadores quan el pas sigui equivalent.</li>
+    </ul></details>`;
+  const ajusta = ta => { ta.style.height = 'auto'; ta.style.height = (ta.scrollHeight + 2) + 'px'; };
+  let temps = null;
+  const pintaXip = () => { document.getElementById('xip').hidden = !editada(doc); };
+  function programa() {
+    clearTimeout(temps);
+    estat.textContent = 'Desant…'; estat.classList.remove('mal');
+    temps = setTimeout(async () => {
+      doc.actualitzat = new Date().toISOString(); doc.model = model;
+      const ok = await desa(id);
+      estat.textContent = ok ? 'Desat ✓' : 'No desat'; estat.classList.toggle('mal', !ok);
+    }, 700);
+  }
+  const elements = camps.map(c => {
+    const el = document.createElement('section');
+    el.className = 'camp';
+    el.innerHTML = `<div class="camp-cap"><span class="camp-nom">${esc(c.nom)}</span><button type="button" class="petit-boto clicable" hidden>Torna a l'original</button></div><textarea spellcheck="true" lang="ca" rows="2"></textarea>`;
+    const ta = el.querySelector('textarea'), torna = el.querySelector('button');
+    ta.value = val(c);
+    const marca = () => { const e = c.clau in doc.camps; el.classList.toggle('editat', e); torna.hidden = !e; };
+    ta.addEventListener('input', () => {
+      if (ta.value === c.original) { delete doc.camps[c.clau]; delete doc.originals[c.clau]; } else { doc.camps[c.clau] = ta.value; doc.originals[c.clau] = c.original; }
+      ajusta(ta); marca(); pinta(c); pintaXip(); programa();
+    });
+    torna.addEventListener('click', () => { ta.value = c.original; ta.dispatchEvent(new Event('input')); ta.focus(); });
+    ta.addEventListener('focus', () => { if (c.pas !== undefined && c.pas !== idx) vesA(c.pas, true); });
+    marca(); pinta(c);
+    panell.append(el);
+    return {c, el, ta};
+  });
+  const com = document.createElement('section');
+  com.className = 'camp comentari';
+  com.innerHTML = '<div class="camp-cap"><span class="camp-nom">Comentari general sobre aquesta fitxa (opcional)</span></div><textarea rows="3" placeholder="Qualsevol cosa per a Claude sobre aquesta fitxa…"></textarea>';
+  const cta = com.querySelector('textarea');
+  cta.value = doc.comentari;
+  const marcaCom = () => com.classList.toggle('editat', Boolean(doc.comentari.trim()));
+  cta.addEventListener('input', () => { doc.comentari = cta.value; ajusta(cta); marcaCom(); pintaXip(); programa(); });
+  marcaCom();
+  panell.append(com);
+  pintaProva(); pintaXip(); vesA(-1);
+  estat.textContent = editada(doc) ? 'Desat ✓' : '';
+  requestAnimationFrame(() => { for (const e of elements) ajusta(e.ta); ajusta(cta); });
+  // Fletxes del teclat: pas anterior / següent (fora dels camps de text)
+  const tecles = e => {
+    if (e.target.closest('textarea, select, input')) return;
+    if (e.key === 'ArrowDown' || e.key === 'ArrowRight') { e.preventDefault(); vesA(idx + 1); }
+    if (e.key === 'ArrowUp' || e.key === 'ArrowLeft') { e.preventDefault(); vesA(idx - 1); }
+  };
+  document.addEventListener('keydown', tecles);
+  netejaFitxa = () => document.removeEventListener('keydown', tecles);
+}
+
+/* ── Navegació (#fitxa-<id>, o res = la portada) ───────────────────── */
+function mostra() {
+  if (netejaFitxa) { netejaFitxa(); netejaFitxa = null; }
+  const m = /^#fitxa-([a-z0-9-]+)$/.exec(location.hash);
+  if (m) fitxa(m[1]); else portada();
+  window.scrollTo(0, 0);
+}
+addEventListener('hashchange', mostra);
+mostra();
+
+(async () => {
+  const rellotge = setTimeout(() => missatge('Encara no es pot llegir la base de dades: els canvis potser no es desaran.'), 10000);
+  try { db = window.claude && await window.claude.use('db'); } catch (e) { db = null; }
+  if (!db) { clearTimeout(rellotge); missatge('Aquesta vista no té base de dades: els canvis no es desaran.'); return; }
+  let primera = true;
+  db.collection('canvis').onSnapshot(snap => {
+    for (const d of snap.docs) if (!enCurs[d.id]) docs[d.id] = JSON.parse(JSON.stringify(d.data()));
+    for (const ch of snap.docChanges()) if (ch.type === 'removed' && !enCurs[ch.doc.id]) delete docs[ch.doc.id];
+    if (!snap.metadata.fromCache) { clearTimeout(rellotge); missatge(''); }
+    // La primera vegada es torna a dibuixar (amb els canvis desats); després, només la portada (a la fitxa no es trepitja el que s'escriu)
+    if (primera || !/^#fitxa-/.test(location.hash)) { primera = false; mostra(); }
+  }, e => { clearTimeout(rellotge); missatge('No es pot llegir la base de dades (' + ((e && e.code) || 'error') + ').'); });
+})();
+})();
+</script>
+</body>
+</html>
