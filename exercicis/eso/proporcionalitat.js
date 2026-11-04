@@ -104,10 +104,10 @@ Models.afegeixExercicis(
   id: 'll4a-3-14', bloc: 'eso-proporcionalitat', grup: 'Quan no és proporcional',
   titol: 'El taxi',
   font: 'Llibre 4t ESO A, unitat 3, exercici 14',
-  enunciat: 'Un taxi cobra $3{,}50$ euros només de pujar-hi (la baixada de bandera) i $1{,}20$ euros per cada km. Un dia fas un trajecte de $5$ km i, un altre dia, un de $10$ km.\n\nQuant costa cada trajecte? El de $10$ km costa el doble que el de $5$ km?',
+  enunciat: 'Un taxi cobra $3{,}50$ € per començar el viatge i, després, $1{,}20$ € per cada km recorregut.\n\nPer anar a l\'hospital a visitar un familiar has fet un trajecte de $5$ km. Després, per acompanyar-lo a casa seva, has fet un trajecte de $10$ km.\n\n**a)** Creus que el trajecte de $10$ km costa el doble que el de $5$ km?\n**b)** Quant costa cada trajecte?',
   provaTu: {
-    enunciat: 'Un gimnàs cobra $30$ euros de matrícula i $25$ euros cada mes.\nQuant pagaràs si hi vas $3$ mesos? I si hi vas $6$ mesos? És el doble?',
-    solucio: '$30+25\\cdot 3=105$ euros\n$30+25\\cdot 6=180$ euros\nR) Pagaré $105$ euros i $180$ euros. No és el doble ($210$ euros), perquè la matrícula es paga una sola vegada.',
+    enunciat: 'Un gimnàs cobra $30$ € de matrícula i $25$ € cada mes.\nQuant pagaràs si hi vas $3$ mesos? I si hi vas $6$ mesos? És el doble?',
+    solucio: '$30+25\\cdot 3=105$ €\n$30+25\\cdot 6=180$ €\nR) Pagaré $105$ € i $180$ €. No és el doble ($210$ €), perquè la matrícula es paga una sola vegada.',
   },
 },
 

@@ -335,7 +335,7 @@ parentheses), gives decimals directly and uses the (−) key (`neg`) for negativ
 ordinary − key (`menys`), never SHIFT (−). Every displayed value is computed with the model's `calcul.js`, never by hand.
 
 **Notation.** «sin» in texts, «sen» only as the CW key or LCD label. A point for what is typed or shown on the calculator
-(3.8), a comma for written maths (3,8). No € inside TeX: write «euros».
+(3.8), a comma for written maths (3,8). Money: «$3{,}50$ €» (€ outside the formula; v107).
 
 **Exact results (CW).** The first exact result of a fitxa (fraction, root or π) must say why it is exact and what decimal
 mode would show: Batxillerat names the mode ({{E Mat/S Mat}}, {{E Mat/S Decimal}}); ESO says «la calculadora està
@@ -353,6 +353,8 @@ source (`e<N>.png`), never question images that show the a–d options.
 **Wording rules (v103, David; artifact «calc · Normes de redacció», https://claude.ai/artifact/GF2WRWd1L1UgiKxnTHgu74).**
 Derived from David's own rewrite of `cb2-26-q5`; applied so far to the T3 block (`eso-proporcionalitat`), to be extended
 block by block (rest of ESO, then Batxillerat), each batch shown to David in the «Editor de textos» first.
+- Bold: `**…**` (text.js; e.g. «**a)**», «**b)**» for the questions of a statement). Money: «$3{,}50$ €», the € outside
+  the formula (David; replaces the old «euros» rule).
 - Every number in every text goes in `$…$` (statements, steps, [calc] sentences, results, «Prova-ho tu»); units stay
   outside (`$180$ g`); what is typed or shown keeps the decimal point (`$3.5$`), written maths the comma (`$3{,}5$`).
 - ESO only (Batxillerat/PAU keep theirs): short titles naming the situation («La recepta del pastís»); statements in

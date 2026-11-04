@@ -116,6 +116,7 @@ html:has(body.a-fitxa){overflow:hidden}
 .panell-model{font:600 .72rem var(--mono); color:#475569}
 .panell-cap{flex-wrap:wrap}
 .eines{display:flex; gap:4px; margin-left:auto}
+.eina[data-eina="B"]{font-weight:900}
 .eina{min-width:30px; height:28px; padding:0 6px; border:1px solid #cbd5e1; border-radius:6px; background:#fff; color:#111827; cursor:pointer; font:600 .95rem/1 var(--mono)}
 .copiat{flex-basis:100%; min-height:1em; font:600 .7rem var(--mono); color:#15803d; text-align:right}
 .ajuda{font-size:.8rem; color:#475569}
@@ -173,7 +174,8 @@ const fitxesDe = () => DADES.fitxes[model];
 /* ── Els textos, en HTML (com nucli/text.js del web; fórmules en MathML) ── */
 const formula = (t, display) => { try { return katex.renderToString(t, {throwOnError: false, displayMode: display, output: 'mathml'}); } catch (e) { return esc(t); } };
 function simple(t) {
-  return String(t || '').split(/(\$\$[^$]+\$\$|\$[^$]+\$|\[\[[^\]]+\]\]|\{\{[^}]+\}\}|!![^!]+!!)/).map(x => {
+  return String(t || '').split(/(\*\*[^*]+?\*\*|\$\$[^$]+\$\$|\$[^$]+\$|\[\[[^\]]+\]\]|\{\{[^}]+\}\}|!![^!]+!!)/).map(x => {
+    if (/^\*\*[^*]+?\*\*$/.test(x)) return `<strong>${simple(x.slice(2, -2))}</strong>`;
     if (/^\$\$[^$]+\$\$$/.test(x)) return formula(x.slice(2, -2), true);
     if (/^\$[^$]+\$$/.test(x)) return formula(x.slice(1, -1), false);
     if (/^\[\[[^\]]+\]\]$/.test(x)) { const k = x.slice(2, -2); return DADES.tecles[model][k] || `<span class="tecla petita">${esc(k)}</span>`; }
@@ -344,11 +346,12 @@ function fitxa(id) {
   // La dreta: l'editor
   const panell = document.getElementById('panell');
   panell.innerHTML = `<div class="panell-cap"><b>Editor de textos</b><span class="panell-model">${esc(curt())}</span>
-      <span class="eines" role="toolbar" aria-label="Símbols">${['→', '•', '$$', '≃', '⇒', '⇔'].map(t => `<button type="button" class="eina clicable" data-eina="${t}" title="${t === '$$' ? 'Posa el text seleccionat entre $…$ (fórmula)' : t === '≃' ? 'Escriu \\simeq al camp (aproximadament igual, dins d\'una fórmula $…$)' : 'Copia ' + t + ' al porta-retalls'}">${t}</button>`).join('')}</span>
+      <span class="eines" role="toolbar" aria-label="Símbols">${['B', '→', '•', '$$', '≃', '€', '⇒', '⇔'].map(t => `<button type="button" class="eina clicable" data-eina="${t}" title="${t === '$$' ? 'Posa el text seleccionat entre $…$ (fórmula)' : t === 'B' ? 'Posa el text seleccionat en negreta (**…**)' : t === '≃' ? 'Escriu \\simeq al camp (aproximadament igual, dins d\'una fórmula $…$)' : 'Copia ' + t + ' al porta-retalls'}">${t}</button>`).join('')}</span>
       <span class="copiat" id="copiat" aria-live="polite"></span></div>
     <details class="ajuda"><summary class="clicable">Com s'escriu</summary><ul>
       <li><code>$…$</code> fórmula · <code>$$…$$</code> fórmula en una línia pròpia</li>
       <li><code>[mat]…[/mat]</code> frase de matemàtiques · <code>[calc]…[/calc]</code> frase de calculadora · <code>[nota]…[/nota]</code> nota</li>
+      <li><code>**a)**</code> negreta · <code>$3{,}50$ €</code> el € fora de la fórmula</li>
       <li><code>[[exe]]</code> una tecla · <code>{{Menú}}</code> una opció de menú · <code>!!Error típic!!</code> avís vermell</li>
       <li>Retorn = línia nova · <code>• </code> davant de cada dada de l'enunciat</li>
       <li>Els passos són de la calculadora triada (${esc(curt())}): si canvies un pas, Claude farà el mateix canvi a les altres calculadores quan el pas sigui equivalent.</li>
@@ -363,6 +366,16 @@ function fitxa(id) {
     b.addEventListener('mousedown', e => e.preventDefault());
     b.addEventListener('click', async () => {
       const t = b.dataset.eina;
+      if (t === 'B') {
+        const ta = darrerCamp;
+        if (!ta) { avisCopiat('Primer selecciona el text d\'un camp'); return; }
+        const a = ta.selectionStart, z = ta.selectionEnd, sel = ta.value.slice(a, z);
+        ta.focus();
+        ta.setRangeText('**' + sel + '**', a, z, sel ? 'end' : 'start');
+        if (!sel) ta.setSelectionRange(a + 2, a + 2);
+        ta.dispatchEvent(new Event('input'));
+        return;
+      }
       if (t === '≃') {
         // ≃ és \simeq (LaTeX): s'escriu al camp, on hi ha el cursor, amb un espai al darrere. Si no és dins de $…$, l'embolcalla.
         const ta = darrerCamp;

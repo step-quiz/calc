@@ -4,6 +4,11 @@ Què ha canviat a cada versió del web, de la més nova a la més antiga. El fun
 `README.md` i `ARCHITECTURE.md`; aquí només hi ha la història. El número de versió és `VERSIO` a
 `js/nucli/models.js` i surt al peu de les pàgines.
 
+## Versió 107 (4/11/2026)
+
+- Els textos admeten negreta: `**a)**`. L'enunciat del taxi, el de David (preguntes **a)** i **b)**). A la T3, els imports
+  amb el símbol €: «$3{,}50$ €».
+
 ## Versió 106 (4/11/2026)
 
 - Proporcionalitat inversa sense passar per la unitat (David): «Sabem que $6\cdot 10=4\cdot x$», el producte es manté

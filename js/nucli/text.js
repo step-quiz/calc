@@ -9,6 +9,7 @@
    [mat]…[/mat] i [calc]…[/calc]: una frase de matemàtiques
    o una indicació de calculadora; cadascuna surt en un bloc amb la seva
    lletra i el seu fons (totes les frases dels passos ho són).
+   **…** = negreta (p. ex. «**a)**» a l'enunciat).
    [nota]…[/nota]: una nota de l'enunciat (una fórmula donada, per
    exemple), en una línia pròpia i en cursiva.
 
@@ -23,7 +24,8 @@ const formula = (t, displayMode = false) => katex.renderToString(t, {throwOnErro
 
 function creador({model, idioma}) {
   function textSimple(t) {
-    return String(t || '').split(/(\$\$[^$]+\$\$|\$[^$]+\$|\[\[[^\]]+\]\]|\{\{[^}]+\}\}|!![^!]+!!)/).map(tros => {
+    return String(t || '').split(/(\*\*[^*]+?\*\*|\$\$[^$]+\$\$|\$[^$]+\$|\[\[[^\]]+\]\]|\{\{[^}]+\}\}|!![^!]+!!)/).map(tros => {
+      if (/^\*\*[^*]+?\*\*$/.test(tros)) return `<strong>${textSimple(tros.slice(2, -2))}</strong>`;
       if (/^\$\$[^$]+\$\$$/.test(tros)) return formula(tros.slice(2, -2), true);
       if (/^\$[^$]+\$$/.test(tros)) return formula(tros.slice(1, -1));
       if (/^\[\[[^\]]+\]\]$/.test(tros)) return model.tecles.html(tros.slice(2, -2), {petita: true});
