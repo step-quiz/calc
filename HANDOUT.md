@@ -202,6 +202,8 @@ visits — one per browser session —, bubbles up/down), `tria.js`
 - **v102**: ⚙ switch «Mostrar errors típics» (`calc-errors`, default off = `senseErrorsFinals` in motor.js drops the trailing
   error steps and so the tancament). Leading-error fitxes (`frac-prioritat`, `error-angles`, `eso-posa-graus`) keep
   their leading error steps (later steps continue from that screen).
+- **v103**: wording rules (ARCHITECTURE §9 «Wording rules (v103)») applied to T3 (10 fitxes, all models); next batches: rest of ESO, then Batxillerat, each shown in the Editor first.
+  `ERRORS=1` option in encaix.js.
 - **Editor de textos** (artifact, not served): https://claude.ai/artifact/GMvQzEgtdG3NSTdgX8QcrX (slug
   `7c64df61-5de7-42fb-a13f-f197f125daac`, owner David). One self-contained page built by
   `node proves/editor-textos/construeix.js <out.html>` (= `plantilla.html` + `extreu.js` data: every text of every fitxa of
@@ -212,8 +214,13 @@ visits — one per browser session —, bubbles up/down), `tria.js`
   `provaTu.solucio`, `araTu.enunciat`, `pas.<n>@<model>` (steps belong to one model: apply the same change to the
   equivalent step of the other models). Workflow: David says «Aplica els canvis de l'editor de textos» → `db_list canvis`,
   apply (common fields → `exercicis/`, unless a model overrides them; steps → `models/<id>/fitxes/`), run the tests,
-  deliver, then rebuild + republish the editor (publish_files, same slug) and delete the applied docs. The older
-  «Editor d'enunciats» (§6b) is superseded by this one.
+  deliver, then rebuild + republish the editor (publish_files, same slug) and mark the applied docs with `{aplicat: true}` (db_write update; the editor ignores them; never delete David's docs). The older
+  «Editor d'enunciats» (§6b) is superseded by this one. Bug fixed on 4/11 (David lost most edits of `cb2-26-q5`): the
+  snapshot listener replaced `docs[id]` with a fresh object while the page kept editing the old one, and `desa` wrote the
+  fresh one; now `desa(id, doc)` writes the page's doc and the open fitxa (`obert`, once `tocat`) is never overwritten by
+  snapshots. Test any change by editing many fields in a row with a mock db that echoes every write back.
+  Toolbar (4/11): →, •, ⇒, ⇔ copy to the clipboard (fallback: typed into the last field); $$ wraps the selection of the
+  last focused field in $…$.
 - David's standing UI rule: every clickable control reacts on hover with a thick pure-black border and a light-grey
   background (prefer a 1–1.5 px `box-shadow` on top of the border, so nothing moves).
 - David's standing preference: ask him questions with the AskUserQuestion multiple-choice dialog, never as free text.
@@ -277,7 +284,7 @@ visits — one per browser session —, bubbles up/down), `tria.js`
 ## 8. Versioning & delivery protocol
 
 - Any served `.js`/`.css` change → bump `VERSIO` (`js/nucli/models.js`), every `?v=` in `index.html`/`fitxa.html`, and
-  the «Versió N» footer of `index.html` (test enforces). Current: **102**.
+  the «Versió N» footer of `index.html` (test enforces). Current: **103**.
 - Delivery = a ZIP with the files changed since the version David already has, repo-root paths, excluding `_uploads/`:
   commit the version locally, then `git diff --name-only --diff-filter=AMR HEAD~1 HEAD | zip -@ calc-versio-NN.zip`
   (use `HEAD~2` etc. if several local commits make up one delivery). The repo usually arrives as a ZIP without `.git`:

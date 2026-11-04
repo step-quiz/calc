@@ -22,6 +22,7 @@
      MODEL=fx-82ms node proves/encaix.js        només una calculadora
      FITXES=ans,fix node proves/encaix.js       només aquestes fitxes
      VP='[[1366,657]]' node proves/encaix.js    només aquestes finestres
+     ERRORS=1 node proves/encaix.js              amb els errors típics visibles (⚙)
      (amb FITXES, VP o MODEL no es proven els peus; UNCOP=1 els prova igualment amb FITXES)
    Acaba amb codi 1 si algun pas no hi cap.
    ═══════════════════════════════════════════════════════════════════ */
@@ -133,6 +134,8 @@ async function provaUnCop(browser, BASE) {
 
   for (const [w, h, extra] of FINESTRES) {
     const context = await browser.newContext(Object.assign({viewport: {width: w, height: h}, reducedMotion: 'reduce'}, extra));
+    // ERRORS=1: amb «Mostrar errors típics» activat (per defecte, apagat: sense la zona d'error del final)
+    if (process.env.ERRORS === '1') await context.addInitScript(() => { try { localStorage.setItem('calc-errors', 'si'); } catch (e) { /* cap */ } });
     for (const model of models) {
       for (const id of fitxes[model]) {
         const page = await context.newPage();

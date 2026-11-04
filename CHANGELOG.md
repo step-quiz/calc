@@ -4,6 +4,15 @@ Què ha canviat a cada versió del web, de la més nova a la més antiga. El fun
 `README.md` i `ARCHITECTURE.md`; aquí només hi ha la història. El número de versió és `VERSIO` a
 `js/nucli/models.js` i surt al peu de les pàgines.
 
+## Versió 103 (4/11/2026)
+
+- Normes de redacció noves (David, a partir de la seva versió de «La recepta del pastís»), aplicades a les 10 fitxes del
+  bloc T3 «Proporcionalitat» a totes les calculadores: títols curts amb la situació, enunciats en prosa i en paràgrafs,
+  tots els nombres en fórmula, el pas d'estimació amb preguntes, la regla de tres amb fletxes, la resposta amb «R)», la
+  zona d'error amb «Si …», el «Recorda» només amb els càlculs i el «Prova-ho tu» en segona persona amb la solució pas a
+  pas. Les normes són a ARCHITECTURE §9.
+- Proves: `ERRORS=1 node proves/encaix.js` prova les fitxes amb els errors típics visibles.
+
 ## Versió 102 (4/11/2026)
 
 - Al ⚙ de la fitxa, l'interruptor «Mostrar errors típics», apagat per defecte. Apagat, les fitxes no mostren la zona

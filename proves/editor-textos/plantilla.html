@@ -114,6 +114,10 @@ html:has(body.a-fitxa){overflow:hidden}
 .panell-cap{position:sticky; top:0; z-index:2; display:flex; align-items:baseline; gap:10px; margin:0 -12px; padding:10px 12px 8px; background:#fff; border-bottom:1px solid var(--border)}
 .panell-cap b{font-size:.95rem}
 .panell-model{font:600 .72rem var(--mono); color:#475569}
+.panell-cap{flex-wrap:wrap}
+.eines{display:flex; gap:4px; margin-left:auto}
+.eina{min-width:30px; height:28px; padding:0 6px; border:1px solid #cbd5e1; border-radius:6px; background:#fff; color:#111827; cursor:pointer; font:600 .95rem/1 var(--mono)}
+.copiat{flex-basis:100%; min-height:1em; font:600 .7rem var(--mono); color:#15803d; text-align:right}
 .ajuda{font-size:.8rem; color:#475569}
 .ajuda summary{width:max-content; padding:2px 8px; border:1px solid #cbd5e1; border-radius:6px; cursor:pointer}
 .ajuda ul{margin:6px 0 0; padding-left:1.2em}
@@ -162,7 +166,7 @@ const docs = {};                 // canvis/<id>
 // La fitxa oberta: el seu document és el de la pàgina (doc), i la base de dades no el substitueix mentre s'hi treballa
 let obert = null, tocat = false;
 let db = null, potEscriure = true;
-const editada = d => Boolean(d && ((d.camps && Object.keys(d.camps).length) || (d.comentari && d.comentari.trim())));
+const editada = d => Boolean(d && !d.aplicat && ((d.camps && Object.keys(d.camps).length) || (d.comentari && d.comentari.trim())));
 const curt = () => DADES.models.find(m => m.id === model).curt;
 const fitxesDe = () => DADES.fitxes[model];
 
@@ -267,7 +271,9 @@ function fitxa(id) {
     camps.push({clau: 'provaTu.solucio', nom: 'Prova-ho tu · solució', original: f.provaTu.solucio, pas: nPassos});
   }
   obert = id; tocat = false;
-  const desat = docs[id];
+  // Un document ja aplicat al web (aplicat: true, el posa Claude) es conserva a la base de dades, però aquí no compta:
+  // la fitxa ja porta aquells textos. Si es torna a editar, el document nou el substitueix.
+  const desat = docs[id] && !docs[id].aplicat ? docs[id] : null;
   const doc = docs[id] = {id, titol: f.titol, model, camps: Object.assign({}, desat && desat.camps), originals: Object.assign({}, desat && desat.originals),
     comentari: (desat && desat.comentari) || '', actualitzat: (desat && desat.actualitzat) || ''};
   const val = c => (c.clau in doc.camps ? doc.camps[c.clau] : c.original);
@@ -337,7 +343,9 @@ function fitxa(id) {
 
   // La dreta: l'editor
   const panell = document.getElementById('panell');
-  panell.innerHTML = `<div class="panell-cap"><b>Editor de textos</b><span class="panell-model">${esc(curt())}</span></div>
+  panell.innerHTML = `<div class="panell-cap"><b>Editor de textos</b><span class="panell-model">${esc(curt())}</span>
+      <span class="eines" role="toolbar" aria-label="Símbols">${['→', '•', '$$', '⇒', '⇔'].map(t => `<button type="button" class="eina clicable" data-eina="${t}" title="${t === '$$' ? 'Posa el text seleccionat entre $…$ (fórmula)' : 'Copia ' + t + ' al porta-retalls'}">${t}</button>`).join('')}</span>
+      <span class="copiat" id="copiat" aria-live="polite"></span></div>
     <details class="ajuda"><summary class="clicable">Com s'escriu</summary><ul>
       <li><code>$…$</code> fórmula · <code>$$…$$</code> fórmula en una línia pròpia</li>
       <li><code>[mat]…[/mat]</code> frase de matemàtiques · <code>[calc]…[/calc]</code> frase de calculadora · <code>[nota]…[/nota]</code> nota</li>
@@ -346,6 +354,33 @@ function fitxa(id) {
       <li>Els passos són de la calculadora triada (${esc(curt())}): si canvies un pas, Claude farà el mateix canvi a les altres calculadores quan el pas sigui equivalent.</li>
     </ul></details>`;
   const ajusta = ta => { ta.style.height = 'auto'; ta.style.height = (ta.scrollHeight + 2) + 'px'; };
+  // Les icones: →, •, ⇒ i ⇔ es copien al porta-retalls; $$ posa la selecció del camp entre $…$ (sense selecció, $$ amb el
+  // cursor al mig). Els botons no prenen el focus (mousedown), perquè el camp no perdi la selecció.
+  let darrerCamp = null;
+  panell.addEventListener('focusin', e => { if (e.target.tagName === 'TEXTAREA') darrerCamp = e.target; });
+  const avisCopiat = t => { const c = document.getElementById('copiat'); c.textContent = t; clearTimeout(avisCopiat.t); avisCopiat.t = setTimeout(() => { c.textContent = ''; }, 1600); };
+  panell.querySelectorAll('.eina').forEach(b => {
+    b.addEventListener('mousedown', e => e.preventDefault());
+    b.addEventListener('click', async () => {
+      const t = b.dataset.eina;
+      if (t === '$$') {
+        const ta = darrerCamp;
+        if (!ta) { avisCopiat('Primer selecciona el text d\'un camp'); return; }
+        const a = ta.selectionStart, z = ta.selectionEnd, sel = ta.value.slice(a, z);
+        ta.focus();
+        ta.setRangeText('$' + sel + '$', a, z, sel ? 'end' : 'start');
+        if (!sel) ta.setSelectionRange(a + 1, a + 1);
+        ta.dispatchEvent(new Event('input'));
+        return;
+      }
+      try { await navigator.clipboard.writeText(t); avisCopiat('Copiat: ' + t); }
+      catch (e) {
+        // Sense permís per al porta-retalls: s'escriu al camp, on hi ha el cursor
+        if (darrerCamp) { darrerCamp.focus(); darrerCamp.setRangeText(t, darrerCamp.selectionStart, darrerCamp.selectionEnd, 'end'); darrerCamp.dispatchEvent(new Event('input')); avisCopiat('Escrit al camp: ' + t); }
+        else avisCopiat('No es pot copiar');
+      }
+    });
+  });
   let temps = null;
   const pintaXip = () => { document.getElementById('xip').hidden = !editada(doc); };
   function programa() {

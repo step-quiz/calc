@@ -342,13 +342,35 @@ mode would show: Batxillerat names the mode ({{E Mat/S Mat}}, {{E Mat/S Decimal}
 configurada per donar resultats exactes». Decimal answers use SHIFT EXE (≈); right after an EXE result, SHIFT EXE
 recomputes the same expression in decimal (confirmed).
 
-**ESO wording.** `[mat]` for the mathematics, `[calc]` for the calculator, usually one or two of each per step. Fixed
+**ESO wording** (older; where it disagrees with «Wording rules (v103)» above, the v103 rules win). `[mat]` for the mathematics, `[calc]` for the calculator, usually one or two of each per step. Fixed
 phrases: «Primer escriu …», «Ara fes l'operació [[entre]] 4.», «Prem [[exe]]: obtens el resultat, que és 198.», then
 `[mat]`«La resposta correcta és que …». With ≈: «Prem [[shift]] [[exe]] (≈): obtens …». Rounded: «Arrodonint a les
 centèsimes, la resposta correcta és que …». Never an option letter; distractors only in the error zone. Ids of real items:
 `cb<course>-<yy>-q<question>` with `font: 'CB <course>ESO (20<yy>), pregunta <question>'`; book items `ll4-<unit>-<exercise>`.
 A formula given by the statement goes at its end as `[nota](…)[/nota]`. Statement figures: only the statement images of the
 source (`e<N>.png`), never question images that show the a–d options.
+
+**Wording rules (v103, David; artifact «calc · Normes de redacció», https://claude.ai/artifact/GF2WRWd1L1UgiKxnTHgu74).**
+Derived from David's own rewrite of `cb2-26-q5`; applied so far to the T3 block (`eso-proporcionalitat`), to be extended
+block by block (rest of ESO, then Batxillerat), each batch shown to David in the «Editor de textos» first.
+- Every number in every text goes in `$…$` (statements, steps, [calc] sentences, results, «Prova-ho tu»); units stay
+  outside (`$180$ g`); what is typed or shown keeps the decimal point (`$3.5$`), written maths the comma (`$3{,}5$`).
+- ESO only (Batxillerat/PAU keep theirs): short titles naming the situation («La recepta del pastís»); statements in
+  prose, no `•` lines, paragraphs separated by a blank line (situation · what happens · question), CB included. Official
+  statements get no new plot (only prose); own examples may.
+- The question carries the condition («…per mantenir les proporcions de la recepta?»).
+- Estimation step (only where it already exists; none added): «Abans de calcular, pensa:» + two `•` questions, no
+  answer; final steps no longer say «com havíem estimat».
+- Rule of three (not percentages or scales): «$3$ ous → $180$ g de xocolata\n$1$ ou → ?», then «$1$ ou → $60$ g…».
+- In a [calc] sentence the instruction comes first and each explanation goes on its own line (`\n`), e.g. «Fes
+  l'operació [[per]] $5$.\nLa calculadora continua amb el resultat d'abans (Ans).»
+- The last good step ends with «[mat]R) <complete sentence with who/what/units>[/mat]» (also Batxillerat), replacing «La
+  resposta correcta és que…».
+- Error zone: «[calc]!!Error típic!!:\nSi <what the student would do wrong>: <keys>.[/calc]» (no «esborra amb [[ac]]» in
+  the text; the AC key stays in the step); then `FRASE_ERROR` and a closing [mat] chosen per case: «No té lògica que…»,
+  «No té sentit…», «No encaixa amb l'enunciat…», «No pot ser…», with the exercise's numbers.
+- `tancament`: «[mat]Recorda:\n• <calc>\n• <calc>[/mat]», calculations only.
+- «Prova-ho tu»: prose, second person («Tu tens…»); solution one calculation per line and «R) …» in first person.
 
 **Calculator with judgement (v92, David).** The fitxes of `eso-proporcionalitat` and the v92 ones in other ESO blocks
 teach that the calculator computes correctly a wrongly posed problem. (1) First step without keys or mark, one `[mat]`
