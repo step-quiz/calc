@@ -23,7 +23,7 @@ Web no oficial, sense relació amb el fabricant de la calculadora.
 - L'enunciat sempre es veu sencer; l'alumne el pot plegar a una línia clicant-lo, i desplegar-lo igual.
 - En obrir una fitxa només es veu l'enunciat: els passos no hi són i la calculadora surt esvaïda (encara inactiva).
   En prémer ▶, tot apareix.
-- Al ⚙ de dalt a la dreta de la fitxa (es tanca tornant-hi a clicar, amb Esc o clicant fora del menú): «Escollir calculadora», l'idioma i el **color del cursor** (16 colors; el navegador
+- Al ⚙ de dalt a la dreta de la fitxa (es tanca tornant-hi a clicar, amb Esc o clicant fora del menú): «Escollir calculadora», l'idioma, el **color del cursor**, l'interruptor **«Mostrar errors típics»** (apagat per defecte: sense la zona d'«Error típic» del final de les fitxes) (16 colors; el navegador
   el recorda).
 - A dalt de la portada, abans dels blocs numerats, tres bombolles a totes dues etapes, d'una sola línia: «Interpretar els indicadors de pantalla»,
   «Configurar-ho tot abans d'un examen» i «Correcció d'errors d'escriptura». La primera explica què vol dir cada símbol que pot sortir a la pantalla (D, R, FIX, SCI, S, ▲…). Un botó

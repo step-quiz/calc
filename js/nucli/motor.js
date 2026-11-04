@@ -406,7 +406,7 @@ function construeixPagina(fitxa, bloc, germanes, contenidor) {
   // A3: capçalera mínima, amb «Escollir calculadora» i l'idioma plegats dins d'un ⚙
   r.progres = creaProgres(fitxa);
   const tries = element('div', {class: 'tries'}, [selectorModel(fitxa), selectorIdioma(), ux('a3') ? selectorColorCursor() : null,
-    ux('a3') ? r.progres.panell : null]);
+    ux('a3') ? selectorErrors() : null, ux('a3') ? r.progres.panell : null]);
   if (!ux('a3')) aplicaColorCursor(Preferencies.cursor());
   const ajustos = ux('a3') ? element('details', {class: 'ux-ajustos'}, [element('summary', {title: 'Ajustos', 'aria-label': 'Ajustos', text: '⚙'}), tries]) : tries;
   // El ⚙ obert es tanca també amb Esc i clicant a qualsevol lloc de fora del menú (David); un diàleg obert des del menú
@@ -533,6 +533,34 @@ async function arrenca(contenidor = document.getElementById('fitxa')) {
  * Si l'últim pas és un error, la fitxa del reproductor porta un pas més, sense tecles: la pantalla torna a la del
  * resultat bo (l'últim pas que no és un error) i el text és fitxa.tancament.
  */
+/**
+ * Sense els errors típics (⚙ → «Mostrar errors típics» apagat, el valor per defecte): la fitxa sense la zona d'error del
+ * final (els passos amb error: true de després de l'últim pas bo) i, per tant, sense el pas de tancament. Les fitxes que
+ * comencen amb l'error (l'error és el punt de partida, p. ex. «Troba l'error») no canvien: els passos de després
+ * continuen des de la pantalla de l'error.
+ */
+function senseErrorsFinals(fitxa) {
+  const passos = fitxa.passos;
+  let n = passos.length;
+  while (n > 0 && passos[n - 1].error) n--;
+  if (n === passos.length || n === 0) return fitxa;
+  return Object.assign({}, fitxa, {passos: passos.slice(0, n)});
+}
+
+/** «Mostrar errors típics», dins del ⚙: un interruptor; en canviar-lo, es desa i la fitxa es torna a obrir. */
+function selectorErrors() {
+  const si = Preferencies.mostraErrors();
+  const b = element('button', {type: 'button', class: 'tria-errors', role: 'switch', 'aria-checked': String(si)},
+    [element('span', {text: 'Mostrar errors típics'}), element('span', {class: 'interruptor', 'aria-hidden': 'true'})]);
+  b.addEventListener('click', () => {
+    Preferencies.desaMostraErrors(!si);
+    const u = new URL(location.href);
+    u.searchParams.delete('pas');
+    location.replace(u.toString());
+  });
+  return b;
+}
+
 function ambTancament(fitxa) {
   const passos = fitxa.passos;
   if (!passos.length || !passos[passos.length - 1].error || !fitxa.tancament) return fitxa;
@@ -606,7 +634,7 @@ function inicia(model, id, contenidor) {
   }
   const actiu = () => (modeAraTu && sub ? sub : reproductor);
 
-  const ambFinal = ambTancament(fitxa);
+  const ambFinal = ambTancament(Preferencies.mostraErrors() ? fitxa : senseErrorsFinals(fitxa));
   // D2: l'«Ara tu» i el «Prova-ho tu» no surten sols en acabar; s'hi va amb ▶ des de l'últim pas, i tornen amb un botó
   const reproductor = Reproductor.crea(ctx, r, ambFinal, temps, {abans: surtAraTu, finalAPart: Boolean(r.tornaPassos),
     nomFinal: fitxa.araTu ? 'Ara tu' : 'Prova-ho tu', enPas: (i, ocupat) => r.progres.pas(i, ocupat, ambFinal.passos.length)});

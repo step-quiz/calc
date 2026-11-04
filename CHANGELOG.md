@@ -4,6 +4,13 @@ Què ha canviat a cada versió del web, de la més nova a la més antiga. El fun
 `README.md` i `ARCHITECTURE.md`; aquí només hi ha la història. El número de versió és `VERSIO` a
 `js/nucli/models.js` i surt al peu de les pàgines.
 
+## Versió 102 (4/11/2026)
+
+- Al ⚙ de la fitxa, l'interruptor «Mostrar errors típics», apagat per defecte. Apagat, les fitxes no mostren la zona
+  d'«Error típic» del final (els passos amb el fons vermell) ni el pas «Recorda: …» que la tanca. Les tres fitxes que
+  comencen amb l'error («on van els parèntesis», «Troba l'error: el mode equivocat», «posa-la en graus») mantenen els
+  passos d'error del principi, perquè els passos de després en depenen. El navegador ho recorda («calc-errors»).
+
 ## Versió 101 (4/11/2026)
 
 - Portada: el botó «↓ Envia-les a baix» surt sempre, des de la primera visita (abans, a partir de la 10a visita en

@@ -17,6 +17,8 @@
                   feta = n'ha passat tots els passos (sense comptar l'«Ara
                   tu» ni el «Prova-ho tu»). Una per id: no depèn de la
                   calculadora. L'alumne la pot esborrar (ajustos de la fitxa)
+   «calc-errors»  'si' si l'alumne vol veure les zones d'«Error típic» de
+                  les fitxes (⚙ → «Mostrar errors típics»); per defecte, no
    Sense memòria al navegador (mode privat, galetes bloquejades), tot
    funciona amb els valors per defecte.
 
@@ -34,6 +36,7 @@ const CLAU_CURSOR = 'calc-cursor';
 const CLAU_VISITES = 'calc-visites';
 const CLAU_BOMBOLLES = 'calc-bombolles';
 const CLAU_PROGRES = 'calc-progres';
+const CLAU_ERRORS = 'calc-errors';
 
 function llegeix(clau) {
   try { return typeof localStorage !== 'undefined' ? localStorage.getItem(clau) : null; } catch (e) { return null; }
@@ -103,7 +106,11 @@ function esborraMarca(id) { const o = progres(); if (id in o) { delete o[id]; de
 /** Totes les activitats, a zero. */
 function esborraProgres() { try { localStorage.removeItem(CLAU_PROGRES); } catch (e) { /* cap */ } }
 
-arrel.Preferencies = Object.freeze({model, desaModel, idioma, desaIdioma, etapa, desaEtapa, cursor, desaCursor,
+/** L'alumne vol veure els passos d'«Error típic»? Per defecte, no (David). */
+const mostraErrors = () => llegeix(CLAU_ERRORS) === 'si';
+const desaMostraErrors = si => desa(CLAU_ERRORS, si ? 'si' : 'no');
+
+arrel.Preferencies = Object.freeze({mostraErrors, desaMostraErrors, CLAU_ERRORS, model, desaModel, idioma, desaIdioma, etapa, desaEtapa, cursor, desaCursor,
   visita, bombollesABaix, desaBombollesABaix, progres, estatFitxa, marcaVista, marcaFeta, esborraMarca, esborraProgres,
   CLAU_MODEL, CLAU_IDIOMA, CLAU_ETAPA, CLAU_CURSOR, CLAU_VISITES, CLAU_BOMBOLLES, CLAU_PROGRES});
 

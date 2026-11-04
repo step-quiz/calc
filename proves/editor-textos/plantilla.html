@@ -159,6 +159,8 @@ const missatge = t => { const m = document.getElementById('missatge'); m.textCon
 let model = DADES.models.some(m => m.id === llegeix('ed-model')) ? llegeix('ed-model') : DADES.models[0].id;
 let etapa = DADES.etapes.some(e => e.id === llegeix('ed-etapa')) ? llegeix('ed-etapa') : 'eso';
 const docs = {};                 // canvis/<id>
+// La fitxa oberta: el seu document és el de la pàgina (doc), i la base de dades no el substitueix mentre s'hi treballa
+let obert = null, tocat = false;
 let db = null, potEscriure = true;
 const editada = d => Boolean(d && ((d.camps && Object.keys(d.camps).length) || (d.comentari && d.comentari.trim())));
 const curt = () => DADES.models.find(m => m.id === model).curt;
@@ -185,7 +187,8 @@ function text(t) {
 
 /* ── Base de dades ─────────────────────────────────────────────────── */
 const enCurs = {}, pendent = {};
-async function desa(id) {
+async function desa(id, nou) {
+  if (nou) docs[id] = nou;
   if (!db) { missatge('Sense base de dades: el canvi no s\'ha desat.'); return false; }
   if (!potEscriure) return false;
   if (enCurs[id]) { pendent[id] = true; return true; }
@@ -263,6 +266,7 @@ function fitxa(id) {
     camps.push({clau: 'provaTu.enunciat', nom: 'Prova-ho tu · enunciat', original: f.provaTu.enunciat, pas: nPassos});
     camps.push({clau: 'provaTu.solucio', nom: 'Prova-ho tu · solució', original: f.provaTu.solucio, pas: nPassos});
   }
+  obert = id; tocat = false;
   const desat = docs[id];
   const doc = docs[id] = {id, titol: f.titol, model, camps: Object.assign({}, desat && desat.camps), originals: Object.assign({}, desat && desat.originals),
     comentari: (desat && desat.comentari) || '', actualitzat: (desat && desat.actualitzat) || ''};
@@ -349,7 +353,7 @@ function fitxa(id) {
     estat.textContent = 'Desant…'; estat.classList.remove('mal');
     temps = setTimeout(async () => {
       doc.actualitzat = new Date().toISOString(); doc.model = model;
-      const ok = await desa(id);
+      const ok = await desa(id, doc);
       estat.textContent = ok ? 'Desat ✓' : 'No desat'; estat.classList.toggle('mal', !ok);
     }, 700);
   }
@@ -362,7 +366,7 @@ function fitxa(id) {
     const marca = () => { const e = c.clau in doc.camps; el.classList.toggle('editat', e); torna.hidden = !e; };
     ta.addEventListener('input', () => {
       if (ta.value === c.original) { delete doc.camps[c.clau]; delete doc.originals[c.clau]; } else { doc.camps[c.clau] = ta.value; doc.originals[c.clau] = c.original; }
-      ajusta(ta); marca(); pinta(c); pintaXip(); programa();
+      tocat = true; ajusta(ta); marca(); pinta(c); pintaXip(); programa();
     });
     torna.addEventListener('click', () => { ta.value = c.original; ta.dispatchEvent(new Event('input')); ta.focus(); });
     ta.addEventListener('focus', () => { if (c.pas !== undefined && c.pas !== idx) vesA(c.pas, true); });
@@ -376,7 +380,7 @@ function fitxa(id) {
   const cta = com.querySelector('textarea');
   cta.value = doc.comentari;
   const marcaCom = () => com.classList.toggle('editat', Boolean(doc.comentari.trim()));
-  cta.addEventListener('input', () => { doc.comentari = cta.value; ajusta(cta); marcaCom(); pintaXip(); programa(); });
+  cta.addEventListener('input', () => { tocat = true; doc.comentari = cta.value; ajusta(cta); marcaCom(); pintaXip(); programa(); });
   marcaCom();
   panell.append(com);
   pintaProva(); pintaXip(); vesA(-1);
@@ -395,6 +399,7 @@ function fitxa(id) {
 /* ── Navegació (#fitxa-<id>, o res = la portada) ───────────────────── */
 function mostra() {
   if (netejaFitxa) { netejaFitxa(); netejaFitxa = null; }
+  obert = null;
   const m = /^#fitxa-([a-z0-9-]+)$/.exec(location.hash);
   if (m) fitxa(m[1]); else portada();
   window.scrollTo(0, 0);
@@ -408,11 +413,14 @@ mostra();
   if (!db) { clearTimeout(rellotge); missatge('Aquesta vista no té base de dades: els canvis no es desaran.'); return; }
   let primera = true;
   db.collection('canvis').onSnapshot(snap => {
-    for (const d of snap.docs) if (!enCurs[d.id]) docs[d.id] = JSON.parse(JSON.stringify(d.data()));
-    for (const ch of snap.docChanges()) if (ch.type === 'removed' && !enCurs[ch.doc.id]) delete docs[ch.doc.id];
+    // El document de la fitxa oberta no es toca (la pàgina en té l'última versió), llevat que encara no s'hi hagi escrit res
+    const respecta = id => enCurs[id] || (id === obert && tocat);
+    for (const d of snap.docs) if (!respecta(d.id)) docs[d.id] = JSON.parse(JSON.stringify(d.data()));
+    for (const ch of snap.docChanges()) if (ch.type === 'removed' && !respecta(ch.doc.id)) delete docs[ch.doc.id];
     if (!snap.metadata.fromCache) { clearTimeout(rellotge); missatge(''); }
     // La primera vegada es torna a dibuixar (amb els canvis desats); després, només la portada (a la fitxa no es trepitja el que s'escriu)
-    if (primera || !/^#fitxa-/.test(location.hash)) { primera = false; mostra(); }
+    if (!/^#fitxa-/.test(location.hash) || (primera && !tocat)) mostra();
+    primera = false;
   }, e => { clearTimeout(rellotge); missatge('No es pot llegir la base de dades (' + ((e && e.code) || 'error') + ').'); });
 })();
 })();
