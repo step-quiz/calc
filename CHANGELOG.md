@@ -4,6 +4,12 @@ Què ha canviat a cada versió del web, de la més nova a la més antiga. El fun
 `README.md` i `ARCHITECTURE.md`; aquí només hi ha la història. El número de versió és `VERSIO` a
 `js/nucli/models.js` i surt al peu de les pàgines.
 
+## Versió 106 (4/11/2026)
+
+- Proporcionalitat inversa sense passar per la unitat (David): «Sabem que $6\cdot 10=4\cdot x$», el producte es manté
+  constant i es divideix. Els seus textos a «La neteja en un parc» (abans «Els jardiners del parc») i el mateix mètode a
+  «Els pots de pintura».
+
 ## Versió 105 (4/11/2026)
 
 - T3 «Proporcionalitat», segona passada amb el que David ha canviat a «L'aixeta del lavabo»: els seus textos a L'aixeta;

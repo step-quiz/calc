@@ -361,7 +361,12 @@ block by block (rest of ESO, then Batxillerat), each batch shown to David in the
 - The question carries the condition («…per mantenir les proporcions de la recepta?»).
 - Estimation step (only where it already exists; none added): «Abans de calcular, pensa:» + two `•` questions, no
   answer; final steps no longer say «com havíem estimat».
-- Rule of three (not percentages or scales): «$3$ ous → $180$ g de xocolata\n$1$ ou → ?», then «$1$ ou → $60$ g…».
+- Direct rule of three (not percentages or scales): through the unit, «$3$ ous → $180$ g de xocolata\n$1$ ou → ?», then
+  «$1$ ou → $60$ g…».
+- Inverse proportion (David, `ll4a-3-13`): never through the unit; constant product with an unknown $x$: «És una situació
+  de proporcionalitat inversa.\n$6$ jardiners → $10$ dies\n$4$ jardiners → $x$\n\nSabem que $6\cdot 10=4\cdot x$.», then
+  «Aquest nombre es manté constant: $60$.», «Sabem que $4\cdot x=60$.», «Fes l'operació $60$ [[entre]] $4$.»; tancament and
+  «Prova-ho tu» solution with the same equation. Statements may tell a short story in time («L'any passat… Aquest any…»).
 - In a [calc] sentence the instruction comes first and each explanation goes on its own line (`\n`), e.g. «Fes
   l'operació [[per]] $5$.\nLa calculadora continua amb el resultat d'abans (Ans).»
 - The last good step ends with «[mat]R) <complete sentence with who/what/units>[/mat]» (also Batxillerat), replacing «La

@@ -80,13 +80,13 @@ Models.afegeixExercicis(
 },
 {
   id: 'll4a-3-13', bloc: 'eso-proporcionalitat', grup: 'Proporcionalitat inversa',
-  titol: 'Els jardiners del parc',
+  titol: 'La neteja en un parc',
   font: 'Llibre 4t ESO A, unitat 3, exercici 13',
-  enunciat: '$6$ jardiners poden podar un parc en $10$ dies. Aquest any, però, només n\'hi ha $4$, que treballen al mateix ritme.\n\nQuants dies trigaran els $4$ jardiners a podar tot el parc?',
-  tancament: '[mat]Recorda:\n• $6\\cdot 10=60$ dies\n• $60\\div 4=15$ dies[/mat]',
+  enunciat: 'L\'any passat, per arreglar tot un parc, es va formar un equip de $6$ jardiners per podar els arbres, i van trigar $10$ dies per acabar la feina.\n\nAquest any només hi ha $4$ jardiners per fer la mateixa feina.\n\nQuants dies trigaran a podar tot el parc, si van al mateix ritme de feina?',
+  tancament: '[mat]Recorda:\n• $6\\cdot 10=4\\cdot x$\n• $x=15$ dies[/mat]',
   provaTu: {
-    enunciat: '$3$ pintors pinten un pis en $8$ dies.\nTu contractes $4$ pintors, que treballen al mateix ritme. Quants dies trigaran a pintar el pis?',
-    solucio: '$3\\cdot 8=24$ dies\n$24\\div 4=6$ dies\nR) Trigaran $6$ dies.',
+    enunciat: 'Fa $5$ anys que es va pintar tot l\'institut, i ho van fer $3$ pintors, en $8$ dies de feina.\nAquest cop, s\'han contractat $4$ pintors.\n\nQuants dies trigaran a pintar l\'institut, si treballen al mateix ritme?',
+    solucio: '$3\\cdot 8=4\\cdot x$\n$x=24\\div 4=6$ dies\nR) Trigaran $6$ dies.',
   },
 },
 {
@@ -94,10 +94,10 @@ Models.afegeixExercicis(
   titol: 'Els pots de pintura',
   font: 'Banc de recuperació de 2n ESO (proporcionalitat directa i inversa)',
   enunciat: 'En Carles va pintar la seva habitació amb $6$ pots de pintura de $4$ kg cadascun. Ara la vol tornar a pintar, però a la botiga només venen pots de $3$ kg.\n\nQuants pots de $3$ kg necessita per pintar l\'habitació?',
-  tancament: '[mat]Recorda:\n• $6\\cdot 4=24$ kg\n• $24\\div 3=8$ pots[/mat]',
+  tancament: '[mat]Recorda:\n• $6\\cdot 4=x\\cdot 3$\n• $x=8$ pots[/mat]',
   provaTu: {
     enunciat: 'Per omplir una piscina calen $12$ camions de $9\\,000$ litres.\nTu només tens camions de $6\\,000$ litres. Quants camions et caldran?',
-    solucio: '$12\\cdot 9\\,000=108\\,000$ litres\n$108\\,000\\div 6\\,000=18$ camions\nR) Em caldran $18$ camions.',
+    solucio: '$12\\cdot 9\\,000=x\\cdot 6\\,000$\n$x=108\\,000\\div 6\\,000=18$ camions\nR) Em caldran $18$ camions.',
   },
 },
 {
