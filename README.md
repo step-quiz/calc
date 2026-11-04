@@ -31,8 +31,8 @@ Web no oficial, sense relació amb el fabricant de la calculadora.
   A baix, si l'última fila de targetes té llocs buits (a l'ESO, 7 blocs en 3 columnes), les bombolles els ocupen.
 - En una pantalla d'ordinador (1000 px d'ample o més), les targetes sempre van en 3 columnes, amb la mateixa amplada a
   l'ESO i a Batxillerat.
-- Activitats vistes i fetes: en obrir una fitxa queda «Vista» i, quan se n'han fet tots els passos (sense comptar
-  l'«Ara tu» o el «Prova-ho tu»), «✓ Feta». Es veu a la portada i a la capçalera de la fitxa. Al ⚙ de la fitxa es pot
+- Activitats vistes i fetes: en obrir una fitxa queda vista (✓) i, quan se n'han fet tots els passos (sense comptar
+  l'«Ara tu» o el «Prova-ho tu»), feta (✓✓, en verd clar). Es veu a la portada i a la capçalera de la fitxa. Al ⚙ de la fitxa es pot
   treure la marca d'aquella activitat o esborrar-les totes. El navegador ho recorda.
 - Un bloc amb moltes fitxes (més de 8) no fa la targeta més alta que les altres: la llista es desplaça per dins, i una
   ombra a baix avisa que n'hi ha més.

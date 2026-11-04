@@ -86,13 +86,13 @@ function dibuixa(M, models) {
   if (versio) versio.textContent = 'Versió ' + Models.VERSIO;
 }
 
-/** Al costat de cada fitxa, si l'alumne l'ha vista («Vista») o l'ha feta («✓ Feta»): Preferencies, «calc-progres». */
+/** Al costat de cada fitxa, si l'alumne l'ha vista (un tic, ✓) o l'ha feta (dos tics, ✓✓, en verd clar): Preferencies, «calc-progres». */
 function posaMarques() {
   const progres = Preferencies.progres();
   for (const m of document.querySelectorAll('.marca-progres[data-fitxa]')) {
     const e = progres[m.dataset.fitxa] || '';
     m.className = 'marca-progres' + (e ? ' ' + e : '');
-    m.textContent = e === 'feta' ? '✓ Feta' : e === 'vista' ? 'Vista' : '';
+    m.textContent = e === 'feta' ? '✓✓' : e === 'vista' ? '✓' : '';   // un tic, vista; dos tics, feta (David)
     m.title = e === 'feta' ? 'Ja l\'has feta' : e === 'vista' ? 'Ja l\'has vista' : '';
   }
 }

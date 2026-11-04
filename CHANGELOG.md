@@ -4,6 +4,11 @@ Què ha canviat a cada versió del web, de la més nova a la més antiga. El fun
 `README.md` i `ARCHITECTURE.md`; aquí només hi ha la història. El número de versió és `VERSIO` a
 `js/nucli/models.js` i surt al peu de les pàgines.
 
+## Versió 104 (4/11/2026)
+
+- Les marques de les activitats, sense paraules: un tic (✓) si l'alumne l'ha vista i dos tics (✓✓), sobre un verd clar,
+  si l'ha feta.
+
 ## Versió 103 (4/11/2026)
 
 - Normes de redacció noves (David, a partir de la seva versió de «La recepta del pastís»), aplicades a les 10 fitxes del

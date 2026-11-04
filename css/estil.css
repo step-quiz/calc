@@ -102,9 +102,9 @@ a{color:inherit}
 .on-som-bloc, .on-som-fitxa{margin:0; font-size:.95rem; font-weight:400; line-height:1.3; color:var(--hd-txt)}
 .on-som-bloc{color:color-mix(in srgb, var(--hd-txt) 70%, transparent)}
 /* La marca de l'activitat a la capçalera de la fitxa: «Vista» (vora) o «✓ Feta» (verd) */
-.on-som-marca{align-self:center; padding:1px 8px; border-radius:999px; font:600 .7rem/1.4 var(--mono); white-space:nowrap}
+.on-som-marca{align-self:center; padding:0 8px; border-radius:999px; font:700 .9rem/1.35 system-ui, sans-serif; letter-spacing:-.18em; white-space:nowrap}
 .on-som-marca.vista{border:1px solid color-mix(in srgb, var(--hd-txt) 55%, transparent); color:var(--hd-txt)}
-.on-som-marca.feta{background:#15803d; color:#fff}
+.on-som-marca.feta{background:#dcfce7; color:#15803d}
 /* «← Fitxes»: un botó de debò, amb un cantell inferior gruixut (relleu 3D marcat) que desapareix en prémer-lo */
 .capcalera-de-fitxa > .torna{white-space:nowrap; font-size:.8rem; font-weight:600; padding:6px 13px 6px 10px; border:1px solid #cbd5e1; border-radius:7px;
   margin-bottom:6px; box-shadow:0 6px 0 #94a3b8, 0 8px 10px rgba(0,0,0,.45);
@@ -479,10 +479,10 @@ body.zona-error .pas.actual.convida::after, body.error-suau .pas.actual.convida:
 .llista a:hover, .llista a:focus-visible{background:color-mix(in srgb, var(--cat) 12%, #fff); border-color:#000; box-shadow:0 0 0 1.5px #000; transform:translateX(3px)}
 .llista .n{font-family:var(--mono); font-size:.68rem; opacity:.7; min-width:1.6em}
 /* Portada: «Vista» o «✓ Feta» al costat de cada fitxa (nucli/portada.js, posaMarques); a les bombolles, a dalt a la dreta */
-.marca-progres{margin-left:auto; flex-shrink:0; padding:2px 7px; border-radius:999px; font:600 .64rem/1.3 var(--mono); white-space:nowrap}
+.marca-progres{margin-left:auto; flex-shrink:0; min-width:2.1em; padding:1px 7px; letter-spacing:-.18em; border-radius:999px; font:700 .9rem/1.25 system-ui, sans-serif; text-align:center; white-space:nowrap}
 .marca-progres:empty{display:none}
 .marca-progres.vista{border:1px solid #94a3b8; color:#475569; background:#fff}
-.marca-progres.feta{background:#15803d; color:#fff}
+.marca-progres.feta{background:#dcfce7; color:#15803d; border:1px solid #86efac}
 .bombolla{position:relative}
 .bombolla .marca-progres{position:absolute; top:-9px; right:-4px; margin:0}
 /* Un bloc amb més de 8 fitxes (nucli/portada.js, limitaLlistes): la llista es desplaça per dins de la targeta, que no

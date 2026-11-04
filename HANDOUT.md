@@ -204,6 +204,7 @@ visits — one per browser session —, bubbles up/down), `tria.js`
   their leading error steps (later steps continue from that screen).
 - **v103**: wording rules (ARCHITECTURE §9 «Wording rules (v103)») applied to T3 (10 fitxes, all models); next batches: rest of ESO, then Batxillerat, each shown in the Editor first.
   `ERRORS=1` option in encaix.js.
+- **v104**: progress marks without words: ✓ = vista, ✓✓ on light green = feta (home and fitxa header).
 - **Editor de textos** (artifact, not served): https://claude.ai/artifact/GMvQzEgtdG3NSTdgX8QcrX (slug
   `7c64df61-5de7-42fb-a13f-f197f125daac`, owner David). One self-contained page built by
   `node proves/editor-textos/construeix.js <out.html>` (= `plantilla.html` + `extreu.js` data: every text of every fitxa of
@@ -284,7 +285,7 @@ visits — one per browser session —, bubbles up/down), `tria.js`
 ## 8. Versioning & delivery protocol
 
 - Any served `.js`/`.css` change → bump `VERSIO` (`js/nucli/models.js`), every `?v=` in `index.html`/`fitxa.html`, and
-  the «Versió N» footer of `index.html` (test enforces). Current: **103**.
+  the «Versió N» footer of `index.html` (test enforces). Current: **104**.
 - Delivery = a ZIP with the files changed since the version David already has, repo-root paths, excluding `_uploads/`:
   commit the version locally, then `git diff --name-only --diff-filter=AMR HEAD~1 HEAD | zip -@ calc-versio-NN.zip`
   (use `HEAD~2` etc. if several local commits make up one delivery). The repo usually arrives as a ZIP without `.git`:

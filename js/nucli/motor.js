@@ -98,7 +98,8 @@ function creaProgres(fitxa) {
   function pinta() {
     const e = Preferencies.estatFitxa(fitxa.id);
     marca.className = 'on-som-marca' + (e ? ' ' + e : '');
-    marca.textContent = e === 'feta' ? '✓ Feta' : e === 'vista' ? 'Vista' : '';
+    marca.textContent = e === 'feta' ? '✓✓' : e === 'vista' ? '✓' : '';   // un tic, vista; dos tics, feta
+    marca.title = e === 'feta' ? 'Ja l\'has feta' : e === 'vista' ? 'Ja l\'has vista' : '';
     marca.hidden = !e;
     desmarca.disabled = !e;
     desmarca.textContent = e ? `Treu la marca '${e}' d'aquesta activitat` : 'Aquesta activitat no té cap marca';
