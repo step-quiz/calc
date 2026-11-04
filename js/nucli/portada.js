@@ -62,7 +62,7 @@ function dibuixa(M, models) {
         // Entre dues fitxes de temes diferents (grup: Àlgebra, Geometria…), una ratlla
         (j && f.grup && fitxes[j - 1].grup && f.grup !== fitxes[j - 1].grup ? '<li class="separa-grup" aria-hidden="true"></li>' : '')
         + `<li><a href="${enllac(f)}"><span class="n">${j + 1}</span>`
-        + `<span>${escapa(f.titol)}</span></a></li>`).join('') + '</ol>'
+        + `<span>${escapa(f.titol)}</span><span class="marca-progres" data-fitxa="${escapa(f.id)}"></span></a></li>`).join('') + '</ol>'
       : '<span class="properament">Properament</span>';
     return `<section class="bloc" id="${b.id}" style="--cat:${b.color}">`
       + `<span class="num">T${i + 1}</span>`
@@ -73,26 +73,42 @@ function dibuixa(M, models) {
   // Cada bombolla diu només el títol del bloc (si un bloc petit en tingués més d'una, el de la fitxa)
   bombolles.innerHTML = petits.map(b => { const fs = FITXES.filter(f => f.bloc === b.id); return fs.map((f, k) =>
     `<a class="bombolla"${k ? '' : ` id="${b.id}"`} style="--cat:${b.color}" href="${enllac(f)}" title="${escapa(f.titol)}">`
-    + `${escapa(fs.length > 1 ? f.titol : b.titol)}</a>`).join(''); }).join('');
-  ajustaAmplada(contenidor);
+    + `${escapa(fs.length > 1 ? f.titol : b.titol)}<span class="marca-progres" data-fitxa="${escapa(f.id)}"></span></a>`).join(''); }).join('');
+  // L'amplada de les targetes és la de Batxillerat a totes dues etapes: així la portada té els mateixos marges (David)
+  const titolsReferencia = M.dades.BLOCS.filter(b => b.etapes.includes('batx') && !b.petit).map(b => b.titol);
+  ajustaAmplada(contenidor, titolsReferencia);
   posaBombolles(contenidor, bombolles);
+  posaMarques();
+  addEventListener('pageshow', posaMarques);   // en tornar enrere des d'una fitxa (la pàgina pot venir de la memòria cau)
   limitaLlistes(contenidor);
 
   const versio = document.querySelector('.peu .versio');
   if (versio) versio.textContent = 'Versió ' + Models.VERSIO;
 }
 
+/** Al costat de cada fitxa, si l'alumne l'ha vista («Vista») o l'ha feta («✓ Feta»): Preferencies, «calc-progres». */
+function posaMarques() {
+  const progres = Preferencies.progres();
+  for (const m of document.querySelectorAll('.marca-progres[data-fitxa]')) {
+    const e = progres[m.dataset.fitxa] || '';
+    m.className = 'marca-progres' + (e ? ' ' + e : '');
+    m.textContent = e === 'feta' ? '✓ Feta' : e === 'vista' ? 'Vista' : '';
+    m.title = e === 'feta' ? 'Ja l\'has feta' : e === 'vista' ? 'Ja l\'has vista' : '';
+  }
+}
+
 /**
  * Les targetes dels blocs, tan estretes com permet el títol de bloc més llarg de l'etapa en una sola línia: la
  * variable --ample-bloc (estil.css la fa servir per a les columnes i per a l'amplada de la portada, 3 columnes).
  */
-function ajustaAmplada(contenidor) {
+function ajustaAmplada(contenidor, titols) {
   const h2 = contenidor.querySelector('.bloc h2'), bloc = h2 && h2.closest('.bloc');
   if (!bloc) return;
   const ctx = document.createElement('canvas').getContext('2d');
   const e = getComputedStyle(h2), b = getComputedStyle(bloc);
   ctx.font = `${e.fontWeight} ${e.fontSize} ${e.fontFamily}`;
-  const text = Math.max(...[...contenidor.querySelectorAll('.bloc h2')].map(h => ctx.measureText(h.textContent).width));
+  const mides = (titols && titols.length ? titols : [...contenidor.querySelectorAll('.bloc h2')].map(h => h.textContent));
+  const text = Math.max(...mides.map(t => ctx.measureText(t).width));
   const vores = parseFloat(b.paddingLeft) + parseFloat(b.paddingRight) + parseFloat(b.borderLeftWidth) + parseFloat(b.borderRightWidth);
   document.documentElement.style.setProperty('--ample-bloc', Math.ceil(text + vores + 6) + 'px');
 }

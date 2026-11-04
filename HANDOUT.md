@@ -186,6 +186,11 @@ visits — one per browser session —, bubbles up/down), `tria.js`
 - **v94**: no order badges on keys, ever (`marcaTeclat`; they used to appear only on 2–6-key steps, which looked random).
 - **v95**: uniform cursor speed: `TEMPS.cursor` = 700 ms per calculator width travelled (`cursor.distancia`); no
   faster digits (`RAPIDESA_XIFRES` removed). Comparison v89 → v94 done for David: no other player change.
+- **v96**: progress marks (`calc-progres` = {id: 'vista'|'feta'}, Preferencies.progres/estatFitxa/marcaVista/marcaFeta/
+  esborraMarca/esborraProgres; per fitxa id, not per model): vista on opening, feta once every step has been the current
+  finished step (reproductor `opcions.enPas`, `creaProgres` in motor.js); header chip `.on-som-marca`, ⚙ section `.progres`;
+  home `.marca-progres` (portada.js `posaMarques`, also on pageshow). Home card width from the Batxillerat titles in both
+  stages (same margins, David); `.bloc h2` wraps.
 - David's standing UI rule: every clickable control reacts on hover with a thick pure-black border and a light-grey
   background (prefer a 1–1.5 px `box-shadow` on top of the border, so nothing moves).
 - David's standing preference: ask him questions with the AskUserQuestion multiple-choice dialog, never as free text.
@@ -249,7 +254,7 @@ visits — one per browser session —, bubbles up/down), `tria.js`
 ## 8. Versioning & delivery protocol
 
 - Any served `.js`/`.css` change → bump `VERSIO` (`js/nucli/models.js`), every `?v=` in `index.html`/`fitxa.html`, and
-  the «Versió N» footer of `index.html` (test enforces). Current: **95**.
+  the «Versió N» footer of `index.html` (test enforces). Current: **96**.
 - Delivery = a ZIP with the files changed since the version David already has, repo-root paths, excluding `_uploads/`:
   commit the version locally, then `git diff --name-only --diff-filter=AMR HEAD~1 HEAD | zip -@ calc-versio-NN.zip`
   (use `HEAD~2` etc. if several local commits make up one delivery). The repo usually arrives as a ZIP without `.git`:

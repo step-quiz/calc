@@ -67,14 +67,64 @@ const ux = p => Boolean(arrel.UX && arrel.UX.te(p));
  * On som, com a la portada: «T1 · <títol del bloc>» (els blocs grans de l'etapa es numeren T1, T2…; un bloc petit, només
  * el títol) i «1. <títol de la fitxa>» (el número dins del bloc).
  */
-function titolFitxa(fitxa, bloc, germanes) {
+function titolFitxa(fitxa, bloc, germanes, marca) {
   const grans = M.dades.BLOCS.filter(b => b.etapes.includes(ETAPA) && !b.petit);
   const t = grans.findIndex(b => b.id === bloc.id);
   const n = germanes.findIndex(f => f.id === fitxa.id) + 1;
   return element('div', {class: 'on-som'}, [
     element('p', {class: 'on-som-bloc', text: (t >= 0 ? `T${t + 1} · ` : '') + bloc.titol}),
     element('p', {class: 'on-som-fitxa', text: `${n}. ${fitxa.titol}`}),
+    marca,
   ]);
+}
+
+/**
+ * Activitat vista o feta (Preferencies, «calc-progres»). En obrir la fitxa, queda vista; quan l'alumne n'ha fet tots els
+ * passos (cada pas, acabat d'animar o triat a la llista, com a mínim un cop; l'«Ara tu» i el «Prova-ho tu» no compten),
+ * queda feta. Torna: la marca de la capçalera (marca), la secció del ⚙ per treure-la o esborrar-les totes (panell) i
+ * pas(idx, ocupat, total), que crida el reproductor a cada pas.
+ */
+function creaProgres(fitxa) {
+  const marca = element('span', {class: 'on-som-marca'});
+  const estat = element('span', {class: 'progres-estat'});
+  const desmarca = element('button', {type: 'button', class: 'progres-boto', text: 'Treu la marca d\'aquesta activitat'});
+  const TOTES = 'Esborra totes les marques';
+  const totes = element('button', {type: 'button', class: 'progres-boto', text: TOTES});
+  const panell = element('div', {class: 'progres', role: 'group', 'aria-label': 'Activitats vistes i fetes'}, [
+    element('span', {class: 'progres-nom', text: 'Activitats vistes i fetes'}), estat, desmarca, totes]);
+  let fets = new Set();
+  function pinta() {
+    const e = Preferencies.estatFitxa(fitxa.id);
+    marca.className = 'on-som-marca' + (e ? ' ' + e : '');
+    marca.textContent = e === 'feta' ? '✓ Feta' : e === 'vista' ? 'Vista' : '';
+    marca.hidden = !e;
+    estat.textContent = 'Aquesta activitat: ' + (e === 'feta' ? 'feta ✓' : e === 'vista' ? 'vista' : 'sense marca');
+    desmarca.disabled = !e;
+  }
+  desmarca.addEventListener('click', () => { Preferencies.esborraMarca(fitxa.id); fets = new Set(); pinta(); });
+  // Esborrar-les totes demana un segon clic (en 4 s): no hi ha cap diàleg que ho confirmi
+  let confirma = null;
+  const torna = () => { clearTimeout(confirma); confirma = null; totes.classList.remove('confirma'); };
+  totes.addEventListener('click', () => {
+    if (!confirma) {
+      totes.textContent = 'Segur? Torna-hi a clicar per esborrar-les totes';
+      totes.classList.add('confirma');
+      confirma = setTimeout(() => { torna(); totes.textContent = TOTES; }, 4000);
+      return;
+    }
+    torna();
+    Preferencies.esborraProgres();
+    fets = new Set();
+    pinta();
+    totes.textContent = 'Esborrades: cap activitat vista ni feta';
+    setTimeout(() => { if (!confirma) totes.textContent = TOTES; }, 2500);
+  });
+  pinta();
+  return {marca, panell, pas(idx, ocupat, total) {
+    if (idx < 0 || ocupat) return;
+    fets.add(idx);
+    if (fets.size >= total && Preferencies.estatFitxa(fitxa.id) !== 'feta') { Preferencies.marcaFeta(fitxa.id); pinta(); }
+  }};
 }
 
 /** «Escollir calculadora» (nucli/tria.js): en triar-ne una altra, es desa i s'obre la mateixa fitxa (el mateix id) en aquella calculadora. */
@@ -352,14 +402,16 @@ function construeixPagina(fitxa, bloc, germanes, contenidor) {
   }, PEU_SENCER_MS);
 
   // A3: capçalera mínima, amb «Escollir calculadora» i l'idioma plegats dins d'un ⚙
-  const tries = element('div', {class: 'tries'}, [selectorModel(fitxa), selectorIdioma(), ux('a3') ? selectorColorCursor() : null]);
+  r.progres = creaProgres(fitxa);
+  const tries = element('div', {class: 'tries'}, [selectorModel(fitxa), selectorIdioma(), ux('a3') ? selectorColorCursor() : null,
+    ux('a3') ? r.progres.panell : null]);
   if (!ux('a3')) aplicaColorCursor(Preferencies.cursor());
   const ajustos = ux('a3') ? element('details', {class: 'ux-ajustos'}, [element('summary', {title: 'Ajustos', 'aria-label': 'Ajustos', text: '⚙'}), tries]) : tries;
 
   contenidor.replaceChildren(
     element('header', {class: 'capcalera capcalera-de-fitxa'}, [
       element('a', {class: 'torna', href: Models.adreca({model: M.id, etapa: ETAPA}) + '#' + bloc.id, text: '← Fitxes'}),
-      titolFitxa(fitxa, bloc, germanes),
+      titolFitxa(fitxa, bloc, germanes, r.progres.marca),
       ajustos,
       // Avisos que només mostra el CSS quan cal: navegador sense unitats cqw, tauleta en vertical
       element('p', {class: 'avis-capcalera avis-navegador', text: 'Aquest navegador és massa antic per dibuixar la calculadora. Actualitza\'l (Chrome 105 o posterior).'}),
@@ -498,6 +550,7 @@ function inicia(model, id, contenidor) {
   document.body.style.setProperty('--cat', bloc.color);
   document.body.classList.add('pagina-fitxa');
 
+  Preferencies.marcaVista(fitxa.id);        // l'alumne l'ha oberta: vista (si ja era feta, continua feta)
   const r = construeixPagina(fitxa, bloc, germanes, contenidor);
   let factor = PER_DEFECTE;
   const reduit = matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -541,7 +594,7 @@ function inicia(model, id, contenidor) {
   const ambFinal = ambTancament(fitxa);
   // D2: l'«Ara tu» i el «Prova-ho tu» no surten sols en acabar; s'hi va amb ▶ des de l'últim pas, i tornen amb un botó
   const reproductor = Reproductor.crea(ctx, r, ambFinal, temps, {abans: surtAraTu, finalAPart: Boolean(r.tornaPassos),
-    nomFinal: fitxa.araTu ? 'Ara tu' : 'Prova-ho tu'});
+    nomFinal: fitxa.araTu ? 'Ara tu' : 'Prova-ho tu', enPas: (i, ocupat) => r.progres.pas(i, ocupat, ambFinal.passos.length)});
   if (r.tornaPassos) r.tornaPassos.addEventListener('click', () => { surtAraTu(); reproductor.salta(reproductor.pas); });
   if (pasInicial >= 1 && pasInicial <= ambFinal.passos.length) reproductor.salta(pasInicial - 1);
   const avis = creaAvis(r);

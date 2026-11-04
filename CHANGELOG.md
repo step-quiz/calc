@@ -4,6 +4,15 @@ Què ha canviat a cada versió del web, de la més nova a la més antiga. El fun
 `README.md` i `ARCHITECTURE.md`; aquí només hi ha la història. El número de versió és `VERSIO` a
 `js/nucli/models.js` i surt al peu de les pàgines.
 
+## Versió 96 (4/11/2026)
+
+- Activitats vistes i fetes. En obrir una fitxa, queda «Vista»; quan l'alumne n'ha fet tots els passos (l'«Ara tu» i
+  el «Prova-ho tu» no compten), queda «✓ Feta». La marca surt a la portada, al costat de cada fitxa (i de les
+  bombolles), i a la capçalera de la fitxa. Al ⚙ de la fitxa, «Treu la marca d'aquesta activitat» i «Esborra totes les
+  marques» (amb un segon clic per confirmar-ho). El navegador ho recorda («calc-progres»).
+- Portada: les targetes fan la mateixa amplada a l'ESO i a Batxillerat (la de Batxillerat), i per tant els marges són
+  iguals; un títol d'ESO més llarg passa a dues línies.
+
 ## Versió 95 (3/11/2026)
 
 - El cursor de la calculadora es mou sempre a la mateixa velocitat: tarda més a anar a una tecla llunyana que a una del

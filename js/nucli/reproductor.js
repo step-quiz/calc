@@ -18,6 +18,8 @@
      r        els elements de la pàgina (motor.js, construeixPagina)
      temps    ms → ms a la velocitat triada
      opcions  adreca: false  no posa el pas a l'adreça (?pas=N)
+              enPas(idx, ocupat)  es crida cada cop que es pinta un pas (-1 = el pas 0;
+                                  ocupat = encara s'està animant): motor.js hi compta els passos fets
               abans()        es crida abans de saltar o d'avançar
               finalAPart     el que surt en acabar («Ara tu»…) no surt
                              sol: s'hi va amb ▶ des de l'últim pas
@@ -344,6 +346,7 @@ function crea(ctx, r, fitxa, temps, opcions = {}) {
     r.anterior.disabled = idx < 0;
     r.seguent.disabled = idx === darrer && !ocupat && (!finalAPart || finalObert);
     if (r.repeteix) r.repeteix.disabled = idx < 0 || !passos[idx].tecles.length;
+    if (opcions.enPas) opcions.enPas(idx, ocupat);
   }
 
 

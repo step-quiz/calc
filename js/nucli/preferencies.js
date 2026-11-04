@@ -12,11 +12,17 @@
                   sigui a la portada o a una fitxa; recarregar no en suma
    «calc-bombolles» 'baix' si l'alumne ha enviat les bombolles de la
                   portada a baix (si no, a dalt)
+   «calc-progres» les activitats (fitxes) que ha vist o fet, en JSON:
+                  {id de la fitxa: 'vista' | 'feta'}. Vista = l'ha oberta;
+                  feta = n'ha passat tots els passos (sense comptar l'«Ara
+                  tu» ni el «Prova-ho tu»). Una per id: no depèn de la
+                  calculadora. L'alumne la pot esborrar (ajustos de la fitxa)
    Sense memòria al navegador (mode privat, galetes bloquejades), tot
    funciona amb els valors per defecte.
 
    Exporta «Preferencies»: model(), desaModel(id), idioma(model), desaIdioma(valor), etapa(), desaEtapa(id),
-   cursor(), desaCursor(id), visita(), bombollesABaix(), desaBombollesABaix(sí/no).
+   cursor(), desaCursor(id), visita(), bombollesABaix(), desaBombollesABaix(sí/no),
+   progres(), estatFitxa(id), marcaVista(id), marcaFeta(id), esborraMarca(id), esborraProgres().
    ═══════════════════════════════════════════════════════════════════ */
 (function (arrel) {
 'use strict';
@@ -27,6 +33,7 @@ const CLAU_ETAPA = 'calc-etapa';
 const CLAU_CURSOR = 'calc-cursor';
 const CLAU_VISITES = 'calc-visites';
 const CLAU_BOMBOLLES = 'calc-bombolles';
+const CLAU_PROGRES = 'calc-progres';
 
 function llegeix(clau) {
   try { return typeof localStorage !== 'undefined' ? localStorage.getItem(clau) : null; } catch (e) { return null; }
@@ -74,8 +81,30 @@ function visita() {
 const bombollesABaix = () => llegeix(CLAU_BOMBOLLES) === 'baix';
 const desaBombollesABaix = si => desa(CLAU_BOMBOLLES, si ? 'baix' : 'dalt');
 
+
+/* ── El progrés de l'alumne: quines activitats ha vist i quines ha fet ─────────────────────────── */
+/** Totes les marques: {id: 'vista' | 'feta'} (un objecte nou; si el que hi ha desat no és vàlid, buit). */
+function progres() {
+  try {
+    const o = JSON.parse(llegeix(CLAU_PROGRES) || '{}');
+    if (!o || typeof o !== 'object' || Array.isArray(o)) return {};
+    return Object.fromEntries(Object.entries(o).filter(([, v]) => v === 'vista' || v === 'feta'));
+  } catch (e) { return {}; }
+}
+const desaProgres = o => desa(CLAU_PROGRES, JSON.stringify(o));
+/** La marca d'una activitat: 'vista', 'feta' o null. */
+const estatFitxa = id => progres()[id] || null;
+/** L'ha oberta: 'vista' (una activitat feta continua feta). */
+function marcaVista(id) { const o = progres(); if (!o[id]) { o[id] = 'vista'; desaProgres(o); } }
+/** N'ha passat tots els passos: 'feta'. */
+function marcaFeta(id) { const o = progres(); if (o[id] !== 'feta') { o[id] = 'feta'; desaProgres(o); } }
+/** Treu la marca d'una activitat (ni vista ni feta). */
+function esborraMarca(id) { const o = progres(); if (id in o) { delete o[id]; desaProgres(o); } }
+/** Totes les activitats, a zero. */
+function esborraProgres() { try { localStorage.removeItem(CLAU_PROGRES); } catch (e) { /* cap */ } }
+
 arrel.Preferencies = Object.freeze({model, desaModel, idioma, desaIdioma, etapa, desaEtapa, cursor, desaCursor,
-  visita, bombollesABaix, desaBombollesABaix,
-  CLAU_MODEL, CLAU_IDIOMA, CLAU_ETAPA, CLAU_CURSOR, CLAU_VISITES, CLAU_BOMBOLLES});
+  visita, bombollesABaix, desaBombollesABaix, progres, estatFitxa, marcaVista, marcaFeta, esborraMarca, esborraProgres,
+  CLAU_MODEL, CLAU_IDIOMA, CLAU_ETAPA, CLAU_CURSOR, CLAU_VISITES, CLAU_BOMBOLLES, CLAU_PROGRES});
 
 })(globalThis);
