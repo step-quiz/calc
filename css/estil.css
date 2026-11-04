@@ -217,7 +217,7 @@ body.pagina-fitxa:not(.en-marxa) .passos:not(.passos-ara-tu) > .pas:not(.zero){d
    calculadora: no en canvia la mida ni l'ombra del model, i no fa sortir cap barra de desplaçament. */
 .calculadora.atencio::after{
   content:''; position:absolute; inset:0; z-index:30; pointer-events:none; border-radius:inherit;
-  box-shadow:inset 0 0 0 1.6cqw #ffff00; animation:calc-atencio .6s ease-out forwards;
+  box-shadow:inset 0 0 0 3.2cqw var(--marca-vora); animation:calc-atencio 1.2s ease-out forwards;   /* el taronja de les tecles del pas (David) */
 }
 @keyframes calc-atencio{from{opacity:1} to{opacity:0}}
 .calculadora .tecla.del-pas{outline:.8cqw solid var(--marca-vora); outline-offset:.6cqw}

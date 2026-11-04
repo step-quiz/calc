@@ -52,7 +52,7 @@ const TEMPS = Object.freeze({
  * calculadora que s'esvaeix, les altres tecles que s'apaguen (la transició d'opacitat de .ux-b1 a estil.css) i, amb
  * les tecles ja apagades, un temps perquè la mirada es fixi a la calculadora abans que el cursor es mogui.
  */
-const ATENCIO = Object.freeze({repos: 300, vora: 600, apaga: 250, fixacio: 800});
+const ATENCIO = Object.freeze({repos: 300, vora: 1200, apaga: 250, fixacio: 800});
 const CORBA = 'cubic-bezier(.45,.05,.25,1)';
 /** C1: temps de lectura abans de les tecles, per paraula i entre un mínim i un màxim (ms, abans d'aplicar la velocitat). */
 const LECTURA = Object.freeze({perParaula: 170, min: 600, max: 4200});

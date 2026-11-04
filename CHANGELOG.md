@@ -4,6 +4,17 @@ Què ha canviat a cada versió del web, de la més nova a la més antiga. El fun
 `README.md` i `ARCHITECTURE.md`; aquí només hi ha la història. El número de versió és `VERSIO` a
 `js/nucli/models.js` i surt al peu de les pàgines.
 
+## Versió 98 (4/11/2026)
+
+- La vora que il·lumina la calculadora abans de les tecles de cada pas és ara del taronja de les tecles del pas (vermella a
+  la zona d'error, com les tecles), el doble de gruixuda (per dins de la calculadora: no en canvia la mida) i dura el
+  doble, 1,2 s en lloc de 0,6 s.
+
+## Versió 97 (4/11/2026)
+
+- El títol de la pestanya del navegador és sempre «Simulador de calculadores», a la portada i a les fitxes: ja no diu
+  el model de calculadora ni la fitxa.
+
 ## Versió 96 (4/11/2026)
 
 - Activitats vistes i fetes. En obrir una fitxa, queda «Vista»; quan l'alumne n'ha fet tots els passos (l'«Ara tu» i

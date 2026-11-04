@@ -107,7 +107,7 @@ visits — one per browser session —, bubbles up/down), `tria.js`
 - **v68**: SVG statement figures enlarge correctly in the dialog; header «← Fitxes» is a raised button; «T<n> · bloc»
   and «<n>. fitxa» are plain centred text with no box (the white pills of v67 are gone).
 - **v69**: after the yellow border, keys are outlined and the rest dim (0.25 s); then 0.8 s of stillness before the
-  cursor moves (`ATENCIO = {repos: 300, vora: 600, apaga: 250, fixacio: 800}`); «← Fitxes» has a much thicker bottom
+  cursor moves (`ATENCIO = {repos: 300, vora: 1200, apaga: 250, fixacio: 800}`); «← Fitxes» has a much thicker bottom
   edge (6 px, sinks fully when pressed); no «›» between the two header texts, only a two-space gap (`column-gap:.5em`).
   Docs synced (this file, ARCHITECTURE §7/§8, stale paths in VERIFICAR).
 - **v70**: the step list ends with a numbered «Prova-ho tu»/«Ara tu» row (`.pas-final`, D2 only; ▶ from the last step
@@ -191,6 +191,9 @@ visits — one per browser session —, bubbles up/down), `tria.js`
   finished step (reproductor `opcions.enPas`, `creaProgres` in motor.js); header chip `.on-som-marca`, ⚙ section `.progres`;
   home `.marca-progres` (portada.js `posaMarques`, also on pageshow). Home card width from the Batxillerat titles in both
   stages (same margins, David); `.bloc h2` wraps.
+- **v97**: browser tab title always «Simulador de calculadores» (`TITOL_WEB` in motor.js, portada.js, both HTML
+  `<title>`); never the model or the fitxa (David).
+- **v98**: attention border = `--marca-vora` (step-key orange), inset 3.2cqw, 1.2 s (`ATENCIO.vora` 1200).
 - David's standing UI rule: every clickable control reacts on hover with a thick pure-black border and a light-grey
   background (prefer a 1–1.5 px `box-shadow` on top of the border, so nothing moves).
 - David's standing preference: ask him questions with the AskUserQuestion multiple-choice dialog, never as free text.
@@ -254,7 +257,7 @@ visits — one per browser session —, bubbles up/down), `tria.js`
 ## 8. Versioning & delivery protocol
 
 - Any served `.js`/`.css` change → bump `VERSIO` (`js/nucli/models.js`), every `?v=` in `index.html`/`fitxa.html`, and
-  the «Versió N» footer of `index.html` (test enforces). Current: **96**.
+  the «Versió N» footer of `index.html` (test enforces). Current: **98**.
 - Delivery = a ZIP with the files changed since the version David already has, repo-root paths, excluding `_uploads/`:
   commit the version locally, then `git diff --name-only --diff-filter=AMR HEAD~1 HEAD | zip -@ calc-versio-NN.zip`
   (use `HEAD~2` etc. if several local commits make up one delivery). The repo usually arrives as a ZIP without `.git`:
