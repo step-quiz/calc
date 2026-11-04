@@ -21,6 +21,9 @@
 (function (arrel) {
 'use strict';
 
+/** El títol de la pestanya del navegador, igual a totes les pàgines: no diu el model ni la fitxa (David). */
+const TITOL_WEB = 'Simulador de calculadores';
+
 const {element, icona, ICONES} = Dom;
 const {escapa, formula} = Text;
 
@@ -86,20 +89,19 @@ function titolFitxa(fitxa, bloc, germanes, marca) {
  */
 function creaProgres(fitxa) {
   const marca = element('span', {class: 'on-som-marca'});
-  const estat = element('span', {class: 'progres-estat'});
   const desmarca = element('button', {type: 'button', class: 'progres-boto', text: 'Treu la marca d\'aquesta activitat'});
-  const TOTES = 'Esborra totes les marques';
+  const TOTES = 'Treu les marques \'vista\' i \'feta\' de totes les activitats';
   const totes = element('button', {type: 'button', class: 'progres-boto', text: TOTES});
   const panell = element('div', {class: 'progres', role: 'group', 'aria-label': 'Activitats vistes i fetes'}, [
-    element('span', {class: 'progres-nom', text: 'Activitats vistes i fetes'}), estat, desmarca, totes]);
+    desmarca, totes]);
   let fets = new Set();
   function pinta() {
     const e = Preferencies.estatFitxa(fitxa.id);
     marca.className = 'on-som-marca' + (e ? ' ' + e : '');
     marca.textContent = e === 'feta' ? '✓ Feta' : e === 'vista' ? 'Vista' : '';
     marca.hidden = !e;
-    estat.textContent = 'Aquesta activitat: ' + (e === 'feta' ? 'feta ✓' : e === 'vista' ? 'vista' : 'sense marca');
     desmarca.disabled = !e;
+    desmarca.textContent = e ? `Treu la marca '${e}' d'aquesta activitat` : 'Aquesta activitat no té cap marca';
   }
   desmarca.addEventListener('click', () => { Preferencies.esborraMarca(fitxa.id); fets = new Set(); pinta(); });
   // Esborrar-les totes demana un segon clic (en 4 s): no hi ha cap diàleg que ho confirmi
@@ -107,7 +109,7 @@ function creaProgres(fitxa) {
   const torna = () => { clearTimeout(confirma); confirma = null; totes.classList.remove('confirma'); };
   totes.addEventListener('click', () => {
     if (!confirma) {
-      totes.textContent = 'Segur? Torna-hi a clicar per esborrar-les totes';
+      totes.textContent = 'Segur? Torna-hi a clicar per treure-les totes';
       totes.classList.add('confirma');
       confirma = setTimeout(() => { torna(); totes.textContent = TOTES; }, 4000);
       return;
@@ -116,7 +118,7 @@ function creaProgres(fitxa) {
     Preferencies.esborraProgres();
     fets = new Set();
     pinta();
-    totes.textContent = 'Esborrades: cap activitat vista ni feta';
+    totes.textContent = 'Fet: cap activitat vista ni feta';
     setTimeout(() => { if (!confirma) totes.textContent = TOTES; }, 2500);
   });
   pinta();
@@ -537,7 +539,7 @@ function inicia(model, id, contenidor) {
   const ctx = {M, idioma: IDIOMA, text};
   const fitxa = M.dades.FITXES.find(f => f.id === id) || null;
   if (!fitxa) {
-    document.title = 'Calculadora ' + M.curt;
+    document.title = TITOL_WEB;
     return errorCarrega(contenidor, `No hi ha cap fitxa «${escapa(id || '')}» per a la ${escapa(M.curt)}. `
       + `<a href="${escapa(Models.adreca({model: M.id, etapa: Models.etapaActual()}))}">Torna a la portada</a> per veure les fitxes d'aquesta calculadora.`);
   }
@@ -546,7 +548,7 @@ function inicia(model, id, contenidor) {
   ETAPA = Models.etapaDe(bloc.etapes);
   Preferencies.desaEtapa(ETAPA);
   const germanes = M.dades.FITXES.filter(f => f.bloc === fitxa.bloc);
-  document.title = fitxa.titol + ' — Calculadora ' + M.curt;
+  document.title = TITOL_WEB;                // el títol de la pestanya no diu mai el model (David)
   document.body.style.setProperty('--cat', bloc.color);
   document.body.classList.add('pagina-fitxa');
 
