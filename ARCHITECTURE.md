@@ -186,8 +186,8 @@ highlights that layer's legends). The calculator's proportion comes from `TECLAT
 Real PAU titles start with the year, «(2024). …» (the block title already says PAU).
 
 Blocks: `{id, titol, color, etapes, petit}`. `etapes` is always an array of catalogue stage ids. `petit: true` renders as a
-small bubble in one row **above** the numbered blocks (so they are seen without scrolling). From the 10th visit in a
-browser (`VISITES_PER_MOURE`, `Preferencies.visita()`), a discreet «↓ Envia-les a baix» button ends the row; it moves the row below the
+small bubble in one row **above** the numbered blocks (so they are seen without scrolling). Since v101 from the first visit
+(`VISITES_PER_MOURE` = 1), a discreet «↓ Envia-les a baix» button ends the row; it moves the row below the
 cards (stored as `calc-bombolles`), where «↑ Torna-les a dalt» brings it back. Below, if the last row of cards has empty
 cells (ESO: 7 blocks in 3 columns), the bubbles go **inside the grid**, into those cells (`.bombolles.al-forat`,
 `grid-column: span <empty cells>`, a centred column of bubbles; `colocaABaix` in portada.js, re-run on resize); with no

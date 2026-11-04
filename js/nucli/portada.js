@@ -19,7 +19,7 @@ function dibuixa(M, models) {
   const contenidor = document.getElementById('blocs');
   const etapa = Models.etapa(Models.etapaActual());
   Preferencies.desaEtapa(etapa.id);         // l'última etapa vista (els enllaços de l'etapa per defecte no la porten)
-  document.title = `Calculadora ${M.curt} — ${etapa.titol}`;
+  document.title = 'Simulador de calculadores';   // el títol de la pestanya no diu mai el model (David)
   const h1 = document.querySelector('.capcalera h1');
   if (h1) TriaCalculadora.titol(h1, M.id);
   const descripcio = document.querySelector('meta[name="description"]');
@@ -154,7 +154,7 @@ function limitaLlistes(contenidor) {
 }
 
 /** A partir de quantes visites a la portada se suggereix enviar les bombolles a baix. */
-const VISITES_PER_MOURE = 10;
+const VISITES_PER_MOURE = 1;   // des de la primera visita (David; abans, des de la 10a)
 
 /**
  * Les bombolles, a dalt dels blocs numerats (es veuen sense desplaçar la pàgina). A partir de la VISITES_PER_MOURE-a

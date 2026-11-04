@@ -4,6 +4,11 @@ Què ha canviat a cada versió del web, de la més nova a la més antiga. El fun
 `README.md` i `ARCHITECTURE.md`; aquí només hi ha la història. El número de versió és `VERSIO` a
 `js/nucli/models.js` i surt al peu de les pàgines.
 
+## Versió 101 (4/11/2026)
+
+- Portada: el botó «↓ Envia-les a baix» surt sempre, des de la primera visita (abans, a partir de la 10a visita en
+  aquell navegador; per això al Chromebook no sortia).
+
 ## Versió 100 (4/11/2026)
 
 - El menú ⚙ de la fitxa es tanca també amb la tecla Esc i clicant a qualsevol lloc de fora del menú.
