@@ -44,13 +44,13 @@ M.fitxes.push(
   inici: calc(D),
   passos: [
     {tecles: [], pantalla: calc(D),
-      text: '[mat]Abans de calcular, pensa:\n• en $60$ segons, en surt més o menys de $0{,}2$ litres?\n• si l\'aixeta estigués oberta el doble de temps, en sortiria el doble d\'aigua?[/mat]'},
+      text: '[mat]Abans de calcular, pensa:\n• en $60$ segons obté més o menys de $0{,}2$ litres?\n• si manté l\'aixeta oberta el doble de temps, surt el doble d\'aigua?[/mat]'},
     {tecles: ['0', 'punt', '2', 'entre', '3'], pantalla: calc(D, '0.2÷3'),
       text: '[mat]$3$ segons → $0{,}2$ litres\n$1$ segon → ?[/mat] [calc]Escriu $0.2$ [[entre]] $3$.[/calc]'},
     {tecles: ['igual'], pantalla: marca(calc(D, '0.2÷3', '0.066666667'), 'resultat'),
-      text: '[calc]Prem [[igual]]: obtens $0.066666667$.\nNo l\'arrodoneixis: la calculadora el guarda sencer (Ans).[/calc] [mat]$1$ segon → $0{,}0666\\ldots$ litres[/mat]'},
+      text: '[calc]Prem [[igual]]: obtens $0.066666667$.\nNo l\'arrodoneixis: la calculadora el guarda sencer (Ans).[/calc] [mat]$1$ segon → $0{,}0666\\ldots\\simeq 0{,}067$ litres[/mat]'},
     {tecles: ['per', '6', '0'], pantalla: calc(D, ANS + '×60'),
-      text: '[mat]En $60$ segons en surt $60$ vegades més que en $1$ segon.[/mat] [calc]Fes l\'operació [[per]] $60$.\nLa calculadora continua amb el resultat d\'abans (Ans).[/calc]'},
+      text: '[mat]En $60$ segons surt $60$ vegades més aigua que en $1$ segon.[/mat] [calc]Fes l\'operació [[per]] $60$.\nLa calculadora continua amb el resultat d\'abans (Ans).[/calc]'},
     {tecles: ['igual'], pantalla: marca(calc(D, ANS + '×60', '4'), 'resultat'),
       text: '[calc]Prem [[igual]]: obtens el resultat, que és $4$.[/calc] [mat]R) En $60$ segons surten $4$ litres d\'aigua de l\'aixeta.[/mat]'},
   ],
@@ -60,7 +60,7 @@ M.fitxes.push(
   inici: calc(D),
   passos: [
     {tecles: [], pantalla: calc(D),
-      text: '[mat]Abans de calcular, pensa:\n• en $16$ ml hi haurà més o menys de $105$ mg?\n• en el triple de xarop, hi hauria el triple de principi actiu?[/mat]'},
+      text: '[mat]Abans de calcular, pensa:\n• en $16$ ml hi ha més o menys de $105$ mg?\n• en el triple de xarop, hi ha el triple de principi actiu?[/mat]'},
     {tecles: ['1', '0', '5', 'entre', '5'], pantalla: calc(D, '105÷5'),
       text: '[mat]$5$ ml → $105$ mg\n$1$ ml → ?[/mat] [calc]Escriu $105$ [[entre]] $5$.[/calc]'},
     {tecles: ['igual'], pantalla: marca(calc(D, '105÷5', '21'), 'resultat'),
@@ -92,7 +92,7 @@ M.fitxes.push(
   inici: calc(D),
   passos: [
     {tecles: [], pantalla: calc(D),
-      text: '[mat]Abans de calcular, pensa:\n• si cada esglaó fes $10$ cm, quants esglaons caldrien per pujar $3$ m?\n• amb esglaons de $15$ cm, en caldran més o menys?[/mat]'},
+      text: '[mat]Abans de calcular, pensa:\n• si cada esglaó fa $10$ cm, quants esglaons calen per pujar $3$ m?\n• amb esglaons de $15$ cm, calen més esglaons o menys?[/mat]'},
     {tecles: ['3', 'entre', '0', 'punt', '1', '5'], pantalla: calc(D, '3÷0.15'),
       text: '[mat]El tram puja $3$ m i cada esglaó en puja $0{,}15$ m ($15$ cm): les dues mesures, en metres.[/mat] [calc]Escriu $3$ [[entre]] $0.15$.[/calc]'},
     {tecles: ['igual'], pantalla: marca(calc(D, '3÷0.15', '20'), 'resultat'),
@@ -108,7 +108,7 @@ M.fitxes.push(
   inici: calc(D),
   passos: [
     {tecles: [], pantalla: calc(D),
-      text: '[mat]Abans de calcular, pensa:\n• quants grams són $2{,}38$ kg?\n• a la bossa hi haurà desenes, centenars o milers de discos?[/mat]'},
+      text: '[mat]Abans de calcular, pensa:\n• quants grams són $2{,}38$ kg?\n• a la bossa hi ha desenes, centenars o milers de discos?[/mat]'},
     {tecles: ['7', '0', 'entre', '2', '0'], pantalla: calc(D, '70÷20'),
       text: '[mat]$20$ discos → $70$ g\n$1$ disc → ?[/mat] [calc]Escriu $70$ [[entre]] $20$.[/calc]'},
     {tecles: ['igual'], pantalla: marca(calc(D, '70÷20', '3.5'), 'resultat'),
@@ -128,7 +128,7 @@ M.fitxes.push(
   inici: calc(D),
   passos: [
     {tecles: [], pantalla: calc(D),
-      text: '[mat]Abans de calcular, pensa:\n• de debò, la paret serà més llarga o més curta que al plànol?\n• què vol dir l\'escala $1:50$?[/mat]'},
+      text: '[mat]Abans de calcular, pensa:\n• de debò, la paret és més llarga o més curta que al plànol?\n• què vol dir l\'escala $1:50$?[/mat]'},
     {tecles: ['8', 'per', '5', '0'], pantalla: calc(D, '8×50'),
       text: '[mat]A escala $1:50$, cada centímetre del plànol són $50$ cm de debò.[/mat] [calc]Escriu $8$ [[per]] $50$.[/calc]'},
     {tecles: ['igual'], pantalla: marca(calc(D, '8×50', '400'), 'resultat'),
@@ -144,7 +144,7 @@ M.fitxes.push(
   inici: calc(D),
   passos: [
     {tecles: [], pantalla: calc(D),
-      text: '[mat]Abans de calcular, pensa:\n• amb menys jardiners, trigaran més dies o menys?\n• si n\'hi hagués la meitat, trigarien el doble de dies?[/mat]'},
+      text: '[mat]Abans de calcular, pensa:\n• amb menys jardiners, triguen més dies o menys?\n• si hi ha la meitat de jardiners, triguen el doble de dies?[/mat]'},
     {tecles: ['6', 'per', '1', '0'], pantalla: calc(D, '6×10'),
       text: '[mat]Com menys jardiners, més dies: és proporcionalitat inversa.\n$6$ jardiners → $10$ dies\n$1$ jardiner → ?[/mat] [calc]Escriu $6$ [[per]] $10$.[/calc]'},
     {tecles: ['igual'], pantalla: marca(calc(D, '6×10', '60'), 'resultat'),
@@ -164,7 +164,7 @@ M.fitxes.push(
   inici: calc(D),
   passos: [
     {tecles: [], pantalla: calc(D),
-      text: '[mat]Abans de calcular, pensa:\n• amb pots més petits, en caldran més o menys?\n• quanta pintura cal en total?[/mat]'},
+      text: '[mat]Abans de calcular, pensa:\n• amb pots més petits, calen més pots o menys?\n• quanta pintura cal en total?[/mat]'},
     {tecles: ['6', 'per', '4'], pantalla: calc(D, '6×4'),
       text: '[mat]Primer, la pintura que cal en total: $6$ pots de $4$ kg.[/mat] [calc]Escriu $6$ [[per]] $4$.[/calc]'},
     {tecles: ['igual'], pantalla: marca(calc(D, '6×4', '24'), 'resultat'),
@@ -176,7 +176,7 @@ M.fitxes.push(
     {error: true, tecles: ['ac', '6', 'per', '3', 'entre', '4'], pantalla: calc(D, '6×3÷4'),
       text: '[calc]!!Error típic!!:\nSi fas una regla de tres directa: $6$ [[per]] $3$ [[entre]] $4$.[/calc]'},
     {error: true, tecles: ['igual'], pantalla: marca(calc(D, '6×3÷4', '4.5'), 'resultat'),
-      text: '[calc]Prem [[igual]]: obtens $4.5$.[/calc] ' + FRASE_ERROR + ' [mat]No pot ser: amb pots més petits no en calen menys, i no es pot comprar mig pot.[/mat]'},
+      text: '[calc]Prem [[igual]]: obtens $4.5$.[/calc] ' + FRASE_ERROR + ' [mat]No pot ser: amb pots més petits no calen menys pots, i no es pot comprar mig pot.[/mat]'},
   ],
 },
 {
@@ -184,7 +184,7 @@ M.fitxes.push(
   inici: calc(D),
   passos: [
     {tecles: [], pantalla: calc(D),
-      text: '[mat]Abans de calcular, pensa:\n• si el preu fos proporcional als km, quant costaria el trajecte de $10$ km comparat amb el de $5$ km?\n• la baixada de bandera es paga a cada km o una sola vegada?[/mat]'},
+      text: '[mat]Abans de calcular, pensa:\n• si el preu és proporcional als km, quant costa el trajecte de $10$ km comparat amb el de $5$ km?\n• la baixada de bandera es paga a cada km o una sola vegada?[/mat]'},
     {tecles: ['3', 'punt', '5', 'mes', '1', 'punt', '2', 'per', '5'], pantalla: calc(D, '3.5+1.2×5'),
       text: '[mat]El preu és la baixada de bandera més $1{,}20$ euros per km: $3{,}50+1{,}20\\cdot 5$.[/mat] [calc]Escriu $3.5$ + $1.2$ [[per]] $5$.\nNo calen parèntesis: la calculadora fa primer la multiplicació.[/calc]'},
     {tecles: ['igual'], pantalla: marca(calc(D, '3.5+1.2×5', '9.5'), 'resultat'),

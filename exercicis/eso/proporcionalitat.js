@@ -16,7 +16,7 @@ Models.afegeixExercicis(
   id: 'cb4-22-q26', bloc: 'eso-proporcionalitat', grup: 'Proporcionalitat directa',
   titol: 'L\'aixeta del lavabo',
   font: 'CB 4ESO (2022), pregunta 26',
-  enunciat: 'En Nil estudia quanta aigua es fa servir a casa seva. Ha observat que l\'aixeta del lavabo omple un recipient de $0{,}2$ litres en $3$ segons.\n\nQuants litres d\'aigua surten de l\'aixeta en $60$ segons, si raja sempre igual?',
+  enunciat: 'En Nil estudia quanta aigua es fa servir a casa seva. Ha observat que l\'aixeta del lavabo omple un got de $0{,}2$ litres en $3$ segons.\n\nQuants litres d\'aigua surten de l\'aixeta en $60$ segons?',
   provaTu: {
     enunciat: 'Una aixeta omple una ampolla d\'$1{,}5$ litres en $10$ segons.\nTu deixes l\'aixeta oberta $2$ minuts ($120$ segons). Quants litres d\'aigua hi surten, si raja sempre igual?',
     solucio: '$1{,}5\\div 10=0{,}15$ litres\n$0{,}15\\cdot 120=18$ litres\nR) Hi surten $18$ litres d\'aigua.',
@@ -29,7 +29,7 @@ Models.afegeixExercicis(
   enunciat: 'A en Mario li han receptat un xarop. Cada $5$ ml de xarop contenen $105$ mg de principi actiu.\n\nQuants mg de principi actiu hi ha en $16$ ml del mateix xarop?',
   tancament: '[mat]Recorda:\n• $105\\div 5=21$ mg\n• $21\\cdot 16=336$ mg[/mat]',
   provaTu: {
-    enunciat: 'Cada $10$ ml d\'un xarop contenen $250$ mg de principi actiu.\nTu n\'has de prendre $6$ ml. Quants mg de principi actiu prendràs?',
+    enunciat: 'Cada $10$ ml d\'un xarop contenen $250$ mg de principi actiu.\nTu has de prendre $6$ ml de xarop. Quants mg de principi actiu prendràs?',
     solucio: '$250\\div 10=25$ mg\n$25\\cdot 6=150$ mg\nR) Prendré $150$ mg de principi actiu.',
   },
 },
@@ -85,7 +85,7 @@ Models.afegeixExercicis(
   enunciat: '$6$ jardiners poden podar un parc en $10$ dies. Aquest any, però, només n\'hi ha $4$, que treballen al mateix ritme.\n\nQuants dies trigaran els $4$ jardiners a podar tot el parc?',
   tancament: '[mat]Recorda:\n• $6\\cdot 10=60$ dies\n• $60\\div 4=15$ dies[/mat]',
   provaTu: {
-    enunciat: '$3$ pintors pinten un pis en $8$ dies.\nTu en contractes $4$, que treballen al mateix ritme. Quants dies trigaran a pintar el pis?',
+    enunciat: '$3$ pintors pinten un pis en $8$ dies.\nTu contractes $4$ pintors, que treballen al mateix ritme. Quants dies trigaran a pintar el pis?',
     solucio: '$3\\cdot 8=24$ dies\n$24\\div 4=6$ dies\nR) Trigaran $6$ dies.',
   },
 },

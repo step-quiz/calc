@@ -4,6 +4,13 @@ Què ha canviat a cada versió del web, de la més nova a la més antiga. El fun
 `README.md` i `ARCHITECTURE.md`; aquí només hi ha la història. El número de versió és `VERSIO` a
 `js/nucli/models.js` i surt al peu de les pàgines.
 
+## Versió 105 (4/11/2026)
+
+- T3 «Proporcionalitat», segona passada amb el que David ha canviat a «L'aixeta del lavabo»: els seus textos a L'aixeta;
+  preguntes amb un subjecte i en present, sense «en»; l'explicació del resultat exacte en dues línies («Si surt en forma
+  de fracció és perquè…» / «Si estigués configurada per donar decimals, sortiria…»), i al costat de cada resultat exacte,
+  el seu valor aproximat (≃).
+
 ## Versió 104 (4/11/2026)
 
 - Les marques de les activitats, sense paraules: un tic (✓) si l'alumne l'ha vista i dos tics (✓✓), sobre un verd clar,

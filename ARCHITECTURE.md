@@ -371,6 +371,15 @@ block by block (rest of ESO, then Batxillerat), each batch shown to David in the
   «No té sentit…», «No encaixa amb l'enunciat…», «No pot ser…», with the exercise's numbers.
 - `tancament`: «[mat]Recorda:\n• <calc>\n• <calc>[/mat]», calculations only.
 - «Prova-ho tu»: prose, second person («Tu tens…»); solution one calculation per line and «R) …» in first person.
+- (from David's rewrite of `cb4-22-q26`) Everyday words («got», not «recipient»). Questions (estimation step) with a
+  subject and in the present indicative («en $60$ segons obté…?», «si manté l'aixeta oberta…, surt…?»), no
+  subjunctive/conditional, no pronoun «en»: name the magnitude («surt $60$ vegades més aigua», «calen més pots»). Add a
+  condition to the question only when the problem needs it (proportions, same pace, not deforming), not when it is
+  obvious (a tap runs evenly).
+- Exact result: «Si surt en forma de fracció és perquè la calculadora està configurada per donar resultats exactes.\nSi
+  estigués configurada per donar decimals, sortiria $X$.» (conditional «sortiria», David), and the [mat] sentence gives
+  its approximate decimal with `\simeq` (`$\frac{1}{15}\simeq 0{,}067$`; usually 2 decimals, 3–4 when the context
+  needs it); fractions, roots and π alike.
 
 **Calculator with judgement (v92, David).** The fitxes of `eso-proporcionalitat` and the v92 ones in other ESO blocks
 teach that the calculator computes correctly a wrongly posed problem. (1) First step without keys or mark, one `[mat]`

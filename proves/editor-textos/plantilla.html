@@ -321,7 +321,7 @@ function fitxa(id) {
     const p = document.getElementById('prova');
     const cv = k => { const c = camps.find(x => x.clau === k); return c ? text(val(c)) : ''; };
     p.innerHTML = f.araTu ? `<h3>Ara tu</h3><div>${cv('araTu.enunciat')}</div>`
-      : f.provaTu ? `<h3>Prova-ho tu</h3><div>${cv('provaTu.enunciat')}</div><div class="sol"><b>Solució:</b> ${cv('provaTu.solucio')}</div>` : '';
+      : f.provaTu ? `<h3>Prova-ho tu</h3><div>${cv('provaTu.enunciat')}</div><div class="sol"><b>Solució:</b><br>${cv('provaTu.solucio')}</div>` : '';
   }
   // Pas actual: -1 = cap
   let idx = -1;
@@ -344,7 +344,7 @@ function fitxa(id) {
   // La dreta: l'editor
   const panell = document.getElementById('panell');
   panell.innerHTML = `<div class="panell-cap"><b>Editor de textos</b><span class="panell-model">${esc(curt())}</span>
-      <span class="eines" role="toolbar" aria-label="Símbols">${['→', '•', '$$', '⇒', '⇔'].map(t => `<button type="button" class="eina clicable" data-eina="${t}" title="${t === '$$' ? 'Posa el text seleccionat entre $…$ (fórmula)' : 'Copia ' + t + ' al porta-retalls'}">${t}</button>`).join('')}</span>
+      <span class="eines" role="toolbar" aria-label="Símbols">${['→', '•', '$$', '≃', '⇒', '⇔'].map(t => `<button type="button" class="eina clicable" data-eina="${t}" title="${t === '$$' ? 'Posa el text seleccionat entre $…$ (fórmula)' : t === '≃' ? 'Escriu \\simeq al camp (aproximadament igual, dins d\'una fórmula $…$)' : 'Copia ' + t + ' al porta-retalls'}">${t}</button>`).join('')}</span>
       <span class="copiat" id="copiat" aria-live="polite"></span></div>
     <details class="ajuda"><summary class="clicable">Com s'escriu</summary><ul>
       <li><code>$…$</code> fórmula · <code>$$…$$</code> fórmula en una línia pròpia</li>
@@ -363,6 +363,18 @@ function fitxa(id) {
     b.addEventListener('mousedown', e => e.preventDefault());
     b.addEventListener('click', async () => {
       const t = b.dataset.eina;
+      if (t === '≃') {
+        // ≃ és \simeq (LaTeX): s'escriu al camp, on hi ha el cursor, amb un espai al darrere. Si no és dins de $…$, l'embolcalla.
+        const ta = darrerCamp;
+        if (!ta) { avisCopiat('Primer posa el cursor en un camp'); return; }
+        const a = ta.selectionStart, z = ta.selectionEnd, abans = ta.value.slice(0, a);
+        const dins = (abans.match(/\$/g) || []).length % 2 === 1;
+        ta.focus();
+        ta.setRangeText(dins ? '\\simeq ' : '$\\simeq$', a, z, 'end');
+        ta.dispatchEvent(new Event('input'));
+        avisCopiat(dins ? 'Escrit: \\simeq' : 'Escrit: $\\simeq$');
+        return;
+      }
       if (t === '$$') {
         const ta = darrerCamp;
         if (!ta) { avisCopiat('Primer selecciona el text d\'un camp'); return; }

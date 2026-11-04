@@ -205,6 +205,8 @@ visits — one per browser session —, bubbles up/down), `tria.js`
 - **v103**: wording rules (ARCHITECTURE §9 «Wording rules (v103)») applied to T3 (10 fitxes, all models); next batches: rest of ESO, then Batxillerat, each shown in the Editor first.
   `ERRORS=1` option in encaix.js.
 - **v104**: progress marks without words: ✓ = vista, ✓✓ on light green = feta (home and fitxa header).
+- **v105**: T3 second pass from David's `cb4-22-q26` (ARCHITECTURE §9, new bullets: present-tense questions with a subject,
+  no «en», exact result in two lines with «sortiria» + ≃ decimal).
 - **Editor de textos** (artifact, not served): https://claude.ai/artifact/GMvQzEgtdG3NSTdgX8QcrX (slug
   `7c64df61-5de7-42fb-a13f-f197f125daac`, owner David). One self-contained page built by
   `node proves/editor-textos/construeix.js <out.html>` (= `plantilla.html` + `extreu.js` data: every text of every fitxa of
@@ -221,7 +223,8 @@ visits — one per browser session —, bubbles up/down), `tria.js`
   fresh one; now `desa(id, doc)` writes the page's doc and the open fitxa (`obert`, once `tocat`) is never overwritten by
   snapshots. Test any change by editing many fields in a row with a mock db that echoes every write back.
   Toolbar (4/11): →, •, ⇒, ⇔ copy to the clipboard (fallback: typed into the last field); $$ wraps the selection of the
-  last focused field in $…$.
+  last focused field in $…$; ≃ writes \\simeq (wrapped in $…$ if the cursor is outside a formula). The Prova-ho tu preview
+  puts a line break after «Solució:».
 - David's standing UI rule: every clickable control reacts on hover with a thick pure-black border and a light-grey
   background (prefer a 1–1.5 px `box-shadow` on top of the border, so nothing moves).
 - David's standing preference: ask him questions with the AskUserQuestion multiple-choice dialog, never as free text.
@@ -285,7 +288,7 @@ visits — one per browser session —, bubbles up/down), `tria.js`
 ## 8. Versioning & delivery protocol
 
 - Any served `.js`/`.css` change → bump `VERSIO` (`js/nucli/models.js`), every `?v=` in `index.html`/`fitxa.html`, and
-  the «Versió N» footer of `index.html` (test enforces). Current: **104**.
+  the «Versió N» footer of `index.html` (test enforces). Current: **105**.
 - Delivery = a ZIP with the files changed since the version David already has, repo-root paths, excluding `_uploads/`:
   commit the version locally, then `git diff --name-only --diff-filter=AMR HEAD~1 HEAD | zip -@ calc-versio-NN.zip`
   (use `HEAD~2` etc. if several local commits make up one delivery). The repo usually arrives as a ZIP without `.git`:
