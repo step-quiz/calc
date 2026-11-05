@@ -217,6 +217,7 @@ visits — one per browser session —, bubbles up/down), `tria.js`
 - **v113**: T4 finished by David (`ll4-2-25` now 4 steps, no error zone); T5 and T6 rewritten with generator `/home/claude/eines/t56.py` (FRASE_ERROR added to mitjanes files; fx-82MS keeps its own `tancament` in `cb4-26-q7`).
 - **v114**: David's `cb4-26-q15`; keying errors get their own sentence instead of FRASE_ERROR; every `provaTu.solucio` wraps its calculation in [mat] (solmat.py).
 - **v115**: David's T5 (`cb4-24-q8`, `cb4-25-q17` → biblioteca, figure removed; `ll4a-8-56`); T6 «Prova-ho tu»; T7 rewritten with `/home/claude/eines/t7.py`.
+- **v116**: David's T6 (5 fitxes, via t56.py); T7 refined (t7.py).
 - **Editor de textos** (artifact, not served): https://claude.ai/artifact/GMvQzEgtdG3NSTdgX8QcrX (slug
   `7c64df61-5de7-42fb-a13f-f197f125daac`, owner David). One self-contained page built by
   `node proves/editor-textos/construeix.js <out.html>` (= `plantilla.html` + `extreu.js` data: every text of every fitxa of
@@ -298,7 +299,7 @@ visits — one per browser session —, bubbles up/down), `tria.js`
 ## 8. Versioning & delivery protocol
 
 - Any served `.js`/`.css` change → bump `VERSIO` (`js/nucli/models.js`), every `?v=` in `index.html`/`fitxa.html`, and
-  the «Versió N» footer of `index.html` (test enforces). Current: **115**.
+  the «Versió N» footer of `index.html` (test enforces). Current: **116**.
 - Delivery = a ZIP with the files changed since the version David already has, repo-root paths, excluding `_uploads/`:
   commit the version locally, then `git diff --name-only --diff-filter=AMR HEAD~1 HEAD | zip -@ calc-versio-NN.zip`
   (use `HEAD~2` etc. if several local commits make up one delivery). The repo usually arrives as a ZIP without `.git`:

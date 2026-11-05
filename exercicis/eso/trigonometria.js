@@ -19,7 +19,7 @@ Models.afegeixExercicis(
   enunciat: 'En Pol vol saber l\'altura de l\'arbre del pati de l\'institut. Un dia de sol, l\'arbre fa una ombra de $12$ m, i els raigs del sol formen un angle de $35^\\circ$ amb el terra.\n\nQuina és l\'altura de l\'arbre?',
   provaTu: {
     enunciat: 'Un fanal del carrer fa una ombra de $6$ m, quan els raigs del sol formen un angle de $40^\\circ$ amb el terra.\nQuina és l\'altura del fanal?',
-    solucio: '[mat]$6\\cdot\\tan 40^\\circ\\simeq 5{,}03$ m[/mat]\nR) El fanal fa aproximadament $5{,}03$ m d\'altura.',
+    solucio: '[mat]$h=6\\cdot\\tan 40^\\circ\\simeq 5{,}03$ m[/mat]\nR) El fanal fa aproximadament $5{,}03$ m d\'altura.',
   },
 },
 {
@@ -30,7 +30,7 @@ Models.afegeixExercicis(
   enunciat: 'Els bombers recolzen una escala de $5$ m a la paret d\'un edifici. L\'escala forma un angle de $60^\\circ$ amb el terra.\n\nA quina altura de la paret arriba l\'escala?',
   provaTu: {
     enunciat: 'L\'estel de la Laia està lligat amb un fil de $20$ m, que forma un angle de $50^\\circ$ amb el terra.\nA quina altura vola l\'estel?',
-    solucio: '[mat]$20\\cdot\\sin 50^\\circ\\simeq 15{,}32$ m[/mat]\nR) L\'estel vola aproximadament a $15{,}32$ m d\'altura.',
+    solucio: '[mat]$h=20\\cdot\\sin 50^\\circ\\simeq 15{,}32$ m[/mat]\nR) L\'estel vola aproximadament a $15{,}32$ m d\'altura.',
   },
 },
 {

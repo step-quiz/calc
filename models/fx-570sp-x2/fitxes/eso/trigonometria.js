@@ -50,7 +50,7 @@ M.fitxes.push(
     {tecles: [], pantalla: marca(calc(D), 'ang'),
       text: '[calc]Abans de res, mira la barra: hi ha d\'haver una D (graus), perquè els angles d\'aquest problema són en graus.\nSi hi ha una R, mira la fitxa anterior.[/calc]'},
     {tecles: ['1', '2', 'tan', '3', '5', 'rpar'], pantalla: calc(D, ARBRE),
-      text: '[mat]L\'altura és el catet oposat a l\'angle de $35^\\circ$, i l\'ombra, el catet contigu.\nOposat i contigu → tangent.\nL\'altura de l\'arbre és això:\n$12\\cdot\\tan 35^\\circ$[/mat] [calc]Escriu $12$, [[tan]], $35$ i [[rpar]].\nNo cal el [[per]].[/calc]'},
+      text: '[mat]Podem formar un triangle rectangle, on:\n• l\'ombra ($12$ m) és el catet contigu a l\'angle de $35^\\circ$;\n• l\'altura de l\'arbre és el catet oposat.\nOposat i contigu → tangent. L\'altura es calcula així:\n$h=12\\cdot\\tan 35^\\circ$[/mat] [calc]Escriu $12$, [[tan]], $35$ i [[rpar]].\nNo cal el [[per]].[/calc]'},
     {tecles: ['exe'], pantalla: marca(calc(D, ARBRE, '8.402490459'), 'resultat'),
       text: '[calc]Prem [[exe]]: obtens el resultat, que és $8.402490459$.[/calc] [mat]R) L\'arbre fa aproximadament $8{,}4$ m d\'altura.[/mat]'},
   ],
@@ -60,11 +60,11 @@ M.fitxes.push(
   inici: calc(D),
   passos: [
     {tecles: ['5', 'sen', '6', '0', 'rpar'], pantalla: calc(D, ESCALA),
-      text: '[mat]L\'escala és la hipotenusa, i l\'altura és el catet oposat a l\'angle de $60^\\circ$.\nOposat i hipotenusa → sinus.\nL\'altura és això:\n$5\\cdot\\sin 60^\\circ$[/mat] [calc]Amb la D a la barra, escriu $5$, [[sen]], $60$ i [[rpar]].[/calc]'},
+      text: '[mat]Podem formar un triangle rectangle, on:\n• la pròpia escala ($5$ m) és la hipotenusa;\n• l\'altura a la qual arriba és el catet oposat a l\'angle de $60^\\circ$.\nOposat i hipotenusa → sinus. L\'altura es calcula així:\n$h=5\\cdot\\sin 60^\\circ$[/mat] [calc]Amb la D a la barra, escriu $5$, [[sen]], $60$ i [[rpar]].[/calc]'},
     {tecles: ['exe'], pantalla: marca(calc(D, ESCALA, '\\frac{5\\sqrt{3}}{2}'), 'resultat'),
       text: '[calc]Prem [[exe]]: obtens $\\frac{5\\sqrt{3}}{2}$.\nSi surt en forma d\'arrel és perquè la calculadora està configurada per donar resultats exactes.\nSi estigués configurada per donar decimals, sortiria $4.330127019$.[/calc] [mat]$\\frac{5\\sqrt{3}}{2}\\simeq 4{,}33$ m[/mat]'},
     {tecles: ['sd'], pantalla: marca(calc(D, ESCALA, '4.330127019'), 'resultat'),
-      text: '[calc]Per tenir-lo en decimal, prem [[sd]]: obtens $4.330127019$.[/calc] [mat]R) L\'escala arriba aproximadament a $4{,}33$ m d\'altura.[/mat]'},
+      text: '[calc]Per obtenir l\'expressió decimal de l\'arrel, prem [[sd]].\nObtens $4.330127019$.[/calc] [mat]R) L\'escala arriba aproximadament a $4{,}33$ m d\'altura.[/mat]'},
   ],
 },
 {
@@ -78,7 +78,7 @@ M.fitxes.push(
     {error: true, tecles: ['ac', 'cos', '1', 'punt', '5', 'entre', '5', 'rpar'], pantalla: calc(D, ANGLE_ERROR, '', {hist: true}),
       text: '[calc]!!Error típic!!:\nSi oblides la tecla [[shift]]: [[cos]] $1.5$ [[entre]] $5$ [[rpar]].[/calc]'},
     {error: true, tecles: ['shift', 'exe'], pantalla: marca(calc(D, ANGLE_ERROR, '0.9999862922'), 'resultat'),
-      text: '[calc]Prem [[shift]] [[exe]] (≈): obtens $0.9999862922$.[/calc] [mat]La calculadora ha seguit bé les instruccions, però sense la funció inversa ha calculat el cosinus de $0{,}3^\\circ$.[/mat] [mat]No té sentit: aquest nombre no és l\'angle de l\'escala![/mat]'},
+      text: '[calc]Prem [[shift]] [[exe]] (≈): obtens $0.9999862922$.[/calc] [mat]La calculadora ha seguit les teves instruccions, però sense la funció inversa ha calculat un cosinus, no un angle. Un angle d\'$1^\\circ$ voldria dir que l\'escala està gairebé estirada a terra![/mat]'},
   ],
 },
 

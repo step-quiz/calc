@@ -352,7 +352,7 @@ A formula given by the statement goes at its end as `[nota](…)[/nota]`. Statem
 source (`e<N>.png`), never question images that show the a–d options.
 
 **Wording rules (v103, David; artifact «calc · Normes de redacció», https://claude.ai/artifact/GF2WRWd1L1UgiKxnTHgu74).**
-Derived from David's own rewrite of `cb2-26-q5`; applied so far to T3 (`eso-proporcionalitat`, finished by David, v109) and T4 (`eso-percentatges`, finished by David, v113), T5 (`eso-mitjanes`, David's review v115), T6 (`eso-geometria`) and T7 (`eso-trigonometria`) (v115, waiting for David's review), to be extended
+Derived from David's own rewrite of `cb2-26-q5`; applied so far to T3 (`eso-proporcionalitat`, finished by David, v109) and T4 (`eso-percentatges`, finished by David, v113), T5 (`eso-mitjanes`, David's review v115), T6 (`eso-geometria`, David's review v116) and T7 (`eso-trigonometria`, v116, waiting for David's review), to be extended
 block by block (rest of ESO, then Batxillerat), each batch shown to David in the «Editor de textos» first.
 - Bold: `**…**` (text.js; e.g. «**a)**», «**b)**» for the questions of a statement). Money: «$3{,}50$ €», the € outside
   the formula (David; replaces the old «euros» rule).
@@ -433,6 +433,13 @@ block by block (rest of ESO, then Batxillerat), each batch shown to David in the
   student needs are computed in the text («$22+32+16+8+2=80$»), not just stated. Words: «nota mitjana», «mitjana
   ponderada». Estimation may test an impossible value («és possible que sigui un $4$?»). A display table gets a blank
   line before it.
+- (v116, David's T6) Name what the formula gives: «$V=\pi\cdot 3^2\cdot 15$», «$A=\pi\cdot 0{,}75^2$»,
+  «$h=12\cdot\tan 35^\circ$», introduced by «es calcula així:». Before Pythagoras or trigonometry, list the triangle's
+  sides with `•` («Podem formar un triangle rectangle, on: • el tros de terra ($4$ m) és un catet; …»). No «$\pi=3{,}14$»
+  comparisons: the calculator's π is used. «expressió decimal de l'arrel». An error closing may give the physical
+  reason («L'altura màxima seria precisament $5$ m, posant-la vertical»). A statement can tell an experiment and give
+  the result, asking how it was found («La Júlia ja sap que el campanar mesura $16$ m. Com ho ha sabut?»). Data tuned
+  to reality (a 330 ml can: $r=3$ cm, $h=11{,}66$ cm). Several questions of a «Prova-ho tu» may be `•` lines.
 
 **Calculator with judgement (v92, David).** The fitxes of `eso-proporcionalitat` and the v92 ones in other ESO blocks
 teach that the calculator computes correctly a wrongly posed problem. (1) First step without keys or mark, one `[mat]`

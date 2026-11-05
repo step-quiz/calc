@@ -4,6 +4,13 @@ Què ha canviat a cada versió del web, de la més nova a la més antiga. El fun
 `README.md` i `ARCHITECTURE.md`; aquí només hi ha la història. El número de versió és `VERSIO` a
 `js/nucli/models.js` i surt al peu de les pàgines.
 
+## Versió 116 (5/11/2026)
+
+- T6 amb els canvis de David: fórmules amb nom ($V=$, $A=$), el triangle de l'escala descrit costat per costat, sense
+  comparar amb $\pi=3{,}14$, l'experiment de la Júlia amb el campanar, la llauna de 330 ml.
+- T7 ajustada amb el mateix estil: triangles descrits costat per costat, $h=\ldots$, «expressió decimal de l'arrel» i
+  l'error de la funció inversa amb una raó física (l'escala estirada a terra).
+
 ## Versió 115 (5/11/2026)
 
 - T5 amb els canvis de David: les estrelles amb el procediment en tres punts i el total calculat; el mercat passa a ser
