@@ -3,3 +3,4 @@
 Thumbs.db
 # Dependències per a proves locals (no es publiquen)
 node_modules/
+__pycache__/

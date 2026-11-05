@@ -218,6 +218,7 @@ visits — one per browser session —, bubbles up/down), `tria.js`
 - **v114**: David's `cb4-26-q15`; keying errors get their own sentence instead of FRASE_ERROR; every `provaTu.solucio` wraps its calculation in [mat] (solmat.py).
 - **v115**: David's T5 (`cb4-24-q8`, `cb4-25-q17` → biblioteca, figure removed; `ll4a-8-56`); T6 «Prova-ho tu»; T7 rewritten with `/home/claude/eines/t7.py`.
 - **v116**: David's T6 (5 fitxes, via t56.py); T7 refined (t7.py).
+- Handoff for a cold-start AI: `HANDOFF-REDACCIO.md`; generators in `proves/redaccio/`; static editor copy `proves/editor-textos/editor-publicat.html`.
 - **Editor de textos** (artifact, not served): https://claude.ai/artifact/GMvQzEgtdG3NSTdgX8QcrX (slug
   `7c64df61-5de7-42fb-a13f-f197f125daac`, owner David). One self-contained page built by
   `node proves/editor-textos/construeix.js <out.html>` (= `plantilla.html` + `extreu.js` data: every text of every fitxa of
