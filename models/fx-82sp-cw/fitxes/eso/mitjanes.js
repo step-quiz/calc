@@ -48,7 +48,7 @@ M.fitxes.push(
       pantalla: calc(D, HOTEL_ERROR, '', {hist: true}),
       text: '[calc]!!Error típic!!:\nSi escrius la suma sense parèntesis: $168$ [[mes]] $154$ [[mes]] $210$ [[mes]] $260$ [[entre]] $4$.[/calc]'},
     {error: true, tecles: ['exe'], pantalla: marca(calc(D, HOTEL_ERROR, '597'), 'resultat'),
-      text: '[calc]Prem [[exe]]: obtens $597$.[/calc] ' + FRASE_ERROR + ' [mat]No té cap sentit: la mitjana no pot ser més gran que les places de qualsevol setmana!\nSense parèntesis, només s\'ha dividit el $260$ entre $4$.[/mat]'},
+      text: '[calc]Prem [[exe]]: obtens $597$.[/calc] [mat]La calculadora ha seguit bé les instruccions, però sense parèntesis només s\'ha dividit el $260$ entre $4$.[/mat] [mat]No té cap sentit: la mitjana no pot ser més gran que les places de qualsevol setmana![/mat]'},
   ],
 },
 {
@@ -81,7 +81,7 @@ M.fitxes.push(
       'entre', '2', '5', 'mes', '3', '5', 'mes', '2', '5', 'mes', '1', '0'], pantalla: calc(D, MERCAT_ERROR, '', {hist: true}),
       text: '[calc]!!Error típic!!:\nSi ho escrius en una línia i no poses parèntesis al denominador: [[lpar]] … [[rpar]] [[entre]] $25$ [[mes]] $35$ [[mes]] $25$ [[mes]] $10$.[/calc]'},
     {error: true, tecles: ['shift', 'exe'], pantalla: marca(calc(D, MERCAT_ERROR, '78.4'), 'resultat'),
-      text: '[calc]Prem [[shift]] [[exe]] (≈): obtens $78.4$.[/calc] ' + FRASE_ERROR + ' [mat]No té cap sentit: ningú no va al mercat $78$ vegades en una setmana![/mat]'},
+      text: '[calc]Prem [[shift]] [[exe]] (≈): obtens $78.4$.[/calc] [mat]La calculadora ha seguit bé les instruccions, però sense parèntesis només s\'ha dividit entre el primer $25$.[/mat] [mat]No té cap sentit: ningú no va al mercat $78$ vegades en una setmana![/mat]'},
   ],
 },
 

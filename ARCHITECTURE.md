@@ -420,6 +420,12 @@ block by block (rest of ESO, then Batxillerat), each batch shown to David in the
   facts with `•` lines after «fixa't què passa:» when the order matters, and stress the surprise in bold («**no és** de
   $300$ €»). Each conversion factor on its own `•` line inside a step. The «R)» answers the question and stops; the
   explanation, if any, is one short sentence.
+- (v114, David's `cb4-26-q15`) When the typical error is a keying error (missing parentheses), `FRASE_ERROR` is replaced
+  by its own sentence: «La calculadora ha seguit bé les instruccions, però sense parèntesis només s'ha dividit el $260$
+  entre $4$.» The fixed phrase («…s'han plantejat malament els càlculs») stays for errors of reasoning. Statements say
+  «respectivament» after a list of values and do not repeat data in the question. `tancament` advice as a reminder:
+  «recorda d'escriure-la entre parèntesis.» «Prova-ho tu» solutions: the calculation lines go in `[mat]…[/mat]`, then
+  «R) …» (whole project; `/home/claude/eines/solmat.py`, used by the generators).
 
 **Calculator with judgement (v92, David).** The fitxes of `eso-proporcionalitat` and the v92 ones in other ESO blocks
 teach that the calculator computes correctly a wrongly posed problem. (1) First step without keys or mark, one `[mat]`

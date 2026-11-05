@@ -32,7 +32,7 @@ M.fitxes.push(
     {error: true, tecles: ['ac', 'arrel', '3', 'x2', 'mes', '5', 'x2'], pantalla: calc(D, ESCALA_ERROR),
       text: '[calc]!!Error típic!!:\nSi escrius l\'arrel sense parèntesis: [[arrel]] $3$ [[x2]] [[mes]] $5$ [[x2]].[/calc]'},
     {error: true, tecles: ['igual'], pantalla: marca(calc(D, ESCALA_ERROR, '28'), 'resultat'),
-      text: '[calc]Prem [[igual]]: obtens $28$.[/calc] ' + FRASE_ERROR + ' [mat]No té sentit: el tram no pot ser més llarg que $3+5=8$ m!\nSense parèntesis, l\'arrel només afecta el $3^2$.[/mat]'},
+      text: '[calc]Prem [[igual]]: obtens $28$.[/calc] [mat]La calculadora ha seguit bé les instruccions, però sense parèntesis l\'arrel només afecta el $3^2$.[/mat] [mat]No té sentit: el tram no pot ser més llarg que $3+5=8$ m![/mat]'},
   ],
 },
 {

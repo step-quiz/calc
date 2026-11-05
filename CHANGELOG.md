@@ -4,6 +4,12 @@ Què ha canviat a cada versió del web, de la més nova a la més antiga. El fun
 `README.md` i `ARCHITECTURE.md`; aquí només hi ha la història. El número de versió és `VERSIO` a
 `js/nucli/models.js` i surt al peu de les pàgines.
 
+## Versió 114 (5/11/2026)
+
+- Canvis de David a T5·1 (l'hotel): «respectivament», pregunta més curta, «Recorda» amb «recorda d'escriure-la», i
+  l'error dels parèntesis amb una frase pròpia en lloc de la fixa. El mateix al mercat i a l'arrel de la fx-82MS.
+- Solucions del «Prova-ho tu» de tot el web: els càlculs dins de [mat], i a sota la resposta «R)».
+
 ## Versió 113 (5/11/2026)
 
 - T4 acabada per David: la declaració de l'IVA sense estimació ni error típic, el televisor amb l'historial en una

@@ -9,7 +9,7 @@ Models.afegeixExercicis(
   tancament: '[mat]Recorda:\n• $180\\div 3=60$ g\n• $60\\cdot 5=300$ g[/mat]',
   provaTu: {
     enunciat: 'Una recepta per a fer creps demana posar $2$ ous i $250$ ml de llet.\nTu tens a la nevera $3$ ous i els vols gastar tots. Quanta llet hauràs de posar per mantenir les proporcions?',
-    solucio: '$250\\div 2=125$ ml\n$125\\cdot 3=375$ ml\nR) Hauré de fer servir $375$ ml de llet.',
+    solucio: '[mat]$250\\div 2=125$ ml\n$125\\cdot 3=375$ ml[/mat]\nR) Hauré de fer servir $375$ ml de llet.',
   },
 },
 {
@@ -19,7 +19,7 @@ Models.afegeixExercicis(
   enunciat: 'En Nil estudia quanta aigua es fa servir a casa seva. Ha observat que l\'aixeta del lavabo omple un got de $0{,}2$ litres en $3$ segons.\n\nQuants litres d\'aigua surten de l\'aixeta en $60$ segons?',
   provaTu: {
     enunciat: 'Una aixeta omple una ampolla d\'$1{,}5$ litres en $10$ segons.\nTu deixes l\'aixeta oberta $2$ minuts ($120$ segons). Quants litres d\'aigua hi surten, si raja sempre igual?',
-    solucio: '$1{,}5\\div 10=0{,}15$ litres\n$0{,}15\\cdot 120=18$ litres\nR) De l\'aixeta surten $18$ litres d\'aigua.',
+    solucio: '[mat]$1{,}5\\div 10=0{,}15$ litres\n$0{,}15\\cdot 120=18$ litres[/mat]\nR) De l\'aixeta surten $18$ litres d\'aigua.',
   },
 },
 {
@@ -30,7 +30,7 @@ Models.afegeixExercicis(
   tancament: '[mat]Recorda:\n• $105\\div 5=21$ mg\n• $21\\cdot 16=336$ mg[/mat]',
   provaTu: {
     enunciat: 'En $10$ ml d\'un xarop hi ha $250$ mg de principi actiu.\nTu has de prendre $6$ ml de xarop. Quants mg de principi actiu prendràs?',
-    solucio: '$250\\div 10=25$ mg\n$25\\cdot 6=150$ mg\nR) Prendré $150$ mg de principi actiu.',
+    solucio: '[mat]$250\\div 10=25$ mg\n$25\\cdot 6=150$ mg[/mat]\nR) Prendré $150$ mg de principi actiu.',
   },
 },
 {
@@ -41,7 +41,7 @@ Models.afegeixExercicis(
   enunciat: 'L\'Anna té una fotografia de $62$ cm d\'amplada i $34$ cm d\'alçada. La vol imprimir més petita, de $42$ cm d\'amplada.\n\nQuina alçada tindrà la fotografia impresa, si l\'Anna no la vol deformar?',
   provaTu: {
     enunciat: 'Tens una foto de $45$ cm d\'amplada i $30$ cm d\'alçada.\nLa vols imprimir amb $20$ cm d\'amplada, sense deformar-la. Quina alçada tindrà?',
-    solucio: '$30\\cdot 20\\div 45=13{,}33\\ldots$ cm\nR) La foto mesurarà aproximadament $13{,}3$ cm d\'alçada.',
+    solucio: '[mat]$30\\cdot 20\\div 45=13{,}33\\ldots$ cm[/mat]\nR) La foto mesurarà aproximadament $13{,}3$ cm d\'alçada.',
   },
 },
 {
@@ -53,7 +53,7 @@ Models.afegeixExercicis(
   tancament: '[mat]Recorda:\n• $15$ cm $=0{,}15$ m\n• $3\\div 0{,}15=20$ esglaons[/mat]',
   provaTu: {
     enunciat: 'Una escala puja $2{,}4$ m d\'altura i cada esglaó fa $16$ cm d\'altura.\nQuants esglaons hauràs de pujar per arribar a dalt?',
-    solucio: '$16$ cm $=0{,}16$ m\n$2{,}4\\div 0{,}16=15$ esglaons\nR) Hauré de pujar $15$ esglaons.',
+    solucio: '[mat]$16$ cm $=0{,}16$ m\n$2{,}4\\div 0{,}16=15$ esglaons[/mat]\nR) Hauré de pujar $15$ esglaons.',
   },
 },
 {
@@ -64,7 +64,7 @@ Models.afegeixExercicis(
   tancament: '[mat]Recorda:\n• $70\\div 20=3{,}5$ g\n• $2.410-30=2.380$ g\n• $2.380\\div 3{,}5=680$ botons[/mat]',
   provaTu: {
     enunciat: 'Tens una caixa plena de claus iguals que pesa $1{,}5$ kg. Poses $12$ claus a la bàscula i llegeixes: $30$ g.\nQuants claus hi ha a la caixa?',
-    solucio: '$30\\div 12=2{,}5$ g\n$1.500\\div 2{,}5=600$ claus\nR) A la caixa hi ha $600$ claus.',
+    solucio: '[mat]$30\\div 12=2{,}5$ g\n$1.500\\div 2{,}5=600$ claus[/mat]\nR) A la caixa hi ha $600$ claus.',
   },
 },
 {
@@ -75,7 +75,7 @@ Models.afegeixExercicis(
   tancament: '[mat]Recorda:\n• $8\\cdot 50=400$ cm\n• $400$ cm $=4$ m[/mat]',
   provaTu: {
     enunciat: 'En un mapa a escala $1:25.000$, dos pobles són a $6$ cm.\nQuina distància hi ha de debò entre els dos pobles, en km?',
-    solucio: '$6\\cdot 25.000=150.000$ cm\n$150.000$ cm $=1{,}5$ km\nR) Entre els dos pobles hi ha $1{,}5$ km.',
+    solucio: '[mat]$6\\cdot 25.000=150.000$ cm\n$150.000$ cm $=1{,}5$ km[/mat]\nR) Entre els dos pobles hi ha $1{,}5$ km.',
   },
 },
 {
@@ -86,7 +86,7 @@ Models.afegeixExercicis(
   tancament: '[mat]Recorda:\n• L\'equació és aquesta: $6\\cdot 10=4\\cdot x$\n• La solució és aquesta: $x=15$ dies[/mat]',
   provaTu: {
     enunciat: 'Fa $5$ anys que es va pintar tot l\'institut, i ho van fer $3$ pintors, en $8$ dies de feina.\nAquest cop, s\'han contractat $4$ pintors.\n\nQuants dies trigaran a pintar l\'institut, si treballen al mateix ritme?',
-    solucio: '$3\\cdot 8=4\\cdot x$\n$x=24\\div 4=6$ dies\nR) Els $4$ pintors trigaran $6$ dies.',
+    solucio: '[mat]$3\\cdot 8=4\\cdot x$\n$x=24\\div 4=6$ dies[/mat]\nR) Els $4$ pintors trigaran $6$ dies.',
   },
 },
 {
@@ -97,7 +97,7 @@ Models.afegeixExercicis(
   tancament: '[mat]Recorda:\n• L\'equació és aquesta: $6\\cdot 4=x\\cdot 3$\n• La solució és aquesta: $x=8$ pots[/mat]',
   provaTu: {
     enunciat: 'Per omplir una piscina calen $12$ camions de $9.000$ litres.\nTu només tens camions de $6.000$ litres. Quants camions et caldran?',
-    solucio: '$12\\cdot 9.000=x\\cdot 6.000$\n$x=108.000\\div 6.000=18$ camions\nR) Em caldran $18$ camions.',
+    solucio: '[mat]$12\\cdot 9.000=x\\cdot 6.000$\n$x=108.000\\div 6.000=18$ camions[/mat]\nR) Em caldran $18$ camions.',
   },
 },
 {
@@ -107,7 +107,7 @@ Models.afegeixExercicis(
   enunciat: 'Un taxi cobra $3{,}50$ € per començar el viatge i, després, $1{,}20$ € per cada km recorregut.\n\nPer anar a l\'hospital a visitar un familiar has fet un trajecte de $5$ km. Després, per acompanyar-lo a casa seva, has fet un trajecte de $10$ km.\n\n**a)** Creus que el trajecte de $10$ km costa el doble que el de $5$ km?\n**b)** Quant costa cada trajecte?',
   provaTu: {
     enunciat: 'Un gimnàs cobra $30$ € de matrícula inicial i, posteriorment, cobra $25$ € cada mes.\n**a)** Quant pagaràs si hi vas $3$ mesos?\n**b)** I si hi vas $6$ mesos?\n**c)** En el segon cas, pagues el doble que en el primer cas?',
-    solucio: '$30+25\\cdot 3=105$ €\n$30+25\\cdot 6=180$ €\nR) Pagaré $105$ € i $180$ €, respectivament.\nNo és el doble, perquè la matrícula sempre es paga una sola vegada.',
+    solucio: '[mat]$30+25\\cdot 3=105$ €\n$30+25\\cdot 6=180$ €[/mat]\nR) Pagaré $105$ € i $180$ €, respectivament.\nNo és el doble, perquè la matrícula sempre es paga una sola vegada.',
   },
 },
 

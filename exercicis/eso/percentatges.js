@@ -9,7 +9,7 @@ Models.afegeixExercicis(
   tancament: '[mat]Recorda:\n• Si et fan un descompte del $25$ %, en el fons vol dir que pagues un $75$ % del preu. Per tant, cal multiplicar per $0{,}75$\n\n$40\\cdot 0{,}30\\cdot 0{,}75=9$ €[/mat]',
   provaTu: {
     enunciat: 'Una llibreta costa $2{,}40$ €. Tu en compres $15$ i et fan un descompte del $20$ %.\nQuant pagaràs en total?',
-    solucio: '$15\\cdot 2{,}40\\cdot 0{,}80=28{,}80$ €\nR) Pagaré $28{,}80$ €.',
+    solucio: '[mat]$15\\cdot 2{,}40\\cdot 0{,}80=28{,}80$ €[/mat]\nR) Pagaré $28{,}80$ €.',
   },
 },
 {
@@ -20,7 +20,7 @@ Models.afegeixExercicis(
   tancament: '[mat]Recorda:\n• Si has pagat el $75$ % del preu, per saber el preu sense descompte cal dividir entre $0{,}75$\n\n$4{,}50\\div 0{,}75=6$ €\n$6\\div 0{,}30=20$ fotografies[/mat]',
   provaTu: {
     enunciat: 'Unes llibretes costen $2{,}40$ € cadascuna. Amb un descompte del $20$ %, has pagat $28{,}80$ €.\nQuantes llibretes has comprat?',
-    solucio: '$28{,}80\\div 0{,}80=36$ €\n$36\\div 2{,}40=15$ llibretes\nR) He comprat $15$ llibretes.',
+    solucio: '[mat]$28{,}80\\div 0{,}80=36$ €\n$36\\div 2{,}40=15$ llibretes[/mat]\nR) He comprat $15$ llibretes.',
   },
 },
 {
@@ -30,7 +30,7 @@ Models.afegeixExercicis(
   enunciat: 'En Jordi té una botiga d\'electrodomèstics. Cada trimestre ha de fer la declaració de l\'IVA a Hisenda.\n\nEn el primer trimestre de l\'any ha cobrat $18.150$ € als seus clients, amb l\'IVA del $21$ % inclòs.\n\n**a)** Quants diners ha facturat realment, sense IVA?\n**b)** Quants diners d\'IVA haurà de pagar a Hisenda?',
   provaTu: {
     enunciat: 'Tens una petita botiga de roba. En un trimestre has cobrat $24.200$ € als clients, amb l\'IVA del $21$ % inclòs.\n**a)** Quants diners has facturat sense IVA?\n**b)** Quants diners d\'IVA hauràs de pagar a Hisenda?',
-    solucio: '$24.200\\div 1{,}21=20.000$ €\n$24.200-20.000=4.200$ €\nR) He facturat $20.000$ € i hauré de pagar $4.200$ € d\'IVA.',
+    solucio: '[mat]$24.200\\div 1{,}21=20.000$ €\n$24.200-20.000=4.200$ €[/mat]\nR) He facturat $20.000$ € i hauré de pagar $4.200$ € d\'IVA.',
   },
 },
 {
@@ -41,7 +41,7 @@ Models.afegeixExercicis(
   tancament: '[mat]Recorda:\n• Si et fan dos descomptes seguits, primer pagues el $60$ % del preu inicial i, després, el $90$ % del primer preu rebaixat. Per tant, cal multiplicar per $0{,}6$ i per $0{,}9$\n\n$200$ € $\\cdot 0{,}6\\cdot 0{,}9=108$ €[/mat]',
   provaTu: {
     enunciat: 'Una tauleta costa $300$ €. Primer la rebaixen un $20$ % i després, sobre el preu rebaixat, un $10$ % més.\n**a)** Quin és el preu final?\n**b)** Quin percentatge de descompte t\'han fet en total?',
-    solucio: '$300\\cdot 0{,}8\\cdot 0{,}9=216$ €\n$300-216=84$ €\n$84\\div 300=0{,}28$\nR) La tauleta em costarà $216$ €.\nM\'han fet un descompte del $28$ %, no del $30$ %.',
+    solucio: '[mat]$300\\cdot 0{,}8\\cdot 0{,}9=216$ €\n$300-216=84$ €\n$84\\div 300=0{,}28$[/mat]\nR) La tauleta em costarà $216$ €.\nM\'han fet un descompte del $28$ %, no del $30$ %.',
   },
 },
 {
@@ -51,7 +51,7 @@ Models.afegeixExercicis(
   enunciat: 'La Naia està mirant l\'historial de preus d\'un televisor en una botiga en línia. La Naia se sorprèn molt, fixa\'t què passa:\n\n• Fa $2$ mesos, el preu era $300$ €.\n• Fa $1$ mes, el preu va baixar exactament un $15$ %.\n• Ahir mateix, el preu va pujar exactament un $15$ %.\n\nPerò el preu actual, segons està veient la Naia, **no és** de $300$ €.\n\n**a)** Quin és el preu actual del televisor?\n**b)** Com pot ser que no torni a costar $300$ €?',
   provaTu: {
     enunciat: 'Una samarreta costa $40$ €. Primer el preu puja un $25$ % i després baixa un $25$ %.\nQuin és el preu final de la samarreta?',
-    solucio: '$40\\cdot 1{,}25\\cdot 0{,}75=37{,}50$ €\nR) La samarreta costa $37{,}50$ €, menys que al principi.',
+    solucio: '[mat]$40\\cdot 1{,}25\\cdot 0{,}75=37{,}50$ €[/mat]\nR) La samarreta costa $37{,}50$ €, menys que al principi.',
   },
 },
 );

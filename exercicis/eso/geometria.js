@@ -9,7 +9,7 @@ Models.afegeixExercicis(
   enunciat: 'Una escala uneix dues plantes d\'un edifici. Cada tram d\'escala puja una altura de $3$ m i avança una longitud de $5$ m.\n\nQuant mesura cada tram d\'escala?',
   provaTu: {
     enunciat: 'Una rampa puja una altura d\'$1{,}2$ m i avança una longitud de $5$ m.\nQuant mesura la rampa?',
-    solucio: '$\\sqrt{1{,}2^2+5^2}=\\sqrt{26{,}44}\\simeq 5{,}14$ m\nR) La rampa mesura aproximadament $5{,}14$ m.',
+    solucio: '[mat]$\\sqrt{1{,}2^2+5^2}=\\sqrt{26{,}44}\\simeq 5{,}14$ m[/mat]\nR) La rampa mesura aproximadament $5{,}14$ m.',
   },
 },
 {
@@ -20,7 +20,7 @@ Models.afegeixExercicis(
   tancament: '[mat]Recorda:\n• Si coneixes la hipotenusa i vols trobar un catet, els quadrats es resten\n\n$\\sqrt{5^2-4^2}=3$ m[/mat]',
   provaTu: {
     enunciat: 'Una escala de $6{,}5$ m està recolzada en una paret. El peu de l\'escala és a $2{,}5$ m de la paret.\nA quina altura arriba l\'escala?',
-    solucio: '$\\sqrt{6{,}5^2-2{,}5^2}=\\sqrt{36}=6$ m\nR) L\'escala arriba a $6$ m d\'altura.',
+    solucio: '[mat]$\\sqrt{6{,}5^2-2{,}5^2}=\\sqrt{36}=6$ m[/mat]\nR) L\'escala arriba a $6$ m d\'altura.',
   },
 },
 {
@@ -31,7 +31,7 @@ Models.afegeixExercicis(
   enunciat: 'Un got de vidre té forma de cilindre. El radi de la base fa $3$ cm i l\'alçada, $15$ cm.\n\nQuin és el volum del got, aproximadament?[nota](Volum d\'un cilindre $=\\pi\\cdot r^2\\cdot h$, amb $\\pi=3{,}14$.)[/nota]',
   provaTu: {
     enunciat: 'Una llauna té forma de cilindre. El radi de la base fa $4$ cm i l\'alçada, $11$ cm.\nQuin és el volum de la llauna?',
-    solucio: '$\\pi\\cdot 4^2\\cdot 11=176\\pi\\simeq 552{,}92$ cm³\nR) El volum de la llauna és aproximadament de $552{,}92$ cm³.',
+    solucio: '[mat]$\\pi\\cdot 4^2\\cdot 11=176\\pi\\simeq 552{,}92$ cm³[/mat]\nR) El volum de la llauna és aproximadament de $552{,}92$ cm³.',
   },
 },
 {
@@ -42,7 +42,7 @@ Models.afegeixExercicis(
   enunciat: 'Per saber quanta tela té un para-sol, se n\'aproxima la superfície per la d\'un cercle de $0{,}75$ m de radi.\n\nQuina superfície de tela té el para-sol, aproximadament?[nota](Àrea del cercle $=\\pi\\cdot r^2$, amb $\\pi=3{,}14$.)[/nota]',
   provaTu: {
     enunciat: 'Una pizza rodona fa $15$ cm de radi.\nQuina superfície té la pizza?',
-    solucio: '$\\pi\\cdot 15^2=225\\pi\\simeq 706{,}86$ cm²\nR) La pizza té aproximadament $706{,}86$ cm² de superfície.',
+    solucio: '[mat]$\\pi\\cdot 15^2=225\\pi\\simeq 706{,}86$ cm²[/mat]\nR) La pizza té aproximadament $706{,}86$ cm² de superfície.',
   },
 },
 
@@ -54,7 +54,7 @@ Models.afegeixExercicis(
   tancament: '[mat]Recorda:\n• Si l\'ombra és $8$ vegades més llarga, l\'altura també és $8$ vegades més gran\n\n$12\\div 1{,}5=8$\n$2\\cdot 8=16$ m[/mat]',
   provaTu: {
     enunciat: 'Un fanal de $6$ m fa una ombra de $9$ m.\nA la mateixa hora, quina ombra faràs tu, si fas $1{,}8$ m d\'alçada?',
-    solucio: '$9\\div 6=1{,}5$\n$1{,}8\\cdot 1{,}5=2{,}7$ m\nR) La meva ombra farà $2{,}7$ m.',
+    solucio: '[mat]$9\\div 6=1{,}5$\n$1{,}8\\cdot 1{,}5=2{,}7$ m[/mat]\nR) La meva ombra farà $2{,}7$ m.',
   },
 },
 );
