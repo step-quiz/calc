@@ -27,11 +27,11 @@ Models.afegeixExercicis(
   id: 'll4-2-25', bloc: 'eso-percentatges',
   titol: 'La declaració de l\'IVA',
   font: 'Llibre 4t ESO, unitat 2, exercici 25',
-  enunciat: 'En Jordi té una botiga d\'electrodomèstics. Cada trimestre ha de fer la declaració de l\'IVA a Hisenda.\n\nEn el primer trimestre de l\'any ha cobrat $18\\,150$ € als seus clients, amb l\'IVA del $21$ % inclòs.\n\n**a)** Quants diners ha facturat realment, sense IVA?\n**b)** Quants diners d\'IVA haurà de pagar a Hisenda?',
-  tancament: '[mat]Recorda:\n• Si el preu ja porta l\'IVA del $21$ %, en el fons vol dir que és el $121$ % del preu sense IVA. Per tant, cal dividir entre $1{,}21$\n\n$18\\,150\\div 1{,}21=15\\,000$ €\n$18\\,150-15\\,000=3\\,150$ €[/mat]',
+  enunciat: 'En Jordi té una botiga d\'electrodomèstics. Cada trimestre ha de fer la declaració de l\'IVA a Hisenda.\n\nEn el primer trimestre de l\'any ha cobrat $18.150$ € als seus clients, amb l\'IVA del $21$ % inclòs.\n\n**a)** Quants diners ha facturat realment, sense IVA?\n**b)** Quants diners d\'IVA haurà de pagar a Hisenda?',
+  tancament: '[mat]Recorda:\n• Si el preu ja porta l\'IVA del $21$ %, en el fons vol dir que és el $121$ % del preu sense IVA. Per tant, cal dividir entre $1{,}21$\n\n$18.150\\div 1{,}21=15.000$ €\n$18.150-15.000=3.150$ €[/mat]',
   provaTu: {
-    enunciat: 'Tens una petita botiga de roba. En un trimestre has cobrat $24\\,200$ € als clients, amb l\'IVA del $21$ % inclòs.\n**a)** Quants diners has facturat sense IVA?\n**b)** Quants diners d\'IVA hauràs de pagar a Hisenda?',
-    solucio: '$24\\,200\\div 1{,}21=20\\,000$ €\n$24\\,200-20\\,000=4\\,200$ €\nR) He facturat $20\\,000$ € i hauré de pagar $4\\,200$ € d\'IVA.',
+    enunciat: 'Tens una petita botiga de roba. En un trimestre has cobrat $24.200$ € als clients, amb l\'IVA del $21$ % inclòs.\n**a)** Quants diners has facturat sense IVA?\n**b)** Quants diners d\'IVA hauràs de pagar a Hisenda?',
+    solucio: '$24.200\\div 1{,}21=20.000$ €\n$24.200-20.000=4.200$ €\nR) He facturat $20.000$ € i hauré de pagar $4.200$ € d\'IVA.',
   },
 },
 {

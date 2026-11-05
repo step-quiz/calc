@@ -335,7 +335,8 @@ parentheses), gives decimals directly and uses the (−) key (`neg`) for negativ
 ordinary − key (`menys`), never SHIFT (−). Every displayed value is computed with the model's `calcul.js`, never by hand.
 
 **Notation.** «sin» in texts, «sen» only as the CW key or LCD label. A point for what is typed or shown on the calculator
-(3.8), a comma for written maths (3,8). Money: «$3{,}50$ €» (€ outside the formula; v107).
+(3.8), a comma for written maths (3,8). Money: «$3{,}50$ €» (€ outside the formula; v107). Thousands in written maths with a point (David, v112): «$18.150$ €», «$31.536.000$», never `\,`; what
+is typed or shown on the calculator keeps no separator (18150).
 
 **Exact results (CW).** The first exact result of a fitxa (fraction, root or π) must say why it is exact and what decimal
 mode would show: Batxillerat names the mode ({{E Mat/S Mat}}, {{E Mat/S Decimal}}); ESO says «la calculadora està

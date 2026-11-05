@@ -4,6 +4,11 @@ Què ha canviat a cada versió del web, de la més nova a la més antiga. El fun
 `README.md` i `ARCHITECTURE.md`; aquí només hi ha la història. El número de versió és `VERSIO` a
 `js/nucli/models.js` i surt al peu de les pàgines.
 
+## Versió 112 (5/11/2026)
+
+- Els milers, amb punt a les fórmules: «$18.150$ €» (abans, amb un espai fi). El que s'escriu o es veu a la calculadora,
+  sense separador (18150).
+
 ## Versió 111 (5/11/2026)
 
 - T4 revisada amb els comentaris de David: T4·3 és ara «La declaració de l'IVA» (una botiga, un trimestre, l'IVA a

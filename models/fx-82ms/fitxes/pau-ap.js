@@ -82,7 +82,7 @@ M.fitxes.push(
     {apartat: 'b', tecles: ['igual'], pantalla: marca(calc(R, '12sin (π÷4)+12cos (π÷4)-12', '4.970562748'), 'resultat'),
       text: '[calc]Prem [[igual]]: l\'àrea és $12(\\sqrt{2}-1)\\approx 4{,}97\\,\\text{m}^2$.[/calc]'},
     {apartat: 'b', tecles: ['per', '7', '5', '0', 'igual'], pantalla: marca(calc(R, 'Ans×750', '3727.922061'), 'resultat'),
-      text: '[calc]Ara [[per]] 750: després d\'un resultat, el càlcul comença amb Ans, sense arrodonir.[/calc] [mat]El preu del vitrall és de $3\\,727{,}92$ €.[/mat]'},
+      text: '[calc]Ara [[per]] 750: després d\'un resultat, el càlcul comença amb Ans, sense arrodonir.[/calc] [mat]El preu del vitrall és de $3.727{,}92$ €.[/mat]'},
   ],
   relacionades: ['canvia-radians', 'ans'],
 },

@@ -151,13 +151,13 @@ M.fitxes.push(
       text: '[calc]Prem [[exe]]: surt exacte, $12\\sqrt{2}-12$. Per al preu cal un decimal: prem [[sd]].[/calc] [mat]L\'àrea és $12(\\sqrt{2}-1)\\approx 4{,}97\\,\\text{m}^2$.[/mat]'},
     {apartat: 'b', tecles: ['per', '7', '5', '0', 'exe', 'sd'], pantalla: marca(calc(R, '\\mathrm{Ans}\\times 750', '3727.922061'), 'resultat'),
       parcials: {4: marca(calc(R, '\\mathrm{Ans}\\times 750', '9000\\sqrt{2}-9000'), 'resultat')},
-      text: '[calc]Ara [[per]] 750: després d\'un resultat, el càlcul comença amb Ans, sense arrodonir. Amb [[exe]] i [[sd]], el preu del vitrall és de $3\\,727{,}92$ €.[/calc]'},
+      text: '[calc]Ara [[per]] 750: després d\'un resultat, el càlcul comença amb Ans, sense arrodonir. Amb [[exe]] i [[sd]], el preu del vitrall és de $3.727{,}92$ €.[/calc]'},
   ],
   /* «Ara tu» DESACTIVAT: de moment no surt als exercicis PAU reals. Per tornar-lo a activar,
      treu aquest comentari (ARCHITECTURE.md, «Disabled “Ara tu”»).
   araTu: {
     enunciat: 'Si el vitrall fos entre $y=2\\sin\\frac{x}{4}$ i $y=2\\cos\\frac{x}{4}$, l\'àrea seria $\\left[8\\sin\\frac{x}{4}+8\\cos\\frac{x}{4}\\right]_0^{\\pi}$. Calcula-la i el preu, a 750 € el m².',
-    resultat: '8(\\sqrt{2}-1)\\approx 3{,}31\\text{ m}^2;\\ 2\\,485{,}28\\text{ euros}',
+    resultat: '8(\\sqrt{2}-1)\\approx 3{,}31\\text{ m}^2;\\ 2.485{,}28\\text{ euros}',
     error: 'Calcular-ho amb la calculadora en graus (D): l\'àrea surt 0.1089072353 m².',
     inici: calc(R),
     passos: [
@@ -167,7 +167,7 @@ M.fitxes.push(
       {tecles: ['shift', 'exe'], pantalla: marca(calc(R, '8\\mathrm{sen}(\\frac{\\pi}{4})+8\\cos(\\frac{\\pi}{4})-8', '3.313708499'), 'resultat'),
         text: '[[shift]] [[exe]]: l\'àrea és $\\approx 3{,}31\\,\\text{m}^2$.'},
       {tecles: ['per', '7', '5', '0', 'shift', 'exe'], pantalla: marca(calc(R, '\\mathrm{Ans}\\times 750', '2485.281374'), 'resultat'),
-        text: '[[per]] 750 i [[shift]] [[exe]]: el preu és de $2\\,485{,}28$ €.'},
+        text: '[[per]] 750 i [[shift]] [[exe]]: el preu és de $2.485{,}28$ €.'},
     ],
   },
   */

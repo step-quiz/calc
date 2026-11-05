@@ -36,7 +36,7 @@ Models.afegeixExercicis(
   enunciat: 'La llum recorre $3\\cdot 10^8$ metres cada segon.\n• Un dia té 86 400 segons.\nQuants metres recorre la llum en un dia?',
   provaTu: {
     enunciat: 'El so recorre 343 metres cada segon.\n• Un any té 31 536 000 segons.\nQuants metres recorre el so en un any?',
-    solucio: '$343\\cdot 31\\,536\\,000=1{,}0816848\\cdot 10^{10}$ metres, és a dir, 10.816.848.000 m.',
+    solucio: '$343\\cdot 31.536.000=1{,}0816848\\cdot 10^{10}$ metres, és a dir, 10.816.848.000 m.',
   },
 },
 

@@ -61,10 +61,10 @@ Models.afegeixExercicis(
   titol: 'La bossa de botons',
   font: 'CB 4ESO (2026), pregunta 25',
   enunciat: 'Una empresa fabrica botons de plàstic, tots iguals. Sabem que $20$ botons pesen $70$ g.\n\nUna bossa plena de botons pesa $2{,}41$ kg. Quants botons hi ha a la bossa, si la bossa buida pesa $30$ g?',
-  tancament: '[mat]Recorda:\n• $70\\div 20=3{,}5$ g\n• $2\\,410-30=2\\,380$ g\n• $2\\,380\\div 3{,}5=680$ botons[/mat]',
+  tancament: '[mat]Recorda:\n• $70\\div 20=3{,}5$ g\n• $2.410-30=2.380$ g\n• $2.380\\div 3{,}5=680$ botons[/mat]',
   provaTu: {
     enunciat: 'Tens una caixa plena de claus iguals que pesa $1{,}5$ kg. Poses $12$ claus a la bàscula i llegeixes: $30$ g.\nQuants claus hi ha a la caixa?',
-    solucio: '$30\\div 12=2{,}5$ g\n$1\\,500\\div 2{,}5=600$ claus\nR) A la caixa hi ha $600$ claus.',
+    solucio: '$30\\div 12=2{,}5$ g\n$1.500\\div 2{,}5=600$ claus\nR) A la caixa hi ha $600$ claus.',
   },
 },
 {
@@ -74,8 +74,8 @@ Models.afegeixExercicis(
   enunciat: 'El plànol d\'un pis està dibuixat a escala $1:50$. Al plànol, una de les parets fa $8$ cm de longitud.\n\nQuant mesura aquesta paret de debò, en metres?',
   tancament: '[mat]Recorda:\n• $8\\cdot 50=400$ cm\n• $400$ cm $=4$ m[/mat]',
   provaTu: {
-    enunciat: 'En un mapa a escala $1:25\\,000$, dos pobles són a $6$ cm.\nQuina distància hi ha de debò entre els dos pobles, en km?',
-    solucio: '$6\\cdot 25\\,000=150\\,000$ cm\n$150\\,000$ cm $=1{,}5$ km\nR) Entre els dos pobles hi ha $1{,}5$ km.',
+    enunciat: 'En un mapa a escala $1:25.000$, dos pobles són a $6$ cm.\nQuina distància hi ha de debò entre els dos pobles, en km?',
+    solucio: '$6\\cdot 25.000=150.000$ cm\n$150.000$ cm $=1{,}5$ km\nR) Entre els dos pobles hi ha $1{,}5$ km.',
   },
 },
 {
@@ -96,8 +96,8 @@ Models.afegeixExercicis(
   enunciat: 'En Carles recorda que quan va pintar la seva habitació, ja fa temps, va fer servir $6$ pots de pintura de $4$ kg cadascun.\nAra la vol tornar a pintar, però a la botiga només venen pots de $3$ kg.\n\nQuants pots de $3$ kg necessitarà?',
   tancament: '[mat]Recorda:\n• L\'equació és aquesta: $6\\cdot 4=x\\cdot 3$\n• La solució és aquesta: $x=8$ pots[/mat]',
   provaTu: {
-    enunciat: 'Per omplir una piscina calen $12$ camions de $9\\,000$ litres.\nTu només tens camions de $6\\,000$ litres. Quants camions et caldran?',
-    solucio: '$12\\cdot 9\\,000=x\\cdot 6\\,000$\n$x=108\\,000\\div 6\\,000=18$ camions\nR) Em caldran $18$ camions.',
+    enunciat: 'Per omplir una piscina calen $12$ camions de $9.000$ litres.\nTu només tens camions de $6.000$ litres. Quants camions et caldran?',
+    solucio: '$12\\cdot 9.000=x\\cdot 6.000$\n$x=108.000\\div 6.000=18$ camions\nR) Em caldran $18$ camions.',
   },
 },
 {

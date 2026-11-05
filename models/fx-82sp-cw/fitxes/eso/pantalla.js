@@ -63,7 +63,7 @@ M.fitxes.push(
     {error: true, tecles: ['ac', '3', 'pot', '8', 'right', 'per', '8', '6', '4', '0', '0'], pantalla: calc(D, LLUM_ERROR, '', {hist: true}),
       text: '[calc]!!Error típic!!: esborra amb [[ac]] i, en lloc de [[exp]], fes servir la tecla de potència: 3 [[pot]] 8, [[right]] i [[per]] 86400.[/calc]'},
     {error: true, tecles: ['exe'], pantalla: marca(calc(D, LLUM_ERROR, '566870400'), 'resultat'),
-      text: '[calc]Prem [[exe]]: obtens 566870400.[/calc] [mat]No pot ser: la llum fa 300 milions de metres cada segon, i en un dia en faria només 567 milions. Has calculat $3^8=6\\,561$, no $3\\cdot 10^8$.[/mat]'},
+      text: '[calc]Prem [[exe]]: obtens 566870400.[/calc] [mat]No pot ser: la llum fa 300 milions de metres cada segon, i en un dia en faria només 567 milions. Has calculat $3^8=6.561$, no $3\\cdot 10^8$.[/mat]'},
   ],
 },
 
