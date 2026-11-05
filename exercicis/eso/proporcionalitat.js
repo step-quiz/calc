@@ -19,7 +19,7 @@ Models.afegeixExercicis(
   enunciat: 'En Nil estudia quanta aigua es fa servir a casa seva. Ha observat que l\'aixeta del lavabo omple un got de $0{,}2$ litres en $3$ segons.\n\nQuants litres d\'aigua surten de l\'aixeta en $60$ segons?',
   provaTu: {
     enunciat: 'Una aixeta omple una ampolla d\'$1{,}5$ litres en $10$ segons.\nTu deixes l\'aixeta oberta $2$ minuts ($120$ segons). Quants litres d\'aigua hi surten, si raja sempre igual?',
-    solucio: '$1{,}5\\div 10=0{,}15$ litres\n$0{,}15\\cdot 120=18$ litres\nR) Hi surten $18$ litres d\'aigua.',
+    solucio: '$1{,}5\\div 10=0{,}15$ litres\n$0{,}15\\cdot 120=18$ litres\nR) De l\'aixeta surten $18$ litres d\'aigua.',
   },
 },
 {
@@ -29,7 +29,7 @@ Models.afegeixExercicis(
   enunciat: 'A en Mario li han receptat un xarop. En $5$ ml de xarop hi ha $105$ mg de principi actiu.\n\nQuants mg de principi actiu hi ha en $16$ ml del mateix xarop?',
   tancament: '[mat]Recorda:\n• $105\\div 5=21$ mg\n• $21\\cdot 16=336$ mg[/mat]',
   provaTu: {
-    enunciat: 'Cada $10$ ml d\'un xarop contenen $250$ mg de principi actiu.\nTu has de prendre $6$ ml de xarop. Quants mg de principi actiu prendràs?',
+    enunciat: 'En $10$ ml d\'un xarop hi ha $250$ mg de principi actiu.\nTu has de prendre $6$ ml de xarop. Quants mg de principi actiu prendràs?',
     solucio: '$250\\div 10=25$ mg\n$25\\cdot 6=150$ mg\nR) Prendré $150$ mg de principi actiu.',
   },
 },
@@ -60,10 +60,10 @@ Models.afegeixExercicis(
   id: 'cb4-26-q25', bloc: 'eso-proporcionalitat', grup: 'Proporcionalitat directa',
   titol: 'La bossa de botons',
   font: 'CB 4ESO (2026), pregunta 25',
-  enunciat: 'Una empresa fabrica botons amb discos de plàstic, tots iguals. Un operari ha pesat $20$ discos i pesen $70$ g.\n\nSi tots els discos d\'una bossa pesen $2{,}38$ kg, quants discos hi ha a la bossa?',
-  tancament: '[mat]Recorda:\n• $70\\div 20=3{,}5$ g\n• $2\\,380\\div 3{,}5=680$ discos[/mat]',
+  enunciat: 'Una empresa fabrica botons de plàstic, tots iguals. Sabem que $20$ botons pesen $70$ g.\n\nUna bossa plena de botons pesa $2{,}41$ kg. Quants botons hi ha a la bossa, si la bossa buida pesa $30$ g?',
+  tancament: '[mat]Recorda:\n• $70\\div 20=3{,}5$ g\n• $2\\,410-30=2\\,380$ g\n• $2\\,380\\div 3{,}5=680$ botons[/mat]',
   provaTu: {
-    enunciat: 'Tens una caixa plena de claus iguals que pesa $1{,}5$ kg. Has pesat $12$ claus i pesen $30$ g.\nQuants claus hi ha a la caixa?',
+    enunciat: 'Tens una caixa plena de claus iguals que pesa $1{,}5$ kg. Poses $12$ claus a la bàscula i llegeixes: $30$ g.\nQuants claus hi ha a la caixa?',
     solucio: '$30\\div 12=2{,}5$ g\n$1\\,500\\div 2{,}5=600$ claus\nR) A la caixa hi ha $600$ claus.',
   },
 },
@@ -71,11 +71,11 @@ Models.afegeixExercicis(
   id: 'll4a-3-26', bloc: 'eso-proporcionalitat', grup: 'Proporcionalitat directa',
   titol: 'El plànol del pis',
   font: 'Llibre 4t ESO A, unitat 3, exercici 26',
-  enunciat: 'El plànol d\'un pis està dibuixat a escala $1:50$. Al plànol, una de les parets fa $8$ cm.\n\nQuant fa aquesta paret de debò, en metres?',
+  enunciat: 'El plànol d\'un pis està dibuixat a escala $1:50$. Al plànol, una de les parets fa $8$ cm de longitud.\n\nQuant mesura aquesta paret de debò, en metres?',
   tancament: '[mat]Recorda:\n• $8\\cdot 50=400$ cm\n• $400$ cm $=4$ m[/mat]',
   provaTu: {
     enunciat: 'En un mapa a escala $1:25\\,000$, dos pobles són a $6$ cm.\nQuina distància hi ha de debò entre els dos pobles, en km?',
-    solucio: '$6\\cdot 25\\,000=150\\,000$ cm\n$150\\,000$ cm $=1{,}5$ km\nR) Hi ha $1{,}5$ km.',
+    solucio: '$6\\cdot 25\\,000=150\\,000$ cm\n$150\\,000$ cm $=1{,}5$ km\nR) Entre els dos pobles hi ha $1{,}5$ km.',
   },
 },
 {
@@ -86,7 +86,7 @@ Models.afegeixExercicis(
   tancament: '[mat]Recorda:\n• L\'equació és aquesta: $6\\cdot 10=4\\cdot x$\n• La solució és aquesta: $x=15$ dies[/mat]',
   provaTu: {
     enunciat: 'Fa $5$ anys que es va pintar tot l\'institut, i ho van fer $3$ pintors, en $8$ dies de feina.\nAquest cop, s\'han contractat $4$ pintors.\n\nQuants dies trigaran a pintar l\'institut, si treballen al mateix ritme?',
-    solucio: '$3\\cdot 8=4\\cdot x$\n$x=24\\div 4=6$ dies\nR) Trigaran $6$ dies.',
+    solucio: '$3\\cdot 8=4\\cdot x$\n$x=24\\div 4=6$ dies\nR) Els $4$ pintors trigaran $6$ dies.',
   },
 },
 {

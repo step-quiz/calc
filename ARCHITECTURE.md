@@ -351,7 +351,7 @@ A formula given by the statement goes at its end as `[nota](…)[/nota]`. Statem
 source (`e<N>.png`), never question images that show the a–d options.
 
 **Wording rules (v103, David; artifact «calc · Normes de redacció», https://claude.ai/artifact/GF2WRWd1L1UgiKxnTHgu74).**
-Derived from David's own rewrite of `cb2-26-q5`; applied so far to the T3 block (`eso-proporcionalitat`), to be extended
+Derived from David's own rewrite of `cb2-26-q5`; applied so far to T3 (`eso-proporcionalitat`, finished by David, v109) and T4 (`eso-percentatges`, v109, waiting for David's review), to be extended
 block by block (rest of ESO, then Batxillerat), each batch shown to David in the «Editor de textos» first.
 - Bold: `**…**` (text.js; e.g. «**a)**», «**b)**» for the questions of a statement). Money: «$3{,}50$ €», the € outside
   the formula (David; replaces the old «euros» rule).
@@ -397,6 +397,13 @@ block by block (rest of ESO, then Batxillerat), each batch shown to David in the
   «R)» with a full subject and «aproximadament» for rounded values (not «uns»). Error closings may be emphatic
   («No té cap sentit, perquè…, segur!»). Several questions in a statement or «Prova-ho tu»: one per line,
   «**a)**», «**b)**», «**c)**». Inverse-proportion `tancament`: «• L'equació és aquesta: …\n• La solució és aquesta: …».
+- (v109, `ll4a-3-26`, `cb4-26-q25`) An estimation question may offer candidate values to judge («creus que un resultat
+  com $3{,}2$ m seria possible? I un resultat com $0{,}4$ cm?»). David may add a realistic extra datum to make the
+  problem richer (the empty bag, 30 g): the calculator then does the extra operation in the same line
+  («[[lpar]] $2410$ [[menys]] $30$ [[rpar]] [[entre]] [[ans]]»). `tancament` only in fitxes that end with an error (test).
+- Percentages (T4, v109): «Amb un descompte del $25$ %, es paga el $75$ %» + «Pagar el $75$ % és multiplicar per
+  $0{,}75$»; undoing a percentage is dividing by the same factor («Per treure'l, es fa l'operació contrària: dividir entre
+  $1{,}10$»); chained percentages multiply. «$25$ %» with the number in math and the sign outside, like units.
 
 **Calculator with judgement (v92, David).** The fitxes of `eso-proporcionalitat` and the v92 ones in other ESO blocks
 teach that the calculator computes correctly a wrongly posed problem. (1) First step without keys or mark, one `[mat]`

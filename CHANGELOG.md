@@ -4,6 +4,13 @@ Què ha canviat a cada versió del web, de la més nova a la més antiga. El fun
 `README.md` i `ARCHITECTURE.md`; aquí només hi ha la història. El número de versió és `VERSIO` a
 `js/nucli/models.js` i surt al peu de les pàgines.
 
+## Versió 109 (5/11/2026)
+
+- T3 acabada per David: la bossa de botons té la bossa buida de $30$ g (la calculadora fa $(2410-30)\div$ Ans) i
+  el plànol, una estimació nova. Revisió general de la T3: «R)» amb subjecte a les «Prova-ho tu», «En $10$ ml hi ha…».
+- T4 «Percentatges» reescrita amb les normes de la T3: títols nous, enunciats en prosa, tots els nombres en fórmula, €,
+  «R)», error típic amb la frase fixa i «Recorda» línia a línia. Falta la revisió de David a l'editor.
+
 ## Versió 108 (5/11/2026)
 
 - T3, cinc fitxes amb els canvis de David (el xarop, els esglaons, el taxi, els pots, la foto): una sola pregunta
