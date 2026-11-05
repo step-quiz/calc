@@ -218,9 +218,10 @@ visits — one per browser session —, bubbles up/down), `tria.js`
 - **v114**: David's `cb4-26-q15`; keying errors get their own sentence instead of FRASE_ERROR; every `provaTu.solucio` wraps its calculation in [mat] (solmat.py).
 - **v115**: David's T5 (`cb4-24-q8`, `cb4-25-q17` → biblioteca, figure removed; `ll4a-8-56`); T6 «Prova-ho tu»; T7 rewritten with `/home/claude/eines/t7.py`.
 - **v116**: David's T6 (5 fitxes, via t56.py); T7 refined (t7.py).
+- **v117**: David's T7 (t7.py): `eso-posa-graus` deleted (ESO never teaches settings; references removed), new editor artifact.
 - Handoff for a cold-start AI: `HANDOFF-REDACCIO.md`; generators in `proves/redaccio/`; static editor copy `proves/editor-textos/editor-publicat.html`.
-- **Editor de textos** (artifact, not served): https://claude.ai/artifact/GMvQzEgtdG3NSTdgX8QcrX (slug
-  `7c64df61-5de7-42fb-a13f-f197f125daac`, owner David). One self-contained page built by
+- **Editor de textos** (artifact, not served): https://claude.ai/artifact/MDke3r88osr3RPgPQhaRP6 (slug
+  `a3be977f-abbb-4b6d-8c37-aefbec42f469`, owner David; v117, account davidarso1; the old editor GMvQzEgtdG3NSTdgX8QcrX lives in another account, unreachable). One self-contained page built by
   `node proves/editor-textos/construeix.js <out.html>` (= `plantilla.html` + `extreu.js` data: every text of every fitxa of
   every model, key HTML, menu texts); imitates the home and the fitxa left column; right = one textarea per text.
   KaTeX from cdnjs with `output:'mathml'` (no CSS needed); fonts from Google Fonts. Capability `db`, rules
@@ -300,7 +301,7 @@ visits — one per browser session —, bubbles up/down), `tria.js`
 ## 8. Versioning & delivery protocol
 
 - Any served `.js`/`.css` change → bump `VERSIO` (`js/nucli/models.js`), every `?v=` in `index.html`/`fitxa.html`, and
-  the «Versió N» footer of `index.html` (test enforces). Current: **116**.
+  the «Versió N» footer of `index.html` (test enforces). Current: **117**.
 - Delivery = a ZIP with the files changed since the version David already has, repo-root paths, excluding `_uploads/`:
   commit the version locally, then `git diff --name-only --diff-filter=AMR HEAD~1 HEAD | zip -@ calc-versio-NN.zip`
   (use `HEAD~2` etc. if several local commits make up one delivery). The repo usually arrives as a ZIP without `.git`:

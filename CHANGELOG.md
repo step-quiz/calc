@@ -4,6 +4,13 @@ Què ha canviat a cada versió del web, de la més nova a la més antiga. El fun
 `README.md` i `ARCHITECTURE.md`; aquí només hi ha la història. El número de versió és `VERSIO` a
 `js/nucli/models.js` i surt al peu de les pàgines.
 
+## Versió 117 (5/11/2026)
+
+- T7 amb els canvis de David: fora la fitxa «La calculadora en radians» (a l'ESO no es toca la configuració); l'arbre
+  del pati amb l'equació $\tan 35^\circ=\frac{h}{12}$ abans d'aïllar $h$ i un avís més clar sobre la D i la R; sense
+  les fletxes «oposat i contigu → tangent»; l'error de la funció inversa explicat amb paraules.
+- Editor de textos nou (el compte antic no és accessible).
+
 ## Versió 116 (5/11/2026)
 
 - T6 amb els canvis de David: fórmules amb nom ($V=$, $A=$), el triangle de l'escala descrit costat per costat, sense

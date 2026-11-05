@@ -16,33 +16,13 @@ const ANGLE = 'cos⁻¹ (1.5÷5)', ANGLE_ERROR = 'cos (1.5÷5)';
 M.fitxes.push(
 
 {
-  id: 'eso-posa-graus',
-  inici: calc(R),
-  passos: [
-    {error: true, tecles: ['1', '2', 'tan', '3', '5'], pantalla: calc(R, ARBRE),
-      text: '[calc]!!Error típic!!:\nSi calcules amb la R a dalt de la pantalla: $12$ [[tan]] $35$.[/calc]'},
-    {error: true, tecles: ['igual'], pantalla: marca(calc(R, ARBRE, '5.685776645'), 'resultat'),
-      text: '[calc]Prem [[igual]]: obtens $5.685776645$.[/calc] [mat]La calculadora ha seguit bé les instruccions, però ha entès $35$ radians, i no $35^\\circ$.[/mat]'},
-    {tecles: ['mode'], pantalla: mode(1, R),
-      text: '[calc]Ho arreglem. Prem [[mode]]: surten els modes de càlcul.[/calc]'},
-    {tecles: ['mode'], pantalla: mode(2, R),
-      text: '[calc]Torna a prémer [[mode]]: ara surt la unitat dels angles, {{Deg}} (graus), {{Rad}} (radians) i {{Gra}}.[/calc]'},
-    {tecles: ['1'], pantalla: marca(calc(D), 'ang'),
-      text: '[calc]Prem l\'[[1]], el número de {{Deg}}: tornes a la pantalla de càlcul, i ara a dalt hi ha una D.[/calc]'},
-    {tecles: ['1', '2', 'tan', '3', '5'], pantalla: calc(D, ARBRE),
-      text: '[calc]Torna a escriure $12$ [[tan]] $35$.[/calc]'},
-    {tecles: ['igual'], pantalla: marca(calc(D, ARBRE, '8.402490459'), 'resultat'),
-      text: '[calc]Prem [[igual]]: obtens $8.402490459$.[/calc] [mat]R) Ara sí: l\'arbre fa aproximadament $8{,}4$ m d\'altura.[/mat]'},
-  ],
-},
-{
   id: 'll4-7-37',
   inici: calc(D),
   passos: [
     {tecles: [], pantalla: marca(calc(D), 'ang'),
-      text: '[calc]Abans de res, mira la pantalla: hi ha d\'haver una D (graus), perquè els angles d\'aquest problema són en graus.\nSi hi ha una R, mira la fitxa anterior.[/calc]'},
+      text: '[calc]Abans de res, mira la part superior de la teva calculadora: hi ha d\'haver una **D** (graus), perquè els angles d\'aquest problema són en graus.\n\nEn tot cas, el que no pot haver-hi és una **R**, perquè significa que la calculadora treballa en radians, i en aquest problema no ens interessa, perquè tenim un angle expressat en graus: $35^\\circ$.[/calc]'},
     {tecles: ['1', '2', 'tan', '3', '5'], pantalla: calc(D, ARBRE),
-      text: '[mat]Podem formar un triangle rectangle, on:\n• l\'ombra ($12$ m) és el catet contigu a l\'angle de $35^\\circ$;\n• l\'altura de l\'arbre és el catet oposat.\nOposat i contigu → tangent. L\'altura es calcula així:\n$h=12\\cdot\\tan 35^\\circ$[/mat] [calc]Escriu $12$, [[tan]] i $35$.\nNo cal el [[per]].[/calc]'},
+      text: '[mat]Podem formar un triangle rectangle, on:\n• l\'ombra ($12$ m) és el catet contigu\n• l\'altura ($h$) de l\'arbre és el catet oposat\n$\\tan$ $35^\\circ = \\dfrac{h}{12}$\nAixò ens permet trobar l\'altura:\n$h=12\\cdot\\tan 35^\\circ$[/mat] [calc]Escriu $12$, [[tan]] i $35$ (no cal la tecla [[per]]).[/calc]'},
     {tecles: ['igual'], pantalla: marca(calc(D, ARBRE, '8.402490459'), 'resultat'),
       text: '[calc]Prem [[igual]]: obtens el resultat, que és $8.402490459$.[/calc] [mat]R) L\'arbre fa aproximadament $8{,}4$ m d\'altura.[/mat]'},
   ],
@@ -52,7 +32,7 @@ M.fitxes.push(
   inici: calc(D),
   passos: [
     {tecles: ['5', 'sin', '6', '0'], pantalla: calc(D, ESCALA),
-      text: '[mat]Podem formar un triangle rectangle, on:\n• la pròpia escala ($5$ m) és la hipotenusa;\n• l\'altura a la qual arriba és el catet oposat a l\'angle de $60^\\circ$.\nOposat i hipotenusa → sinus. L\'altura es calcula així:\n$h=5\\cdot\\sin 60^\\circ$[/mat] [calc]Amb la D a la pantalla, escriu $5$, [[sin]] i $60$.[/calc]'},
+      text: '[mat]Podem formar un triangle rectangle, on:\n• la pròpia escala ($5$ m) és la hipotenusa;\n• l\'altura a la qual arriba és el catet oposat.\n\nPodem trobar l\'altura així:\n$h=5\\cdot\\sin$ $60^\\circ$[/mat] [calc]Escriu $5$, [[sin]] i $60$.\nRecorda que has d\'estar en mode **D** (graus).[/calc]'},
     {tecles: ['igual'], pantalla: marca(calc(D, ESCALA, '4.330127019'), 'resultat'),
       text: '[calc]Prem [[igual]]: obtens el resultat, que és $4.330127019$.[/calc] [mat]R) L\'escala arriba aproximadament a $4{,}33$ m d\'altura.[/mat]'},
   ],
@@ -62,13 +42,13 @@ M.fitxes.push(
   inici: calc(D),
   passos: [
     {tecles: ['shift', 'cos', 'lpar', '1', 'punt', '5', 'entre', '5', 'rpar'], pantalla: calc(D, ANGLE),
-      text: '[mat]Coneixem el catet contigu ($1{,}5$ m) i la hipotenusa ($5$ m): $\\cos\\alpha=\\frac{1{,}5}{5}$\nPer trobar l\'angle, cal la funció inversa:\n$\\alpha=\\cos^{-1}(1{,}5\\div 5)$[/mat] [calc]Prem [[shift]] [[cos]] (a sobre hi ha cos⁻¹) i escriu, entre parèntesis, $1.5$ [[entre]] $5$.[/calc]'},
+      text: '[mat]Coneixem el catet contigu ($1{,}5$ m) i la hipotenusa ($5$ m):\n$\\cos\\alpha=\\dfrac{1{,}5}{5}$\nPer trobar l\'angle, cal la funció inversa:\n$\\alpha=\\cos^{-1}(1{,}5\\div 5)$[/mat] [calc]Prem [[shift]] [[cos]] (a sobre hi ha cos⁻¹) i escriu, entre parèntesis, $1.5$ [[entre]] $5$.[/calc]'},
     {tecles: ['igual'], pantalla: marca(calc(D, ANGLE, '72.54239688'), 'resultat'),
-      text: '[calc]Prem [[igual]]: obtens el resultat, que és $72.54239688$.\nÉs en graus, perquè a la pantalla hi ha D.[/calc] [mat]R) L\'escala forma un angle d\'aproximadament $72{,}5^\\circ$ amb el terra, una mica menys del recomanat.[/mat]'},
+      text: '[calc]Prem [[igual]]: obtens el resultat, que és $72.54239688$.\nÉs en graus, perquè a la pantalla hi ha D.[/calc] [mat]R) L\'escala forma un angle de $72{,}5^\\circ$ amb el terra. Està a $2{,}5^\\circ$ de l\'angle recomanat.[/mat]'},
     {error: true, tecles: ['ac', 'cos', 'lpar', '1', 'punt', '5', 'entre', '5', 'rpar'], pantalla: calc(D, ANGLE_ERROR),
-      text: '[calc]!!Error típic!!:\nSi oblides la tecla [[shift]]: [[cos]] [[lpar]] $1.5$ [[entre]] $5$ [[rpar]].[/calc]'},
+      text: '[calc]!!Error típic!!:\nL\'error consisteix a calcular el cosinus en lloc de l\'arcosinus. És a dir, que oblidem la tecla [[shift]] i directament demanem aquest càlcul:\n[[cos]] [[lpar]] $1.5$ [[entre]] $5$ [[rpar]].[/calc]'},
     {error: true, tecles: ['igual'], pantalla: marca(calc(D, ANGLE_ERROR, '0.999986292'), 'resultat'),
-      text: '[calc]Prem [[igual]]: obtens $0.999986292$.[/calc] [mat]La calculadora ha seguit les teves instruccions, però sense la funció inversa ha calculat un cosinus, no un angle. Un angle d\'$1^\\circ$ voldria dir que l\'escala està gairebé estirada a terra![/mat]'},
+      text: '[calc]Prem [[igual]]: obtens $0.999986292$.[/calc] [mat]La calculadora ha calculat un cosinus, però el que havia de fer era trobar un angle.\n\nDe fet, no té cap sentit, perquè $0{,}999986^\\circ$ significa que l\'escala està gairebé estirada al terra![/mat]'},
   ],
 },
 

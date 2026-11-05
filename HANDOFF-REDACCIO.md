@@ -1,4 +1,4 @@
-# HANDOFF — text rewrite of the fitxes (state at v116, 5/11/2026)
+# HANDOFF — text rewrite of the fitxes (state at v117, 5/11/2026)
 
 For a cold-start AI continuing David's text-rewrite project. Read this, then `ARCHITECTURE.md` §9 «Wording rules (v103)»
 (all bullets, they are cumulative and the latest bullet wins), then `HANDOUT.md` (versions log, editor section).
@@ -12,7 +12,7 @@ For a cold-start AI continuing David's text-rewrite project. Read this, then `AR
   commit message. **Never** put «[skip ci]», «[ci skip]» or «[cf-pages-skip]» in any commit message.
 - Every change: bump `VERSIO` in `js/nucli/models.js`, every `?v=` in `index.html` and `fitxa.html`, footer «Versió N»
   in `index.html`, «Current: **N**» in `HANDOUT.md`; add an entry to `CHANGELOG.md` (Catalan) and `HANDOUT.md` (English);
-  add the new lessons as a bullet to ARCHITECTURE §9. Current version: **116**.
+  add the new lessons as a bullet to ARCHITECTURE §9. Current version: **117**.
 - Tests (all must pass before delivering):
   - `KATEX=<path>/katex/dist node proves/comprova.js` → «Tot correcte» (install: `npm i katex` in a scratch dir).
   - `FITXES=id1,id2 ERRORS=1 node proves/encaix.js` → «Tot hi cap» (every step fits at 1280×559 etc.). When a step
@@ -20,9 +20,10 @@ For a cold-start AI continuing David's text-rewrite project. Read this, then `AR
   - `node proves/ux.js` → «Palanques correctes».
 
 ## 2. The «Editor de textos» artifact (where David edits)
-- URL https://claude.ai/artifact/GMvQzEgtdG3NSTdgX8QcrX — slug `7c64df61-5de7-42fb-a13f-f197f125daac`, owner David.
-  Last published version `1793898629-ccaa` (republish with publish_files, same slug, base_version = latest from
-  get_artifact). A static copy of the published page: `proves/editor-textos/editor-publicat.html`.
+- URL https://claude.ai/artifact/MDke3r88osr3RPgPQhaRP6 — slug `a3be977f-abbb-4b6d-8c37-aefbec42f469`, owner David
+  (account davidarso1, created v117; capability `db` rules `[{path:"", read:"view", write:"owner"}]`). The old editor
+  (GMvQzEgtdG3NSTdgX8QcrX) lives in another account that is no longer usable: ignore it. Republish with publish_files,
+  same slug, base_version = latest from get_artifact. A static copy of the published page: `proves/editor-textos/editor-publicat.html`.
 - Build: `node proves/editor-textos/construeix.js /tmp/editor.html` (template `plantilla.html` + data from `extreu.js`,
   which reads the current repo texts). Rebuild and republish after every applied batch, **only when David is not
   editing** (ask, or wait until he says he finished).
@@ -35,8 +36,9 @@ For a cold-start AI continuing David's text-rewrite project. Read this, then `AR
   (e.g. «##elimina aquest pas»).
 - After applying: `db_write` merge `{aplicat: true, aplicatA: "versió N del web (d/m/2026)"}` with `ifVersion`.
   **Never delete his docs** (David lost work once; deleting was also refused by the classifier).
-- Still pending in the db: `eso-fraccio-decimal` (T1, a line break after the first [calc] sentence), to apply when T1 is
-  rewritten.
+- In the new db: `frac-plantilla` (a final point added to the title) was only David testing the editor: do not apply it
+  unless he asks. The old db also had `eso-fraccio-decimal` (T1, a line break after the first [calc] sentence) — lost
+  with the old account; ask David if he wants it when T1 is rewritten.
 
 ## 3. Generators (the source of truth for rewritten blocks)
 `proves/redaccio/`: `t3.py` (T3 Proporcionalitat), `t4.py` (T4 Percentatges), `t56.py` (T5 Mitjanes + T6 Geometria),
@@ -52,10 +54,11 @@ only into the JS, or the next run reverts them.
 
 ## 4. Status of the blocks (ESO = T1…T7, ids in `exercicis/blocs.js`)
 - T3 Proporcionalitat, T4 Percentatges, T5 Mitjanes, T6 Pitàgores/àrees/volums: rewritten and reviewed by David.
-- **T7 Trigonometria** (`eso-posa-graus`, `ll4-7-37`, `ll4-7-38`, `ll4-7-39`): rewritten (v115–v116), **David is
-  reviewing it now**. Next: read his T7 edits, apply via `t7.py`, learn, version 117.
+- T7 Trigonometria (`ll4-7-37`, `ll4-7-38`, `ll4-7-39`): reviewed by David, applied in v117 (`eso-posa-graus` deleted
+  at his request). Docs `canvis/ll4-7-3*` and `eso-posa-graus` NOT yet marked
+  `aplicat`: mark them when the editor is rebuilt and republished (David is editing Batx in it now).
 - T1 Pantalla (`eso-pantalla`) and T2 Parèntesis (`eso-parentesis`): not rewritten yet (only the [mat] solutions).
-- **Batxillerat / PAU**: not started. Earlier decisions (E1/E3 in the review): titles and prose-statement rules are
+- **Batxillerat / PAU**: David is editing it in the new editor now (after v117). Earlier decisions (E1/E3 in the review): titles and prose-statement rules are
   ESO only; Batx/PAU keep their titles and official statements; the «R)» answer line applies to Batxillerat too;
   `$…$` for all numbers everywhere; thousands with a point everywhere. Ask David (multiple choice) how far the ESO
   rules go in Batx before a big batch, then go block by block, showing each batch in the editor first.
