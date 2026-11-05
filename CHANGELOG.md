@@ -4,6 +4,12 @@ Què ha canviat a cada versió del web, de la més nova a la més antiga. El fun
 `README.md` i `ARCHITECTURE.md`; aquí només hi ha la història. El número de versió és `VERSIO` a
 `js/nucli/models.js` i surt al peu de les pàgines.
 
+## Versió 111 (5/11/2026)
+
+- T4 revisada amb els comentaris de David: T4·3 és ara «La declaració de l'IVA» (una botiga, un trimestre, l'IVA a
+  pagar a Hisenda; dos càlculs i error de calcular el 21 % del total), T4·5 és «L'historial de preus del televisor»
+  (−15 % i +15 %), l'abric amb el seu enunciat del dijous, i T4·2 es diu «Les fotos que imprimeix l'Anna».
+
 ## Versió 110 (5/11/2026)
 
 - T4·1 i T4·2 amb els canvis de David (enunciat de la 2 independent, títol «Les fotos que ha pagat l'Anna», tancaments

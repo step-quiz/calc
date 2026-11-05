@@ -410,6 +410,10 @@ block by block (rest of ESO, then Batxillerat), each batch shown to David in the
   result as a warning («…i això ens fa sospitar que no hem plantejat bé les operacions»). `tancament` in plain words,
   second person, «en el fons vol dir que… Per tant, cal…», then a blank line and the calculation without a bullet.
   Statements of linked CB items stand alone (no «Un altre dia…»). «R)» without filler («en total»).
+- (v111, David's comments on T4) Contexts must be realistic: nobody asks the price of a dinner without VAT, but a
+  shopkeeper's quarterly VAT return does (`ll4-2-25`, «La declaració de l'IVA»); a price history seen online explains
+  a −15 % / +15 % change (`ll4-2-16`). A statement may state the character's wrong belief («creu que haurà de pagar
+  $100$ €») so the fitxa refutes it. Book items may get a whole new context when the original one is artificial.
 
 **Calculator with judgement (v92, David).** The fitxes of `eso-proporcionalitat` and the v92 ones in other ESO blocks
 teach that the calculator computes correctly a wrongly posed problem. (1) First step without keys or mark, one `[mat]`

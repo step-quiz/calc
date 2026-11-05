@@ -16,6 +16,7 @@
 'use strict';
 const {calc, marca} = M.guions;
 const {D} = M.comu;
+const ANS = '\\mathrm{Ans}';
 
 const FRASE_ERROR = '[mat]La calculadora ha seguit bé les instruccions. El problema és que s\'han plantejat malament els càlculs.[/mat]';
 
@@ -65,15 +66,20 @@ M.fitxes.push(
   inici: calc(D),
   passos: [
     {tecles: [], pantalla: calc(D),
-      text: '[mat]Abans de calcular, pensa:\n• sense l\'IVA, el sopar costa més o menys de $110$ €?\n• el $10$ % d\'IVA es calcula sobre el preu amb IVA o sobre el preu sense IVA?[/mat]'},
-    {tecles: ['1', '1', '0', 'entre', '1', 'punt', '1'], pantalla: calc(D, '110\\div 1.1'),
-      text: '[mat]Afegir l\'IVA del $10$ % és multiplicar per $1{,}10$.\nPer treure\'l, es fa l\'operació contrària:\n$110\\div 1{,}10$.[/mat] [calc]Escriu $110$ [[entre]] $1.1$.[/calc]'},
-    {tecles: ['exe'], pantalla: marca(calc(D, '110\\div 1.1', '100'), 'resultat'),
-      text: '[calc]Prem [[exe]]: obtens el resultat, que és $100$.[/calc] [mat]R) Sense IVA, el sopar costa $100$ €.[/mat]'},
-    {error: true, tecles: ['ac', '1', '1', '0', 'per', '0', 'punt', '9'], pantalla: calc(D, '110\\times 0.9', '', {hist: true}),
-      text: '[calc]!!Error típic!!:\nSi treus el $10$ % de $110$ €, multiplicant per $0.9$: $110$ [[per]] $0.9$.[/calc]'},
-    {error: true, tecles: ['exe'], pantalla: marca(calc(D, '110\\times 0.9', '99'), 'resultat'),
-      text: '[calc]Prem [[exe]]: obtens $99$.[/calc] ' + FRASE_ERROR + ' [mat]No encaixa amb l\'enunciat: si a $99$ € hi afegeixes el $10$ % d\'IVA, surten $108{,}90$ €, i no els $110$ € que diu el tiquet.[/mat]'},
+      text: '[mat]Abans de calcular, pensa:\n• el $21$ % d\'IVA es calcula sobre el preu amb IVA o sobre el preu sense IVA?\n• creus que l\'IVA que ha cobrat és el $21$ % de $18\\,150$ €?[/mat]'},
+    {tecles: ['1', '8', '1', '5', '0', 'entre', '1', 'punt', '2', '1'], pantalla: calc(D, '18150\\div 1.21'),
+      text: '[mat]Afegir l\'IVA del $21$ % és multiplicar per $1{,}21$.\nPer treure\'l, es fa l\'operació contrària:\n$18\\,150\\div 1{,}21$[/mat] [calc]Escriu $18150$ [[entre]] $1.21$.[/calc]'},
+    {tecles: ['exe'], pantalla: marca(calc(D, '18150\\div 1.21', '15000'), 'resultat'),
+      text: '[calc]Prem [[exe]]: obtens $15000$.[/calc] [mat]Sense IVA, en Jordi ha facturat $15\\,000$ €.[/mat]'},
+    {tecles: ['1', '8', '1', '5', '0', 'menys', 'ans'], pantalla: calc(D, '18150-' + ANS, '', {hist: true}),
+      text: '[mat]L\'IVA és la diferència entre el que ha cobrat i el que ha facturat:\n$18\\,150-15\\,000$ €[/mat] [calc]Escriu $18150$ [[menys]] [[ans]].\n[[ans]] és el resultat d\'abans.[/calc]'},
+    {tecles: ['exe'], pantalla: marca(calc(D, '18150-' + ANS, '3150'), 'resultat'),
+      text: '[calc]Prem [[exe]]: obtens el resultat, que és $3150$.[/calc] [mat]R) En Jordi ha facturat $15\\,000$ € i haurà de pagar $3\\,150$ € d\'IVA a Hisenda.[/mat]'},
+    {error: true, tecles: ['ac', '1', '8', '1', '5', '0', 'per', '0', 'punt', '2', '1'], pantalla: calc(D, '18150\\times 0.21', '', {hist: true}),
+      text: '[calc]!!Error típic!!:\nSi calcules el $21$ % dels $18\\,150$ € cobrats: $18150$ [[per]] $0.21$.[/calc]'},
+    {error: true, tecles: ['exe', 'sd'], pantalla: marca(calc(D, '18150\\times 0.21', '3811.5'), 'resultat'),
+      parcials: {0: marca(calc(D, '18150\\times 0.21', '\\frac{7623}{2}'), 'resultat')},
+      text: '[calc]Prem [[exe]] i després [[sd]]: obtens $3811.5$.[/calc] ' + FRASE_ERROR + ' [mat]No encaixa: el $21$ % es calcula sobre el preu sense IVA, i no sobre els $18\\,150$ € que ja porten l\'IVA inclòs![/mat]'},
   ],
 },
 {
@@ -81,15 +87,15 @@ M.fitxes.push(
   inici: calc(D),
   passos: [
     {tecles: [], pantalla: calc(D),
-      text: '[mat]Abans de calcular, pensa:\n• el $10$ % extra es calcula sobre $200$ € o sobre un preu més petit?\n• el preu final serà més de $100$ € o menys?[/mat]'},
+      text: '[mat]Abans de calcular, pensa:\n• el $10$ % extra es calcula sobre $200$ € o sobre un preu més petit?[/mat]'},
     {tecles: ['2', '0', '0', 'per', '0', 'punt', '6', 'per', '0', 'punt', '9'], pantalla: calc(D, '200\\times 0.6\\times 0.9'),
       text: '[mat]Amb un $40$ % de descompte es paga el $60$ %: es multiplica per $0{,}6$.\nAmb el $10$ % extra es paga el $90$ % del que queda: es multiplica per $0{,}9$.[/mat] [calc]Escriu $200$ [[per]] $0.6$ [[per]] $0.9$.[/calc]'},
     {tecles: ['exe'], pantalla: marca(calc(D, '200\\times 0.6\\times 0.9', '108'), 'resultat'),
-      text: '[calc]Prem [[exe]]: obtens el resultat, que és $108$.[/calc] [mat]R) L\'abric costa $108$ €.\nEl descompte és de $200-108=92$ €, que és el $46$ % de $200$ €, i no el $50$ %.[/mat]'},
+      text: '[calc]Prem [[exe]]: obtens el resultat, que és $108$.[/calc] [mat]R) L\'abric costa $108$ €.\nEl descompte que li han fet és:\n$200-108=92$ €\nPer tant, no li fan un $50$ % de descompte, perquè no li han rebaixat $100$ €.[/mat]'},
     {error: true, tecles: ['ac', '2', '0', '0', 'per', '0', 'punt', '5'], pantalla: calc(D, '200\\times 0.5', '', {hist: true}),
       text: '[calc]!!Error típic!!:\nSi sumes els descomptes, $40$ % $+\\ 10$ % $=50$ %: $200$ [[per]] $0.5$.[/calc]'},
     {error: true, tecles: ['exe'], pantalla: marca(calc(D, '200\\times 0.5', '100'), 'resultat'),
-      text: '[calc]Prem [[exe]]: obtens $100$.[/calc] ' + FRASE_ERROR + ' [mat]No té sentit: el $10$ % extra es fa sobre $120$ €, i no sobre $200$ €. Els descomptes encadenats no se sumen![/mat]'},
+      text: '[calc]Prem [[exe]]: obtens $100$.[/calc] ' + FRASE_ERROR + ' [mat]No té sentit: el $10$ % extra és sobre $120$ €, no sobre $200$ €. Els descomptes encadenats no se sumen![/mat]'},
   ],
 },
 {
@@ -97,11 +103,12 @@ M.fitxes.push(
   inici: calc(D),
   passos: [
     {tecles: [], pantalla: calc(D),
-      text: '[mat]Abans de calcular, pensa:\n• la pujada del $50$ % es calcula sobre $300$ €. I la baixada del $50$ %, sobre quin preu es calcula?[/mat]'},
-    {tecles: ['3', '0', '0', 'per', '1', 'punt', '5', 'per', '0', 'punt', '5'], pantalla: calc(D, '300\\times 1.5\\times 0.5'),
-      text: '[mat]Pujar un $50$ % és multiplicar per $1{,}5$.\nBaixar un $50$ % és multiplicar per $0{,}5$.[/mat] [calc]Escriu $300$ [[per]] $1.5$ [[per]] $0.5$.[/calc]'},
-    {tecles: ['exe'], pantalla: marca(calc(D, '300\\times 1.5\\times 0.5', '225'), 'resultat'),
-      text: '[calc]Prem [[exe]]: obtens el resultat, que és $225$.[/calc] [mat]R) Al febrer, la consola costa $225$ €: no torna a costar $300$ €.\nLa pujada i la baixada no es compensen, perquè la baixada es calcula sobre un preu més gran.[/mat]'},
+      text: '[mat]Abans de calcular, pensa:\n• la baixada del $15$ % es calcula sobre $300$ €. I la pujada del $15$ %, sobre quin preu es calcula?[/mat]'},
+    {tecles: ['3', '0', '0', 'per', '0', 'punt', '8', '5', 'per', '1', 'punt', '1', '5'], pantalla: calc(D, '300\\times 0.85\\times 1.15'),
+      text: '[mat]Baixar un $15$ % és pagar el $85$ %: es multiplica per $0{,}85$.\nPujar un $15$ % és pagar el $115$ %: es multiplica per $1{,}15$.\nEl preu actual és aquest:\n$300\\cdot 0{,}85\\cdot 1{,}15$ €[/mat] [calc]Escriu $300$ [[per]] $0.85$ [[per]] $1.15$.[/calc]'},
+    {tecles: ['exe', 'sd'], pantalla: marca(calc(D, '300\\times 0.85\\times 1.15', '293.25'), 'resultat'),
+      parcials: {0: marca(calc(D, '300\\times 0.85\\times 1.15', '\\frac{1173}{4}'), 'resultat')},
+      text: '[calc]Prem [[exe]] i després [[sd]]: obtens el resultat en decimal, que és $293.25$.[/calc] [mat]R) Ara el televisor costa $293{,}25$ €, i no $300$ €.\nLa baixada i la pujada no es compensen: la pujada del $15$ % es calcula sobre un preu més petit, $255$ €.[/mat]'},
   ],
 },
 );
