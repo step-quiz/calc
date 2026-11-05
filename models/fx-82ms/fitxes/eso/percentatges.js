@@ -25,7 +25,7 @@ M.fitxes.push(
   inici: calc(D),
   passos: [
     {tecles: ['4', '0', 'per', '0', 'punt', '3'], pantalla: calc(D, '40×0.3'),
-      text: '[mat]Sense descompte, $40$ fotografies costen $40\\cdot 0{,}30$ €.[/mat] [calc]Escriu $40$ [[per]] $0.3$.[/calc]'},
+      text: '[mat]Sense descompte, $40$ fotografies costen això:\n$40\\cdot 0{,}30$ €.[/mat] [calc]Escriu $40$ [[per]] $0.3$.[/calc]'},
     {tecles: ['per', '0', 'punt', '7', '5'], pantalla: calc(D, Q23),
       text: '[mat]Amb un descompte del $25$ %, es paga el $75$ % del preu.\nPagar el $75$ % és multiplicar per $0{,}75$.[/mat] [calc]Ara fes l\'operació [[per]] $0.75$.[/calc]'},
     {tecles: ['igual'], pantalla: marca(calc(D, Q23, '9'), 'resultat'),
@@ -33,7 +33,7 @@ M.fitxes.push(
     {error: true, tecles: ['ac', '4', '0', 'per', '0', 'punt', '3', 'per', '0', 'punt', '2', '5'], pantalla: calc(D, Q23_ERROR),
       text: '[calc]!!Error típic!!:\nSi multipliques pel descompte en lloc de pel que es paga: $40$ [[per]] $0.3$ [[per]] $0.25$.[/calc]'},
     {error: true, tecles: ['igual'], pantalla: marca(calc(D, Q23_ERROR, '3'), 'resultat'),
-      text: '[calc]Prem [[igual]]: obtens $3$.[/calc] ' + FRASE_ERROR + ' [mat]No té sentit: $3$ € és el que s\'estalvia l\'Anna, no el que paga.[/mat]'},
+      text: '[calc]Prem [[igual]]: obtens $3$.[/calc] ' + FRASE_ERROR + ' [mat]No té sentit: $3$ € és el que s\'estalvia l\'Anna, i no és el preu final que cal pagar.[/mat]'},
   ],
 },
 {
@@ -51,7 +51,7 @@ M.fitxes.push(
     {error: true, tecles: ['ac', '4', 'punt', '5', 'per', '1', 'punt', '2', '5', 'entre', '0', 'punt', '3'], pantalla: calc(D, Q24_ERROR),
       text: '[calc]!!Error típic!!:\nSi desfàs el descompte afegint un $25$ %, és a dir, multiplicant per $1.25$: $4.5$ [[per]] $1.25$ [[entre]] $0.3$.[/calc]'},
     {error: true, tecles: ['igual'], pantalla: marca(calc(D, Q24_ERROR, '18.75'), 'resultat'),
-      text: '[calc]Prem [[igual]]: obtens $18.75$.[/calc] ' + FRASE_ERROR + ' [mat]No pot ser: no es poden imprimir $18{,}75$ fotografies![/mat]'},
+      text: '[calc]Prem [[igual]]: obtens $18.75$.[/calc] ' + FRASE_ERROR + ' [mat]No té cap sentit imprimir $18{,}75$ fotografies, i això ens fa sospitar que no hem plantejat bé les operacions.[/mat]'},
   ],
 },
 
@@ -62,13 +62,13 @@ M.fitxes.push(
     {tecles: [], pantalla: calc(D),
       text: '[mat]Abans de calcular, pensa:\n• sense l\'IVA, el sopar costa més o menys de $110$ €?\n• el $10$ % d\'IVA es calcula sobre el preu amb IVA o sobre el preu sense IVA?[/mat]'},
     {tecles: ['1', '1', '0', 'entre', '1', 'punt', '1'], pantalla: calc(D, '110÷1.1'),
-      text: '[mat]Afegir l\'IVA del $10$ % és multiplicar per $1{,}10$.\nPer treure\'l, es fa l\'operació contrària: dividir entre $1{,}10$.[/mat] [calc]Escriu $110$ [[entre]] $1.1$.[/calc]'},
+      text: '[mat]Afegir l\'IVA del $10$ % és multiplicar per $1{,}10$.\nPer treure\'l, es fa l\'operació contrària:\n$110\\div 1{,}10$.[/mat] [calc]Escriu $110$ [[entre]] $1.1$.[/calc]'},
     {tecles: ['igual'], pantalla: marca(calc(D, '110÷1.1', '100'), 'resultat'),
       text: '[calc]Prem [[igual]]: obtens el resultat, que és $100$.[/calc] [mat]R) Sense IVA, el sopar costa $100$ €.[/mat]'},
     {error: true, tecles: ['ac', '1', '1', '0', 'per', '0', 'punt', '9'], pantalla: calc(D, '110×0.9'),
       text: '[calc]!!Error típic!!:\nSi treus el $10$ % de $110$ €, multiplicant per $0.9$: $110$ [[per]] $0.9$.[/calc]'},
     {error: true, tecles: ['igual'], pantalla: marca(calc(D, '110×0.9', '99'), 'resultat'),
-      text: '[calc]Prem [[igual]]: obtens $99$.[/calc] ' + FRASE_ERROR + ' [mat]No encaixa amb l\'enunciat: si a $99$ € hi afegeixes el $10$ % d\'IVA, surten $108{,}90$ €, no $110$ €.[/mat]'},
+      text: '[calc]Prem [[igual]]: obtens $99$.[/calc] ' + FRASE_ERROR + ' [mat]No encaixa amb l\'enunciat: si a $99$ € hi afegeixes el $10$ % d\'IVA, surten $108{,}90$ €, i no els $110$ € que diu el tiquet.[/mat]'},
   ],
 },
 {
@@ -84,7 +84,7 @@ M.fitxes.push(
     {error: true, tecles: ['ac', '2', '0', '0', 'per', '0', 'punt', '5'], pantalla: calc(D, '200×0.5'),
       text: '[calc]!!Error típic!!:\nSi sumes els descomptes, $40$ % $+\\ 10$ % $=50$ %: $200$ [[per]] $0.5$.[/calc]'},
     {error: true, tecles: ['igual'], pantalla: marca(calc(D, '200×0.5', '100'), 'resultat'),
-      text: '[calc]Prem [[igual]]: obtens $100$.[/calc] ' + FRASE_ERROR + ' [mat]No té sentit: el $10$ % extra es fa sobre $120$ €, no sobre $200$ €. Els descomptes encadenats no se sumen![/mat]'},
+      text: '[calc]Prem [[igual]]: obtens $100$.[/calc] ' + FRASE_ERROR + ' [mat]No té sentit: el $10$ % extra es fa sobre $120$ €, i no sobre $200$ €. Els descomptes encadenats no se sumen![/mat]'},
   ],
 },
 {

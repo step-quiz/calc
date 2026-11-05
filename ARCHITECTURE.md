@@ -404,6 +404,12 @@ block by block (rest of ESO, then Batxillerat), each batch shown to David in the
 - Percentages (T4, v109): «Amb un descompte del $25$ %, es paga el $75$ %» + «Pagar el $75$ % és multiplicar per
   $0{,}75$»; undoing a percentage is dividing by the same factor («Per treure'l, es fa l'operació contrària: dividir entre
   $1{,}10$»); chained percentages multiply. «$25$ %» with the number in math and the sign outside, like units.
+- (v110, David's `cb4-23-q23`, `cb4-23-q24`) A sentence that announces an operation ends with «això:» or «:» and the
+  operation goes on the next line («$40$ fotografies costen això:\n$40\cdot 0{,}30$ €.»). Error closings explain the
+  contrast with what was asked («…és el que s'estalvia l'Anna, i no és el preu final que cal pagar») or read the absurd
+  result as a warning («…i això ens fa sospitar que no hem plantejat bé les operacions»). `tancament` in plain words,
+  second person, «en el fons vol dir que… Per tant, cal…», then a blank line and the calculation without a bullet.
+  Statements of linked CB items stand alone (no «Un altre dia…»). «R)» without filler («en total»).
 
 **Calculator with judgement (v92, David).** The fitxes of `eso-proporcionalitat` and the v92 ones in other ESO blocks
 teach that the calculator computes correctly a wrongly posed problem. (1) First step without keys or mark, one `[mat]`

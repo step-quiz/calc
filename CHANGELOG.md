@@ -4,6 +4,11 @@ Què ha canviat a cada versió del web, de la més nova a la més antiga. El fun
 `README.md` i `ARCHITECTURE.md`; aquí només hi ha la història. El número de versió és `VERSIO` a
 `js/nucli/models.js` i surt al peu de les pàgines.
 
+## Versió 110 (5/11/2026)
+
+- T4·1 i T4·2 amb els canvis de David (enunciat de la 2 independent, títol «Les fotos que ha pagat l'Anna», tancaments
+  dels errors més explicatius, «Recorda» en paraules i el càlcul a sota). El mateix estil a la resta de la T4.
+
 ## Versió 109 (5/11/2026)
 
 - T3 acabada per David: la bossa de botons té la bossa buida de $30$ g (la calculadora fa $(2410-30)\div$ Ans) i
