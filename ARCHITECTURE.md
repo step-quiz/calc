@@ -387,6 +387,16 @@ block by block (rest of ESO, then Batxillerat), each batch shown to David in the
   estigués configurada per donar decimals, sortiria $X$.» (conditional «sortiria», David), and the [mat] sentence gives
   its approximate decimal with `\simeq` (`$\frac{1}{15}\simeq 0{,}067$`; usually 2 decimals, 3–4 when the context
   needs it); fractions, roots and π alike.
+- (v108, from David's edits of five T3 fitxes) The estimation step may have one question only, the one that makes the
+  student think («• si prens el triple de xarop, també prendràs el triple de principi actiu?»); second person and
+  hypotheticals are fine there («si els esglaons fossin només de $12$ cm, creus que caldrien…?»). Drop the estimation
+  step when the statement itself already asks the question (taxi). Remove data the problem does not use (the 5 m of
+  the stair). Unit changes: say it with **bold** («És **necessari** que les mesures siguin en les mateixes unitats»)
+  and write each conversion on its own line («$15$ cm $=0{,}15$ m»); the typical error then is the unit mismatch.
+  Write the operation in the problem's natural order («$3{,}50$ € $+\ 10\cdot 1{,}20$ €», keys `3.5 + 10 × 1.2`).
+  «R)» with a full subject and «aproximadament» for rounded values (not «uns»). Error closings may be emphatic
+  («No té cap sentit, perquè…, segur!»). Several questions in a statement or «Prova-ho tu»: one per line,
+  «**a)**», «**b)**», «**c)**». Inverse-proportion `tancament`: «• L'equació és aquesta: …\n• La solució és aquesta: …».
 
 **Calculator with judgement (v92, David).** The fitxes of `eso-proporcionalitat` and the v92 ones in other ESO blocks
 teach that the calculator computes correctly a wrongly posed problem. (1) First step without keys or mark, one `[mat]`

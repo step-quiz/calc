@@ -209,6 +209,7 @@ visits — one per browser session —, bubbles up/down), `tria.js`
   no «en», exact result in two lines with «sortiria» + ≃ decimal).
 - **v106**: inverse proportion by constant product with $x$ (`ll4a-3-13`, `recu-f6-102`), from David's rewrite.
 - **v107**: `**bold**` in text.js (and in the editor, icon B; also icon €); money «$3{,}50$ €»; taxi statement by David.
+- **v108**: David's edits of `cb4-25-q8`, `cb4-26-q8`, `ll4a-3-14` (estimation step removed, keys 3.5+10×1.2), `recu-f6-102`, `cb4-23-q26`; new §9 bullet.
 - **Editor de textos** (artifact, not served): https://claude.ai/artifact/GMvQzEgtdG3NSTdgX8QcrX (slug
   `7c64df61-5de7-42fb-a13f-f197f125daac`, owner David). One self-contained page built by
   `node proves/editor-textos/construeix.js <out.html>` (= `plantilla.html` + `extreu.js` data: every text of every fitxa of
@@ -290,7 +291,7 @@ visits — one per browser session —, bubbles up/down), `tria.js`
 ## 8. Versioning & delivery protocol
 
 - Any served `.js`/`.css` change → bump `VERSIO` (`js/nucli/models.js`), every `?v=` in `index.html`/`fitxa.html`, and
-  the «Versió N» footer of `index.html` (test enforces). Current: **107**.
+  the «Versió N» footer of `index.html` (test enforces). Current: **108**.
 - Delivery = a ZIP with the files changed since the version David already has, repo-root paths, excluding `_uploads/`:
   commit the version locally, then `git diff --name-only --diff-filter=AMR HEAD~1 HEAD | zip -@ calc-versio-NN.zip`
   (use `HEAD~2` etc. if several local commits make up one delivery). The repo usually arrives as a ZIP without `.git`:

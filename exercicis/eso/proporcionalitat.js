@@ -26,7 +26,7 @@ Models.afegeixExercicis(
   id: 'cb4-25-q8', bloc: 'eso-proporcionalitat', grup: 'Proporcionalitat directa',
   titol: 'El xarop',
   font: 'CB 4ESO (2025), pregunta 8',
-  enunciat: 'A en Mario li han receptat un xarop. Cada $5$ ml de xarop contenen $105$ mg de principi actiu.\n\nQuants mg de principi actiu hi ha en $16$ ml del mateix xarop?',
+  enunciat: 'A en Mario li han receptat un xarop. En $5$ ml de xarop hi ha $105$ mg de principi actiu.\n\nQuants mg de principi actiu hi ha en $16$ ml del mateix xarop?',
   tancament: '[mat]Recorda:\n• $105\\div 5=21$ mg\n• $21\\cdot 16=336$ mg[/mat]',
   provaTu: {
     enunciat: 'Cada $10$ ml d\'un xarop contenen $250$ mg de principi actiu.\nTu has de prendre $6$ ml de xarop. Quants mg de principi actiu prendràs?',
@@ -41,7 +41,7 @@ Models.afegeixExercicis(
   enunciat: 'L\'Anna té una fotografia de $62$ cm d\'amplada i $34$ cm d\'alçada. La vol imprimir més petita, de $42$ cm d\'amplada.\n\nQuina alçada tindrà la fotografia impresa, si l\'Anna no la vol deformar?',
   provaTu: {
     enunciat: 'Tens una foto de $45$ cm d\'amplada i $30$ cm d\'alçada.\nLa vols imprimir amb $20$ cm d\'amplada, sense deformar-la. Quina alçada tindrà?',
-    solucio: '$30\\cdot 20\\div 45=13{,}33\\ldots$ cm\nR) Tindrà uns $13{,}3$ cm d\'alçada.',
+    solucio: '$30\\cdot 20\\div 45=13{,}33\\ldots$ cm\nR) La foto mesurarà aproximadament $13{,}3$ cm d\'alçada.',
   },
 },
 {
@@ -49,7 +49,7 @@ Models.afegeixExercicis(
   titol: 'Els esglaons de l\'escala',
   font: 'CB 4ESO (2026), pregunta 8',
   figura: {src: 'img/eso/cb4eso2026p8-figura.png', alt: 'El tram d\'escala: puja 3 m d\'altura i avança 5 m; cada esglaó fa 15 cm d\'altura'},
-  enunciat: 'En Samuel puja a peu les escales del seu edifici. Cada tram d\'escala puja $3$ m d\'altura i avança $5$ m, i cada esglaó fa $15$ cm d\'altura.\n\nQuants esglaons té cada tram?',
+  enunciat: 'En Samuel viu al 1r 2a, i puja a peu les escales del seu edifici.\nCada esglaó de l\'escala mesura $15$ cm d\'altura i en total haurà pujat $3$ m.\n\nQuants esglaons haurà pujat?',
   tancament: '[mat]Recorda:\n• $15$ cm $=0{,}15$ m\n• $3\\div 0{,}15=20$ esglaons[/mat]',
   provaTu: {
     enunciat: 'Una escala puja $2{,}4$ m d\'altura i cada esglaó fa $16$ cm d\'altura.\nQuants esglaons hauràs de pujar per arribar a dalt?',
@@ -83,7 +83,7 @@ Models.afegeixExercicis(
   titol: 'La neteja en un parc',
   font: 'Llibre 4t ESO A, unitat 3, exercici 13',
   enunciat: 'L\'any passat, per arreglar tot un parc, es va formar un equip de $6$ jardiners per podar els arbres, i van trigar $10$ dies per acabar la feina.\n\nAquest any només hi ha $4$ jardiners per fer la mateixa feina.\n\nQuants dies trigaran a podar tot el parc, si van al mateix ritme de feina?',
-  tancament: '[mat]Recorda:\n• $6\\cdot 10=4\\cdot x$\n• $x=15$ dies[/mat]',
+  tancament: '[mat]Recorda:\n• L\'equació és aquesta: $6\\cdot 10=4\\cdot x$\n• La solució és aquesta: $x=15$ dies[/mat]',
   provaTu: {
     enunciat: 'Fa $5$ anys que es va pintar tot l\'institut, i ho van fer $3$ pintors, en $8$ dies de feina.\nAquest cop, s\'han contractat $4$ pintors.\n\nQuants dies trigaran a pintar l\'institut, si treballen al mateix ritme?',
     solucio: '$3\\cdot 8=4\\cdot x$\n$x=24\\div 4=6$ dies\nR) Trigaran $6$ dies.',
@@ -93,8 +93,8 @@ Models.afegeixExercicis(
   id: 'recu-f6-102', bloc: 'eso-proporcionalitat', grup: 'Proporcionalitat inversa',
   titol: 'Els pots de pintura',
   font: 'Banc de recuperació de 2n ESO (proporcionalitat directa i inversa)',
-  enunciat: 'En Carles va pintar la seva habitació amb $6$ pots de pintura de $4$ kg cadascun. Ara la vol tornar a pintar, però a la botiga només venen pots de $3$ kg.\n\nQuants pots de $3$ kg necessita per pintar l\'habitació?',
-  tancament: '[mat]Recorda:\n• $6\\cdot 4=x\\cdot 3$\n• $x=8$ pots[/mat]',
+  enunciat: 'En Carles recorda que quan va pintar la seva habitació, ja fa temps, va fer servir $6$ pots de pintura de $4$ kg cadascun.\nAra la vol tornar a pintar, però a la botiga només venen pots de $3$ kg.\n\nQuants pots de $3$ kg necessitarà?',
+  tancament: '[mat]Recorda:\n• L\'equació és aquesta: $6\\cdot 4=x\\cdot 3$\n• La solució és aquesta: $x=8$ pots[/mat]',
   provaTu: {
     enunciat: 'Per omplir una piscina calen $12$ camions de $9\\,000$ litres.\nTu només tens camions de $6\\,000$ litres. Quants camions et caldran?',
     solucio: '$12\\cdot 9\\,000=x\\cdot 6\\,000$\n$x=108\\,000\\div 6\\,000=18$ camions\nR) Em caldran $18$ camions.',
@@ -106,8 +106,8 @@ Models.afegeixExercicis(
   font: 'Llibre 4t ESO A, unitat 3, exercici 14',
   enunciat: 'Un taxi cobra $3{,}50$ € per començar el viatge i, després, $1{,}20$ € per cada km recorregut.\n\nPer anar a l\'hospital a visitar un familiar has fet un trajecte de $5$ km. Després, per acompanyar-lo a casa seva, has fet un trajecte de $10$ km.\n\n**a)** Creus que el trajecte de $10$ km costa el doble que el de $5$ km?\n**b)** Quant costa cada trajecte?',
   provaTu: {
-    enunciat: 'Un gimnàs cobra $30$ € de matrícula i $25$ € cada mes.\nQuant pagaràs si hi vas $3$ mesos? I si hi vas $6$ mesos? És el doble?',
-    solucio: '$30+25\\cdot 3=105$ €\n$30+25\\cdot 6=180$ €\nR) Pagaré $105$ € i $180$ €. No és el doble ($210$ €), perquè la matrícula es paga una sola vegada.',
+    enunciat: 'Un gimnàs cobra $30$ € de matrícula inicial i, posteriorment, cobra $25$ € cada mes.\n**a)** Quant pagaràs si hi vas $3$ mesos?\n**b)** I si hi vas $6$ mesos?\n**c)** En el segon cas, pagues el doble que en el primer cas?',
+    solucio: '$30+25\\cdot 3=105$ €\n$30+25\\cdot 6=180$ €\nR) Pagaré $105$ € i $180$ €, respectivament.\nNo és el doble, perquè la matrícula sempre es paga una sola vegada.',
   },
 },
 

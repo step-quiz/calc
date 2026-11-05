@@ -4,6 +4,13 @@ Què ha canviat a cada versió del web, de la més nova a la més antiga. El fun
 `README.md` i `ARCHITECTURE.md`; aquí només hi ha la història. El número de versió és `VERSIO` a
 `js/nucli/models.js` i surt al peu de les pàgines.
 
+## Versió 108 (5/11/2026)
+
+- T3, cinc fitxes amb els canvis de David (el xarop, els esglaons, el taxi, els pots, la foto): una sola pregunta
+  d'estimació, el canvi d'unitats en negreta i línia a línia, el taxi sense pas d'estimació i amb $3{,}50+10\cdot 1{,}20$,
+  «R)» amb «aproximadament», l'error típic dels esglaons ara és no canviar d'unitats ($3\div 15$). La neteja del parc
+  i els pots: «Recorda» amb «L'equació és aquesta» i «La solució és aquesta».
+
 ## Versió 107 (4/11/2026)
 
 - Els textos admeten negreta: `**a)**`. L'enunciat del taxi, el de David (preguntes **a)** i **b)**). A la T3, els imports
