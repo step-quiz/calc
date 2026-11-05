@@ -4,6 +4,13 @@ Què ha canviat a cada versió del web, de la més nova a la més antiga. El fun
 `README.md` i `ARCHITECTURE.md`; aquí només hi ha la història. El número de versió és `VERSIO` a
 `js/nucli/models.js` i surt al peu de les pàgines.
 
+## Versió 113 (5/11/2026)
+
+- T4 acabada per David: la declaració de l'IVA sense estimació ni error típic, el televisor amb l'historial en una
+  llista, l'abric amb el seu enunciat.
+- T5 «Mitjanes» i T6 «Pitàgores, àrees i volums» reescrites amb les normes de la T3 i la T4: títols nous, enunciats en
+  prosa, nombres en fórmula, «R)», error típic amb la frase fixa, «Recorda» en paraules. Falta la revisió de David.
+
 ## Versió 112 (5/11/2026)
 
 - Els milers, amb punt a les fórmules: «$18.150$ €» (abans, amb un espai fi). El que s'escriu o es veu a la calculadora,

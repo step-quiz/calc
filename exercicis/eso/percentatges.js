@@ -28,7 +28,6 @@ Models.afegeixExercicis(
   titol: 'La declaració de l\'IVA',
   font: 'Llibre 4t ESO, unitat 2, exercici 25',
   enunciat: 'En Jordi té una botiga d\'electrodomèstics. Cada trimestre ha de fer la declaració de l\'IVA a Hisenda.\n\nEn el primer trimestre de l\'any ha cobrat $18.150$ € als seus clients, amb l\'IVA del $21$ % inclòs.\n\n**a)** Quants diners ha facturat realment, sense IVA?\n**b)** Quants diners d\'IVA haurà de pagar a Hisenda?',
-  tancament: '[mat]Recorda:\n• Si el preu ja porta l\'IVA del $21$ %, en el fons vol dir que és el $121$ % del preu sense IVA. Per tant, cal dividir entre $1{,}21$\n\n$18.150\\div 1{,}21=15.000$ €\n$18.150-15.000=3.150$ €[/mat]',
   provaTu: {
     enunciat: 'Tens una petita botiga de roba. En un trimestre has cobrat $24.200$ € als clients, amb l\'IVA del $21$ % inclòs.\n**a)** Quants diners has facturat sense IVA?\n**b)** Quants diners d\'IVA hauràs de pagar a Hisenda?',
     solucio: '$24.200\\div 1{,}21=20.000$ €\n$24.200-20.000=4.200$ €\nR) He facturat $20.000$ € i hauré de pagar $4.200$ € d\'IVA.',
@@ -38,7 +37,7 @@ Models.afegeixExercicis(
   id: 'll4a-2-17', bloc: 'eso-percentatges',
   titol: 'L\'abric rebaixat',
   font: 'Llibre 4t ESO A, unitat 2, exercici 17',
-  enunciat: 'En una botiga de roba hi ha un cartell que diu: «Rebaixa del $40$ % i, els dijous, un $10$ % extra: tindràs un $50$ % de descompte!».\n\nEn Pau hi vol comprar un abric de $200$ €. Aprofita que és dijous, perquè creu que haurà de pagar $100$ €.\n\n**a)** Realment, quin és el preu rebaixat que pagarà en Pau?\n**b)** És cert que li han fet un $50$ % de descompte?',
+  enunciat: 'En una botiga de roba hi ha un cartell que diu: «Rebaixa del $40$ % i, els dijous, un $10$ % extra: tindràs un $50$ % de descompte!».\n\nEn Pau hi vol comprar un abric de $200$ €. Aprofita que és dijous per tenir més rebaixa. De fet, en Pau creu que haurà de pagar just la meitat, o sigui, $100$ €.\n\n**a)** Realment, quin és el preu rebaixat que pagarà en Pau?\n**b)** És cert que li han fet un $50$ % de descompte?',
   tancament: '[mat]Recorda:\n• Si et fan dos descomptes seguits, primer pagues el $60$ % del preu inicial i, després, el $90$ % del primer preu rebaixat. Per tant, cal multiplicar per $0{,}6$ i per $0{,}9$\n\n$200$ € $\\cdot 0{,}6\\cdot 0{,}9=108$ €[/mat]',
   provaTu: {
     enunciat: 'Una tauleta costa $300$ €. Primer la rebaixen un $20$ % i després, sobre el preu rebaixat, un $10$ % més.\n**a)** Quin és el preu final?\n**b)** Quin percentatge de descompte t\'han fet en total?',
@@ -49,7 +48,7 @@ Models.afegeixExercicis(
   id: 'll4-2-16', bloc: 'eso-percentatges',
   titol: 'L\'historial de preus del televisor',
   font: 'Llibre 4t ESO, unitat 2, exercici 16',
-  enunciat: 'La Naia està mirant l\'historial de preus d\'un televisor en una botiga en línia. Fa $2$ mesos, el televisor costava $300$ €.\n\nLa Naia se sorprèn molt: el mes passat el preu va baixar exactament un $15$ % i ahir mateix va pujar exactament un $15$ %. Però el preu actual no és de $300$ €.\n\n**a)** Quin és el preu actual del televisor?\n**b)** Com pot ser que no torni a costar $300$ €?',
+  enunciat: 'La Naia està mirant l\'historial de preus d\'un televisor en una botiga en línia. La Naia se sorprèn molt, fixa\'t què passa:\n\n• Fa $2$ mesos, el preu era $300$ €.\n• Fa $1$ mes, el preu va baixar exactament un $15$ %.\n• Ahir mateix, el preu va pujar exactament un $15$ %.\n\nPerò el preu actual, segons està veient la Naia, **no és** de $300$ €.\n\n**a)** Quin és el preu actual del televisor?\n**b)** Com pot ser que no torni a costar $300$ €?',
   provaTu: {
     enunciat: 'Una samarreta costa $40$ €. Primer el preu puja un $25$ % i després baixa un $25$ %.\nQuin és el preu final de la samarreta?',
     solucio: '$40\\cdot 1{,}25\\cdot 0{,}75=37{,}50$ €\nR) La samarreta costa $37{,}50$ €, menys que al principi.',

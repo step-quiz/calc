@@ -352,7 +352,7 @@ A formula given by the statement goes at its end as `[nota](…)[/nota]`. Statem
 source (`e<N>.png`), never question images that show the a–d options.
 
 **Wording rules (v103, David; artifact «calc · Normes de redacció», https://claude.ai/artifact/GF2WRWd1L1UgiKxnTHgu74).**
-Derived from David's own rewrite of `cb2-26-q5`; applied so far to T3 (`eso-proporcionalitat`, finished by David, v109) and T4 (`eso-percentatges`, v109, waiting for David's review), to be extended
+Derived from David's own rewrite of `cb2-26-q5`; applied so far to T3 (`eso-proporcionalitat`, finished by David, v109) and T4 (`eso-percentatges`, finished by David, v113), T5 (`eso-mitjanes`) and T6 (`eso-geometria`) (v113, waiting for David's review), to be extended
 block by block (rest of ESO, then Batxillerat), each batch shown to David in the «Editor de textos» first.
 - Bold: `**…**` (text.js; e.g. «**a)**», «**b)**» for the questions of a statement). Money: «$3{,}50$ €», the € outside
   the formula (David; replaces the old «euros» rule).
@@ -415,6 +415,11 @@ block by block (rest of ESO, then Batxillerat), each batch shown to David in the
   shopkeeper's quarterly VAT return does (`ll4-2-25`, «La declaració de l'IVA»); a price history seen online explains
   a −15 % / +15 % change (`ll4-2-16`). A statement may state the character's wrong belief («creu que haurà de pagar
   $100$ €») so the fitxa refutes it. Book items may get a whole new context when the original one is artificial.
+- (v113, David's final T4) No estimation step where there is nothing to reflect on, and no error zone where the error
+  is not a real typical one (`ll4-2-25`: both removed; then no `tancament` either). A statement may list a timeline of
+  facts with `•` lines after «fixa't què passa:» when the order matters, and stress the surprise in bold («**no és** de
+  $300$ €»). Each conversion factor on its own `•` line inside a step. The «R)» answers the question and stops; the
+  explanation, if any, is one short sentence.
 
 **Calculator with judgement (v92, David).** The fitxes of `eso-proporcionalitat` and the v92 ones in other ESO blocks
 teach that the calculator computes correctly a wrongly posed problem. (1) First step without keys or mark, one `[mat]`

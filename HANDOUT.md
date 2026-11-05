@@ -214,6 +214,7 @@ visits — one per browser session —, bubbles up/down), `tria.js`
 - **v110**: David's `cb4-23-q23` and `cb4-23-q24` applied via `t4.py`; same style spread to the other T4 fitxes; new §9 bullet.
 - **v111**: T4 from David's comments: `ll4-2-25` new context (VAT return, 7 steps, keys 18150÷1.21, 18150−Ans; error 18150×0.21), `ll4-2-16` new context (300×0.85×1.15 = 293.25, X II exe+S⇔D), `ll4a-2-17` David's statement.
 - **v112**: thousands separator in written maths = point (`$18.150$`), replacing `\,` everywhere (texts and t3.py/t4.py).
+- **v113**: T4 finished by David (`ll4-2-25` now 4 steps, no error zone); T5 and T6 rewritten with generator `/home/claude/eines/t56.py` (FRASE_ERROR added to mitjanes files; fx-82MS keeps its own `tancament` in `cb4-26-q7`).
 - **Editor de textos** (artifact, not served): https://claude.ai/artifact/GMvQzEgtdG3NSTdgX8QcrX (slug
   `7c64df61-5de7-42fb-a13f-f197f125daac`, owner David). One self-contained page built by
   `node proves/editor-textos/construeix.js <out.html>` (= `plantilla.html` + `extreu.js` data: every text of every fitxa of
@@ -295,7 +296,7 @@ visits — one per browser session —, bubbles up/down), `tria.js`
 ## 8. Versioning & delivery protocol
 
 - Any served `.js`/`.css` change → bump `VERSIO` (`js/nucli/models.js`), every `?v=` in `index.html`/`fitxa.html`, and
-  the «Versió N» footer of `index.html` (test enforces). Current: **112**.
+  the «Versió N» footer of `index.html` (test enforces). Current: **113**.
 - Delivery = a ZIP with the files changed since the version David already has, repo-root paths, excluding `_uploads/`:
   commit the version locally, then `git diff --name-only --diff-filter=AMR HEAD~1 HEAD | zip -@ calc-versio-NN.zip`
   (use `HEAD~2` etc. if several local commits make up one delivery). The repo usually arrives as a ZIP without `.git`:
