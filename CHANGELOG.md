@@ -4,6 +4,15 @@ Què ha canviat a cada versió del web, de la més nova a la més antiga. El fun
 `README.md` i `ARCHITECTURE.md`; aquí només hi ha la història. El número de versió és `VERSIO` a
 `js/nucli/models.js` i surt al peu de les pàgines.
 
+## Versió 115 (5/11/2026)
+
+- T5 amb els canvis de David: les estrelles amb el procediment en tres punts i el total calculat; el mercat passa a ser
+  «Les tardes a la biblioteca» (alumnes de 4t, sense la figura del CB); la nota de Tecnologia com a «nota mitjana».
+  «Prova-ho tu» de les estrelles amb notes del 2 al 10, amb suspesos.
+- T6: «Prova-ho tu» més propers (l'skatepark, una llauna de refresc de 330 ml, els bombers).
+- T7 «Trigonometria» reescrita: l'arbre del pati, l'escala dels bombers, l'angle de seguretat d'una escala (75°), errors
+  amb frase pròpia (radians, sense la funció inversa).
+
 ## Versió 114 (5/11/2026)
 
 - Canvis de David a T5·1 (l'hotel): «respectivament», pregunta més curta, «Recorda» amb «recorda d'escriure-la», i

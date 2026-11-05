@@ -8,7 +8,7 @@ Models.afegeixExercicis(
   figura: {src: 'img/eso/cb4eso2026p7-figura.png', alt: 'El tram d\'escala: un triangle rectangle d\'altura 3 m i llargada 5 m; el tram, la hipotenusa, és la incògnita'},
   enunciat: 'Una escala uneix dues plantes d\'un edifici. Cada tram d\'escala puja una altura de $3$ m i avança una longitud de $5$ m.\n\nQuant mesura cada tram d\'escala?',
   provaTu: {
-    enunciat: 'Una rampa puja una altura d\'$1{,}2$ m i avança una longitud de $5$ m.\nQuant mesura la rampa?',
+    enunciat: 'La rampa de l\'skatepark del teu barri puja una altura d\'$1{,}2$ m i avança una longitud de $5$ m.\nQuant mesura la rampa?',
     solucio: '[mat]$\\sqrt{1{,}2^2+5^2}=\\sqrt{26{,}44}\\simeq 5{,}14$ m[/mat]\nR) La rampa mesura aproximadament $5{,}14$ m.',
   },
 },
@@ -19,7 +19,7 @@ Models.afegeixExercicis(
   enunciat: 'En Marc recolza una escala de $5$ m en una paret per pintar-la. El peu de l\'escala queda a $4$ m de la paret.\n\nA quina altura de la paret arriba l\'escala?',
   tancament: '[mat]Recorda:\n• Si coneixes la hipotenusa i vols trobar un catet, els quadrats es resten\n\n$\\sqrt{5^2-4^2}=3$ m[/mat]',
   provaTu: {
-    enunciat: 'Una escala de $6{,}5$ m està recolzada en una paret. El peu de l\'escala és a $2{,}5$ m de la paret.\nA quina altura arriba l\'escala?',
+    enunciat: 'Els bombers recolzen una escala de $6{,}5$ m en una paret. El peu de l\'escala és a $2{,}5$ m de la paret.\nA quina altura arriba l\'escala?',
     solucio: '[mat]$\\sqrt{6{,}5^2-2{,}5^2}=\\sqrt{36}=6$ m[/mat]\nR) L\'escala arriba a $6$ m d\'altura.',
   },
 },
@@ -30,8 +30,8 @@ Models.afegeixExercicis(
   figura: {src: 'img/eso/cb4eso2022e2.png', alt: 'Dibuix del got de vidre (radi 3 cm, alçada 15 cm) i de l\'envàs de iogurt'},
   enunciat: 'Un got de vidre té forma de cilindre. El radi de la base fa $3$ cm i l\'alçada, $15$ cm.\n\nQuin és el volum del got, aproximadament?[nota](Volum d\'un cilindre $=\\pi\\cdot r^2\\cdot h$, amb $\\pi=3{,}14$.)[/nota]',
   provaTu: {
-    enunciat: 'Una llauna té forma de cilindre. El radi de la base fa $4$ cm i l\'alçada, $11$ cm.\nQuin és el volum de la llauna?',
-    solucio: '[mat]$\\pi\\cdot 4^2\\cdot 11=176\\pi\\simeq 552{,}92$ cm³[/mat]\nR) El volum de la llauna és aproximadament de $552{,}92$ cm³.',
+    enunciat: 'Una llauna de refresc té forma de cilindre. El radi de la base fa $3$ cm i l\'alçada, $11{,}5$ cm.\nQuin és el volum de la llauna? És cert que hi caben $330$ ml?',
+    solucio: '[mat]$\\pi\\cdot 3^2\\cdot 11{,}5=103{,}5\\pi\\simeq 325{,}15$ cm³[/mat]\nR) El volum de la llauna és aproximadament de $325$ cm³, és a dir, uns $325$ ml: gairebé els $330$ ml.',
   },
 },
 {

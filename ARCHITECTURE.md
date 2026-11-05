@@ -352,7 +352,7 @@ A formula given by the statement goes at its end as `[nota](…)[/nota]`. Statem
 source (`e<N>.png`), never question images that show the a–d options.
 
 **Wording rules (v103, David; artifact «calc · Normes de redacció», https://claude.ai/artifact/GF2WRWd1L1UgiKxnTHgu74).**
-Derived from David's own rewrite of `cb2-26-q5`; applied so far to T3 (`eso-proporcionalitat`, finished by David, v109) and T4 (`eso-percentatges`, finished by David, v113), T5 (`eso-mitjanes`) and T6 (`eso-geometria`) (v113, waiting for David's review), to be extended
+Derived from David's own rewrite of `cb2-26-q5`; applied so far to T3 (`eso-proporcionalitat`, finished by David, v109) and T4 (`eso-percentatges`, finished by David, v113), T5 (`eso-mitjanes`, David's review v115), T6 (`eso-geometria`) and T7 (`eso-trigonometria`) (v115, waiting for David's review), to be extended
 block by block (rest of ESO, then Batxillerat), each batch shown to David in the «Editor de textos» first.
 - Bold: `**…**` (text.js; e.g. «**a)**», «**b)**» for the questions of a statement). Money: «$3{,}50$ €», the € outside
   the formula (David; replaces the old «euros» rule).
@@ -426,6 +426,13 @@ block by block (rest of ESO, then Batxillerat), each batch shown to David in the
   «respectivament» after a list of values and do not repeat data in the question. `tancament` advice as a reminder:
   «recorda d'escriure-la entre parèntesis.» «Prova-ho tu» solutions: the calculation lines go in `[mat]…[/mat]`, then
   «R) …» (whole project; `/home/claude/eines/solmat.py`, used by the generators).
+- (v115, David's T5) Contexts close to a 15-year-old (the biblioteca instead of people over 50 at the market; the
+  figure of the original CB item goes when the context changes). Data must be believable: an exam with fails, marks
+  roughly bell-shaped from 2 to 10. A first step may announce the procedure in `•` lines («• Cada puntuació s'ha de
+  multiplicar… • Després, cal sumar… • Finalment, caldrà fer una divisió.»), then «Per començar, prem…». Totals the
+  student needs are computed in the text («$22+32+16+8+2=80$»), not just stated. Words: «nota mitjana», «mitjana
+  ponderada». Estimation may test an impossible value («és possible que sigui un $4$?»). A display table gets a blank
+  line before it.
 
 **Calculator with judgement (v92, David).** The fitxes of `eso-proporcionalitat` and the v92 ones in other ESO blocks
 teach that the calculator computes correctly a wrongly posed problem. (1) First step without keys or mark, one `[mat]`
